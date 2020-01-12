@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const util = require("util");
 
 const dbConnection = mysql.createConnection({
   host: "localhost",
@@ -7,4 +8,6 @@ const dbConnection = mysql.createConnection({
   database: "microfin_ecommerce"
 });
 
-module.exports = dbConnection;
+const query = util.promisify(dbConnection.query).bind(dbConnection);
+
+module.exports = {dbConnection, query};

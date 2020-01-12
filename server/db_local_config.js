@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const util = require("util");
 
 const dbConnection = mysql.createConnection({
   host: "localhost",
@@ -7,4 +8,13 @@ const dbConnection = mysql.createConnection({
   database: "ecommerce"
 });
 
-module.exports = dbConnection;
+/*dbConnection.connect(err => {
+  if (err) {
+    throw err;
+  }
+  console.log("Connected to local database");
+});*/
+
+const query = util.promisify(dbConnection.query).bind(dbConnection);
+
+module.exports = {dbConnection, query};

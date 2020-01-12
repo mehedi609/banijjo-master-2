@@ -8,7 +8,8 @@
 	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon_.ico" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="theme-color" content="#000000" />
-	<title>Banijjo</title>
+	<meta name="Description" content="Online shopping center in Bangladesh. All kinds of local products available here in Banijjo. We promote MSME's manufactured products by our eCommerce Market Places Banijjo.com and Banijjo.com.bd. Here you can find most unique handiwork of Bangladesh. ">
+	<title>Banijjo | বাণিজ্য : দেশ - ই - বাজার</title>
 
 	<link rel="stylesheet" href="/css/foundationCustom.min.css">
 	<link rel="stylesheet" href="/css/foundation.min.css">
@@ -45,72 +46,289 @@
 	<script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
-</head>
 
-<!-- <script type="text/javascript">
-	$(document).ready(function(){
+	<script type="text/javascript">
+		$(document).ready(function(){
 
-        // Show hide popover
+			// Show hide popover
 
-        $(".dropdown").click(function(){
+			$(".hotlineIconMenu").click(function(){
 
-        	$(this).find(".dropdown-menu").slideToggle("fast");
+				//alert('sadsdsds');
+				$('.accountMenu').removeClass('js-dropdown-active');
+				$('.helpMenu').removeClass('is-active');
+				$('.hotlineMenu').addClass('js-dropdown-active');
 
-        });
+			});
 
-    });
+			$(".accountMenuIcon").click(function(){
 
-	$(document).on("click", function(event){
+				//alert('sadsdsds');
+				$('.hotlineMenu').removeClass('js-dropdown-active');
+				$('.helpMenu').removeClass('is-active');
+				$('.accountMenu').addClass('js-dropdown-active');
 
-		var $trigger = $(".dropdown");
+			});
 
-		if($trigger !== event.target && !$trigger.has(event.target).length){
+			$(".helpIconMenu").click(function(){
 
-			$(".dropdown-menu").slideUp("fast");
+				//alert('sadsdsds');
+				$('.hotlineMenu').removeClass('js-dropdown-active');
+				$('.accountMenu').removeClass('js-dropdown-active');
+				$('.helpMenu').addClass('is-active');
 
+			});
+
+		});
+
+
+	</script>
+
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+		}
+	</script>
+
+	<script type="text/javascript">
+		$("#sp_vertical_megamenu li:has(.spvmm_container_menu_child)").doubleTapToGo();
+
+		function isMobile() {
+			if (navigator.userAgent.match(/Android/i) ||
+					navigator.userAgent.match(/webOS/i) ||
+					navigator.userAgent.match(/iPad/i) ||
+					navigator.userAgent.match(/iPhone/i) ||
+					navigator.userAgent.match(/iPod/i)
+			) {
+				return true;
+			}
 		}
 
-	});
-</script> -->
+		jQuery(document).ready(function($) {
+			(function(element) {
+				var el = $(element),
+						vf_megamenu = $('.vf-megamenu', el),
+						level1 = $('.vf-megamenu >.spvmm-havechild', el),
+						_li = $('.spvmm-havechild', el),
+						vf_button = $('.vf-button', el),
+						nb_hiden = 10;
+				if (level1.length && level1.length > nb_hiden) {
+					for (var i = 0; i < level1.length; i++) {
+						if (i > (nb_hiden - 1)) {
+							level1.eq(i).addClass('cat-visible');
+							level1.eq(i).hide();
+						}
+					}
+					vf_megamenu.append('<li class="more-wrap"><span class="more-view"><i class="fa fa-plus-square-o"></i>More Categories</span></li>');
+					$('.more-view', vf_megamenu).on('click touchstart', function() {
+						if (level1.hasClass('cat-visible')) {
+							vf_megamenu.find('.cat-visible').removeClass('cat-visible').addClass('cat-hidden').stop().slideDown(400);
+							$(this).html('<i class="fa fa-minus-square-o"></i>Close Categories');
+						} else if (level1.hasClass('cat-hidden')) {
+							vf_megamenu.find('.cat-hidden').removeClass('cat-hidden').addClass('cat-visible').stop().slideUp(200);
+							$(this).html('<i class="fa fa-plus-square-o"></i>More Categories');
+						}
+					});
+				}
 
-<!-- <script type="text/javascript">
-	$(document).ready(function(){
+				function _vfResponsiveMegaMenu() {
+					if ($(window).width() <= 767) {
+						vf_megamenu.hide();
+						$('.cat-title', el).on('click', function() {
+							$(this).toggleClass('active').parent().find('ul.vf-megamenu').stop().slideToggle('medium');
+							return false;
+						});
+						_li.addClass('vf-close');
+						_li.children('div').css('display', 'none');
+						if (vf_button.length) {
+							vf_button.on('click', function() {
+								var _this = $(this),
+										li = _this.parent(),
+										ul = li.children('ul');
+								var _div = li.children('div');
+								if (li.hasClass('vf-close')) {
+									li.removeClass('vf-close').addClass('vf-open');
+									_div.stop(false, true).slideDown(500);
+									_this.removeClass('icon-close').addClass('icon-open');
+								} else {
+									li.removeClass('vf-open').addClass('vf-close');
+									_div.stop(false, true).slideUp(200);
+									_this.removeClass('icon-open').addClass('icon-close');
+								}
+								return;
+							});
+						}
+					} else {
+						$('.cat-title', el).unbind('click');
+						vf_button.unbind('click');
+						$('.cat-title', el).removeClass('active');
+						vf_megamenu.removeAttr('style');
+						_li.addClass('vf-close');
+						_li.children('div').removeAttr('style');
+						vf_button.removeClass('icon-open').addClass('icon-close');
+					}
+				}
+				_vfResponsiveMegaMenu();
 
-        // Show hide popover
+				if (isMobile()) {} else {
+					$(window).on('resize', function() {
+						_vfResponsiveMegaMenu();
+					});
+				}
+			})('#sp_vertical_megamenu');
+		});
+	</script>
 
-        $(".hotlineIconMenu").click(function(){
+	<script type="text/javascript">
+		function imageZoom(imgID, resultID, imgName) {
+			$('.img-zoom-lens').remove();
+			var img, lens, result, cx, cy;
+			img = document.getElementById(imgID);
+			result = document.getElementById(resultID);
+			//console.log(result);
+			/*create lens:*/
+			lens = document.createElement("DIV");
+			lens.setAttribute("class", "img-zoom-lens");
+			/*insert lens:*/
+			img.parentElement.insertBefore(lens, img);
+			/*calculate the ratio between result DIV and lens:*/
+			cx = result.offsetWidth / lens.offsetWidth;
+			cy = result.offsetHeight / lens.offsetHeight;
 
-        	//alert('sadsdsds');
-        	$('.accountMenu').hide();
-        	$('.helpMenu').hide();
-        	$('.hotlineMenu').show();
+			/*set background properties for the result DIV:*/
+			result.style.backgroundImage = "url('" + imgName + "')";
+			result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+			/*execute a function when someone moves the cursor over the image, or the lens:*/
+			lens.addEventListener("mousemove", moveLens);
+			img.addEventListener("mousemove", moveLens);
+			/*and also for touch screens:*/
+			lens.addEventListener("touchmove", moveLens);
+			img.addEventListener("touchmove", moveLens);
 
-        });
+			function moveLens(e) {
+				var pos, x, y;
+				/*prevent any other actions that may occur when moving over the image:*/
+				e.preventDefault();
+				/*get the cursor's x and y positions:*/
+				pos = getCursorPos(e);
+				/*calculate the position of the lens:*/
+				x = pos.x - (lens.offsetWidth / 2);
+				y = pos.y - (lens.offsetHeight / 2);
+				/*prevent the lens from being positioned outside the image:*/
+				if (x > img.width - lens.offsetWidth) {
+					x = img.width - lens.offsetWidth;
+				}
+				if (x < 0) {
+					x = 0;
+				}
+				if (y > img.height - lens.offsetHeight) {
+					y = img.height - lens.offsetHeight;
+				}
+				if (y < 0) {
+					y = 0;
+				}
+				/*set the position of the lens:*/
+				lens.style.left = x + "px";
+				lens.style.top = y + "px";
+				/*display what the lens "sees":*/
+				result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+			}
 
-        $(".accountMenuIcon").click(function(){
+			function getCursorPos(e) {
+				var a, x = 0,
+						y = 0;
+				e = e || window.event;
+				/*get the x and y positions of the image:*/
+				a = img.getBoundingClientRect();
+				/*calculate the cursor's x and y coordinates, relative to the image:*/
+				x = e.pageX - a.left;
+				y = e.pageY - a.top;
+				/*consider any page scrolling:*/
+				x = x - window.pageXOffset;
+				y = y - window.pageYOffset;
+				return {
+					x: x,
+					y: y
+				};
+			}
+		}
+	</script>
 
-        	//alert('sadsdsds');
-        	$('.hotlineMenu').hide();
-        	$('.helpMenu').hide();
-        	$('.accountMenu').show();
+	<script type="text/javascript">
+		$(document).ready(function() {
 
-        });
+			var id = '#dialog';
+			//Get the screen height and width
+			var maskHeight = $(document).height();
+			var maskWidth = $(window).width();
+			//Set heigth and width to mask to fill up the whole screen
+			$('#mask').css({
+				'width': maskWidth,
+				'height': maskHeight
+			});
+			//transition effect
+			$('#mask').fadeIn(500);
+			$('#mask').fadeTo("slow", 0.9);
+			//Get the window height and width
+			var winH = $(window).height();
+			var winW = $(window).width();
+			//Set the popup window to center
+			$(id).css('top', winH / 2 - $(id).height() / 2);
+			$(id).css('left', winW / 2 - $(id).width() / 2);
+			//transition effect
+			$(id).fadeIn(2000);
+			//if close button is clicked
+			$('.window .closeButton').click(function(e) {
+				//Cancel the link behavior
+				e.preventDefault();
 
-        $(".helpIconMenu").click(function(){
+				$('#mask').hide();
+				$('.window').hide();
+			});
 
-        	//alert('sadsdsds');
-        	$('.hotlineMenu').hide();
-        	$('.accountMenu').hide();
-        	$('.helpMenu').show();
+			//if mask is clicked
+			$('#mask').click(function() {
+				$(this).hide();
+				$('.window').hide();
+			});
 
-        });
+			$('.registerSubmit').click(function(e) {
+				e.preventDefault();
+				var email = $(this).closest('.form-signin').find('#inputEmail').val();
+				var password = $(this).closest('.form-signin').find('#inputPassword').val();
 
-    });
+				var cartData = JSON.parse(localStorage.getItem('cart'));
+				var productIds = [];
+				cartData.map(function(val, index) {
+					productIds.push(val.productId)
+				});
+				var uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
+				var revisedCartData = [];
+				uniqueProductIds.map(function(valParent, keyParent) {
+					var totalCount = 0;
+					cartData.map(function(val, key) {
+						if (valParent == val.productId) {
+							totalCount += val.quantity;
+						}
+					});
+					revisedCartData.push({
+						productId: valParent,
+						quantity: totalCount
+					})
+				});
 
+				console.log('~~~~~~~~~', process.env.REACT_APP_FRONTEND_SERVER_URL);
+			})
+		});
+	</script>
+</head>
 
-</script> -->
-
-<script type="text/javascript">
+<!--<script type="text/javascript">
 	$(document).ready(function(){
 
 		// Show hide popover
@@ -388,7 +606,7 @@
 			console.log('~~~~~~~~~', process.env.REACT_APP_FRONTEND_SERVER_URL);
 		})
 	});
-</script>
+</script>-->
 
 
 <body>
