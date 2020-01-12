@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+	<script>
+	</script>
+	<meta charset="utf-8" />
+	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon_.ico" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#000000" />
+	<title>Banijjo</title>
+
+	<link rel="stylesheet" href="/css/foundationCustom.min.css">
+	<link rel="stylesheet" href="/css/foundation.min.css">
+
+	<link rel="stylesheet" href="/css/app.css">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+
+	<link rel="stylesheet" href="/css/menu.css">
+	<link rel="stylesheet" href="/css/spverticalmegamenu.css">
+
+	<link rel="stylesheet" href="/css/productList.css">
+	<link rel="stylesheet" href="/css/categoryDetails.css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="application/x-javascript">
+		addEventListener("load", function() {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/css/fasthover.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="/css/indexPageDesign.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/js/superfish.js"></script>
+
+	<script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js" crossorigin></script>
+	<script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+</head>
+
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+
+        // Show hide popover
+
+        $(".dropdown").click(function(){
+
+        	$(this).find(".dropdown-menu").slideToggle("fast");
+
+        });
+
+    });
+
+	$(document).on("click", function(event){
+
+		var $trigger = $(".dropdown");
+
+		if($trigger !== event.target && !$trigger.has(event.target).length){
+
+			$(".dropdown-menu").slideUp("fast");
+
+		}
+
+	});
+</script> -->
+
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+
+        // Show hide popover
+
+        $(".hotlineIconMenu").click(function(){
+
+        	//alert('sadsdsds');
+        	$('.accountMenu').hide();
+        	$('.helpMenu').hide();
+        	$('.hotlineMenu').show();
+
+        });
+
+        $(".accountMenuIcon").click(function(){
+
+        	//alert('sadsdsds');
+        	$('.hotlineMenu').hide();
+        	$('.helpMenu').hide();
+        	$('.accountMenu').show();
+
+        });
+
+        $(".helpIconMenu").click(function(){
+
+        	//alert('sadsdsds');
+        	$('.hotlineMenu').hide();
+        	$('.accountMenu').hide();
+        	$('.helpMenu').show();
+
+        });
+
+    });
+
+
+</script> -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// Show hide popover
+
+		$(".hotlineIconMenu").click(function(){
+
+			//alert('sadsdsds');
+			$('.accountMenu').removeClass('js-dropdown-active');
+			$('.helpMenu').removeClass('is-active');
+			$('.hotlineMenu').addClass('js-dropdown-active');
+
+		});
+
+		$(".accountMenuIcon").click(function(){
+
+			//alert('sadsdsds');
+			$('.hotlineMenu').removeClass('js-dropdown-active');
+			$('.helpMenu').removeClass('is-active');
+			$('.accountMenu').addClass('js-dropdown-active');
+
+		});
+
+		$(".helpIconMenu").click(function(){
+
+			//alert('sadsdsds');
+			$('.hotlineMenu').removeClass('js-dropdown-active');
+			$('.accountMenu').removeClass('js-dropdown-active');
+			$('.helpMenu').addClass('is-active');
+
+		});
+
+	});
+
+
+</script>
+
+<script>
+	function myFunction() {
+		var x = document.getElementById("myTopnav");
+		if (x.className === "topnav") {
+			x.className += " responsive";
+		} else {
+			x.className = "topnav";
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	$("#sp_vertical_megamenu li:has(.spvmm_container_menu_child)").doubleTapToGo();
+
+	function isMobile() {
+		if (navigator.userAgent.match(/Android/i) ||
+				navigator.userAgent.match(/webOS/i) ||
+				navigator.userAgent.match(/iPad/i) ||
+				navigator.userAgent.match(/iPhone/i) ||
+				navigator.userAgent.match(/iPod/i)
+		) {
+			return true;
+		}
+	}
+
+	jQuery(document).ready(function($) {
+		(function(element) {
+			var el = $(element),
+					vf_megamenu = $('.vf-megamenu', el),
+					level1 = $('.vf-megamenu >.spvmm-havechild', el),
+					_li = $('.spvmm-havechild', el),
+					vf_button = $('.vf-button', el),
+					nb_hiden = 10;
+			if (level1.length && level1.length > nb_hiden) {
+				for (var i = 0; i < level1.length; i++) {
+					if (i > (nb_hiden - 1)) {
+						level1.eq(i).addClass('cat-visible');
+						level1.eq(i).hide();
+					}
+				}
+				vf_megamenu.append('<li class="more-wrap"><span class="more-view"><i class="fa fa-plus-square-o"></i>More Categories</span></li>');
+				$('.more-view', vf_megamenu).on('click touchstart', function() {
+					if (level1.hasClass('cat-visible')) {
+						vf_megamenu.find('.cat-visible').removeClass('cat-visible').addClass('cat-hidden').stop().slideDown(400);
+						$(this).html('<i class="fa fa-minus-square-o"></i>Close Categories');
+					} else if (level1.hasClass('cat-hidden')) {
+						vf_megamenu.find('.cat-hidden').removeClass('cat-hidden').addClass('cat-visible').stop().slideUp(200);
+						$(this).html('<i class="fa fa-plus-square-o"></i>More Categories');
+					}
+				});
+			}
+
+			function _vfResponsiveMegaMenu() {
+				if ($(window).width() <= 767) {
+					vf_megamenu.hide();
+					$('.cat-title', el).on('click', function() {
+						$(this).toggleClass('active').parent().find('ul.vf-megamenu').stop().slideToggle('medium');
+						return false;
+					});
+					_li.addClass('vf-close');
+					_li.children('div').css('display', 'none');
+					if (vf_button.length) {
+						vf_button.on('click', function() {
+							var _this = $(this),
+									li = _this.parent(),
+									ul = li.children('ul');
+							var _div = li.children('div');
+							if (li.hasClass('vf-close')) {
+								li.removeClass('vf-close').addClass('vf-open');
+								_div.stop(false, true).slideDown(500);
+								_this.removeClass('icon-close').addClass('icon-open');
+							} else {
+								li.removeClass('vf-open').addClass('vf-close');
+								_div.stop(false, true).slideUp(200);
+								_this.removeClass('icon-open').addClass('icon-close');
+							}
+							return;
+						});
+					}
+				} else {
+					$('.cat-title', el).unbind('click');
+					vf_button.unbind('click');
+					$('.cat-title', el).removeClass('active');
+					vf_megamenu.removeAttr('style');
+					_li.addClass('vf-close');
+					_li.children('div').removeAttr('style');
+					vf_button.removeClass('icon-open').addClass('icon-close');
+				}
+			}
+			_vfResponsiveMegaMenu();
+
+			if (isMobile()) {} else {
+				$(window).on('resize', function() {
+					_vfResponsiveMegaMenu();
+				});
+			}
+		})('#sp_vertical_megamenu');
+	});
+</script>
+
+<script type="text/javascript">
+	function imageZoom(imgID, resultID, imgName) {
+		$('.img-zoom-lens').remove();
+		var img, lens, result, cx, cy;
+		img = document.getElementById(imgID);
+		result = document.getElementById(resultID);
+		//console.log(result);
+		/*create lens:*/
+		lens = document.createElement("DIV");
+		lens.setAttribute("class", "img-zoom-lens");
+		/*insert lens:*/
+		img.parentElement.insertBefore(lens, img);
+		/*calculate the ratio between result DIV and lens:*/
+		cx = result.offsetWidth / lens.offsetWidth;
+		cy = result.offsetHeight / lens.offsetHeight;
+
+		/*set background properties for the result DIV:*/
+		result.style.backgroundImage = "url('" + imgName + "')";
+		result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+		/*execute a function when someone moves the cursor over the image, or the lens:*/
+		lens.addEventListener("mousemove", moveLens);
+		img.addEventListener("mousemove", moveLens);
+		/*and also for touch screens:*/
+		lens.addEventListener("touchmove", moveLens);
+		img.addEventListener("touchmove", moveLens);
+
+		function moveLens(e) {
+			var pos, x, y;
+			/*prevent any other actions that may occur when moving over the image:*/
+			e.preventDefault();
+			/*get the cursor's x and y positions:*/
+			pos = getCursorPos(e);
+			/*calculate the position of the lens:*/
+			x = pos.x - (lens.offsetWidth / 2);
+			y = pos.y - (lens.offsetHeight / 2);
+			/*prevent the lens from being positioned outside the image:*/
+			if (x > img.width - lens.offsetWidth) {
+				x = img.width - lens.offsetWidth;
+			}
+			if (x < 0) {
+				x = 0;
+			}
+			if (y > img.height - lens.offsetHeight) {
+				y = img.height - lens.offsetHeight;
+			}
+			if (y < 0) {
+				y = 0;
+			}
+			/*set the position of the lens:*/
+			lens.style.left = x + "px";
+			lens.style.top = y + "px";
+			/*display what the lens "sees":*/
+			result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+		}
+
+		function getCursorPos(e) {
+			var a, x = 0,
+					y = 0;
+			e = e || window.event;
+			/*get the x and y positions of the image:*/
+			a = img.getBoundingClientRect();
+			/*calculate the cursor's x and y coordinates, relative to the image:*/
+			x = e.pageX - a.left;
+			y = e.pageY - a.top;
+			/*consider any page scrolling:*/
+			x = x - window.pageXOffset;
+			y = y - window.pageYOffset;
+			return {
+				x: x,
+				y: y
+			};
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var id = '#dialog';
+		//Get the screen height and width
+		var maskHeight = $(document).height();
+		var maskWidth = $(window).width();
+		//Set heigth and width to mask to fill up the whole screen
+		$('#mask').css({
+			'width': maskWidth,
+			'height': maskHeight
+		});
+		//transition effect
+		$('#mask').fadeIn(500);
+		$('#mask').fadeTo("slow", 0.9);
+		//Get the window height and width
+		var winH = $(window).height();
+		var winW = $(window).width();
+		//Set the popup window to center
+		$(id).css('top', winH / 2 - $(id).height() / 2);
+		$(id).css('left', winW / 2 - $(id).width() / 2);
+		//transition effect
+		$(id).fadeIn(2000);
+		//if close button is clicked
+		$('.window .closeButton').click(function(e) {
+			//Cancel the link behavior
+			e.preventDefault();
+
+			$('#mask').hide();
+			$('.window').hide();
+		});
+
+		//if mask is clicked
+		$('#mask').click(function() {
+			$(this).hide();
+			$('.window').hide();
+		});
+
+		$('.registerSubmit').click(function(e) {
+			e.preventDefault();
+			var email = $(this).closest('.form-signin').find('#inputEmail').val();
+			var password = $(this).closest('.form-signin').find('#inputPassword').val();
+
+			var cartData = JSON.parse(localStorage.getItem('cart'));
+			var productIds = [];
+			cartData.map(function(val, index) {
+				productIds.push(val.productId)
+			});
+			var uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
+			var revisedCartData = [];
+			uniqueProductIds.map(function(valParent, keyParent) {
+				var totalCount = 0;
+				cartData.map(function(val, key) {
+					if (valParent == val.productId) {
+						totalCount += val.quantity;
+					}
+				});
+				revisedCartData.push({
+					productId: valParent,
+					quantity: totalCount
+				})
+			});
+
+			console.log('~~~~~~~~~', process.env.REACT_APP_FRONTEND_SERVER_URL);
+		})
+	});
+</script>
+
+
+<body>
+<div class="top-bar">
+	<div class="row">
+		<div class="top-bar-left">
+		</div>
+		<div class="top-bar-right">
+			<ul class="menu">
+				<li>
+				</li>
+				<li>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="columns small-4 large-4 logoMobile">
+
+		<p style="text-align: left">
+			<a href="http://banijjo.com.bd"><img src="../image/banijjoLogo.png" class="imglogo" alt="company logo"></a>
+		</p>
+	</div>
+
+	<div class="columns small-6 large-4">
+		<!-- 		<div class="columns small-1 large-4">
+                    <p> &nbsp;</p>
+
+                </div> -->
+		<!-- 	<div class="columns small-1 large-4">
+				<p> &nbsp;</p>
+
+			</div> -->
+
+
+		<div class="columns small-2 large-4">
+			<ul class="dropdown hotLineIcon" data-dropdown-menu style="font-size: 16px;">
+
+				<li class="hotlineIconMenu">
+					<a href="#"><i class="fa fa-volume-control-phone" style="font-size:18px;color:#ec1c24;margin-top:30px;
+						"></i></a>
+					<ul class="dropdown-menu hotlineMenu">
+
+						<li><a href="#" style="color:#009345;font-weight:bold;">09677-222 222</a></li>
+
+					</ul>
+
+				</li>
+
+			</ul>
+
+		</div>
+
+		<div class="columns small-2 large-4" style="margin-top:30px;">
+			<ul class="dropdown account" data-dropdown-menu style="font-size: 11px;">
+				<li class="has-submenu accountMenuIcon">
+					<a href="#"><i class="fa fa-user-o" style="color:#009345;font-size: 16px;"></i></a>
+					<ul class="dropdown-menu accountMenu">
+						<li>
+							<div class="navbar-login">
+								<div class="row">
+									<div class="col-lg-12">
+										<p class="text-left" style="padding-left: 10px;"><strong>Welcome to
+											Banijjo!</strong></p>
+										<div class="customerDiv">
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li><a href="#">My Orders</a></li>
+						<li><a href="#">Message Center<span class="unread-message-count"></span></a></li>
+						<li><a href="#">Wish List</a></li>
+						<li><a href="#">My Favorite Stores</a></li>
+						<li><a href="#">My Coupons</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div class="columns small-2 large-4" style="margin-top:27px;">
+
+			<ul class="dropdown topMenu" data-dropdown-menu style="font-size: 16px;">
+
+				<li class="has-submenu helpIconMenu">
+					<a href="#"><i class="fa fa-bars" style="color: #009345;"></i></a>
+					<ul class="dropdown-menu helpMenu">
+
+						<li><a href="http://admin.banijjo.com.bd/">Seller Center</a></li>
+						<li><a href="#">Help<span class="unread-message-count"></span></a></li>
+						<li><a href="#">Buyer Protection</a></li>
+						<li><a href="#">Wish List</a></li>
+					</ul>
+
+				</li>
+
+			</ul>
+
+
+		</div>
+		<div class="columns small-2 large-4" style="margin-top:27px;">
+			<div class="cartIcon" id="cartID">
+
+			</div>
+		</div>
+		<!-- 	<div class="columns small-4 large-4">
+				<ul class="dropdown menu" data-dropdown-menu style="font-size: 14px; height: 31px !important; top: -12px !important;width:950px;float: right;">
+
+					<li class="has-submenu" style="
+					padding-left: 24px;">
+					<a href="#"><i class="fa fa-volume-control-phone" style="font-size:18px;color:#009345;font-weight: bold;"></i> <strong style="color:#009345;font-size:14px;font-weight: bold;">09677-222 222</strong></a>
+
+				</li>
+			</ul>
+
+		</div> -->
+		<div class="columns small-12 large-4">
+			<!-- 	<ul class="dropdown menu" data-dropdown-menu style="font-size: 14px; height: 31px !important; top: -12px !important;width:950px;float: right;">
+
+                    <li class="has-submenu" style="
+                    padding-left: 24px;">
+                    <a href="#"><i class="fa fa-volume-control-phone" style="font-size:18px;color:#009345;font-weight: bold;"></i> <strong style="color:#009345;font-size:14px;font-weight: bold;">09677-222 222</strong></a>
+
+                </li>
+            </ul> -->
+			<ul class="dropdown menu" data-dropdown-menu style="font-size: 14px; height: 31px !important; top: -12px !important;width:950px;float: right;">
+				<!-- <li class="has-submenu">
+					<a href="#">&nbsp;</a>
+
+				</li>
+				<li class="has-submenu" style="
+				padding-left: 24px;">
+				<a href="#"><i class="fa fa-volume-control-phone" style="font-size:18px;color:#009345;font-weight: bold;"></i> <strong style="color:#009345;font-size:14px;font-weight: bold;">09677-222 222</strong></a> -->
+
+				<!-- </li> -->
+
+
+				<li class="has-submenu" style="
+				padding-left: 75px;">
+					<a href="#"><i class="fa fa-volume-control-phone" style="font-size:18px;color:#ec1c24;font-weight: bold;"></i> <strong style="color:#009345;font-size:14px;font-weight: bold;">09677-222 222</strong></a>
+
+				</li>
+				<li class="has-submenu">
+					<a href="#">&nbsp;</a>
+
+				</li>
+				<li class="has-submenu">
+					<a href="#">&nbsp;</a>
+
+				</li>
+
+
+				<li class="has-submenu">
+					<a href="http://admin.banijjo.com.bd/">Seller Center</a>
+
+				</li>
+				<li class="has-submenu">
+					<a href="#">Help</a>
+
+				</li>
+				<li class="has-submenu">
+					<a href="#">Buyer Protection</a>
+
+				</li>
+
+				<li class="has-submenu">
+					<a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> Wish List</a>
+
+				</li>
+				<li class="has-submenu">
+					<a href="#"><i class="fa fa-user-o" aria-hidden="true"></i> Account</a>
+					<ul class="dropdown-menu">
+						<li>
+							<div class="navbar-login">
+								<div class="row">
+									<div class="col-lg-12">
+										<p class="text-left" style="padding-left: 10px;"><strong>Welcome to
+											Banijjo!</strong></p>
+										<div class="customerDiv">
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li><a href="#">My Orders</a></li>
+						<li><a href="#">Message Center<span class="unread-message-count"></span></a></li>
+						<li><a href="#">Wish List</a></li>
+						<li><a href="#">My Favorite Stores</a></li>
+						<li><a href="#">My Coupons</a></li>
+					</ul>
+				</li>
+				<li class="has-submenu">
+					<a href="#"><img src="/image/bd_small.png" alt="company logo"></a>
+				</li>
+			</ul>
+		</div>
+
+
+
+	</div>
+</div>
+<br>
+
+<!-- Modal register and login -->
+
+<div class="modal" id="exampleModalRegister" tabindex="-1" role="dialog">
+	<div class="modal-dialog regLoginModal" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="border-bottom: none;">
+				<h5 align="center"><img src="/image/banijjoModalLogo.png" alt="company logo"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px;">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<ul class="nav nav-tabs">
+				<li class="active" style="padding-left: 80px"><a data-toggle="tab" href="#home">REGISTER</a></li>
+				<li style="padding-left: 30px"><a data-toggle="tab" href="#menu1">LOGIN</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="home" class="tab-pane fade in active">
+					<form class="form-signin">
+						<div class="modal-body">
+							<div class="form-label-group">
+								<input type="email" id="inputEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder="Email address" required autofocus>
+							</div>
+							<div class="form-label-group">
+								<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger registerSubmit" style="background-color: #009345;border-color:#009345">Create
+								Account</button>
+							<p><a href="#" target="_blank" class="" style="color:#ec1c24">Forgot Password?</a></p>
+							<p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#2AA9E0;"></a><i id="social-tw" class="fa fa-twitter-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#0077B5;"><i id="social-tw" class="fa fa-linkedin-square fa-3x socialFooter"></i></a>
+							</p>
+
+						</div>
+					</form>
+				</div>
+				<div id="menu1" class="tab-pane fade">
+					<form class="form-signin">
+						<div class="modal-body">
+							<div class="form-label-group">
+								<input type="email" id="inputEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" placeholder="Email address" required autofocus>
+							</div>
+							<div class="form-label-group">
+								<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger loginSubmit" style="background-color: #009345;border-color:#009345">LOGIN</button>
+							<p><a href="#" target="_blank" class="" style="color:#ec1c24">Forgot Password?</a></p>
+							<p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#2AA9E0;"></a><i id="social-tw" class="fa fa-twitter-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#0077B5;"><i id="social-tw" class="fa fa-linkedin-square fa-3x socialFooter"></i></a>
+							</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal" id="exampleModalLogin" tabindex="-1" role="dialog">
+	<div class="modal-dialog regLoginModal" role="document">
+		<div class="modal-content" style="align-content: center;">
+			<div class="modal-header" style="border-bottom: none;">
+				<h5 align="center"><img src="/image/banijjoModalLogo.png" alt="company logo"></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px;">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<ul class="nav nav-tabs">
+				<li style="padding-left: 80px"><a data-toggle="tab" href="#home2">REGISTER</a></li>
+				<li class="active" style="padding-left: 30px"><a data-toggle="tab" href="#menu2">LOGIN</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="home2" class="tab-pane fade">
+					<form class="form-signin">
+						<div class="modal-body">
+							<div class="form-label-group">
+								<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+							</div>
+							<div class="form-label-group">
+								<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-danger registerSubmit" style="background-color: #009345;border-color:#009345">Create
+								Account</button>
+							<p><a href="#" target="_blank" class="" style="color:#ec1c24">Forgot Password?</a></p>
+							<p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#2AA9E0;"></a><i id="social-tw" class="fa fa-twitter-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#0077B5;"><i id="social-tw" class="fa fa-linkedin-square fa-3x socialFooter"></i></a>
+							</p>
+						</div>
+					</form>
+				</div>
+				<div id="menu2" class="tab-pane fade in active">
+					<div class="modal-body">
+						<form class="form-signin">
+							<div class="form-label-group">
+								<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+							</div>
+							<div class="form-label-group">
+								<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+							</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-danger loginSubmit" style="background-color: #009345;border-color:#009345">Login</button>
+						<p><a href="#" target="_blank" class="" style="color:#ec1c24">Forgot Password?</a></p>
+						<p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
+							<a href="https://twitter.com/bootsnipp" style="color:#2AA9E0;"></a><i id="social-tw" class="fa fa-twitter-square fa-3x socialFooter"></i></a>
+							<a href="https://twitter.com/bootsnipp" style="color:#0077B5;"><i id="social-tw" class="fa fa-linkedin-square fa-3x socialFooter"></i></a>
+						</p>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="root">
+
+</div>
+
+<script src="/js/jquery.magnific-popup.js"></script>
+<script src="/js/vendor/what-input.js"></script>
+<script src="/js/vendor/foundation.js"></script>
+<script src="/js/app.js"></script>
+<script defer src="/js/jquery.flexslider.js"></script>
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
+<script type="text/javascript">
+	function logout() {
+		localStorage.setItem('customer_id', '');
+		window.location.href = "/";
+	}
+
+	$(window).load(function() {
+		// there are 2 customerDiv classes.
+		document.getElementsByClassName("customerDiv")[0].innerHTML = '';
+		document.getElementsByClassName("customerDiv")[1].innerHTML = '';
+
+		if (localStorage.customer_id) {
+			document.getElementsByClassName("customerDiv")[0].innerHTML = '<div class="col-lg-6"><p class="text-left"><button href="#" id="loginButton" class="btn btn-block btn-sm"><i class="fa fa-user"></i> Profile</button></p></div><div class="col-lg-6"><p class="text-left"><button id="loginButton" style="background:#ec1c24" onclick="logout()" href="#" class="btn btn-block btn-sm"><i class="fa fa-sign-out"></i> Logout</button></p></div>';
+			document.getElementsByClassName("customerDiv")[1].innerHTML = '<div class="col-lg-6"><p class="text-left"><button href="#" id="loginButton" class="btn btn-block btn-sm"><i class="fa fa-user"></i> Profile</button></p></div><div class="col-lg-6"><p class="text-left"><button id="loginButton" style="background:#ec1c24" onclick="logout()" href="#" class="btn btn-block btn-sm"><i class="fa fa-sign-out"></i> Logout</button></p></div>';
+		} else {
+			document.getElementsByClassName("customerDiv")[0].innerHTML = '<div class="col-lg-6"><p class="text-left"><button id="registerButton" data-toggle="modal" data-target="#exampleModalRegister" class="btn btn-block btn-sm">Register</button></p></div><div class="col-lg-6"><p class="text-left"><button id="loginButton" data-toggle="modal" data-target="#exampleModalLogin" class="btn btn-block btn-sm">Login</button></p></div>';
+			document.getElementsByClassName("customerDiv")[1].innerHTML = '<div class="col-lg-6"><p class="text-left"><button id="registerButton" data-toggle="modal" data-target="#exampleModalRegister" class="btn btn-block btn-sm">Register</button></p></div><div class="col-lg-6"><p class="text-left"><button id="loginButton" data-toggle="modal" data-target="#exampleModalLogin" class="btn btn-block btn-sm"><i class="fa fa-login"></i> Login</button></p></div>';
+		}
+
+		$('#carousel').flexslider({
+			animation: "slide",
+			controlNav: false,
+			animationLoop: false,
+			slideshow: false,
+			itemWidth: 135,
+			itemMargin: 5,
+			asNavFor: '#slider'
+		});
+
+		$('#slider').flexslider({
+			animation: "slide",
+			controlNav: false,
+			animationLoop: false,
+			slideshow: false,
+			sync: "#carousel",
+			start: function(slider) {
+				$('body').removeClass('loading');
+			}
+		});
+	});
+</script>
+</body>
+<script src="/js/easyResponsiveTabs.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.img-zoom-container').mouseover(
+				function() {
+					$('#myresult').css('visibility', 'visible');
+					$('#zoomResult').css('visibility', 'visible');
+					$('.img-zoom-lens').css('visibility', 'visible');
+				}
+		)
+
+		$('.img-zoom-container').mouseout(
+				function() {
+					$('#myresult').css('visibility', 'hidden');
+					$('#zoomResult').css('visibility', 'hidden');
+					$('.img-zoom-lens').css('visibility', 'hidden');
+				}
+		)
+
+		$('#horizontalTab1').easyResponsiveTabs({
+			type: 'default',
+			width: 'auto',
+			fit: true
+		});
+
+		$('#Carousel').carousel({
+			interval: 3000
+		})
+		$('#Carouselsm').carousel({
+			interval: 3000
+		})
+
+		$('#Carousellg').carousel({
+			interval: 3000
+		})
+
+	});
+</script>
+
+</html>

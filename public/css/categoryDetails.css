@@ -1,0 +1,131 @@
+.cg-main {
+  width: 1000px;
+  float: left;
+}
+.cg-main .item {
+  position: relative;
+  margin-top: 40px;
+}
+cg-main.big-title {
+ height: 22px;
+ line-height: 22px;
+ font-size: 22px;
+ color: #333;
+ padding-right: 25px;
+ background-color: #fff;
+ margin-bottom: 0;
+ padding-left: 50px;
+ font-weight: 400;
+ position: relative;
+}
+.anchor-subsitution {
+ position: absolute;
+ top: -161px;
+}
+.cg-main.big-title {
+ line-height: 22px;
+ font-size: 22px;
+ color: #333;
+ font-weight: 400;
+}
+
+.cg-main .sub-item {
+ float: left;
+ width: 49.9%;
+}
+
+.cg-main .sub-title {
+ height: 14px;
+ line-height: 14px;
+ font-size: 14px;
+ margin: 25px 0 17px 0;
+ font-weight: 700;
+}
+
+.cg .cg-main .anchor1 .cg-icon {
+ left: 7px;
+}
+.cg .anchor-agricuture .cg-icon {
+ width: 18px;
+ height: 32px;
+ margin-top: -16px;
+ background-position: 0 -250px;
+}
+.cg .cg-icon {
+ position: absolute;
+ left: 0;
+ top: 50%;
+ background: url(//is.alicdn.com/tps/i1/TB1k41QGFXXXXX3XXXX49H75VXX-75-826.png) 0 0 no-repeat;
+ background-position-x: 0px;
+ background-position-y: 0px;
+}
+.cg-main .sub-item-wrapper {
+ margin-left: 35px;
+}
+
+.cg a {
+ color: #1686cc;
+}
+.cg-main .sub-item-cont-wrapper {
+ min-height: 206px;
+}
+.cg-main .sub-title span {
+ color: #999;
+}
+cg-main .sub-item-cont li {
+ line-height: 18px;
+ font-size: 12px;
+ white-space: nowrap;
+}
+/*.cg li, .cg ul {
+ list-style: none;
+ }*/
+
+ .cg-main .sub-item-cont {
+   height: 180px;
+   overflow: hidden;
+ }
+/*.cg li, .cg ul {
+ list-style: none;
+ margin: 0;
+ padding: 0;
+ }*/
+
+ .cg-main .sub-item-cont li {
+   line-height: 18px;
+   height: 18px;
+   font-size: 12px;
+   float: left;
+   width: 180px;
+   margin-right: 10px;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+ }
+ .cg li, .cg ul {
+   list-style: none;
+   margin: 0;
+   margin-right: 0px;
+   padding: 0;
+ }
+ .li {
+   margin-left: 30px;
+ }
+ .cg-main .sub-item-cont a {
+   color: #333;
+ }
+ .cg a {
+   color: #1686cc;
+ }
+ a {
+   /*color: #06c;*/
+     color: #009345;
+ }
+
+ a {
+  /*color: #06c;*/
+     color: #009345;
+  text-decoration: none;
+}
+
+
