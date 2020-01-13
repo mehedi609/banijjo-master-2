@@ -33,7 +33,7 @@ const CarouselSliderMainBanner = ({ bannerImagesCustom }) => {
 };
 
 CarouselSliderMainBanner.propTypes = {
-  bannerCarouselArr: PropTypes.array.isRequired
+  bannerImagesCustom: PropTypes.array.isRequired
 };
 
 export default CarouselSliderMainBanner;
