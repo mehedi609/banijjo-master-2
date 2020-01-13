@@ -32,7 +32,7 @@ router.get("/feature_name", async (req, res) => {
 router.get("/feature_banner_products", async (req, res) => {
   try {
     const banner_imags = await query(
-      "SELECT products.id, products.product_name, products.home_image, products.category_id, products.vendor_id FROM `featured_banner_products` JOIN products ON featured_banner_products.product_id=products.id"
+      "SELECT featured_banner_products.id, featured_banner_products.product_id, product_name, home_image, featured_banner_products.category_id, featured_banner_products.vendor_id FROM `featured_banner_products` JOIN products ON featured_banner_products.product_id=products.id"
     );
 
     return res.json(banner_imags);
@@ -160,61 +160,61 @@ router.get("/feature_category", async (req, res) => {
 
 router.get("/all_product_list", async function(req, res, next) {
   const resultArray = {};
-  const feature_name = await query("SELECT * FROM feature_name");
+  const feature_names = await query("SELECT * FROM feature_name");
   const categoryName = await query("SELECT * FROM category");
   const bannerImagesCustom = await query(
     "SELECT * FROM banner WHERE softDel = 0"
   );
 
-  for (const i in feature_name) {
-    if (feature_name[i].code === 2) {
+  for (const feature_name of feature_names) {
+    if (feature_name.code === 2) {
       resultArray.HotDeals = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.HotDealsTitle = feature_name[i].name;
-    } else if (feature_name[i].code === 3) {
+      resultArray.HotDealsTitle = feature_name.name;
+    } else if (feature_name.code === 3) {
       resultArray.TopSelections = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.TopSelectionsTitle = feature_name[i].name;
-    } else if (feature_name[i].code === 4) {
+      resultArray.TopSelectionsTitle = feature_name.name;
+    } else if (feature_name.code === 4) {
       resultArray.NewForYou = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.NewForYouTitle = feature_name[i].name;
-    } else if (feature_name[i].code === 0) {
+      resultArray.NewForYouTitle = feature_name.name;
+    } else if (feature_name.code === 0) {
       resultArray.BannerTop = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.BannerTopTitle = feature_name[i].name;
-    } else if (feature_name[i].code === 6) {
+      resultArray.BannerTopTitle = feature_name.name;
+    } else if (feature_name.code === 6) {
       resultArray.StoreWIllLove = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.StoreWIllLoveTitle = feature_name[i].name;
-    } else if (feature_name[i].code === 7) {
+      resultArray.StoreWIllLoveTitle = feature_name.name;
+    } else if (feature_name.code === 7) {
       resultArray.More = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.MoreTitle = feature_name[i].name;
-    } else if (feature_name[i].code === 1) {
+      resultArray.MoreTitle = feature_name.name;
+    } else if (feature_name.code === 1) {
       resultArray.BannerImages = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.BannerImagesTitle = feature_name[i].name;
-    } else if (feature_name[i].code === 5) {
+      resultArray.BannerImagesTitle = feature_name.name;
+    } else if (feature_name.code === 5) {
       resultArray.FeaturedBrands = await query(
         "SELECT feature_products FROM feature_products where feature_id=" +
-          feature_name[i].id
+          feature_name.id
       );
-      resultArray.FeaturedBrandsTitle = feature_name[i].name;
+      resultArray.FeaturedBrandsTitle = feature_name.name;
     }
   }
 

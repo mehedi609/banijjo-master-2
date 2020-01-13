@@ -57,17 +57,17 @@ class ProductDetails extends Component {
 
   componentDidMount() {
     this.getProductDetails();
-    // this.getDiscountAmount();
+    this.getDiscountAmount();
   }
 
-  /*getDiscountAmount() {
+  getDiscountAmount() {
     axios
-        .get(`${base}/api/getDiscountByProductId/${this.state.productId}`)
-        .then(res => {
-          // console.log(res.data.discountAmount);
-          this.setState({ discountAmount: res.data.discountAmount });
-        });
-  }*/
+      .get(`${base}/api/getDiscountByProductId/${this.state.productId}`)
+      .then(res => {
+        // console.log(res.data.discountAmount);
+        this.setState({ discountAmount: res.data.discountAmount });
+      });
+  }
 
   getProductDetails() {
     fetch(base + "/api/productDetails", {
