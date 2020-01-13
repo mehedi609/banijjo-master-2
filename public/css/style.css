@@ -1,7 +1,6 @@
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto:300&display=swap');
 </style>
-
   html,
   body {
     font-size: 100%;
@@ -22,7 +21,7 @@ h5,
 h6 {
   /*font-family: 'Glegoo', serif;*/
   /*font-family: "Roboto";*/
-  font-family: "Roboto, sans-serif";
+  /*  font-family: "Roboto, sans-serif";*/
 
   margin: 0;
 }
@@ -729,7 +728,63 @@ li.w3pages .dropdown-menu > li > a:hover {
   width: 80px;
   height: 80px;
 }
-
+/*--banner-modal--*/
+/* .modal-open .modal {
+    background: rgba(0, 0, 0, 0.48);
+}
+.modal.bnr-modal {
+	padding: 0 1em !important;
+}
+.modal-body {
+    padding:0em 2em 2em;
+}
+.modal-dialog {
+    margin: 6em auto 0;
+}
+.modal-header {
+    border: none;
+    min-height: 2.5em;
+    padding:0em 1em 0;
+}
+.modal button.close {
+    color: #ff5063;
+    opacity: 1;
+    font-size: 2em;
+    outline: none;
+    text-align: right;
+    width: 100%;
+    margin-top: 6px;
+}
+.modal-body p {
+    margin-top: 1em;
+    font-size: 1em;
+    font-weight: 400;
+    } */
+/* .nav-tabs > li > a {
+    font-size: 1em;
+    color: #212121;
+    font-family: 'Glegoo', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+	border-radius: 0;
+	border:none;
+	border-bottom: 1px solid #3c43a4;
+	margin: 0;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    background-color:#3c43a4;
+	color:#fff;
+	border: none;
+    border-bottom: 1px solid #3c43a4;
+}
+.nav-tabs > li > a:hover {
+    border-bottom: 1px solid #3c43a4;
+    color: #3c43a4;
+}
+.nav-tabs{
+    border:none;
+    color: #3c43a4;
+    } */
 .agile_ecommerce_tab_left {
   padding-left: 0;
   text-align: center;
