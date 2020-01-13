@@ -152,9 +152,9 @@ class Breadcums extends Component {
                     style={{ fontSize: "18px" }}
                   ></i>{" "}
                   <span
-                    class="badge badge-light"
+                    className="badge badge-light"
                     style={{
-                      backgroundColor: "#ffffff",
+                      backgroundColor: "transparent",
                       fontSize: "13px",
                       color: "#ec1624"
                     }}

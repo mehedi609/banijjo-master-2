@@ -18,9 +18,9 @@ ul ul {
    padding-top:20px;
    padding-bottom:100px;
    color:#FFFFFF;*/
- }
+}
 
- .frameCatImage {
+.frameCatImage {
   height: 40px;
   display: table;
   width: 100%;
@@ -424,3 +424,27 @@ input:hover,
   max-height: 100%;
   max-width: 100%;
 }
+
+
+/*
+  .frameProductImg {
+    height: 247px;
+    width: auto;
+    border: 1px solid red;
+    white-space: nowrap;
+
+    text-align: center; margin: 1em 0;
+  }
+
+  .helperProductImg {
+    display: inline-block;
+    height: 247px;
+    vertical-align: middle;
+  }
+
+  img {
+    background: #3A6F9A;
+    vertical-align: middle;
+    max-height: 247px;
+    max-width: auto;
+  }*/

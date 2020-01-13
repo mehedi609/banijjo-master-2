@@ -11,7 +11,9 @@ class Footer extends Component {
           >
             <div className="container">
               <div className="col-md-4">
-                <h5 style={{ marginTop: "15px" }}>About us</h5>
+                <h5 className="footerHeader" style={{ marginTop: "15px" }}>
+                  About us
+                </h5>
                 <ul className="nav-list" style={{ paddingLeft: "10px" }}>
                   <li>
                     <a href="#">Privacy Policy</a>
@@ -33,6 +35,9 @@ class Footer extends Component {
                   </li>
                   <li>
                     <a href="#">FAQ</a>
+                  </li>
+                  <li className="liContractMob">
+                    <a href="#">Contract us</a>
                   </li>
                 </ul>
                 <p>
@@ -56,8 +61,10 @@ class Footer extends Component {
                   </a>
                 </p>
               </div>
-              <div className="col-md-4">
-                <h5 style={{ marginTop: "15px" }}>Special Category</h5>
+              <div className="col-md-4 sCatFooter">
+                <h5 className="footerHeader" style={{ marginTop: "15px" }}>
+                  Special Category
+                </h5>
                 <ul className="nav-list" style={{ paddingLeft: "10px" }}>
                   <li>
                     <a href="#">Mens</a>
@@ -85,8 +92,10 @@ class Footer extends Component {
                   </li>
                 </ul>
               </div>
-              <div className="col-md-4">
-                <h5 style={{ marginTop: "15px" }}>Contract us</h5>
+              <div className="col-md-4 footerContract">
+                <h5 className="footerHeader" style={{ marginTop: "15px" }}>
+                  Contract us
+                </h5>
                 <p>NA</p>
               </div>
             </div>
