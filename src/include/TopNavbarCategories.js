@@ -30,9 +30,9 @@ class TopNavbarCategories extends Component {
     return categories.map(el => (
       <div className="p-2" key={el.id}>
         <a
-            className="headerCat"
-            href={"/productList/" + el.id}
-            style={{ color: "#009345" }}
+          className="headerCat"
+          href={"/productList/" + el.id}
+          style={{ color: "#009345" }}
         >
           {el.category_name}
         </a>

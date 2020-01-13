@@ -375,7 +375,7 @@ class App extends Component {
   newForYou() {
     let hotView = [];
     let counter = 0;
-    if (counter == 0) {
+    if (counter === 0) {
       this.state.NewForYou.map((item, key) => {
         hotView.push(
           <div className="column">
@@ -420,7 +420,7 @@ class App extends Component {
   topSelectionBig() {
     let hotView = [];
     let counter = 0;
-    if (counter == 0) {
+    if (counter === 0) {
       this.state.FeaturedBrands.map((item, key) => {
         hotView.push(
           <div className="column">
@@ -619,7 +619,7 @@ class App extends Component {
                 className="row"
                 style={{ marginLeft: "-30px", marginRight: "-30px" }}
               >
-                <div className="col-md-6">
+                <div className="col-md-6" style={{ marginTop: "5px" }}>
                   <CarouselSliderMainBanner
                     bannerImagesCustom={this.state.BannerImagesCustom}
                   />
