@@ -4,9 +4,10 @@
   "homepage": "",
   "private": true,
   "dependencies": {
+    "axios": "^0.19.0",
     "node-fetch": "^2.6.0",
     "react-scripts": "3.1.1",
-    "axios": "^0.19.0"
+    "react-share": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -53,8 +54,6 @@
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.11.0",
     "react-flex-slider": "^6.3.1",
-    "react-image-magnifiers": "^1.2.2",
-    "react-image-magnify": "^2.7.4",
     "react-owl-carousel": "^2.3.1",
     "react-router-dom": "^5.0.1",
     "reactstrap": "^8.1.1",

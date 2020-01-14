@@ -1,4 +1,14 @@
 import React, { Component, Fragment } from "react";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterShareButton,
+  TwitterIcon,
+  PinterestShareButton,
+  PinterestIcon,
+  LinkedinShareButton,
+  LinkedinIcon
+} from "react-share";
 
 import Footer from "../include/footer";
 import Navbar from "../include/Navbar";
@@ -8,6 +18,7 @@ import $ from "jquery";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import "../assets/social-share.css";
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -520,22 +531,45 @@ class ProductDetails extends Component {
     ));
   }
 
-  /*componentDidUpdate(prevProps, prevState, snapshot) {
-    this.setState({
-      showClickedImage: prevState.home_image
-    });
-
-    window.imageZoom(
-      "myimage",
-      "myresult",
-      fileUrl + "/upload/product/productImages/" + this.state.showClickedImage
-    );
-  }*/
-
   render() {
+    const { productId, productName } = this.state;
     let counter = 1;
+    const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
+    // const title = productName;
+
     return (
       <React.Fragment>
+        <ul className="ct-socials">
+          <li>
+            <div className="ct-socials-icon">
+              <TwitterShareButton url={shareUrl} quote={productName}>
+                <TwitterIcon size={35} round />
+              </TwitterShareButton>
+            </div>
+          </li>
+          <li>
+            <div className="ct-socials-icon">
+              <FacebookShareButton url={shareUrl} quote={productName}>
+                <FacebookIcon size={35} round />
+              </FacebookShareButton>
+            </div>
+          </li>
+          <li>
+            <div className="ct-socials-icon">
+              <PinterestShareButton url={shareUrl} quote={productName}>
+                <PinterestIcon size={35} round />
+              </PinterestShareButton>
+            </div>
+          </li>
+          <li>
+            <div className="ct-socials-icon">
+              <LinkedinShareButton url={shareUrl} quote={productName}>
+                <LinkedinIcon size={35} round />
+              </LinkedinShareButton>
+            </div>
+          </li>
+        </ul>
+
         <button
           style={{ display: "none !important" }}
           id="successCartMessage"
