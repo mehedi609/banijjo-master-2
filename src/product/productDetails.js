@@ -127,14 +127,15 @@ class ProductDetails extends Component {
           showClickedImage: response.data.productDetails[0].home_image
         });
 
-        window.imageZoom(
-          "myimage",
-          "myresult",
-          fileUrl +
-            "/upload/product/productImages/" +
-            this.state.showClickedImage
-        );
-        return false;
+        setTimeout(() => {
+          window.imageZoom(
+            "myimage",
+            "myresult",
+            fileUrl +
+              "/upload/product/productImages/" +
+              this.state.showClickedImage
+          );
+        }, 600);
       });
   }
 
@@ -170,11 +171,17 @@ class ProductDetails extends Component {
                   );
                 }}
               >
-                <img
-                  src={
-                    fileUrl + "/upload/product/productImages/" + item.imageName
-                  }
-                />
+                <div className="frameZoomSlider">
+                  <span className="helperZoomSlider">
+                    <img
+                      src={
+                        fileUrl +
+                        "/upload/product/productImages/" +
+                        item.imageName
+                      }
+                    />
+                  </span>
+                </div>
               </a>
             </React.Fragment>
           );
@@ -513,6 +520,18 @@ class ProductDetails extends Component {
     ));
   }
 
+  /*componentDidUpdate(prevProps, prevState, snapshot) {
+    this.setState({
+      showClickedImage: prevState.home_image
+    });
+
+    window.imageZoom(
+      "myimage",
+      "myresult",
+      fileUrl + "/upload/product/productImages/" + this.state.showClickedImage
+    );
+  }*/
+
   render() {
     let counter = 1;
     return (
@@ -715,8 +734,8 @@ class ProductDetails extends Component {
                       "/upload/product/productImages/" +
                       this.state.showClickedImage
                     }
-                    width="300"
-                    height="240"
+                    width="500"
+                    height="500"
                   />
                 </div>
               </div>
@@ -731,7 +750,7 @@ class ProductDetails extends Component {
             </div>
 
             <OwlCarousel
-              style={{ marginTop: "25%" }}
+              style={{ marginTop: "38%" }}
               className="owl-theme"
               margin={10}
               items={3}
