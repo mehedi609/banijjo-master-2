@@ -1,3 +1,4 @@
+
 #lblCartCount {
     font-size: 12px;
     background: #ff0000;
@@ -6,7 +7,6 @@
     vertical-align: top;
     margin-left: -10px;
 }
-
 .badge {
     padding-left: 9px;
     padding-right: 9px;
@@ -102,11 +102,11 @@ ul {
     background: #428bca;
 }
 
-.menu > li > a {
+.menu>li>a {
     color: #009345
 }
 
-.dropdown.menu .has-submenu > a {
+.dropdown.menu .has-submenu>a {
     color: #009345
 }
 
@@ -114,7 +114,6 @@ ul {
     background: #009345;
     color: white;
 }
-
 #registerButton {
     background: #37B34A;
     color: white;
@@ -228,7 +227,6 @@ ul {
     .gap {
         display: none;
     }
-
     .mobileGap {
         display: block;
     }
@@ -304,6 +302,9 @@ ul {
             font-family: 'Segoe UI Light', sans-serif;
             font-size: 15pt;
         }
+
+
+
             #popupfoot {
                 font-size: 16pt;
                 position: absolute;
@@ -314,6 +315,7 @@ ul {
                 padding-left: 245px;
                 margin-top: -7px;
             }
+
             .frameAdsBig {
                 height: 380px;
                 display: table;
@@ -321,6 +323,7 @@ ul {
                 text-align: center;
                 padding: 0px;
             }
+
             .helperAdsBig {
                 display: table-cell;
                 text-align: center;
@@ -329,6 +332,7 @@ ul {
                 background: #ddd;
             }
             */
+
     #boxes #dialog {
         width: 100%;
         height: auto;
@@ -339,11 +343,12 @@ ul {
     }
 
 
+
     #popupfoot {
         font-size: 16pt;
         position: absolute;
         bottom: 0px;
-        top: 0;
+        top:0;
         width: 100%;
         left: 30px;
         padding-left: 245px;
@@ -366,7 +371,7 @@ ul {
         background: #ddd;
     }
 
-    .frameAdsBig > span > img {
+    .frameAdsBig>span>img {
         vertical-align: middle;
         display: inline-block !important;
         width: auto !important;
@@ -375,6 +380,7 @@ ul {
         -webkit-transition: 0.20s ease;
         transition: 0.6s ease;
     }
+
 
 
     /*.sp-vertical-megamenu .vf-megamenu li.spvmm-havechild,*/
@@ -387,8 +393,10 @@ ul {
     /*	padding: 0px 4px;*/
     /*	border-bottom: 1px solid #009345;*/
     /*}*/
+
     .sp-vertical-megamenu .vf-megamenu li.spvmm-havechild a.megamenu_a,
-    .sp-vertical-megamenu .vf-megamenu li.spvmm-nochild a.megamenu_a {
+    .sp-vertical-megamenu .vf-megamenu li.spvmm-nochild a.megamenu_a
+    {
         font-size: 14px;
         text-transform: none;
         color: #666;
@@ -430,13 +438,11 @@ ul {
     .cat-title.active:after {
         content: "\f068";
     }
-
-    .copyRightFooter {
+    .copyRightFooter{
         text-align: left !important;
         padding-left: 0 !important;
     }
-
-    .p-2 {
+    .p-2{
         display: none;
     }
 
@@ -449,7 +455,6 @@ ul {
         padding: 0px;
         overflow: hidden;
     }
-
     .helperSliderBig {
         display: table-cell;
         text-align: center;
@@ -457,32 +462,27 @@ ul {
         height: auto;
         background: #ffffff;
     }
-
-    .leftMobileCarosel {
+    .leftMobileCarosel{
         display: block;
     }
-
-    .rightMobileCarosel {
+    .rightMobileCarosel{
         display: block;
     }
-
-    .leftDesCarosel {
+    .leftDesCarosel
+    {
         display: none;
     }
-
-    .rightDesCarosel {
+    .rightDesCarosel
+    {
         display: none;
     }
-
-    .logoMobile {
-        height: 95px;
+    .logoMobile{
+        height:95px;
     }
-
-    .checkMobile {
+    .checkMobile{
         display: block;
     }
-
-    .checkDes {
+    .checkDes{
         display: none;
     }
 
@@ -495,8 +495,42 @@ ul {
         vertical-align: top;
         margin-left: -10px;
         padding: 0 7px;
-        margin-top: -8px;
+        margin-top: -4px;
     }
+
+    .resp-tab-item {
+        font-size: 8px;
+    }
+    .footer-classic a,
+    .footer-classic a:focus,
+    .footer-classic a:active  {
+        color: #ffffff;
+        font-size: 12px;
+    }
+
+    h5.footerHeader {
+        font-size:14px;
+        font-weight: bold;
+    }
+
+    .sCatFooter{
+        display: none;
+    }
+    .footerContract
+    {
+        display: none;
+    }
+    .liContractMob{
+        display:block;
+    }
+    .helperProductImg {
+        display: table;
+        text-align: center;
+        vertical-align: middle;
+        height: 247px;
+        background: #ffffff;
+    }
+
 
 
 }
@@ -524,7 +558,6 @@ ul {
         margin-top: -156px;
         padding-left: 110px;
     }
-
     .hotLineIcon {
         display: block;
     }
@@ -631,11 +664,12 @@ ul {
     /*	width: 250px;*/
     /*	left: 30px;*/
     /*}*/
+
     #popupfoot {
         font-size: 16pt;
         position: absolute;
         bottom: 0px;
-        top: 0;
+        top:0;
         width: 250px;
         left: 30px;
         padding-left: 245px;
@@ -658,7 +692,7 @@ ul {
         background: #ddd;
     }
 
-    .frameAdsBig > span > img {
+    .frameAdsBig>span>img {
         vertical-align: middle;
         display: inline-block !important;
         width: auto !important;
@@ -711,12 +745,10 @@ ul {
     .cat-title.active:after {
         content: "\f068";
     }
-
-    .copyRightFooter {
+    .copyRightFooter{
         text-align: left !important;
         padding-left: 0px !important;
     }
-
     .p-2 {
         display: none;
     }
@@ -730,7 +762,6 @@ ul {
         padding: 0px;
         overflow: hidden;
     }
-
     .helperSliderBig {
         display: table-cell;
         text-align: center;
@@ -738,32 +769,30 @@ ul {
         height: auto;
         background: #ffffff;
     }
-
-    .leftMobileCarosel {
+    .leftMobileCarosel{
+        display: block;
+    }
+    .rightMobileCarosel{
         display: block;
     }
 
-    .rightMobileCarosel {
-        display: block;
+    .leftDesCarosel
+    {
+        display: none;
     }
-
-    .leftDesCarosel {
+    .rightDesCarosel
+    {
         display: none;
     }
 
-    .rightDesCarosel {
-        display: none;
+    .logoMobile{
+        height:95px;
     }
 
-    .logoMobile {
-        height: 95px;
-    }
-
-    .checkMobile {
+    .checkMobile{
         display: block;
     }
-
-    .checkDes {
+    .checkDes{
         display: none;
     }
 
@@ -776,8 +805,36 @@ ul {
         vertical-align: top;
         margin-left: -10px;
         padding: 0 7px;
-        margin-top: -8px;
+        margin-top: -4px;
     }
+    .resp-tab-item {
+        font-size: 8px;
+    }
+    .footer-classic a,
+    .footer-classic a:focus,
+    .footer-classic a:active {
+        color: #ffffff;
+        font-size: 12px;
+    }
+
+    h5.footerHeader {
+        font-size:14px;
+        font-weight: bold;
+    }
+
+    .sCatFooter{
+        display: none;
+    }
+    .footerContract
+    {
+        display: none;
+    }
+    .liContractMob{
+        display:block;
+    }
+
+
+
 
 
 }
@@ -804,7 +861,6 @@ ul {
         margin-top: -156px;
         padding-left: 110px;
     }
-
     .hotLineIcon {
         display: block;
     }
@@ -904,6 +960,7 @@ ul {
         font-size: 15pt;
     }
 
+
         #popupfoot {
             font-size: 16pt;
             position: absolute;
@@ -914,6 +971,7 @@ ul {
             padding-left: 245px;
             margin-top: -7px;
         }
+
         .frameAdsBig {
             height: 380px;
             display: table;
@@ -921,6 +979,7 @@ ul {
             text-align: center;
             padding: 0px;
         }
+
         .helperAdsBig {
             display: table-cell;
             text-align: center;
@@ -928,6 +987,7 @@ ul {
             height: 304px;
             background: #ddd;
             }*/
+
     #boxes #dialog {
         width: 100%;
         height: auto;
@@ -938,11 +998,12 @@ ul {
     }
 
 
+
     #popupfoot {
         font-size: 16pt;
         position: absolute;
         bottom: 0px;
-        top: 0;
+        top:0;
         width: 100%;
         left: 30px;
         padding-left: 245px;
@@ -965,7 +1026,7 @@ ul {
         background: #ddd;
     }
 
-    .frameAdsBig > span > img {
+    .frameAdsBig>span>img {
         vertical-align: middle;
         display: inline-block !important;
         width: auto !important;
@@ -1019,15 +1080,13 @@ ul {
         content: "\f068";
     }
 
-    .copyRightFooter {
+    .copyRightFooter{
         text-align: left !important;
         padding-left: 0px !important;
     }
-
-    .p-2 {
+    .p-2{
         display: none;
     }
-
     .frameSliderBig {
         /* height: 274px;*/
         height: auto;
@@ -1037,7 +1096,6 @@ ul {
         padding: 0px;
         overflow: hidden;
     }
-
     .helperSliderBig {
         display: table-cell;
         text-align: center;
@@ -1045,35 +1103,31 @@ ul {
         height: auto;
         background: #ffffff;
     }
-
-    .leftMobileCarosel {
+    .leftMobileCarosel{
+        display: block;
+    }
+    .rightMobileCarosel{
         display: block;
     }
 
-    .rightMobileCarosel {
+    .leftDesCarosel
+    {
+        display: none;
+    }
+    .rightDesCarosel
+    {
+        display: none;
+    }
+
+    .logoMobile{
+        height:95px;
+    }
+    .checkMobile{
         display: block;
     }
-
-    .leftDesCarosel {
+    .checkDes{
         display: none;
     }
-
-    .rightDesCarosel {
-        display: none;
-    }
-
-    .logoMobile {
-        height: 95px;
-    }
-
-    .checkMobile {
-        display: block;
-    }
-
-    .checkDes {
-        display: none;
-    }
-
     .badge {
         padding-left: 9px;
         padding-right: 9px;
@@ -1083,8 +1137,37 @@ ul {
         vertical-align: top;
         margin-left: -10px;
         padding: 0 7px;
-        margin-top: -8px;
+        margin-top: -4px;
     }
+    .resp-tab-item {
+        font-size: 8px;
+    }
+    .footer-classic a,
+    .footer-classic a:focus,
+    .footer-classic a:active  {
+        color: #ffffff;
+        font-size: 12px;
+    }
+
+    h5.footerHeader {
+        font-size:14px;
+        font-weight: bold;
+    }
+
+    .sCatFooter{
+        display: none;
+    }
+    .footerContract
+    {
+        display: none;
+    }
+    .liContractMob{
+        display:block;
+    }
+
+
+
+
 
 
 }
@@ -1211,6 +1294,8 @@ ul {
             font-family: 'Segoe UI Light', sans-serif;
             font-size: 15pt;
         }
+
+
             #popupfoot {
                 font-size: 16pt;
                 position: absolute;
@@ -1221,6 +1306,8 @@ ul {
                 padding-left: 245px;
                 margin-top: -7px;
             }
+
+
             .frameAdsBig {
                 height: 380px;
                 display: table;
@@ -1228,6 +1315,7 @@ ul {
                 text-align: center;
                 padding: 0px;
             }
+
             .helperAdsBig {
                 display: table-cell;
                 text-align: center;
@@ -1235,6 +1323,8 @@ ul {
                 height: 304px;
                 background: #ddd;
                 }*/
+
+
     #boxes #dialog {
         max-height: 100%;
         max-width: 90%;
@@ -1245,11 +1335,12 @@ ul {
     }
 
 
+
     #popupfoot {
         font-size: 16pt;
         position: absolute;
         bottom: 0px;
-        top: 0;
+        top:0;
         width: 100%;
         left: 30px;
         padding-left: 245px;
@@ -1272,7 +1363,7 @@ ul {
         background: #ddd;
     }
 
-    .frameAdsBig > span > img {
+    .frameAdsBig>span>img {
         vertical-align: middle;
         display: inline-block !important;
         width: auto !important;
@@ -1315,7 +1406,7 @@ ul {
     .cat-title:after {
         display: block;
         font-family: "FontAwesome";
-        content: "\f106";
+        content: "\f107";
         position: absolute;
         right: 15px;
         top: 20px;
@@ -1323,15 +1414,14 @@ ul {
     }
 
     .cat-title.active:after {
-        content: "\f107";
+        content: "\f106";
     }
 
-    .copyRightFooter {
+    .copyRightFooter{
         text-align: left !important;
         padding-left: 0px !important;
     }
-
-    .p-2 {
+    .p-2{
         display: none;
     }
 
@@ -1344,7 +1434,6 @@ ul {
         padding: 0px;
         overflow: hidden;
     }
-
     .helperSliderBig {
         display: table-cell;
         text-align: center;
@@ -1352,35 +1441,31 @@ ul {
         height: auto;
         background: #ffffff;
     }
-
-    .leftMobileCarosel {
+    .leftMobileCarosel{
+        display: block;
+    }
+    .rightMobileCarosel{
         display: block;
     }
 
-    .rightMobileCarosel {
+    .leftDesCarosel
+    {
+        display: none;
+    }
+    .rightDesCarosel
+    {
+        display: none;
+    }
+
+    .logoMobile{
+        height:95px;
+    }
+    .checkMobile{
         display: block;
     }
-
-    .leftDesCarosel {
+    .checkDes{
         display: none;
     }
-
-    .rightDesCarosel {
-        display: none;
-    }
-
-    .logoMobile {
-        height: 95px;
-    }
-
-    .checkMobile {
-        display: block;
-    }
-
-    .checkDes {
-        display: none;
-    }
-
     .badge {
         padding-left: 9px;
         padding-right: 9px;
@@ -1390,14 +1475,44 @@ ul {
         vertical-align: top;
         margin-left: -10px;
         padding: 0 7px;
-        margin-top: -8px;
+        margin-top: -4px;
     }
+    .resp-tab-item {
+        font-size: 8px;
+    }
+    .footer-classic a,
+    .footer-classic a:focus,
+    .footer-classic a:active {
+        color: #ffffff;
+        font-size: 12px;
+    }
+
+    h5.footerHeader {
+        font-size:14px;
+        font-weight: bold;
+    }
+
+    .sCatFooter{
+        display: none;
+    }
+    .footerContract
+    {
+        display: none;
+    }
+
+    .liContractMob{
+        display:block;
+    }
+
+
+
 
 
 }
 
 
 @media only screen and (min-device-width: 701px) {
+    /*	a.headerCat:hover, a.headerCat :active {color: red;}*/
     .topnav {
         display: none;
     }
@@ -1458,17 +1573,18 @@ ul {
     /*	border-radius: 23px 23px 23px 23px;*/
     /*	margin-top: 90px;*/
     /*}*/
+
     .carousel-control {
 
-        left: 2px;
+        left:2px;
         height: 00px;
         width: 40px;
         background: none repeat scroll 0 0 #222222;
         border: 0px solid #FFFFFF;
         border-radius: 23px 23px 23px 23px;
         margin-top: 90px;
-        color: #000000;
-        font-size: 30px;
+        color:#000000;
+        font-size:30px;
         font-weight: bold;
     }
 
@@ -1510,6 +1626,7 @@ ul {
     /*	width: 250px;*/
     /*	left: 250px;*/
     /*}*/
+
     #popupfoot {
         font-size: 16pt;
         position: absolute;
@@ -1537,7 +1654,7 @@ ul {
         background: #ddd;
     }
 
-    .frameAdsBig > span > img {
+    .frameAdsBig>span>img {
         vertical-align: middle;
         display: inline-block !important;
         width: auto !important;
@@ -1556,10 +1673,10 @@ ul {
         width: 100%;
         padding: 0px 4px;
         border-bottom: 1px solid #009345;
-        height: 1px;
+        /*height: 1px;*/
     }
 
-    .copyRightFooter {
+    .copyRightFooter{
         /*  display: block;*/
         /*padding-left: 110px;*/
         padding-right: 0px !important;
@@ -1567,32 +1684,44 @@ ul {
     }
 
 
-    .regLoginModal {
+    .regLoginModal{
         width: 500px !important;
     }
-
-    .leftMobileCarosel {
+    .leftMobileCarosel{
         display: none;
     }
-
-    .rightMobileCarosel {
+    .rightMobileCarosel{
         display: none;
     }
-
-    .leftDesCarosel {
+    .leftDesCarosel
+    {
+        display: block;
+    }
+    .rightDesCarosel
+    {
         display: block;
     }
 
-    .rightDesCarosel {
-        display: block;
-    }
-
-    .checkMobile {
+    .checkMobile{
         display: none;
     }
-
-    .checkDes {
+    .checkDes{
         display: block;
+    }
+    .footer-classic a,
+    .footer-classic a:focus,
+    .footer-classic a:active  {
+        color: #ffffff;
+
+    }
+
+
+    h5 {
+        font-size: 1.0625rem;
+    }
+
+    .liContractMob{
+        display:none;
     }
 
 
@@ -1713,22 +1842,15 @@ ul {
 }
 
 
-@media (max-width: 400px) {
+
+@media (max-width:400px) {
     .sp-vertical-megamenu .vf-megamenu .spvmm_container_menu_child {
         display: none;
 
     }
 }
 
-@media (max-width: 500px) {
-    .sp-vertical-megamenu .vf-megamenu .spvmm_container_menu_child {
-        display: none;
-
-
-    }
-}
-
-@media (max-width: 700px) {
+@media (max-width:500px) {
     .sp-vertical-megamenu .vf-megamenu .spvmm_container_menu_child {
         display: none;
 
@@ -1736,14 +1858,22 @@ ul {
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width:700px) {
+    .sp-vertical-megamenu .vf-megamenu .spvmm_container_menu_child {
+        display: none;
+
+
+    }
+}
+
+@media (max-width:700px) {
     .sp-vertical-megamenu .vf-megamenu .spvmm_container_menu_child {
         display: none;
 
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width:800px) {
     .sp-vertical-megamenu .vf-megamenu .spvmm_container_menu_child {
         display: none;
 
@@ -1767,43 +1897,41 @@ ul {
 /*	}*/
 /*}*/
 
-@media (max-width: 400px) {
-    .medium-9 {
-        max-width: 62%;
-        margin-top: -88px;
-        padding-left: 30px;
+/*	@media (max-width:400px) {
+        .medium-9 {
+            max-width:62%;
+            margin-top: -88px;
+            padding-left: 30px;
 
+        }
     }
-}
 
-@media (max-width: 500px) {
-    .medium-9 {
-        max-width: 62%;
-        margin-top: -88px;
-        padding-left: 30px;
+    @media (max-width:500px) {
+        .medium-9 {
+            max-width:62%;
+            margin-top: -88px;
+            padding-left: 30px;
 
+        }
     }
-}
+    @media (max-width:600px) {
+        .medium-9 {
+            max-width:62%;
+            margin-top: -88px;
+            padding-left: 30px;
 
-@media (max-width: 600px) {
-    .medium-9 {
-        max-width: 62%;
-        margin-top: -88px;
-        padding-left: 30px;
-
+        }
     }
-}
+    @media (max-width:700px) {
+        .medium-9 {
+            max-width:62%;
+            margin-top: -88px;
+            padding-left: 30px;
 
-@media (max-width: 700px) {
-    .medium-9 {
-        max-width: 62%;
-        margin-top: -88px;
-        padding-left: 30px;
+        }
+        }*/
 
-    }
-}
-
-@media (min-width: 701px) {
+@media (min-width:701px) {
     .medium-9 {
         /* background-color:#EFF0F2;*/
 
@@ -1811,41 +1939,41 @@ ul {
 }
 
 
-@media (min-width: 500px) {
-    .imglogo {
-        max-width: 205px;
+@media (min-width:500px) {
+    .imglogo{
+        max-width:205px;
         height: auto;
 
     }
 }
 
-@media (min-width: 400px) {
-    .imglogo {
-        max-width: 205px;
+@media (min-width:400px) {
+    .imglogo{
+        max-width:205px;
         height: auto;
 
     }
 }
 
-@media (min-width: 300px) {
-    .imglogo {
+@media (min-width:300px) {
+    .imglogo{
         /* max-width:70px;*/
-        max-width: 125px;
+        max-width:125px;
         height: auto;
 
     }
 }
 
 
-@media (min-width: 600px) {
-    .imglogo {
-        max-width: 225px;
+@media (min-width:600px) {
+    .imglogo{
+        max-width:225px;
         height: auto;
 
     }
 }
 
-@media (min-width: 700px) {
+@media (min-width:700px) {
     .imglogo {
         max-width: 205px;
         height: auto;
@@ -1854,7 +1982,7 @@ ul {
     }
 }
 
-@media (min-width: 800px) {
+@media (min-width:800px) {
     .imglogo {
         max-width: 200px;
         height: auto;
@@ -1863,7 +1991,7 @@ ul {
     }
 }
 
-@media (min-width: 900px) {
+@media (min-width:900px) {
     .imglogo {
         max-width: 200px;
         height: auto;
@@ -1872,7 +2000,7 @@ ul {
     }
 }
 
-@media (min-width: 1300px) {
+@media (min-width:1300px) {
     .imglogo {
         max-width: 200px;
         height: auto;
@@ -1886,7 +2014,6 @@ ul {
     -moz-transform: scale(1.1);
     -o-transform: scale(1.1);
 }
-
 .socialFooter {
     -webkit-transform: scale(0.8);
     /* Browser Variations: */
@@ -1906,35 +2033,33 @@ ul {
 #social-fb:hover {
     color: #3B5998;
 }
-
 #social-tw:hover {
     color: #4099FF;
 }
-
 #social-gp:hover {
     color: #d34836;
 }
-
 #social-em:hover {
     color: #f39c12;
 }
-
 .nav-list li {
     padding-top: 0px;
     padding-bottom: 0px;
 }
 
-.upper {
+.upper
+{
 
-    display: flex;
-    flex-direction: row;
+    display:flex;
+    flex-direction:row;
 
 }
 
-.upper > div {
-    flex: 1 1 auto;
+.upper > div
+{
+    flex:1 1 auto;
 
-    text-align: center;
+    text-align:center;
 
 }
 
@@ -1944,16 +2069,30 @@ ul {
     display: flex !important;
     /*  float: left;*/
 }
-
 .justify-content-between {
     -webkit-box-pack: justify !important;
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
 }
-
 .p-2 {
     padding: 0.1rem !important;
 }
+
+.p-2  a.headerCat:hover {
+    /*background-color:#c5c7c9;*/
+    color:#c5c7c9;
+
+    background-color:#c5c7c9;
+
+    margin-left:-5px;
+
+    padding-left:5px;
+
+    padding-right:5px;
+
+    /*width:100px;*/
+}
+/*    a.headerCat:hover, a.headerCat :active {color: red;}*/
 
 @charset "utf-8";
 /* CSS Document */

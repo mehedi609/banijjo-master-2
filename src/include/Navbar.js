@@ -127,7 +127,7 @@ class Navbar extends Component {
           </div>
           <div
             className="columns small-6 large-4"
-            style={{ marginTop: "22px" }}
+            style={{ marginTop: "22px", paddingLeft: "8px" }}
           >
             <div className="cartIcon">
               <a
@@ -138,7 +138,12 @@ class Navbar extends Component {
                 <i class="fa fa-shopping-cart" style={{ fontSize: "18px" }}></i>
                 <span
                   class="badge badge-light"
-                  style={{ backgroundColor: "#ec1624", fontSize: "8px" }}
+                  style={{
+                    backgroundColor: "transparent",
+                    fontSize: "13px",
+                    color: "#ec1624",
+                    paddingLeft: "11px"
+                  }}
                 >
                   {this.state.cartItemCount > 0 ? this.state.cartItemCount : 0}
                 </span>

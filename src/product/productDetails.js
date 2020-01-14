@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+
 import Footer from "../include/footer";
 import Navbar from "../include/Navbar";
 import axios from "axios";
@@ -57,17 +58,17 @@ class ProductDetails extends Component {
 
   componentDidMount() {
     this.getProductDetails();
-    // this.getDiscountAmount();
+    this.getDiscountAmount();
   }
 
-  /*getDiscountAmount() {
+  getDiscountAmount() {
     axios
-        .get(`${base}/api/getDiscountByProductId/${this.state.productId}`)
-        .then(res => {
-          // console.log(res.data.discountAmount);
-          this.setState({ discountAmount: res.data.discountAmount });
-        });
-  }*/
+      .get(`${base}/api/getDiscountByProductId/${this.state.productId}`)
+      .then(res => {
+        // console.log(res.data.discountAmount);
+        this.setState({ discountAmount: res.data.discountAmount });
+      });
+  }
 
   getProductDetails() {
     fetch(base + "/api/productDetails", {
@@ -1008,7 +1009,12 @@ class ProductDetails extends Component {
           <div className="sap_tabs">
             <div
               id="horizontalTab1"
-              style={{ display: "block", width: "100%", margin: "0px" }}
+              style={{
+                display: "block",
+                width: "100%",
+                margin: "0px",
+                paddingLeft: "6px"
+              }}
             >
               <ul>
                 <li

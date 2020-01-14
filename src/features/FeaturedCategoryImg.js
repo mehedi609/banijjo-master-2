@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 const fileUrl = process.env.REACT_APP_FILE_URL;
-const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 
 const FeaturedCategoryImg = ({ id, img }) => {
   return (

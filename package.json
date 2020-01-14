@@ -53,7 +53,7 @@
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.11.0",
     "react-flex-slider": "^6.3.1",
-    "react-image-magnifiers": "^1.2.1",
+    "react-image-magnifiers": "^1.2.2",
     "react-image-magnify": "^2.7.4",
     "react-owl-carousel": "^2.3.1",
     "react-router-dom": "^5.0.1",

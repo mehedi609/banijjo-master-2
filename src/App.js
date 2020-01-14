@@ -7,7 +7,8 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import FeaturedCategoryImg from "./features/FeaturedCategoryImg";
-import FeaturedBannerProds from "./include/FeaturedBannerProds";
+import CarouselSliderBannerImgs from "./include/CarouselSliderBannerImgs";
+import CarouselSliderMainBanner from "./include/CarouselSliderMainBanner";
 
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
@@ -35,6 +36,7 @@ class App extends Component {
       MoreTitle: "",
       BannerImagesTitle: "",
       FeaturedBrandsTitle: "",
+      BannerImagesCustom: [],
       BannerCarouselArr: [],
       Advertisement: "",
       featuredCategories: [],
@@ -49,10 +51,6 @@ class App extends Component {
     axios
       .get(`${base}/api/feature_category`)
       .then(res => this.setState({ featuredCategories: res.data.data }));
-
-    axios
-      .get(`${base}/api/feature_banner_products`)
-      .then(res => this.setState({ featuredBannerProds: res.data }));
   }
 
   getAdvertisement() {
@@ -191,7 +189,7 @@ class App extends Component {
             });
           } else {
             this.state.BannerImagesCustom.map((item, key) => {
-              activity = key == 0 ? (activity = "active") : "";
+              activity = key === 0 ? (activity = "active") : "";
               console.log(item);
               coolView.push(
                 <div className={"item " + activity}>
@@ -226,8 +224,59 @@ class App extends Component {
         this.setState({
           BannerCarouselArr: coolView
         });
+
         return false;
       });
+  }
+
+  bannerImages() {
+    let hotView = [];
+    let counter = 0;
+    this.state.BannerImages.map((item, key) => {
+      hotView.push(
+        <div className="column">
+          <a href={"/productDetails/" + item.productId}>
+            <div
+              className="frameSlider"
+              style={{ borderBottom: "1px solid #ddd" }}
+            >
+              <span className="helperSlider">
+                <img
+                  src={
+                    fileUrl +
+                    "/upload/product/productImages/" +
+                    item.productImage
+                  }
+                  alt=""
+                />
+              </span>
+            </div>
+          </a>
+        </div>
+      );
+
+      counter++;
+    });
+
+    if (counter < 5) {
+      for (let i = counter; i < 5; i++) {
+        hotView.push(
+          <div className="column">
+            <a href="http://banijjo.com.bd/productDetails/48">
+              <div
+                className="frameSlider"
+                style={{ borderBottom: "1px solid #ddd" }}
+              >
+                <span className="helperSlider">
+                  <img src="/asche.jpg" alt="" />
+                </span>
+              </div>
+            </a>
+          </div>
+        );
+      }
+    }
+    return hotView;
   }
 
   hotDeal() {
@@ -326,7 +375,7 @@ class App extends Component {
   newForYou() {
     let hotView = [];
     let counter = 0;
-    if (counter == 0) {
+    if (counter === 0) {
       this.state.NewForYou.map((item, key) => {
         hotView.push(
           <div className="column">
@@ -371,7 +420,7 @@ class App extends Component {
   topSelectionBig() {
     let hotView = [];
     let counter = 0;
-    if (counter == 0) {
+    if (counter === 0) {
       this.state.FeaturedBrands.map((item, key) => {
         hotView.push(
           <div className="column">
@@ -416,7 +465,7 @@ class App extends Component {
   storeWillLove() {
     let hotView = [];
     let counter = 0;
-    if (counter == 0) {
+    if (counter === 0) {
       this.state.StoreWIllLove.map((item, key) => {
         hotView.push(
           <div className="column">
@@ -462,7 +511,7 @@ class App extends Component {
   MoreMobile() {
     let hotView = [];
     let counter = 0;
-    if (counter == 0) {
+    if (counter === 0) {
       this.state.More.map((item, key) => {
         hotView.push(
           <div className="small-4 large-4 columns">
@@ -507,10 +556,10 @@ class App extends Component {
   MoreDesk() {
     let hotView = [];
     let counter = 0;
-    if (counter == 0) {
+    if (counter === 0) {
       this.state.More.map((item, key) => {
         hotView.push(
-          <div class="column">
+          <div className="column">
             <a href={"/productDetails/" + item.productId}>
               <div className="frameMore">
                 <span className="helperframeMore">
@@ -549,60 +598,9 @@ class App extends Component {
     return hotView;
   }
 
-  bannerImages() {
-    let hotView = [];
-    //   let tempView = [];
-    let counter = 0;
-    this.state.BannerImages.map((item, key) => {
-      hotView.push(
-        <div className="column">
-          <a href={"/productDetails/" + item.productId}>
-            <div
-              className="frameSlider"
-              style={{ borderBottom: "1px solid #ddd" }}
-            >
-              <span className="helperSlider">
-                <img
-                  src={
-                    fileUrl +
-                    "/upload/product/productImages/" +
-                    item.productImage
-                  }
-                  alt=""
-                />
-              </span>
-            </div>
-          </a>
-        </div>
-      );
-
-      counter++;
-    });
-
-    if (counter < 5) {
-      for (let i = counter; i < 5; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div
-                className="frameSlider"
-                style={{ borderBottom: "1px solid #ddd" }}
-              >
-                <span className="helperSlider">
-                  <img src="/asche.jpg" alt="" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;
-  }
-
   render() {
     const options = {
-      items: 4,
+      items: 5,
       rewind: true,
       autoplay: true,
       slideBy: 1,
@@ -619,58 +617,12 @@ class App extends Component {
             <div className="container">
               <div
                 className="row"
-                style={{ marginLeft: -30, marginRight: -30 }}
+                style={{ marginLeft: "-30px", marginRight: "-30px" }}
               >
-                <div className="col-md-6">
-                  <div id="Carousellg" className="carousel slide">
-                    <ol className="carousel-indicators">
-                      <li
-                        data-target="#Carousellg"
-                        data-slide-to="0"
-                        className="active"
-                      ></li>
-                      <li data-target="#Carousellg" data-slide-to="1"></li>
-                      <li data-target="#Carousellg" data-slide-to="2"></li>
-                    </ol>
-
-                    <div className="carousel-inner">
-                      {this.state.BannerCarouselArr}
-                    </div>
-
-                    <a
-                      data-slide="prev"
-                      href="#Carousellg"
-                      style={{ marginTop: "145px" }}
-                      className="left carousel-control leftDesCarosel"
-                    >
-                      ‹
-                    </a>
-                    <a
-                      data-slide="next"
-                      href="#Carousellg"
-                      style={{ marginTop: "145px" }}
-                      className="right carousel-control rightDesCarosel"
-                    >
-                      ›
-                    </a>
-
-                    <a
-                      data-slide="prev"
-                      href="#Carousellg"
-                      style={{ marginTop: "70px" }}
-                      className="left carousel-control leftMobileCarosel"
-                    >
-                      ‹
-                    </a>
-                    <a
-                      data-slide="next"
-                      href="#Carousellg"
-                      style={{ marginTop: "70px" }}
-                      className="right carousel-control rightMobileCarosel"
-                    >
-                      ›
-                    </a>
-                  </div>
+                <div className="col-md-6" style={{ marginTop: "5px" }}>
+                  <CarouselSliderMainBanner
+                    bannerImagesCustom={this.state.BannerImagesCustom}
+                  />
                 </div>
               </div>
             </div>
@@ -679,8 +631,8 @@ class App extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-6">
-                    <FeaturedBannerProds
-                      prodsImags={this.state.featuredBannerProds}
+                    <CarouselSliderBannerImgs
+                      bannerImages={this.state.BannerImages}
                     />
                   </div>
                 </div>

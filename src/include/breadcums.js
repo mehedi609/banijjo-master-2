@@ -95,7 +95,7 @@ class Breadcums extends Component {
       <React.Fragment>
         <section className="cartDesktopView">
           <div className="row" style={{ marginTop: -40 }}>
-            <div class="medium-3 large-3 columns">
+            <div className="medium-3 large-3 columns">
               <p className="gap">&nbsp;</p>
             </div>
             <div className="medium-6 columns">
@@ -152,9 +152,9 @@ class Breadcums extends Component {
                     style={{ fontSize: "18px" }}
                   ></i>{" "}
                   <span
-                    class="badge badge-light"
+                    className="badge badge-light"
                     style={{
-                      backgroundColor: "#ffffff",
+                      backgroundColor: "transparent",
                       fontSize: "13px",
                       color: "#ec1624"
                     }}
