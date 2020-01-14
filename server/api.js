@@ -29,19 +29,6 @@ router.get("/feature_name", async (req, res) => {
   return res.send(feature_name);
 });
 
-router.get("/feature_banner_products", async (req, res) => {
-  try {
-    const banner_imags = await query(
-      "SELECT featured_banner_products.id, featured_banner_products.product_id, product_name, home_image, featured_banner_products.category_id, featured_banner_products.vendor_id FROM `featured_banner_products` JOIN products ON featured_banner_products.product_id=products.id"
-    );
-
-    return res.json(banner_imags);
-  } catch (e) {
-    console.error(e.message);
-    return res.status(500).send("Server Error");
-  }
-});
-
 const getProductInfoByCategoryId = async cat_id => {
   return await query(
     `Select category_id,home_image from products where category_id=${cat_id} and softDelete=0 and isApprove='authorize' and status='active'`
