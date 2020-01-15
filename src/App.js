@@ -992,10 +992,10 @@ class App extends Component {
                   }}
                 ></i>
               </button>
-            </div>
+              </div>
+              </div>
+              <div id="mask"></div>
           </div>
-          <div id="mask"></div>
-        </div>
 
         <Footer />
       </div>

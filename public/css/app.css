@@ -18,9 +18,9 @@ ul ul {
    padding-top:20px;
    padding-bottom:100px;
    color:#FFFFFF;*/
-}
+ }
 
-.frameCatImage {
+ .frameCatImage {
   height: 40px;
   display: table;
   width: 100%;
@@ -424,6 +424,42 @@ input:hover,
   max-height: 100%;
   max-width: 100%;
 }
+
+
+
+
+
+
+.frameZoomSlider {
+  height: 73px;
+  display: table;
+  width: 100%;
+  text-align: center;
+  padding: 0px;
+  overflow: hidden;
+}
+.helperZoomSlider {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  height: 120px;
+  background: #ffffff;
+}
+.frameZoomSlider > span > img {
+  vertical-align: middle;
+  display: inline-block !important;
+  width: auto !important;
+  max-height: 100%;
+  max-width: 100%;
+  -webkit-transition: 0.2s ease;
+  transition: 0.6s ease;
+}
+.frameZoomSlider > span > img:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+
 
 
 /*
