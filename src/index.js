@@ -12,6 +12,7 @@ import WishList from "./product/wishList";
 import Vendor from "./product/vendor";
 import NotFound from "./not_found";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ContactUs from "./include/ContactUs";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -28,6 +29,7 @@ ReactDOM.render(
         <Route exact path="/cart" component={ShoppingCart}></Route>
         <Route exact path="/wish" component={WishList}></Route>
         <Route exact path="/vendor/:id" component={Vendor}></Route>
+        <Route exact path="/contactUs" component={ContactUs}></Route>
         {/* <Route  exact path="/logout" component={ShoppingCart}></Route> */}
         <Route exact path="/" component={App}></Route>
         <Route path="*" component={NotFound}></Route>

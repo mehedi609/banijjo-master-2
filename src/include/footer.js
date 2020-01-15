@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Footer extends Component {
   render() {
@@ -37,7 +38,7 @@ class Footer extends Component {
                     <a href="#">FAQ</a>
                   </li>
                   <li className="liContractMob">
-                    <a href="#">Contract us</a>
+                    <a href="/contactUs">Contract us</a>
                   </li>
                 </ul>
                 <p>
@@ -96,7 +97,11 @@ class Footer extends Component {
                 <h5 className="footerHeader" style={{ marginTop: "15px" }}>
                   Contract us
                 </h5>
-                <p>NA</p>
+                <ul className="nav-list" style={{ paddingLeft: "10px" }}>
+                  <li>
+                    <a href="/contactUs">Contract us</a>
+                  </li>
+                </ul>
               </div>
             </div>
           </footer>

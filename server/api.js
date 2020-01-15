@@ -1,8 +1,8 @@
 const express = require("express");
 const fetch = require("node-fetch");
-// const _ = require("lodash");
-const { dbConnection, query } = require("./db_local_config");
-// const { dbConnection, query } = require("./db_com_bd_config");
+const { uniq, sampleSize, random } = require("lodash");
+// const { dbConnection, query } = require("./db_local_config");
+const { dbConnection, query } = require("./db_com_bd_config");
 
 dbConnection.connect(err => {
   if (err) {
@@ -31,12 +31,12 @@ router.get("/feature_name", async (req, res) => {
 
 const getProductInfoByCategoryId = async cat_id => {
   return await query(
-    `Select category_id,home_image from products where category_id=${cat_id} and softDelete=0 and isApprove='authorize' and status='active'`
+    `Select category_id, home_image from products where category_id=${cat_id} and softDelete=0 and isApprove='authorize' and status='active'`
   );
 };
 
-const getRandEleFromArray = (my_arr, sampleSize) =>
-  _.sampleSize(_.uniq(my_arr.map(({ id }) => id)), sampleSize);
+const getRandEleFromArray = (my_arr, sample_size) =>
+  sampleSize(uniq(my_arr.map(({ id }) => id)), sample_size);
 
 router.get("/feature_category", async (req, res) => {
   const null_cat_id = {
@@ -53,7 +53,7 @@ router.get("/feature_category", async (req, res) => {
       let products = await getProductInfoByCategoryId(category_id);
 
       resObj.parent =
-        products[products.length > 1 ? _.random(0, products.length - 1) : 0];
+        products[products.length > 1 ? random(0, products.length - 1) : 0];
 
       let child_cats = await query(
         `SELECT * FROM category WHERE parent_category_id=${category_id} AND status='active'`
@@ -109,7 +109,7 @@ router.get("/feature_category", async (req, res) => {
           let id = gc1[i];
           let prodImgs = await getProductInfoByCategoryId(id);
           gcImgsObj.gc1 =
-            prodImgs.length > 3 ? _.sampleSize(prodImgs, 3) : prodImgs;
+            prodImgs.length > 3 ? sampleSize(prodImgs, 3) : prodImgs;
         } else {
           gcImgsObj.gc1 = [];
         }
@@ -118,7 +118,7 @@ router.get("/feature_category", async (req, res) => {
           let id = gc2[i];
           let prodImgs = await getProductInfoByCategoryId(id);
           gcImgsObj.gc2 =
-            prodImgs.length > 3 ? _.sampleSize(prodImgs, 3) : prodImgs;
+            prodImgs.length > 3 ? sampleSize(prodImgs, 3) : prodImgs;
         } else {
           gcImgsObj.gc2 = [];
         }
@@ -134,11 +134,7 @@ router.get("/feature_category", async (req, res) => {
       res_arr.push(resObj);
     }
 
-    return res.json({
-      error: false,
-      data: res_arr,
-      message: "all Subcategory list."
-    });
+    return res.json(res_arr);
   } catch (e) {
     console.error(e.message);
     res.send("Server Error");

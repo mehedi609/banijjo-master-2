@@ -758,7 +758,7 @@ class ProductDetails extends Component {
 
         <div className="row">
           <div className="medium-4 large-4 columns">
-            <div className="row" style={{ marginTop: "60px" }}>
+            <div className="row" style={{ marginTop: "0px" }}>
               <div className="medium-9 large-9 columns">
                 <div className="img-zoom-container">
                   <img

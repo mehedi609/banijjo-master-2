@@ -50,7 +50,7 @@ class App extends Component {
 
     axios
       .get(`${base}/api/feature_category`)
-      .then(res => this.setState({ featuredCategories: res.data.data }));
+      .then(res => this.setState({ featuredCategories: res.data }));
   }
 
   getAdvertisement() {
@@ -165,10 +165,7 @@ class App extends Component {
                   <div className="row">
                     <div className="column">
                       <a href={"/productDetails/" + item.productId}>
-                        <div
-                          className="frameSliderBig"
-                          style={{ borderBottom: "1px solid #ddd" }}
-                        >
+                        <div className="frameSliderBig">
                           <span className="helperSliderBig">
                             <img
                               src={
@@ -196,10 +193,7 @@ class App extends Component {
                   <div className="row">
                     <div className="column">
                       <a href={item.url}>
-                        <div
-                          className="frameSliderBig"
-                          style={{ borderBottom: "1px solid #ddd" }}
-                        >
+                        <div className="frameSliderBig">
                           <span className="helperSliderBig">
                             <img
                               src={
@@ -236,10 +230,7 @@ class App extends Component {
       hotView.push(
         <div className="column">
           <a href={"/productDetails/" + item.productId}>
-            <div
-              className="frameSlider"
-              style={{ borderBottom: "1px solid #ddd" }}
-            >
+            <div className="frameSlider">
               <span className="helperSlider">
                 <img
                   src={
@@ -263,10 +254,7 @@ class App extends Component {
         hotView.push(
           <div className="column">
             <a href="http://banijjo.com.bd/productDetails/48">
-              <div
-                className="frameSlider"
-                style={{ borderBottom: "1px solid #ddd" }}
-              >
+              <div className="frameSlider">
                 <span className="helperSlider">
                   <img src="/asche.jpg" alt="" />
                 </span>
@@ -311,10 +299,7 @@ class App extends Component {
         hotView.push(
           <div>
             <a target="__blank" href={"/productDetails/" + 103}>
-              <div
-                className="frameHotDeal"
-                style={{ borderBottom: "1px solid #ddd" }}
-              >
+              <div className="frameHotDeal">
                 <span className="helperHotDeal">
                   <img src="/ppppp.jpg" alt="productImage" />
                 </span>
@@ -808,10 +793,7 @@ class App extends Component {
                   <div className="row" style={{ marginTop: -30 }}>
                     <div className="medium-8 columns">
                       <a href={"/productList/" + parent.category_id}>
-                        <div
-                          className="frameFeatureCat"
-                          style={{ borderBottom: "1px solid #ddd" }}
-                        >
+                        <div className="frameFeatureCat">
                           <span className="helperframeFeatureCat">
                             <img
                               src={
@@ -946,10 +928,7 @@ class App extends Component {
           <div id="dialog" className="window">
             {/* <img src={fileUrl + "/upload/product/productImages/" + this.state.Advertisement} alt="Advert" className="adsBigImage" /> */}
 
-            <div
-              className="frameAdsBig"
-              style={{ borderBottom: "1px solid #ddd" }}
-            >
+            <div className="frameAdsBig">
               <span className="helperAdsBig">
                 <img
                   src={
@@ -962,20 +941,6 @@ class App extends Component {
               </span>
             </div>
 
-            {/*<div id="popupfoot">
-            <button
-            type="button"
-            style={{
-              color: "#ffffff",
-              backgroundColor: "#EB1C22",
-              marginBottom: "8px",
-              align: "center"
-            }}
-            className="btn-sm closeButton agree"
-            >
-            Close
-            </button>
-          </div>*/}
             <div id="popupfoot">
               <button
                 type="button"

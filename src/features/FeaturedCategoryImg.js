@@ -5,10 +5,7 @@ const FeaturedCategoryImg = ({ id, img }) => {
   return (
     <Fragment>
       <a href={`/productList/${id}`}>
-        <div
-          className="frameFeatureCatSm"
-          style={{ borderBottom: "1px solid #ddd" }}
-        >
+        <div className="frameFeatureCatSm">
           <span className="helperframeFeatureCatSm">
             <img
               src={`${fileUrl}/upload/product/productImages/${img}`}
