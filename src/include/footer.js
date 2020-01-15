@@ -95,7 +95,7 @@ class Footer extends Component {
               </div>
               <div className="col-md-4 footerContract">
                 <h5 className="footerHeader" style={{ marginTop: "15px" }}>
-                  Contract us
+                  Contract
                 </h5>
                 <ul className="nav-list" style={{ paddingLeft: "10px" }}>
                   <li>
