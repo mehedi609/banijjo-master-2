@@ -37,10 +37,10 @@ class Footer extends Component {
                     <a href="#">FAQ</a>
                   </li>
                   <li className="liContractMob">
-                    <a href="/contactUs">Contract us</a>
+                    <a href="#">Contract us</a>
                   </li>
                 </ul>
-                <p>
+                <p class="socialNone">
                   <a href="https://www.facebook.com/banijjo/" target="_blank">
                     <i
                       id="social-fb"
@@ -94,13 +94,33 @@ class Footer extends Component {
               </div>
               <div className="col-md-4 footerContract">
                 <h5 className="footerHeader" style={{ marginTop: "15px" }}>
-                  Contract
+                  Contact us
                 </h5>
                 <ul className="nav-list" style={{ paddingLeft: "10px" }}>
                   <li>
-                    <a href="/contactUs">Contract us</a>
+                    <a href="/contactUs">Contact us</a>
                   </li>
                 </ul>
+                <p>
+                  <a href="https://www.facebook.com/banijjo/" target="_blank">
+                    <i
+                      id="social-fb"
+                      className="fa fa-facebook-square fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a href="#">
+                    <i
+                      id="social-tw"
+                      className="fa fa-twitter-square fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a href="#">
+                    <i
+                      id="social-gp"
+                      className="fa fa-linkedin-square fa-3x socialFooter"
+                    ></i>
+                  </a>
+                </p>
               </div>
             </div>
           </footer>
@@ -108,7 +128,7 @@ class Footer extends Component {
 
         <div className="row">
           <div className="container">
-            <div className="col-md-6" style={{ paddingLeft: "0px !important" }}>
+            <div className="col-md-6 copyRightFooterYear">
               <p style={{ fontSize: "14px" }}>
                 {" "}
                 ©️ 2010-2019{" "}
@@ -124,7 +144,7 @@ class Footer extends Component {
                 {" "}
                 Design and Developed By
                 <a href="http://www.ambalait.com/" target="_blank">
-                  <img src="image/ambala_it.png" />
+                  <img src="../image/ambala_it.png" />
                 </a>
               </p>
             </div>
