@@ -37,7 +37,7 @@ class Footer extends Component {
                     <a href="#">FAQ</a>
                   </li>
                   <li className="liContractMob">
-                    <a href="#">Contract us</a>
+                    <a href="/contactUs">Contact us</a>
                   </li>
                 </ul>
                 <p class="socialNone">
