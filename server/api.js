@@ -245,7 +245,9 @@ router.post("/productDetails", async (req, res) => {
     productDetails[0].product_specification_name
   );
 
-  // const metaTags = JSON.parse(productDetails[0].metaTags);
+  const metaTags = productDetails[0].metaTags
+    ? JSON.parse(productDetails[0].metaTags)
+    : [];
 
   for (const i in specificationArray) {
     let tempObject = {};
@@ -282,7 +284,7 @@ router.post("/productDetails", async (req, res) => {
   resultArray.productSpecifications = specificationActualArray;
   resultArray.producSmVendor = productListSmVendorOtherCategory;
   resultArray.productSmCategory = productListSmCategoryOthersVendor;
-  resultArray.metaTags = JSON.parse(productDetails[0].metaTags);
+  resultArray.metaTags = metaTags;
   return res.send({
     error: false,
     data: resultArray,

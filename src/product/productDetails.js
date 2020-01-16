@@ -582,7 +582,7 @@ class ProductDetails extends Component {
             </li>
             <li>
               <div className="ct-socials-icon">
-                <PinterestShareButton url={shareUrl} quote={productName}>
+                <PinterestShareButton url={String(window.location)}>
                   <PinterestIcon size={35} round />
                 </PinterestShareButton>
               </div>
