@@ -9,6 +9,7 @@ import {
   LinkedinShareButton,
   LinkedinIcon
 } from "react-share";
+import { Helmet } from "react-helmet";
 
 import Footer from "../include/footer";
 import Navbar from "../include/Navbar";
@@ -56,7 +57,8 @@ class ProductDetails extends Component {
       passwordError: "",
       cartArr: [],
       color: "",
-      discountAmount: 0
+      discountAmount: 0,
+      metaTags: []
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -131,7 +133,8 @@ class ProductDetails extends Component {
             : null,
           product_specification_name: response.data.productSpecifications
             ? response.data.productSpecifications
-            : null
+            : null,
+          metaTags: response.data.metaTags
         });
 
         this.setState({
@@ -532,14 +535,23 @@ class ProductDetails extends Component {
   }
 
   render() {
-    const { productId, productName } = this.state;
+    const { productId, productName, metaTags, productImages } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
     // const title = productName;
 
     return (
       <React.Fragment>
-        <ul className="ct-socials">
+        <Helmet>
+          {metaTags &&
+            metaTags.map(tags => <meta name="description" content={tags} />)}
+          {productImages &&
+            productImages.map(({ imageName }) => (
+              <meta name="description" content={imageName} />
+            ))}
+        </Helmet>
+
+        {/*<ul className="ct-socials">
           <li>
             <div className="ct-socials-icon">
               <TwitterShareButton url={shareUrl} quote={productName}>
@@ -568,7 +580,7 @@ class ProductDetails extends Component {
               </LinkedinShareButton>
             </div>
           </li>
-        </ul>
+        </ul>*/}
 
         <button
           style={{ display: "none !important" }}

@@ -14,117 +14,6 @@ class Categories extends Component {
 
   componentDidMount() {
     this.getAllCategories();
-
-    /*$(
-      "#sp_vertical_megamenu li:has(.spvmm_container_menu_child)"
-    ).doubleTapToGo();
-    function isMobile() {
-      if (
-        navigator.userAgent.match(/Android/i) ||
-        navigator.userAgent.match(/webOS/i) ||
-        navigator.userAgent.match(/iPad/i) ||
-        navigator.userAgent.match(/iPhone/i) ||
-        navigator.userAgent.match(/iPod/i)
-      ) {
-        return true;
-      }
-    }
-
-    $(document).ready(function($) {
-      (function(element) {
-        var el = $(element),
-          vf_megamenu = $(".vf-megamenu", el),
-          level1 = $(".vf-megamenu >.spvmm-havechild", el),
-          _li = $(".spvmm-havechild", el),
-          vf_button = $(".vf-button", el),
-          nb_hiden = 10;
-        if (level1.length && level1.length > nb_hiden) {
-          for (var i = 0; i < level1.length; i++) {
-            if (i > nb_hiden - 1) {
-              level1.eq(i).addClass("cat-visible");
-              level1.eq(i).hide();
-            }
-          }
-          vf_megamenu.append(
-            '<li class="more-wrap"><span class="more-view"><i class="fa fa-plus-square-o"></i>More Categories</span></li>'
-          );
-          $(".more-view", vf_megamenu).on("click touchstart", function() {
-            if (level1.hasClass("cat-visible")) {
-              vf_megamenu
-                .find(".cat-visible")
-                .removeClass("cat-visible")
-                .addClass("cat-hidden")
-                .stop()
-                .slideDown(400);
-              $(this).html(
-                '<i class="fa fa-minus-square-o"></i>Close Categories'
-              );
-            } else if (level1.hasClass("cat-hidden")) {
-              vf_megamenu
-                .find(".cat-hidden")
-                .removeClass("cat-hidden")
-                .addClass("cat-visible")
-                .stop()
-                .slideUp(200);
-              $(this).html(
-                '<i class="fa fa-plus-square-o"></i>More Categories'
-              );
-            }
-          });
-        }
-
-        function _vfResponsiveMegaMenu() {
-          if ($(window).width() <= 767) {
-            vf_megamenu.hide();
-            $(".cat-title", el).on("click", function() {
-              $(this)
-                .toggleClass("active")
-                .parent()
-                .find("ul.vf-megamenu")
-                .stop()
-                .slideToggle("medium");
-              return false;
-            });
-            _li.addClass("vf-close");
-            _li.children("div").css("display", "none");
-            if (vf_button.length) {
-              vf_button.on("click", function() {
-                var _this = $(this),
-                  li = _this.parent(),
-                  ul = li.children("ul");
-                var _div = li.children("div");
-                if (li.hasClass("vf-close")) {
-                  li.removeClass("vf-close").addClass("vf-open");
-                  _div.stop(false, true).slideDown(500);
-                  _this.removeClass("icon-close").addClass("icon-open");
-                } else {
-                  li.removeClass("vf-open").addClass("vf-close");
-                  _div.stop(false, true).slideUp(200);
-                  _this.removeClass("icon-open").addClass("icon-close");
-                }
-                return;
-              });
-            }
-          } else {
-            $(".cat-title", el).unbind("click");
-            vf_button.unbind("click");
-            $(".cat-title", el).removeClass("active");
-            vf_megamenu.removeAttr("style");
-            _li.addClass("vf-close");
-            _li.children("div").removeAttr("style");
-            vf_button.removeClass("icon-open").addClass("icon-close");
-          }
-        }
-        _vfResponsiveMegaMenu();
-
-        if (isMobile()) {
-        } else {
-          $(window).on("resize", function() {
-            _vfResponsiveMegaMenu();
-          });
-        }
-      })("#sp_vertical_megamenu");
-  });*/
   }
 
   getAllCategories() {
@@ -171,7 +60,7 @@ class Categories extends Component {
               <i className="fa fa-list-ul" aria-hidden="true"></i> Categories
             </h2>
 
-            <ul className="vf-megamenu clearfix megamenu-content">
+            <ul className="vf-megamenu clearfix megamenu-content catDisplayMobile">
               {this.state.Categories.length > 0 ? (
                 this.state.Categories.map(
                   ({ category, subcategories, vendorImages }) => {
