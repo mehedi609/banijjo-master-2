@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import './index.css';
 import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 import ProductDetails from "./product/productDetails";
 import ProductList from "./product/productList";
 import Search from "./product/search";
@@ -12,6 +10,8 @@ import WishList from "./product/wishList";
 import Vendor from "./product/vendor";
 import NotFound from "./not_found";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import ContactUs from "./include/ContactUs";
+import FeatureProductsList from "./product/FeatureProductsList";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -23,11 +23,17 @@ ReactDOM.render(
           component={ProductDetails}
         ></Route>
         <Route exact path="/productList/:cid" component={ProductList}></Route>
+        <Route
+          exact
+          path="/featureproducts/:id"
+          component={FeatureProductsList}
+        ></Route>
         <Route exact path="/search/:keyName" component={Search}></Route>
         <Route exact path="/moreCategory" component={MoreCategory}></Route>
         <Route exact path="/cart" component={ShoppingCart}></Route>
         <Route exact path="/wish" component={WishList}></Route>
         <Route exact path="/vendor/:id" component={Vendor}></Route>
+        <Route exact path="/contactUs" component={ContactUs}></Route>
         {/* <Route  exact path="/logout" component={ShoppingCart}></Route> */}
         <Route exact path="/" component={App}></Route>
         <Route path="*" component={NotFound}></Route>

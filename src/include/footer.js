@@ -40,7 +40,7 @@ class Footer extends Component {
                     <a href="/contactUs">Contact us</a>
                   </li>
                 </ul>
-                <p className="socialNone">
+                <p class="socialNone">
                   <a href="https://www.facebook.com/banijjo/" target="_blank">
                     <i
                       id="social-fb"

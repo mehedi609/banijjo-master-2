@@ -1,6 +1,10 @@
 const express = require("express");
 const fetch = require("node-fetch");
-// const _ = require("lodash");
+const {
+  _getRandEleFromArray,
+  _sampleSize,
+  _getARandomNumber
+} = require("./helpers");
 const { dbConnection, query } = require("./db_local_config");
 // const { dbConnection, query } = require("./db_com_bd_config");
 
@@ -29,14 +33,11 @@ router.get("/feature_name", async (req, res) => {
   return res.send(feature_name);
 });
 
-const getProductInfoByCategoryId = async cat_id => {
+const _getProductInfoByCategoryId = async cat_id => {
   return await query(
-    `Select category_id,home_image from products where category_id=${cat_id} and softDelete=0 and isApprove='authorize' and status='active'`
+    `Select category_id, home_image from products where category_id=${cat_id} and softDelete=0 and isApprove='authorize' and status='active'`
   );
 };
-
-const getRandEleFromArray = (my_arr, sampleSize) =>
-  _.sampleSize(_.uniq(my_arr.map(({ id }) => id)), sampleSize);
 
 router.get("/feature_category", async (req, res) => {
   const null_cat_id = {
@@ -50,22 +51,24 @@ router.get("/feature_category", async (req, res) => {
 
     for (const fc_id of featured_categories) {
       const { category_id } = fc_id;
-      let products = await getProductInfoByCategoryId(category_id);
+      let products = await _getProductInfoByCategoryId(category_id);
 
       resObj.parent =
-        products[products.length > 1 ? _.random(0, products.length - 1) : 0];
+        products[
+          products.length > 1 ? _getARandomNumber(0, products.length - 1) : 0
+        ];
 
       let child_cats = await query(
         `SELECT * FROM category WHERE parent_category_id=${category_id} AND status='active'`
       );
 
-      const cat_id_arr = getRandEleFromArray(child_cats, 2);
+      const cat_id_arr = _getRandEleFromArray(child_cats, 2);
 
       if (cat_id_arr) {
         let temp_child_img = [];
         for (const id of cat_id_arr) {
           if (id) {
-            const res = await getProductInfoByCategoryId(id);
+            const res = await _getProductInfoByCategoryId(id);
             temp_child_img.push(res[0] ? res[0] : null_cat_id);
           }
         }
@@ -87,7 +90,7 @@ router.get("/feature_category", async (req, res) => {
               `SELECT id FROM category WHERE parent_category_id=${category_id}`
             );
 
-            gc1 = res ? getRandEleFromArray(res, 3) : [];
+            gc1 = res ? _getRandEleFromArray(res, 3) : [];
           }
         } else {
           if (category_id !== null) {
@@ -95,7 +98,7 @@ router.get("/feature_category", async (req, res) => {
               `SELECT id FROM category WHERE parent_category_id=${category_id}`
             );
 
-            gc2 = res ? getRandEleFromArray(res, 3) : [];
+            gc2 = res ? _getRandEleFromArray(res, 3) : [];
           }
         }
       }
@@ -107,18 +110,18 @@ router.get("/feature_category", async (req, res) => {
 
         if (gc1[i]) {
           let id = gc1[i];
-          let prodImgs = await getProductInfoByCategoryId(id);
+          let prodImgs = await _getProductInfoByCategoryId(id);
           gcImgsObj.gc1 =
-            prodImgs.length > 3 ? _.sampleSize(prodImgs, 3) : prodImgs;
+            prodImgs.length > 3 ? _sampleSize(prodImgs, 3) : prodImgs;
         } else {
           gcImgsObj.gc1 = [];
         }
 
         if (gc2[i]) {
           let id = gc2[i];
-          let prodImgs = await getProductInfoByCategoryId(id);
+          let prodImgs = await _getProductInfoByCategoryId(id);
           gcImgsObj.gc2 =
-            prodImgs.length > 3 ? _.sampleSize(prodImgs, 3) : prodImgs;
+            prodImgs.length > 3 ? _sampleSize(prodImgs, 3) : prodImgs;
         } else {
           gcImgsObj.gc2 = [];
         }
@@ -134,11 +137,7 @@ router.get("/feature_category", async (req, res) => {
       res_arr.push(resObj);
     }
 
-    return res.json({
-      error: false,
-      data: res_arr,
-      message: "all Subcategory list."
-    });
+    return res.json(res_arr);
   } catch (e) {
     console.error(e.message);
     res.send("Server Error");
@@ -156,49 +155,49 @@ router.get("/all_product_list", async function(req, res, next) {
   for (const feature_name of feature_names) {
     if (feature_name.code === 2) {
       resultArray.HotDeals = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.HotDealsTitle = feature_name.name;
     } else if (feature_name.code === 3) {
       resultArray.TopSelections = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.TopSelectionsTitle = feature_name.name;
     } else if (feature_name.code === 4) {
       resultArray.NewForYou = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.NewForYouTitle = feature_name.name;
     } else if (feature_name.code === 0) {
       resultArray.BannerTop = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.BannerTopTitle = feature_name.name;
     } else if (feature_name.code === 6) {
       resultArray.StoreWIllLove = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.StoreWIllLoveTitle = feature_name.name;
     } else if (feature_name.code === 7) {
       resultArray.More = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.MoreTitle = feature_name.name;
     } else if (feature_name.code === 1) {
       resultArray.BannerImages = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.BannerImagesTitle = feature_name.name;
     } else if (feature_name.code === 5) {
       resultArray.FeaturedBrands = await query(
-        "SELECT feature_products FROM feature_products where feature_id=" +
+        "SELECT feature_id, feature_products FROM feature_products where feature_id=" +
           feature_name.id
       );
       resultArray.FeaturedBrandsTitle = feature_name.name;
@@ -245,6 +244,11 @@ router.post("/productDetails", async (req, res) => {
   const specificationArray = JSON.parse(
     productDetails[0].product_specification_name
   );
+
+  const metaTags = productDetails[0].metaTags
+    ? JSON.parse(productDetails[0].metaTags)
+    : [];
+
   for (const i in specificationArray) {
     let tempObject = {};
     tempObject.specificationNameValue =
@@ -280,12 +284,14 @@ router.post("/productDetails", async (req, res) => {
   resultArray.productSpecifications = specificationActualArray;
   resultArray.producSmVendor = productListSmVendorOtherCategory;
   resultArray.productSmCategory = productListSmCategoryOthersVendor;
+  resultArray.metaTags = metaTags;
   return res.send({
     error: false,
     data: resultArray,
     message: "all Product Deatils list."
   });
 });
+
 var lastChildsAll = [];
 
 router.get("/sidebar_category", async (req, res) => {
@@ -1466,6 +1472,29 @@ router.get("/product_list", (req, res) => {
 
 router.post("/saveCategory", (req, res) => {
   return res.send(req.body);
+});
+
+//mehedi -- 15/01/2020
+router.get("/featureproducts/:id", async (req, res) => {
+  let resultArr = [];
+  try {
+    const data = await query(
+      `SELECT feature_products FROM feature_products WHERE feature_id=${req.params.id} AND status=1`
+    );
+    const featureProducts = JSON.parse(data[0].feature_products);
+
+    for (const featureProduct of featureProducts) {
+      const products = await query(
+        `SELECT * FROM products WHERE isApprove='authorize' AND status='active' AND softDelete=0 AND id=${featureProduct.productId}`
+      );
+
+      resultArr = [...resultArr, ...products];
+    }
+    res.json(resultArr);
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).send("Server Error");
+  }
 });
 
 module.exports = router;

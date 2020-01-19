@@ -1,4 +1,15 @@
 import React, { Component, Fragment } from "react";
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterShareButton,
+  TwitterIcon,
+  PinterestShareButton,
+  PinterestIcon,
+  LinkedinShareButton,
+  LinkedinIcon
+} from "react-share";
+import { Helmet } from "react-helmet";
 
 import Footer from "../include/footer";
 import Navbar from "../include/Navbar";
@@ -8,6 +19,7 @@ import $ from "jquery";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import "../assets/social-share.css";
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -45,7 +57,8 @@ class ProductDetails extends Component {
       passwordError: "",
       cartArr: [],
       color: "",
-      discountAmount: 0
+      discountAmount: 0,
+      metaTags: []
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -120,21 +133,23 @@ class ProductDetails extends Component {
             : null,
           product_specification_name: response.data.productSpecifications
             ? response.data.productSpecifications
-            : null
+            : null,
+          metaTags: response.data.metaTags
         });
 
         this.setState({
           showClickedImage: response.data.productDetails[0].home_image
         });
 
-        window.imageZoom(
-          "myimage",
-          "myresult",
-          fileUrl +
-            "/upload/product/productImages/" +
-            this.state.showClickedImage
-        );
-        return false;
+        setTimeout(() => {
+          window.imageZoom(
+            "myimage",
+            "myresult",
+            fileUrl +
+              "/upload/product/productImages/" +
+              this.state.showClickedImage
+          );
+        }, 600);
       });
   }
 
@@ -170,11 +185,17 @@ class ProductDetails extends Component {
                   );
                 }}
               >
-                <img
-                  src={
-                    fileUrl + "/upload/product/productImages/" + item.imageName
-                  }
-                />
+                <div className="frameZoomSlider">
+                  <span className="helperZoomSlider">
+                    <img
+                      src={
+                        fileUrl +
+                        "/upload/product/productImages/" +
+                        item.imageName
+                      }
+                    />
+                  </span>
+                </div>
               </a>
             </React.Fragment>
           );
@@ -514,9 +535,68 @@ class ProductDetails extends Component {
   }
 
   render() {
+    const { productId, productName, metaTags, productImages } = this.state;
     let counter = 1;
+    const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
+    // const title = productName;
+
     return (
       <React.Fragment>
+        <Helmet>
+          <meta
+            name="viewport"
+            content="user-scalable=no, width=device-width, initial-scale=1.0"
+          />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          {metaTags &&
+            metaTags.map(tags => <meta name="description" content={tags} />)}
+          {productImages &&
+            productImages.map(({ imageName }) => (
+              <meta name="description" content={imageName} />
+            ))}
+
+          <script>
+            {`
+            var scrollEventHandler = function()
+            {window.scroll(0, window.pageYOffset)}
+            window.addEventListener("scroll", scrollEventHandler, false);
+            `}
+          </script>
+        </Helmet>
+
+        <div>
+          <ul className="ct-socials">
+            <li>
+              <div className="ct-socials-icon">
+                <TwitterShareButton url={shareUrl} quote={productName}>
+                  <TwitterIcon size={35} round />
+                </TwitterShareButton>
+              </div>
+            </li>
+            <li>
+              <div className="ct-socials-icon">
+                <FacebookShareButton url={shareUrl} quote={productName}>
+                  <FacebookIcon size={35} round />
+                </FacebookShareButton>
+              </div>
+            </li>
+            <li>
+              <div className="ct-socials-icon">
+                <PinterestShareButton url={String(window.location)}>
+                  <PinterestIcon size={35} round />
+                </PinterestShareButton>
+              </div>
+            </li>
+            <li>
+              <div className="ct-socials-icon">
+                <LinkedinShareButton url={shareUrl} quote={productName}>
+                  <LinkedinIcon size={35} round />
+                </LinkedinShareButton>
+              </div>
+            </li>
+          </ul>
+        </div>
+
         <button
           style={{ display: "none !important" }}
           id="successCartMessage"
@@ -705,7 +785,7 @@ class ProductDetails extends Component {
 
         <div className="row">
           <div className="medium-4 large-4 columns">
-            <div className="row" style={{ marginTop: "60px" }}>
+            <div className="row" style={{ marginTop: "0px" }}>
               <div className="medium-9 large-9 columns">
                 <div className="img-zoom-container">
                   <img
@@ -715,8 +795,8 @@ class ProductDetails extends Component {
                       "/upload/product/productImages/" +
                       this.state.showClickedImage
                     }
-                    width="300"
-                    height="240"
+                    width="500"
+                    height="500"
                   />
                 </div>
               </div>
@@ -731,7 +811,7 @@ class ProductDetails extends Component {
             </div>
 
             <OwlCarousel
-              style={{ marginTop: "25%" }}
+              style={{ marginTop: "38%" }}
               className="owl-theme"
               margin={10}
               items={3}

@@ -1,3 +1,13 @@
+body{
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.modal-backdrop.in {
+    opacity: 0.9;
+}
 
 #lblCartCount {
     font-size: 12px;
@@ -530,8 +540,31 @@ ul {
         height: 247px;
         background: #ffffff;
     }
+    .img-zoom-result {
+        /*border: 0px solid #d4d4d4;*/
+        width: 300px;
+        height: 300px;
+        margin-left: 10px;
+        z-index: 9999;
+        display: inline-block;
+        position: absolute;
+    }
 
+    .copyRightFooterYear{
+        padding-left:0px;
+    }
 
+    .socialNone
+    {
+        display: block;
+    }
+    .catDisplayMobile{
+        display: none;
+    }
+    .modalDialogTop{
+        top:170px;
+        bottom: 200px;
+    }
 
 }
 
@@ -656,14 +689,6 @@ ul {
         font-family: 'Segoe UI Light', sans-serif;
         font-size: 15pt;
     }
-
-    /*#popupfoot {*/
-    /*	font-size: 16pt;*/
-    /*	position: absolute;*/
-    /*	bottom: 0px;*/
-    /*	width: 250px;*/
-    /*	left: 30px;*/
-    /*}*/
 
     #popupfoot {
         font-size: 16pt;
@@ -833,10 +858,18 @@ ul {
         display:block;
     }
 
+    .copyRightFooterYear{
+        padding-left:0px;
+    }
 
+    .socialNone
+    {
+        display: block;
+    }
 
-
-
+    .catDisplayMobile{
+        display: none;
+    }
 }
 
 @media only screen and (max-device-width: 600px) {
@@ -1165,11 +1198,18 @@ ul {
         display:block;
     }
 
+    .copyRightFooterYear{
+        padding-left:0px;
+    }
 
+    .socialNone
+    {
+        display: block;
+    }
 
-
-
-
+    .catDisplayMobile{
+        display: none;
+    }
 }
 
 @media only screen and (max-device-width: 700px) {
@@ -1286,44 +1326,6 @@ ul {
         text-align: center;
     }
 
-    /*	#boxes #dialog {
-            width: 310px;
-            height: 420px;
-            padding: 10px;
-            background-color: #FFFFFF;
-            font-family: 'Segoe UI Light', sans-serif;
-            font-size: 15pt;
-        }
-
-
-            #popupfoot {
-                font-size: 16pt;
-                position: absolute;
-                bottom: 0px;
-                top:0;
-                width: 250px;
-                left: 30px;
-                padding-left: 245px;
-                margin-top: -7px;
-            }
-
-
-            .frameAdsBig {
-                height: 380px;
-                display: table;
-                width: 100%;
-                text-align: center;
-                padding: 0px;
-            }
-
-            .helperAdsBig {
-                display: table-cell;
-                text-align: center;
-                vertical-align: middle;
-                height: 304px;
-                background: #ddd;
-                }*/
-
 
     #boxes #dialog {
         max-height: 100%;
@@ -1333,7 +1335,6 @@ ul {
         font-family: 'Segoe UI Light', sans-serif;
         font-size: 15pt;
     }
-
 
 
     #popupfoot {
@@ -1504,10 +1505,18 @@ ul {
         display:block;
     }
 
+    .copyRightFooterYear{
+        padding-left:0px;
+    }
 
+    .socialNone
+    {
+        display: block;
+    }
 
-
-
+    .catDisplayMobile{
+        display: none;
+    }
 }
 
 
@@ -1564,16 +1573,6 @@ ul {
         display: block;
     }
 
-    /*.carousel-control {*/
-    /*	left: 2px;*/
-    /*	height: 40px;*/
-    /*	width: 40px;*/
-    /*	background: none repeat scroll 0 0 #222222;*/
-    /*	border: 4px solid #FFFFFF;*/
-    /*	border-radius: 23px 23px 23px 23px;*/
-    /*	margin-top: 90px;*/
-    /*}*/
-
     .carousel-control {
 
         left:2px;
@@ -1618,14 +1617,6 @@ ul {
         font-family: 'Segoe UI Light', sans-serif;
         font-size: 15pt;
     }
-
-    /*#popupfoot {*/
-    /*	font-size: 16pt;*/
-    /*	position: absolute;*/
-    /*	bottom: 0px;*/
-    /*	width: 250px;*/
-    /*	left: 250px;*/
-    /*}*/
 
     #popupfoot {
         font-size: 16pt;
@@ -1724,6 +1715,18 @@ ul {
         display:none;
     }
 
+    .socialNone
+    {
+        display: none;
+    }
+
+    .catDisplayMobile{
+        display: block;
+    }
+    .modalDialogTop{
+        top:70px;
+        bottom: 200px;
+    }
 
 }
 
@@ -2182,10 +2185,10 @@ ul {
 }
 
 .img-zoom-result {
-    border: 1px solid #d4d4d4;
-    width: 300px;
-    height: 300px;
-    margin-left: 10px;
+    /*border: 1px solid #d4d4d4;*/
+    width: 430px;
+    height: 360px;
+    margin-left: 40px;
     z-index: 9999;
     display: inline-block;
     position: absolute;

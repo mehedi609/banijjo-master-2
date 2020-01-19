@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Breadcums from "./include/breadcums";
+import axios from "axios";
 import Footer from "./include/footer";
 import Categories from "./include/categories";
 import OwlCarousel from "react-owl-carousel";
@@ -47,10 +47,24 @@ class App extends Component {
   componentDidMount() {
     this.getAllProductList();
     this.getAdvertisement();
+    this.getFeatureCategory();
+  }
 
+  getFeatureCategory() {
     axios
       .get(`${base}/api/feature_category`)
-      .then(res => this.setState({ featuredCategories: res.data.data }));
+      .then(res => this.setState({ featuredCategories: res.data }));
+    /*fetch(`${base}/api/feature_category`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(response => this.setState({ featuredCategories: response }));*/
   }
 
   getAdvertisement() {
@@ -165,10 +179,7 @@ class App extends Component {
                   <div className="row">
                     <div className="column">
                       <a href={"/productDetails/" + item.productId}>
-                        <div
-                          className="frameSliderBig"
-                          style={{ borderBottom: "1px solid #ddd" }}
-                        >
+                        <div className="frameSliderBig">
                           <span className="helperSliderBig">
                             <img
                               src={
@@ -190,16 +201,12 @@ class App extends Component {
           } else {
             this.state.BannerImagesCustom.map((item, key) => {
               activity = key === 0 ? (activity = "active") : "";
-              console.log(item);
               coolView.push(
                 <div className={"item " + activity}>
                   <div className="row">
                     <div className="column">
                       <a href={item.url}>
-                        <div
-                          className="frameSliderBig"
-                          style={{ borderBottom: "1px solid #ddd" }}
-                        >
+                        <div className="frameSliderBig">
                           <span className="helperSliderBig">
                             <img
                               src={
@@ -236,10 +243,7 @@ class App extends Component {
       hotView.push(
         <div className="column">
           <a href={"/productDetails/" + item.productId}>
-            <div
-              className="frameSlider"
-              style={{ borderBottom: "1px solid #ddd" }}
-            >
+            <div className="frameSlider">
               <span className="helperSlider">
                 <img
                   src={
@@ -263,10 +267,7 @@ class App extends Component {
         hotView.push(
           <div className="column">
             <a href="http://banijjo.com.bd/productDetails/48">
-              <div
-                className="frameSlider"
-                style={{ borderBottom: "1px solid #ddd" }}
-              >
+              <div className="frameSlider">
                 <span className="helperSlider">
                   <img src="/asche.jpg" alt="" />
                 </span>
@@ -311,10 +312,7 @@ class App extends Component {
         hotView.push(
           <div>
             <a target="__blank" href={"/productDetails/" + 103}>
-              <div
-                className="frameHotDeal"
-                style={{ borderBottom: "1px solid #ddd" }}
-              >
+              <div className="frameHotDeal">
                 <span className="helperHotDeal">
                   <img src="/ppppp.jpg" alt="productImage" />
                 </span>
@@ -724,7 +722,7 @@ class App extends Component {
           <div className="medium-6 columns">
             <h5 style={{ margin: "0" }} className="text-left">
               {this.state.TopSelectionsTitle}
-              <a href="#">
+              <a href="/featureproducts/2">
                 <span
                   style={{ float: "right", color: "#009345", fontSize: "14px" }}
                 >
@@ -738,7 +736,7 @@ class App extends Component {
           <div className="medium-6 columns">
             <h5 style={{ margin: "0" }} className="text-left">
               {this.state.NewForYouTitle}
-              <a href="#">
+              <a href="/featureproducts/3">
                 <span
                   style={{ float: "right", color: "#009345", fontSize: "14px" }}
                 >
@@ -756,7 +754,7 @@ class App extends Component {
           <div className="medium-6 columns">
             <h5 style={{ margin: "0" }} className="text-left">
               {this.state.FeaturedBrandsTitle}
-              <a href="#">
+              <a href="/featureproducts/4">
                 <span
                   style={{ float: "right", color: "#009345", fontSize: "14px" }}
                 >
@@ -770,7 +768,7 @@ class App extends Component {
             <h5 style={{ margin: "0" }} className="text-left">
               {this.state.StoreWIllLoveTitle}
 
-              <a href="#">
+              <a href="/featureproducts/7">
                 <span
                   style={{ float: "right", color: "#009345", fontSize: "14px" }}
                 >
@@ -782,15 +780,13 @@ class App extends Component {
           </div>
         </div>
 
-        {/*Featured Categories*/}
-        {this.state.featuredCategories &&
+        {/*{this.state.featuredCategories &&
           this.state.featuredCategories.map(
             ({ parent, childs, lastChilds }) => (
               <div className="row" key={parent.category_id}>
                 <div className="row column">
                   <p>&nbsp;</p>
                 </div>
-
                 <h5
                   style={{ margin: "0", paddingLeft: "15px" }}
                   className="text-left"
@@ -808,10 +804,7 @@ class App extends Component {
                   <div className="row" style={{ marginTop: -30 }}>
                     <div className="medium-8 columns">
                       <a href={"/productList/" + parent.category_id}>
-                        <div
-                          className="frameFeatureCat"
-                          style={{ borderBottom: "1px solid #ddd" }}
-                        >
+                        <div className="frameFeatureCat">
                           <span className="helperframeFeatureCat">
                             <img
                               src={
@@ -827,7 +820,6 @@ class App extends Component {
                     </div>
                     <p className="gap"></p>
 
-                    {/*Childs*/}
                     {childs.map(
                       item =>
                         item.category_id !== null && (
@@ -850,12 +842,10 @@ class App extends Component {
                           </div>
                         )
                     )}
-
                     <div className="medium-4 columns"></div>
                   </div>
                 </div>
 
-                {/*Subcategory*/}
                 {lastChilds.map(({ gc1, gc2 }, index) => (
                   <div
                     className="medium-3 columns"
@@ -926,7 +916,7 @@ class App extends Component {
                 ))}
               </div>
             )
-          )}
+          )}*/}
 
         <div className="row">
           <div className="medium-12 columns">
@@ -942,14 +932,106 @@ class App extends Component {
           </div>
         </div>
 
+        {/*<div
+          className="modal"
+          id="image-gallery"
+          tabIndex="-1"
+          role="dialog"
+          aria-hidden="false"
+          style={{ backgroundColor: "#000000", opacity: "0.9" }}
+        >
+          <div
+            className="modal-dialog"
+            role="document"
+            style={{
+              top: "200px",
+              bottom: "200px"
+            }}
+          >
+            <div className="modal-content">
+              <div
+                className="modal-body"
+                style={{
+                  position: "relative",
+                  padding: "0px",
+                  marginTop: "-36px"
+                }}
+              >
+                <button
+                  type="button"
+                  className="close campaign-modal-close-btn"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      fontSize: "24px",
+                      color: "#FFFFFF"
+                    }}
+                  ></i>
+                </button>
+                <img
+                  className="img-responsive"
+                  src={
+                    fileUrl +
+                    "/upload/product/productImages/" +
+                    this.state.Advertisement
+                  }
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>*/}
+
+        <div
+          className="modal"
+          id="image-gallery"
+          tabIndex="-1"
+          role="dialog"
+          aria-hidden="false"
+          style={{ backgroundColor: "#000000", opacity: "0.9" }}
+        >
+          <div className="modal-dialog modalDialogTop" role="document">
+            <div className="modal-content">
+              <div
+                className="modal-body"
+                style={{
+                  position: "relative",
+                  padding: "0px",
+                  marginTop: "-36px"
+                }}
+              >
+                <button
+                  type="button"
+                  className="close campaign-modal-close-btn"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      fontSize: "24px",
+                      color: "#ffffff"
+                    }}
+                  ></i>
+                </button>
+                <img
+                  className="img-responsive"
+                  src={fileUrl + "/upload/product/productImages/asche.jpg"}
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div id="boxes">
           <div id="dialog" className="window">
             {/* <img src={fileUrl + "/upload/product/productImages/" + this.state.Advertisement} alt="Advert" className="adsBigImage" /> */}
 
-            <div
-              className="frameAdsBig"
-              style={{ borderBottom: "1px solid #ddd" }}
-            >
+            <div className="frameAdsBig">
               <span className="helperAdsBig">
                 <img
                   src={
@@ -962,20 +1044,6 @@ class App extends Component {
               </span>
             </div>
 
-            {/*<div id="popupfoot">
-            <button
-            type="button"
-            style={{
-              color: "#ffffff",
-              backgroundColor: "#EB1C22",
-              marginBottom: "8px",
-              align: "center"
-            }}
-            className="btn-sm closeButton agree"
-            >
-            Close
-            </button>
-          </div>*/}
             <div id="popupfoot">
               <button
                 type="button"

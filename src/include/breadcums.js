@@ -148,7 +148,7 @@ class Breadcums extends Component {
               <div className="cartIcon">
                 <a href="/cart" style={{ color: "#009345", fontSize: "12px" }}>
                   <i
-                    class="fa fa-shopping-cart"
+                    className="fa fa-shopping-cart"
                     style={{ fontSize: "18px" }}
                   ></i>{" "}
                   <span

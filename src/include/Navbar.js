@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import TopNavbarCategories from "./TopNavbarCategories";
 
-const homeUrl = process.env.REACT_APP_FRONTEND_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
-const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 
 class Navbar extends Component {
