@@ -985,6 +985,48 @@ class App extends Component {
           </div>
         </div>*/}
 
+        <div
+          className="modal"
+          id="image-gallery"
+          tabIndex="-1"
+          role="dialog"
+          aria-hidden="false"
+          style={{ backgroundColor: "#000000", opacity: "0.9" }}
+        >
+          <div className="modal-dialog modalDialogTop" role="document">
+            <div className="modal-content">
+              <div
+                className="modal-body"
+                style={{
+                  position: "relative",
+                  padding: "0px",
+                  marginTop: "-36px"
+                }}
+              >
+                <button
+                  type="button"
+                  className="close campaign-modal-close-btn"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      fontSize: "24px",
+                      color: "#ffffff"
+                    }}
+                  ></i>
+                </button>
+                <img
+                  className="img-responsive"
+                  src={fileUrl + "/upload/product/productImages/asche.jpg"}
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div id="boxes">
           <div id="dialog" className="window">
             {/* <img src={fileUrl + "/upload/product/productImages/" + this.state.Advertisement} alt="Advert" className="adsBigImage" /> */}
