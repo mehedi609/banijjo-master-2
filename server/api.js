@@ -51,90 +51,99 @@ router.get("/feature_category", async (req, res) => {
 
     for (const fc_id of featured_categories) {
       const { category_id } = fc_id;
+      console.log("category_id", category_id);
       let products = await _getProductInfoByCategoryId(category_id);
+      console.log(products.length);
 
-      resObj.parent =
-        products[
-          products.length > 1 ? _getARandomNumber(0, products.length - 1) : 0
-        ];
+      if (products.length) {
+        resObj.parent =
+          products[
+            products.length > 1 ? _getARandomNumber(0, products.length - 1) : 0
+          ];
 
-      let child_cats = await query(
-        `SELECT * FROM category WHERE parent_category_id=${category_id} AND status='active'`
-      );
+        let child_cats = await query(
+          `SELECT * FROM category WHERE parent_category_id=${category_id} AND status='active'`
+        );
 
-      const cat_id_arr = _getRandEleFromArray(child_cats, 2);
+        const cat_id_arr = _getRandEleFromArray(child_cats, 2);
 
-      if (cat_id_arr) {
-        let temp_child_img = [];
-        for (const id of cat_id_arr) {
-          if (id) {
-            const res = await _getProductInfoByCategoryId(id);
-            temp_child_img.push(res[0] ? res[0] : null_cat_id);
+        if (cat_id_arr) {
+          let temp_child_img = [];
+          for (const id of cat_id_arr) {
+            if (id) {
+              const res = await _getProductInfoByCategoryId(id);
+              temp_child_img.push(res[0] ? res[0] : null_cat_id);
+            }
+          }
+          resObj.childs = temp_child_img;
+        }
+
+        let gc1 = [];
+        let gc2 = [];
+        let flag = true;
+
+        for (const item of resObj.childs) {
+          const { category_id } = item;
+
+          if (flag) {
+            flag = false;
+
+            if (category_id !== null) {
+              const res = await query(
+                `SELECT id FROM category WHERE parent_category_id=${category_id}`
+              );
+
+              gc1 = res ? _getRandEleFromArray(res, 3) : [];
+            }
+          } else {
+            if (category_id !== null) {
+              const res = await query(
+                `SELECT id FROM category WHERE parent_category_id=${category_id}`
+              );
+
+              gc2 = res ? _getRandEleFromArray(res, 3) : [];
+            }
           }
         }
-        resObj.childs = temp_child_img;
-      }
 
-      let gc1 = [];
-      let gc2 = [];
-      let flag = true;
+        let gcProdImgs = [];
 
-      for (const item of resObj.childs) {
-        const { category_id } = item;
+        for (let i = 0; i < 3; i++) {
+          let gcImgsObj = {};
 
-        if (flag) {
-          flag = false;
-
-          if (category_id !== null) {
-            const res = await query(
-              `SELECT id FROM category WHERE parent_category_id=${category_id}`
-            );
-
-            gc1 = res ? _getRandEleFromArray(res, 3) : [];
+          if (gc1[i]) {
+            let id = gc1[i];
+            let prodImgs = await _getProductInfoByCategoryId(id);
+            gcImgsObj.gc1 =
+              prodImgs.length > 3 ? _sampleSize(prodImgs, 3) : prodImgs;
+          } else {
+            gcImgsObj.gc1 = [];
           }
-        } else {
-          if (category_id !== null) {
-            const res = await query(
-              `SELECT id FROM category WHERE parent_category_id=${category_id}`
-            );
 
-            gc2 = res ? _getRandEleFromArray(res, 3) : [];
+          if (gc2[i]) {
+            let id = gc2[i];
+            let prodImgs = await _getProductInfoByCategoryId(id);
+            gcImgsObj.gc2 =
+              prodImgs.length > 3 ? _sampleSize(prodImgs, 3) : prodImgs;
+          } else {
+            gcImgsObj.gc2 = [];
           }
+
+          gcProdImgs.push(gcImgsObj);
         }
+
+        gcProdImgs.sort(
+          (a, b) => b.gc1.length - a.gc1.length || b.gc2.length - a.gc2.length
+        );
+
+        resObj.lastChilds = gcProdImgs;
+        res_arr.push(resObj);
+      } else {
+        resObj.parent = null;
+        resObj.childs = [];
+        resObj.lastChilds = [];
+        res_arr.push(resObj);
       }
-
-      let gcProdImgs = [];
-
-      for (let i = 0; i < 3; i++) {
-        let gcImgsObj = {};
-
-        if (gc1[i]) {
-          let id = gc1[i];
-          let prodImgs = await _getProductInfoByCategoryId(id);
-          gcImgsObj.gc1 =
-            prodImgs.length > 3 ? _sampleSize(prodImgs, 3) : prodImgs;
-        } else {
-          gcImgsObj.gc1 = [];
-        }
-
-        if (gc2[i]) {
-          let id = gc2[i];
-          let prodImgs = await _getProductInfoByCategoryId(id);
-          gcImgsObj.gc2 =
-            prodImgs.length > 3 ? _sampleSize(prodImgs, 3) : prodImgs;
-        } else {
-          gcImgsObj.gc2 = [];
-        }
-
-        gcProdImgs.push(gcImgsObj);
-      }
-
-      gcProdImgs.sort(
-        (a, b) => b.gc1.length - a.gc1.length || b.gc2.length - a.gc2.length
-      );
-
-      resObj.lastChilds = gcProdImgs;
-      res_arr.push(resObj);
     }
 
     return res.json(res_arr);
