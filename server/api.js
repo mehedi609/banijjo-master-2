@@ -1,5 +1,6 @@
 const express = require("express");
 const fetch = require("node-fetch");
+const { uniq, sampleSize, random } = require("lodash");
 const {
   _getRandEleFromArray,
   _sampleSize,
@@ -39,23 +40,83 @@ const _getProductInfoByCategoryId = async cat_id => {
   );
 };
 
+const _getChildrenByParentId = async (cat_id, limit = 1) => {
+  const f_children = await query(
+    `SELECT COUNT(*) as no_of_children FROM category WHERE parent_category_id=${cat_id} AND status='active'`
+  );
+
+  const { no_of_children } = f_children[0];
+
+  if (no_of_children > 2) {
+    return await query(
+      `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active' ORDER BY RAND() LIMIT ${limit}`
+    );
+  } else {
+    return await query(
+      `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`
+    );
+  }
+};
+
 router.get("/feature_category", async (req, res) => {
-  const null_cat_id = {
-    category_id: null
-  };
+  let res_arr = [];
+  let resObj = {};
+  let first_child = {};
 
   try {
-    let res_arr = [];
-    let resObj = {};
     const featured_categories = await query("SELECT * FROM featured_category");
 
     for (const fc_id of featured_categories) {
       const { category_id } = fc_id;
-      console.log("category_id", category_id);
-      let products = await _getProductInfoByCategoryId(category_id);
-      console.log(products.length);
 
-      if (products.length) {
+      const parent = await query(
+        `SELECT * FROM category WHERE id=${category_id} AND status='active'`
+      );
+
+      resObj.parent = parent[0];
+
+      /*const f_children = await query(
+        `SELECT COUNT(*) as no_of_f_children FROM category WHERE parent_category_id=${category_id} AND status='active'`
+      );
+
+      const { no_of_f_children } = f_children[0];
+
+      let children;
+
+      if (no_of_f_children > 2) {
+        children = await query(
+          `SELECT * FROM category WHERE parent_category_id=${category_id} AND status='active' ORDER BY RAND() LIMIT 2`
+        );
+      } else {
+        children = await query(
+          `SELECT * FROM category WHERE parent_category_id=${category_id} AND status='active'`
+        );
+      }*/
+
+      const f_children = await _getChildrenByParentId(category_id, 2);
+      /*resObj.f_children = f_children;
+
+      console.log(f_children.length);
+
+      return res.json([...res_arr, resObj]);*/
+
+      if (!f_children.length) {
+        resObj.f_children = null;
+        return res.json([...res_arr, resObj]);
+      } else {
+        resObj.f_children = f_children;
+        res_arr = [...res_arr, resObj];
+
+        let l_children = [];
+
+        for (let i = 1; i <= f_children.length; i++) {}
+        return res.json(l_children);
+        // resObj.l_children = l_children;
+
+        return res.json([...res_arr, resObj]);
+      }
+
+      /*if (products.length) {
         resObj.parent =
           products[
             products.length > 1 ? _getARandomNumber(0, products.length - 1) : 0
@@ -143,7 +204,7 @@ router.get("/feature_category", async (req, res) => {
         resObj.childs = [];
         resObj.lastChilds = [];
         res_arr.push(resObj);
-      }
+      }*/
     }
 
     return res.json(res_arr);
