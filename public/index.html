@@ -47,43 +47,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-
-			// Show hide popover
-
-			$(".hotlineIconMenu").click(function(){
-
-				//alert('sadsdsds');
-				$('.accountMenu').removeClass('js-dropdown-active');
-				$('.helpMenu').removeClass('is-active');
-				$('.hotlineMenu').addClass('js-dropdown-active');
-
-			});
-
-			$(".accountMenuIcon").click(function(){
-
-				//alert('sadsdsds');
-				$('.hotlineMenu').removeClass('js-dropdown-active');
-				$('.helpMenu').removeClass('is-active');
-				$('.accountMenu').addClass('js-dropdown-active');
-
-			});
-
-			$(".helpIconMenu").click(function(){
-
-				//alert('sadsdsds');
-				$('.hotlineMenu').removeClass('js-dropdown-active');
-				$('.accountMenu').removeClass('js-dropdown-active');
-				$('.helpMenu').addClass('is-active');
-
-			});
-
-		});
-
-
-	</script>
-
 	<script>
 		function myFunction() {
 			var x = document.getElementById("myTopnav");
@@ -95,7 +58,16 @@
 		}
 	</script>
 
-
+	<script type="text/javascript">
+		$('.dropdown-toggle').click(function(e) {
+			e.preventDefault();
+			setTimeout($.proxy(function() {
+				if ('ontouchstart' in document.documentElement) {
+					$(this).siblings('.dropdown-backdrop').off().remove();
+				}
+			}, this), 0);
+		});
+	</script>
 
 	<script type="text/javascript">
 		function imageZoom(imgID, resultID, imgName) {
@@ -244,59 +216,52 @@ $('.registerSubmit').click(function(e) {
 	</div>
 
 	<div class="columns small-6 large-4">
-		<!-- 		<div class="columns small-1 large-4">
-                    <p> &nbsp;</p>
-
-                </div> -->
-		<!-- 	<div class="columns small-1 large-4">
-				<p> &nbsp;</p>
-
-			</div> -->
-
-
 		<div class="columns small-2 large-4">
-			<ul class="dropdown hotLineIcon" data-dropdown-menu style="font-size: 16px;">
-
-				<li class="hotlineIconMenu">
-					<a href="#"><i class="fa fa-volume-control-phone" style="font-size:18px;color:#ec1c24;margin-top:30px;
-						"></i></a>
-					<ul class="dropdown-menu hotlineMenu">
-
-						<li><a href="#" style="color:#009345;font-weight:bold;">09677-222 222</a></li>
-
-					</ul>
-
-				</li>
-
-			</ul>
-
+			<div class="dropdown hotLineIcon" style="font-size: 11px">
+				<button class="dropdown-toggle" type="button" data-toggle="dropdown"><a href="#"><i class="fa fa-volume-control-phone" style="font-size:18px;color:#ec1c24;margin-top:30px;
+				"></i></a>
+				</button>
+				<ul class="dropdown-menu pull-right" style="background-color:#ffffff;color:#009345;font-weight: 700;text-align: center;border-radius: 6px;padding: 5px 0;min-width: 120px;">
+					<li onclick="window.open('tel:09677222222')">09677-222 222</li>
+				</ul>
+			</div>
 		</div>
-
 		<div class="columns small-2 large-4" style="margin-top:30px;">
-			<ul class="dropdown account" data-dropdown-menu style="font-size: 11px;">
-				<li class="has-submenu accountMenuIcon">
-					<a href="#"><i class="fa fa-user-o" style="color:#009345;font-size: 16px;"></i></a>
-					<ul class="dropdown-menu accountMenu">
-						<li>
-							<div class="navbar-login">
-								<div class="row">
-									<div class="col-lg-12">
-										<p class="text-left" style="padding-left: 10px;"><strong>Welcome to
-											Banijjo!</strong></p>
-										<div class="customerDiv">
-										</div>
+			<div class="dropdown account" style="font-size: 11px">
+				<button class="dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-user-o" style="color:#009345;font-size: 16px;"></i>
+				</button>
+				<ul class="dropdown-menu pull-right">
+					<li>
+						<div class="navbar-login">
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="text-left" style="padding-left: 10px;"><strong>Welcome to
+										Banijjo!</strong></p>
+									<div class="customerDiv">
 									</div>
 								</div>
 							</div>
-						</li>
-						<li><a href="#">My Orders</a></li>
-						<li><a href="#">Message Center<span class="unread-message-count"></span></a></li>
-						<li><a href="#">Wish List</a></li>
-						<li><a href="#">My Favorite Stores</a></li>
-						<li><a href="#">My Coupons</a></li>
-					</ul>
-				</li>
-			</ul>
+						</div>
+					</li>
+					<li><a href="#">My Orders</a></li>
+					<li><a href="#">Message Center<span class="unread-message-count"></span></a></li>
+					<li><a href="#">Wish List</a></li>
+					<li><a href="#">My Favorite Stores</a></li>
+					<li><a href="#">My Coupons</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="columns small-2 large-4" style="margin-top:30px;">
+			<div class="dropdown topMenu" style="font-size: 11px;">
+				<button class="dropdown-toggle" type="button" data-toggle="dropdown"><a href="#"><i class="fa fa-bars" style="color: #009345;font-size: 16px;"></i></a>
+				</button>
+				<ul class="dropdown-menu  pull-right">
+					<li><a href="http://admin.banijjo.com.bd/">Seller Center</a></li>
+					<li><a href="#">Help<span class="unread-message-count"></span></a></li>
+					<li><a href="#">Buyer Protection</a></li>
+					<li><a href="#">Wish List</a></li>
+				</ul>
+			</div>
 		</div>
 
 		<div class="columns small-2 large-4" style="margin-top:27px;">

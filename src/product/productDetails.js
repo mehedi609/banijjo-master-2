@@ -78,7 +78,6 @@ class ProductDetails extends Component {
     axios
       .get(`${base}/api/getDiscountByProductId/${this.state.productId}`)
       .then(res => {
-        // console.log(res.data.discountAmount);
         this.setState({ discountAmount: res.data.discountAmount });
       });
   }
