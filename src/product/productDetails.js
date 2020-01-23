@@ -20,10 +20,14 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "../assets/social-share.css";
+import CardToListProducts from "../features/CardToListProducts";
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
+
+const img_src = `${fileUrl}/upload/product/productImages/`;
+const link = "/productDetails/";
 
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -236,7 +240,22 @@ class ProductDetails extends Component {
   }
 
   sameVendorOtherProductsDeskTop() {
-    if (this.state.productListSmVendor) {
+    const { productListSmVendor } = this.state;
+    const classes = ["frameMore", "helperframeMore"];
+
+    if (productListSmVendor) {
+      return productListSmVendor.map(({ id, home_image }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+      ));
+    }
+
+    /*if (this.state.productListSmVendor) {
       return this.state.productListSmVendor.map(item => (
         <div className="column" key={item.id}>
           <div className="frameMore">
@@ -253,13 +272,23 @@ class ProductDetails extends Component {
           </div>
         </div>
       ));
-    }
+    }*/
   }
 
   sameVendorOtherProductsMobile() {
-    if (this.state.productListSmVendor) {
-      return this.state.productListSmVendor.map(item => (
-        <div className="small-4 large-4 columns">
+    const { productListSmVendor } = this.state;
+    const classes = ["moreCatDiv", "moreCatSpan"];
+
+    if (productListSmVendor) {
+      return productListSmVendor.map(({ id, home_image }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+        /*<div className="column">
           <div className="moreCatDiv">
             <span className="moreCatSpan">
               <a href={"/productDetails/" + item.id}>
@@ -272,14 +301,29 @@ class ProductDetails extends Component {
               </a>
             </span>
           </div>
-        </div>
+        </div>*/
       ));
     }
   }
 
   sameProductsOtherVendorDesktop() {
-    if (this.state.productListSmCategory) {
-      return this.state.productListSmCategory.map(item => (
+    const { productListSmCategory } = this.state;
+    const classes = ["frameMore", "helperframeMore"];
+
+    if (productListSmCategory) {
+      return productListSmCategory.map(({ id, home_image }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+      ));
+    }
+
+    /*if (this.state.productListSmCategory) {
+      return this.state.productListSmCategory.map(({ id, home_image }) => (
         <div className="column" key={item.id}>
           <div className="frameMore">
             <span className="helperframeMore">
@@ -295,13 +339,22 @@ class ProductDetails extends Component {
           </div>
         </div>
       ));
-    }
+    }*/
   }
 
   sameProductsOtherVendorMobile() {
-    if (this.state.productListSmCategory) {
-      return this.state.productListSmCategory.map(item => (
-        <div className="small-4 large-4 columns">
+    const { productListSmCategory } = this.state;
+    const classes = ["moreCatDiv", "moreCatSpan"];
+    if (productListSmCategory) {
+      return productListSmCategory.map(({ home_image, id }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+        /*<div className="column">
           <div className="moreCatDiv">
             <span className="moreCatSpan">
               <a href={"/productDetails/" + item.id}>
@@ -314,7 +367,7 @@ class ProductDetails extends Component {
               </a>
             </span>
           </div>
-        </div>
+        </div>*/
       ));
     }
   }
@@ -1338,8 +1391,8 @@ class ProductDetails extends Component {
             </div>
 
             {/*Mobile view*/}
-            <div className="moreCat">
-              <div className="row">{this.sameProductsOtherVendorMobile()}</div>
+            <div className="row small-up-3 moreCat">
+              {this.sameProductsOtherVendorMobile()}
             </div>
           </div>
         </div>
@@ -1363,8 +1416,8 @@ class ProductDetails extends Component {
             </div>
 
             {/*Mobile view*/}
-            <div className="moreCat">
-              <div className="row">{this.sameVendorOtherProductsMobile()}</div>
+            <div className="row small-up-3 moreCat">
+              {this.sameVendorOtherProductsMobile()}
             </div>
           </div>
         </div>

@@ -36,9 +36,9 @@ class Categories extends Component {
       <li className="sup-brand-item" key={item.vendor_id}>
         <a href={"/vendor/" + item.vendor_id}>
           {item.logo !== null ? (
-            <img src={fileUrl + "/upload/product/productImages/" + item.logo} />
+            <img src={fileUrl + "/upload/vendor/" + item.logo} />
           ) : (
-            <img src={fileUrl + "/upload/product/productImages/default.png"} />
+            <img src={fileUrl + "/upload/vendor/default.png"} />
           )}
         </a>
       </li>
