@@ -856,7 +856,11 @@ class ProductDetails extends Component {
               <div
                 id="zoomResult"
                 className="medium-3 large-3 columns"
-                style={{ zIndex: 1000, visibility: "hidden" }}
+                style={{
+                  zIndex: 1000,
+                  visibility: "hidden",
+                  marginRight: "-15px"
+                }}
               >
                 <div id="myresult" class="img-zoom-result"></div>
               </div>
