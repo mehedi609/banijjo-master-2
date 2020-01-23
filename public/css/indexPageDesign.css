@@ -536,6 +536,9 @@ ul {
   .socialNone {
     display: block;
   }
+  .catDisplayMobile {
+    display: none;
+  }
 }
 
 @media only screen and (max-device-width: 500px) {
@@ -835,6 +838,10 @@ ul {
   }
   .socialNone {
     display: block;
+  }
+
+  .catDisplayMobile {
+    display: none;
   }
 }
 
@@ -1162,6 +1169,10 @@ ul {
   }
   .socialNone {
     display: block;
+  }
+
+  .catDisplayMobile {
+    display: none;
   }
 }
 
@@ -1495,6 +1506,9 @@ ul {
 
   .socialNone {
     display: block;
+  }
+  .catDisplayMobile {
+    display: none;
   }
 }
 
