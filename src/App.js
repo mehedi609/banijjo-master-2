@@ -43,7 +43,8 @@ class App extends Component {
       BannerCarouselArr: [],
       Advertisement: "",
       featuredCategories: [],
-      featuredBannerProds: []
+      featuredBannerProds: [],
+      vendors: []
     };
   }
 
@@ -51,6 +52,13 @@ class App extends Component {
     this.getAllProductList();
     this.getAdvertisement();
     this.getFeatureCategory();
+    this.getVendors();
+  }
+
+  getVendors() {
+    axios
+      .get(`${base}/api/vendors`)
+      .then(res => this.setState({ vendors: res.data }));
   }
 
   getFeatureCategory() {
@@ -314,18 +322,34 @@ class App extends Component {
     return hotView;*/
   }
 
+  vendors() {
+    const { vendors } = this.state;
+    const classes = ["frameHotDeal", "helperHotDeal"];
+
+    if (vendors) {
+      return vendors.map(({ id, vendor_id, logo }) => (
+        <div key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={`${fileUrl}/upload/vendor/${logo}`}
+            link={`/vendor/${vendor_id}`}
+          />
+        </div>
+      ));
+    }
+  }
+
   hotDeal() {
     const { HotDeals } = this.state;
     const classes = ["frameHotDeal", "helperHotDeal"];
 
     if (HotDeals) {
       return HotDeals.map(({ productId, productImage }) => (
-        <div>
+        <div key={productId}>
           <CardToListProducts
             img_src={img_src + productImage}
             link={`/productDetails/${productId}`}
             classes={classes}
-            key={productId}
           />
         </div>
       ));
@@ -909,6 +933,8 @@ class App extends Component {
             </h5>
             <div className="row small-up-2">{this.topSelectionBig()}</div>
           </div>
+
+          {/*Store Will Love*/}
           <div className="medium-6 columns">
             <h5 style={{ margin: "0" }} className="text-left">
               {this.state.StoreWIllLoveTitle}
@@ -925,164 +951,29 @@ class App extends Component {
           </div>
         </div>
 
-        {this.state.featuredCategories &&
-          this.state.featuredCategories.map(
-            ({ parent, childs, lastChilds }) =>
-              parent !== null && (
-                <div className="row" key={parent.category_id}>
-                  <div className="row column">
-                    <p>&nbsp;</p>
+        {/*Brands Section*/}
+        <div className="row">
+          <div className="row column"></div>
+          <div className="medium-12 columns">
+            <h5 style={{ margin: 0 }} className="text-left">
+              Brands
+            </h5>
+            <div className="row small-up-5">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-12">
+                    <OwlCarousel className="owl-theme" margin={10} {...options}>
+                      {this.vendors()}
+                    </OwlCarousel>
                   </div>
-                  <h5
-                    style={{ margin: "0", paddingLeft: "15px" }}
-                    className="text-left"
-                  >
-                    Featured Categories
-                  </h5>
-                  <div className="medium-3 columns">
-                    <div className="row">
-                      <div className="medium-2 columns">
-                        <p className="gap">&nbsp;</p>
-                        <p>&nbsp;</p>
-                      </div>
-                    </div>
-
-                    <div className="row" style={{ marginTop: -30 }}>
-                      <div className="medium-8 columns">
-                        <CardToListProducts
-                          classes={["frameFeatureCat", "helperframeFeatureCat"]}
-                          img_src={img_src + parent.home_image}
-                          link={link + parent.category_id}
-                        />
-                        {/*<a href={"/productList/" + parent.category_id}>
-                          <div className="frameFeatureCat">
-                            <span className="helperframeFeatureCat">
-                              <img
-                                src={
-                                  fileUrl +
-                                  "/upload/product/productImages/" +
-                                  parent.home_image
-                                }
-                                alt="Img"
-                              />
-                            </span>
-                          </div>
-                        </a>*/}
-                      </div>
-                      <p className="gap"></p>
-
-                      {childs.map(
-                        item =>
-                          item.category_id !== null && (
-                            <div
-                              className="medium-4 columns"
-                              key={item.category_id}
-                            >
-                              <div className="row">
-                                <div
-                                  className="columns small-6 large-12 featureCatsmOne"
-                                  style={{ marginTop: "-20px" }}
-                                >
-                                  <CardToListProducts
-                                    classes={[
-                                      "frameFeatureCatSm",
-                                      "helperframeFeatureCatSm"
-                                    ]}
-                                    img_src={img_src + item.home_image}
-                                    link={link + item.category_id}
-                                  />
-                                  {/*<a href={`/productList/${item.category_id}`}>
-                                    <div className="frameFeatureCatSm">
-                                      <span className="helperframeFeatureCatSm">
-                                        <img
-                                          src={`${fileUrl}/upload/product/productImages/${item.home_image}`}
-                                          alt="Img"
-                                        />
-                                      </span>
-                                    </div>
-                                  </a>*/}
-                                </div>
-                                <p className="gap">&nbsp;</p>
-                              </div>
-                            </div>
-                          )
-                      )}
-                      <div className="medium-4 columns"></div>
-                    </div>
-                  </div>
-
-                  {lastChilds.map(({ gc1, gc2 }, index) => (
-                    <div
-                      className="medium-3 columns"
-                      style={{ paddingLeft: "15px" }}
-                    >
-                      {gc1.length ? (
-                        <div className="row">
-                          <h5>
-                            &nbsp;&nbsp;&nbsp;Sub category
-                            <a href={`/productList/${gc1[index].category_id}`}>
-                              <span
-                                style={{
-                                  float: "right",
-                                  color: "#009345",
-                                  fontSize: "14px",
-                                  paddingRight: "5px"
-                                }}
-                              >
-                                See more
-                              </span>
-                            </a>
-                          </h5>
-                          {gc1.map(({ category_id, home_image }) => (
-                            <div
-                              className="small-4 large-4 columns"
-                              key={category_id}
-                            >
-                              <FeaturedCategoryImg
-                                id={category_id}
-                                img={home_image}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      ) : null}
-                      <br />
-                      {gc2.length ? (
-                        <div className="row">
-                          <h5>
-                            &nbsp;&nbsp;&nbsp;Sub category
-                            <a href={`/productList/${gc2[index].category_id}`}>
-                              <span
-                                style={{
-                                  float: "right",
-                                  color: "#009345",
-                                  fontSize: "14px",
-                                  paddingRight: "15px"
-                                }}
-                              >
-                                See more
-                              </span>
-                            </a>
-                          </h5>
-                          {gc2.map(({ category_id, home_image }) => (
-                            <div
-                              className="small-4 large-4 columns"
-                              key={category_id}
-                            >
-                              <FeaturedCategoryImg
-                                id={category_id}
-                                img={home_image}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      ) : null}
-                    </div>
-                  ))}
+                  <p className="gap">&nbsp;</p>
                 </div>
-              )
-          )}
+              </div>
+            </div>
+          </div>
+        </div>
 
+        {/*More Section*/}
         <div className="row">
           <div className="medium-12 columns">
             <h5 style={{ margin: "0" }} className="text-left">
