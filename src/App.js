@@ -187,14 +187,13 @@ class App extends Component {
             BannerTop.map(({ productId, productImage }, key) => {
               activity = key === 0 ? (activity = "active") : "";
               coolView.push(
-                <div className={"item " + activity}>
+                <div className={"item " + activity} key={productId}>
                   <div className="row">
                     <div className="column">
                       <CardToListProducts
                         classes={classes}
                         img_src={img_src + productImage}
                         link={`/productDetails/${productId}`}
-                        key={productId}
                       />
                       {/*<a href={"/productDetails/" + item.productId}>
                         <div className="frameSliderBig">
@@ -222,14 +221,13 @@ class App extends Component {
             BannerImagesCustom.map(({ image, url }, key) => {
               activity = key === 0 ? (activity = "active") : "";
               coolView.push(
-                <div className={"item " + activity}>
+                <div className={"item " + activity} key={url}>
                   <div className="row">
                     <div className="column">
                       <CardToListProducts
                         classes={classes}
                         img_src={img_src + image}
                         link={url}
-                        key={url}
                       />
                       {/*<a href={item.url}>
                         <div className="frameSliderBig">
@@ -268,12 +266,11 @@ class App extends Component {
 
     if (BannerImages) {
       return BannerImages.map(({ productId, productImage }) => (
-        <div className="column">
+        <div className="column" key={productId}>
           <CardToListProducts
             img_src={img_src + productImage}
             classes={classes}
             link={`/productDetails/${productId}`}
-            key={productId}
           />
         </div>
       ));
