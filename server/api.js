@@ -1107,8 +1107,6 @@ router.post("/getVendorProductsByCategory", async (req, res) => {
   try {
     const { vendorId, categoryIds } = req.body;
 
-    console.log("vendorId", vendorId);
-    console.log("categoryIds", categoryIds);
     const ProductData = await query(
       "SELECT id,category_id,product_name,productPrice,home_image,created_date from products WHERE status='active' AND softDelete=0 AND vendor_id = '" +
         vendorId +
@@ -1178,9 +1176,9 @@ where products.qc_status='yes' and products.status='active' and products.isAppro
 });
 
 // api created by mehedi
-router.get("/category_product_list", async (req, res) => {
+router.get("/category_product_list/:cat_id", async (req, res) => {
   try {
-    var parentId = req.query.id;
+    var parentId = req.params.cat_id;
 
     const productLists = await query(
       "SELECT * FROM products WHERE category_id = " +
@@ -1450,6 +1448,7 @@ router.get("/feature_category", async (req, res) => {
     for (const fc_id of featured_categories) {
       const { category_id } = fc_id;
       let resObj = {};
+      let resNullObj = null;
 
       const parent = await query(
         `SELECT * FROM category WHERE id=${category_id} AND status='active'`
@@ -1472,7 +1471,7 @@ router.get("/feature_category", async (req, res) => {
       const randomFirstChildren = await _getRandomChildArr(first_children, 2);
       // if no children of first_children return lastChildren NULL
       if (!randomFirstChildren.length) {
-        resObj.subCat = null;
+        resObj.parent = null;
         return res.json([...res_arr, resObj]);
       }
 
@@ -1504,7 +1503,15 @@ router.get("/feature_category", async (req, res) => {
 
       resObj.subCat = subcatArr;
 
-      res_arr = [...res_arr, resObj];
+      if (
+        !(resObj.hasOwnProperty("tree1") || resObj.hasOwnProperty("tree2")) ||
+        resObj.subCat === null
+      ) {
+        resObj.parent = null;
+        res_arr = [...res_arr, resObj];
+      } else {
+        res_arr = [...res_arr, resObj];
+      }
     }
 
     return res.json(res_arr);

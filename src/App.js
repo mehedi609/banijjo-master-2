@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Breadcums from "./include/breadcums";
 import axios from "axios";
 import Footer from "./include/footer";
@@ -46,6 +46,8 @@ class App extends Component {
       featuredBannerProds: [],
       vendors: []
     };
+
+    console.log(fileUrl);
   }
 
   componentDidMount() {
@@ -949,26 +951,210 @@ class App extends Component {
         </div>
 
         {/*Brands Section*/}
-        <div className="row">
-          <div className="row column"></div>
-          <div className="medium-12 columns">
-            <h5 style={{ margin: 0 }} className="text-left">
-              Brands
-            </h5>
-            <div className="row small-up-5">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-12">
-                    <OwlCarousel className="owl-theme" margin={10} {...options}>
-                      {this.vendors()}
-                    </OwlCarousel>
+        {this.state.vendors.length && (
+          <div className="row">
+            <div className="row column"></div>
+            <div className="medium-12 columns">
+              <h5 style={{ margin: 0 }} className="text-left">
+                Brands
+              </h5>
+              <div className="row small-up-5">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <OwlCarousel
+                        className="owl-theme"
+                        margin={10}
+                        {...options}
+                      >
+                        {this.vendors()}
+                      </OwlCarousel>
+                    </div>
+                    <p className="gap">&nbsp;</p>
                   </div>
-                  <p className="gap">&nbsp;</p>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {/*Featured Category Section*/}
+        {this.state.featuredCategories.length &&
+          this.state.featuredCategories.map(
+            item =>
+              item.parent !== null && (
+                <div className="row">
+                  <div className="row column">
+                    <p>&nbsp;</p>
+                  </div>
+
+                  <h5
+                    className="text-left"
+                    style={{ margin: "0", paddingLeft: "15px" }}
+                  >
+                    Featured Categories
+                  </h5>
+
+                  <div className="medium-3 columns">
+                    <div className="row">
+                      <div className="medium-2 columns">
+                        <p className="gap">&nbsp;</p>
+                        <p>&nbsp;</p>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div
+                        className="medium-8 columns"
+                        style={{ marginTop: "-40px" }}
+                      >
+                        <div className="frameFeatureCat">
+                          <span className="helperframeFeatureCat">
+                            <img
+                              src={img_src + item.parent.category_image}
+                              alt="img"
+                            />
+                          </span>
+                        </div>
+                      </div>
+                      <p></p>
+
+                      <div className="medium-4 columns">
+                        <div className="row featureCatBigImgMob">
+                          {item.subCat &&
+                            item.subCat.map(({ cat_id, product_img }) => (
+                              <Fragment>
+                                <div
+                                  className="columns small-6 large-12 featureCatsmOne"
+                                  style={{ float: "left" }}
+                                >
+                                  <div className="frameFeatureCatSm">
+                                    <span className="helperframeFeatureCatSm">
+                                      <img
+                                        src={img_src + product_img}
+                                        alt="img"
+                                      />
+                                    </span>
+                                  </div>
+                                </div>
+                                <p className="gap">&nbsp;</p>
+                              </Fragment>
+                            ))}
+                        </div>
+                      </div>
+                      <p className="gap">&nbsp;</p>
+
+                      <div className="medium-4 columns"></div>
+                    </div>
+                  </div>
+
+                  {item.tree1 && (
+                    <div className="medium-9 columns">
+                      <div className="row">
+                        {item.tree1.map(({ cat_info, products }) => (
+                          <div
+                            className="medium-4 columns"
+                            style={{ float: "left" }}
+                          >
+                            <h6 style={{ fontSize: "14px" }}>
+                              &nbsp;&nbsp;&nbsp;{cat_info.category_name}
+                              <a href={`/productList/${cat_info.id}`}>
+                                <span
+                                  style={{
+                                    float: "right",
+                                    color: "#009345",
+                                    fontSize: "10px",
+                                    paddingRight: "5px"
+                                  }}
+                                >
+                                  See more
+                                </span>
+                              </a>
+                            </h6>
+                            {products.length &&
+                              products.map(({ id, home_image }) => (
+                                <a href={`/productDetails/${id}`}>
+                                  <div
+                                    className="small-4 large-4 columns"
+                                    style={{
+                                      paddingLeft: "2px",
+                                      paddingRight: "2px",
+                                      float: "left"
+                                    }}
+                                  >
+                                    <div className="frameFeatureCatSm">
+                                      <span className="helperframeFeatureCatSm">
+                                        <img
+                                          src={img_src + home_image}
+                                          alt="img"
+                                        />
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {item.tree2 && (
+                    <div
+                      className="medium-9 columns"
+                      style={{ marginTop: "20px" }}
+                    >
+                      <div className="row">
+                        {item.tree2.map(({ cat_info, products }) => (
+                          <div
+                            className="medium-4 columns"
+                            style={{ float: "left" }}
+                          >
+                            <h6 style={{ fontSize: "14px" }}>
+                              &nbsp;&nbsp;&nbsp;{cat_info.category_name}
+                              <a href={`/productList/${cat_info.id}`}>
+                                <span
+                                  style={{
+                                    float: "right",
+                                    color: "#009345",
+                                    fontSize: "10px",
+                                    paddingRight: "5px"
+                                  }}
+                                >
+                                  See more
+                                </span>
+                              </a>
+                            </h6>
+                            {products.length &&
+                              products.map(({ id, home_image }) => (
+                                <a href={`/productDetails/${id}`}>
+                                  <div
+                                    className="small-4 large-4 columns"
+                                    style={{
+                                      paddingLeft: "2px",
+                                      paddingRight: "2px",
+                                      float: "left"
+                                    }}
+                                  >
+                                    <div className="frameFeatureCatSm">
+                                      <span className="helperframeFeatureCatSm">
+                                        <img
+                                          src={img_src + home_image}
+                                          alt="img"
+                                        />
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )
+          )}
 
         {/*More Section*/}
         <div className="row">
@@ -992,7 +1178,10 @@ class App extends Component {
           style={{ backgroundColor: "rgba(0, 0, 0, .9)" }}
         >
           <div className="modal-dialog modalDialogTop" role="document">
-            <div className="modal-content">
+            <div
+              className="modal-content"
+              style={{ backgroundColor: "transparent" }}
+            >
               <div
                 className="modal-body"
                 style={{
@@ -1027,8 +1216,6 @@ class App extends Component {
 
         <div id="boxes">
           <div id="dialog" className="window">
-            {/* <img src={fileUrl + "/upload/product/productImages/" + this.state.Advertisement} alt="Advert" className="adsBigImage" /> */}
-
             <div className="frameAdsBig">
               <span className="helperAdsBig">
                 <img

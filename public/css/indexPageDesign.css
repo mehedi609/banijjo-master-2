@@ -539,6 +539,15 @@ ul {
   .catDisplayMobile {
     display: none;
   }
+
+  .modalDialogTop {
+    top: 170px;
+    bottom: 200px;
+  }
+
+  /*.featureCatBigImgMob {*/
+  /*  margin-top: 0px;*/
+  /*}*/
 }
 
 @media only screen and (max-device-width: 500px) {
@@ -842,6 +851,10 @@ ul {
 
   .catDisplayMobile {
     display: none;
+  }
+  .modalDialogTop {
+    top: 170px;
+    bottom: 200px;
   }
 }
 
@@ -1174,6 +1187,15 @@ ul {
   .catDisplayMobile {
     display: none;
   }
+
+  .modalDialogTop {
+    top: 170px;
+    bottom: 200px;
+  }
+
+  /*.featureCatBigImgMob {*/
+  /*  display: none;*/
+  /*}*/
 }
 
 @media only screen and (max-device-width: 700px) {
@@ -1510,6 +1532,14 @@ ul {
   .catDisplayMobile {
     display: none;
   }
+
+  .modalDialogTop {
+    top: 170px;
+    bottom: 200px;
+  }
+  /*.featureCatBigImgMob {*/
+  /*  display: none;*/
+  /*}*/
 }
 
 @media only screen and (min-device-width: 701px) {
@@ -1719,6 +1749,14 @@ ul {
   }
   .socialNone {
     display: none;
+  }
+
+  .modalDialogTop {
+    top: 70px;
+    bottom: 200px;
+  }
+  .featureCatBigImgMob {
+    margin-top: -65px;
   }
 }
 

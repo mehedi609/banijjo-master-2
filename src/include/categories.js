@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import SubcategoryList from "./subcategoryList";
-// import $ from "jquery";
-// import "./superfish";
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const baseUrl = process.env.REACT_APP_FRONTEND_URL;
