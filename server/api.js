@@ -120,63 +120,6 @@ router.get("/getDiscountByProductId/:product_id", async (req, res) => {
   }
 });
 
-/*router.post("/productDetails", async (req, res) => {
-  const resultArray = {};
-  const specificationActualArray = [];
-  const productDetails = await query(
-    "SELECT * FROM products where id=" + req.body.productId + " limit 1"
-  );
-  const specificationArray = JSON.parse(
-    productDetails[0].product_specification_name
-  );
-
-  const metaTags = productDetails[0].metaTags
-    ? JSON.parse(productDetails[0].metaTags)
-    : [];
-
-  for (const i in specificationArray) {
-    let tempObject = {};
-    tempObject.specificationNameValue =
-      specificationArray[i].specificationNameValue;
-    const productListSmVendorOtherCategory = await query(
-      "SELECT specification_name FROM product_specification_names where id=" +
-        specificationArray[i].specificationNameId +
-        ""
-    );
-    tempObject.specificationName =
-      productListSmVendorOtherCategory[0].specification_name;
-    specificationActualArray.push(tempObject);
-  }
-  const productListSmVendorOtherCategory = await query(
-    "SELECT product_name,product_sku,home_image,productPrice,id FROM products where vendor_id=" +
-      productDetails[0].vendor_id +
-      " and category_id not in(" +
-      productDetails[0].category_id +
-      ") and id not in(" +
-      productDetails[0].id +
-      ") limit 5"
-  );
-  const productListSmCategoryOthersVendor = await query(
-    "SELECT product_name,product_sku,home_image,productPrice,id FROM products where category_id=" +
-      productDetails[0].category_id +
-      " and vendor_id not in(" +
-      productDetails[0].vendor_id +
-      ") and id not in(" +
-      productDetails[0].id +
-      ") limit 5"
-  );
-  resultArray.productDetails = productDetails;
-  resultArray.productSpecifications = specificationActualArray;
-  resultArray.producSmVendor = productListSmVendorOtherCategory;
-  resultArray.productSmCategory = productListSmCategoryOthersVendor;
-  resultArray.metaTags = metaTags;
-  return res.send({
-    error: false,
-    data: resultArray,
-    message: "all Product Deatils list."
-  });
-});*/
-
 router.get("/productDetails/:productId", async (req, res) => {
   const { productId } = req.params;
 
@@ -246,14 +189,14 @@ router.get("/productDetails/:productId", async (req, res) => {
     productDetails.productSmVendor = await query(
       `SELECT id, product_name, product_sku, home_image, productPrice FROM products 
       WHERE vendor_id=${vendor_id} AND category_id <> ${category_id} AND 
-      id <> ${id} ORDER BY RAND() LIMIT 6`
+      id <> ${id} AND softDelete=0 AND isApprove='authorize' AND status='active' ORDER BY RAND() LIMIT 6`
     );
 
     // product List of Similar Vendor-Other Category
     productDetails.productSmCategory = await query(
       `SELECT id, product_name, product_sku, home_image, productPrice FROM products 
        WHERE category_id=${category_id} AND vendor_id <> ${vendor_id} AND 
-       id <> ${id} ORDER BY RAND() LIMIT 6`
+       id <> ${id} AND softDelete=0 AND isApprove='authorize' AND status='active' ORDER BY RAND() LIMIT 6`
     );
 
     delete productDetails.product_specification_id;

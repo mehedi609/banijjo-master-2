@@ -37,6 +37,8 @@ class ProductDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      category_id: "",
+      vendor_id: "",
       showClickedImage: "",
       carouselImages: [],
       productQuantity: 1,
@@ -140,73 +142,6 @@ class ProductDetails extends Component {
         }, 600);
       });
   }
-
-  /*getProductDetails() {
-    fetch(base + "/api/productDetails", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        productId: this.props.match.params.id
-      })
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(response => {
-        this.setState({
-          productName: response.data.productDetails[0].product_name,
-          productImage: response.data.productDetails[0].image,
-          product_full_description: response.data.productDetails[0]
-            .product_full_description
-            ? JSON.parse(
-                response.data.productDetails[0].product_full_description
-              )
-            : null,
-          product_specification_details_description: response.data
-            .productDetails[0].product_specification_details_description
-            ? JSON.parse(
-                response.data.productDetails[0]
-                  .product_specification_details_description
-              )
-            : null,
-
-          productImages: response.data.productDetails[0].image
-            ? JSON.parse(response.data.productDetails[0].image)
-            : null,
-          qc_status: response.data.productDetails[0].qc_status,
-          product_sku: response.data.productDetails[0].product_sku,
-          productPrice: response.data.productDetails[0].productPrice,
-          homeImage: response.data.productDetails[0].home_image,
-          productListSmCategory: response.data.productSmCategory
-            ? response.data.productSmCategory
-            : null,
-          productListSmVendor: response.data.producSmVendor
-            ? response.data.producSmVendor
-            : null,
-          product_specification_name: response.data.productSpecifications
-            ? response.data.productSpecifications
-            : null,
-          metaTags: response.data.metaTags
-        });
-
-        this.setState({
-          showClickedImage: response.data.productDetails[0].home_image
-        });
-
-        setTimeout(() => {
-          window.imageZoom(
-            "myimage",
-            "myresult",
-            fileUrl +
-              "/upload/product/productImages/" +
-              this.state.showClickedImage
-          );
-        }, 600);
-      });
-  }*/
 
   handleClickMinus() {
     if (this.state.productQuantity !== 0) {
@@ -320,13 +255,13 @@ class ProductDetails extends Component {
     const { productListSmVendor } = this.state;
     const classes = ["frameMore", "helperframeMore"];
 
-    if (productListSmVendor) {
+    if (productListSmVendor.length) {
       return productListSmVendor.map(({ id, home_image }) => (
         <div className="column" key={id}>
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={link + id}
+            link={`/vendor/${this.state.vendor_id}`}
           />
         </div>
       ));
@@ -356,13 +291,13 @@ class ProductDetails extends Component {
     const { productListSmVendor } = this.state;
     const classes = ["moreCatDiv", "moreCatSpan"];
 
-    if (productListSmVendor) {
+    if (productListSmVendor.length) {
       return productListSmVendor.map(({ id, home_image }) => (
         <div className="column" key={id}>
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={link + id}
+            link={`/vendor/${this.state.vendor_id}`}
           />
         </div>
         /*<div className="column">
@@ -387,13 +322,13 @@ class ProductDetails extends Component {
     const { productListSmCategory } = this.state;
     const classes = ["frameMore", "helperframeMore"];
 
-    if (productListSmCategory) {
+    if (productListSmCategory.length) {
       return productListSmCategory.map(({ id, home_image }) => (
         <div className="column" key={id}>
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={link + id}
+            link={`/productList/${this.state.category_id}`}
           />
         </div>
       ));
@@ -422,13 +357,13 @@ class ProductDetails extends Component {
   sameProductsOtherVendorMobile() {
     const { productListSmCategory } = this.state;
     const classes = ["moreCatDiv", "moreCatSpan"];
-    if (productListSmCategory) {
+    if (productListSmCategory.length) {
       return productListSmCategory.map(({ home_image, id }) => (
         <div className="column" key={id}>
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={link + id}
+            link={`/productList/${this.state.category_id}`}
           />
         </div>
         /*<div className="column">
@@ -674,7 +609,9 @@ class ProductDetails extends Component {
       productName,
       metaTags,
       carouselImages,
-      colors
+      colors,
+      productListSmCategory,
+      productListSmVendor
     } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
@@ -1497,55 +1434,67 @@ class ProductDetails extends Component {
           </div>
         </div>
 
-        <div className="row" style={{ marginTop: "10px" }}>
-          <div className="medium-12 columns">
-            <h5 style={{ color: "#009345" }} className="text-left">
-              Similar Products
-              <a href="">
-                <span
-                  style={{ float: "right", color: "#009345", fontSize: "14px" }}
-                >
-                  See more
-                </span>
-              </a>
-            </h5>
+        {productListSmCategory.length && (
+          <div className="row" style={{ marginTop: "10px" }}>
+            <div className="medium-12 columns">
+              <h5 style={{ color: "#009345" }} className="text-left">
+                Similar Products
+                <a href="">
+                  <span
+                    style={{
+                      float: "right",
+                      color: "#009345",
+                      fontSize: "14px"
+                    }}
+                  >
+                    See more
+                  </span>
+                </a>
+              </h5>
 
-            {/*Desktop View*/}
-            <div className="row small-up-6 desview">
-              {this.sameProductsOtherVendorDesktop()}
-            </div>
+              {/*Desktop View*/}
+              <div className="row small-up-6 desview">
+                {this.sameProductsOtherVendorDesktop()}
+              </div>
 
-            {/*Mobile view*/}
-            <div className="row small-up-3 moreCat">
-              {this.sameProductsOtherVendorMobile()}
-            </div>
-          </div>
-        </div>
-
-        <div className="row" style={{ marginTop: "10px" }}>
-          <div className="medium-12 columns">
-            <h5 style={{ color: "#009345" }} className="text-left">
-              Same Vendor Other Products{" "}
-              <a href="">
-                <span
-                  style={{ float: "right", color: "#009345", fontSize: "14px" }}
-                >
-                  See more
-                </span>
-              </a>
-            </h5>
-
-            {/*Desktop View*/}
-            <div className="row small-up-6 desview">
-              {this.sameVendorOtherProductsDeskTop()}
-            </div>
-
-            {/*Mobile view*/}
-            <div className="row small-up-3 moreCat">
-              {this.sameVendorOtherProductsMobile()}
+              {/*Mobile view*/}
+              <div className="row small-up-3 moreCat">
+                {this.sameProductsOtherVendorMobile()}
+              </div>
             </div>
           </div>
-        </div>
+        )}
+
+        {productListSmVendor.length && (
+          <div className="row" style={{ marginTop: "10px" }}>
+            <div className="medium-12 columns">
+              <h5 style={{ color: "#009345" }} className="text-left">
+                Same Vendor Other Products{" "}
+                <a href="">
+                  <span
+                    style={{
+                      float: "right",
+                      color: "#009345",
+                      fontSize: "14px"
+                    }}
+                  >
+                    See more
+                  </span>
+                </a>
+              </h5>
+
+              {/*Desktop View*/}
+              <div className="row small-up-6 desview">
+                {this.sameVendorOtherProductsDeskTop()}
+              </div>
+
+              {/*Mobile view*/}
+              <div className="row small-up-3 moreCat">
+                {this.sameVendorOtherProductsMobile()}
+              </div>
+            </div>
+          </div>
+        )}
 
         <Footer />
       </React.Fragment>
