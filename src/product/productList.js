@@ -40,7 +40,7 @@ class ProductList extends Component {
         });
     } else {
       //  CATEGORY WISE PRODUCTS.......... CREATED AT 12/17/2019
-      fetch(base + `/api/category_product_list/?id=${this.state.categoryId}`, {
+      fetch(base + `/api/category_product_list/${this.state.categoryId}`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -48,7 +48,6 @@ class ProductList extends Component {
         }
       })
         .then(res => {
-          console.log(res);
           return res.json();
         })
         .then(products => {

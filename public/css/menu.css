@@ -5659,7 +5659,7 @@ p.ui-notice.ui-notice-prompt.dependency {
   width: 227px;
   min-height: 300px;
   /* min-height:400px;*/
-  padding: 3px 10px 7px;
+  padding: 3px 0px 7px 20px;
 }
 .scp-cate-brand .sup-brand-item {
   width: 100px;

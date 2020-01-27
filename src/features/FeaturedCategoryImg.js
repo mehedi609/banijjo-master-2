@@ -9,7 +9,7 @@ const FeaturedCategoryImg = ({ id, img }) => {
           <span className="helperframeFeatureCatSm">
             <img
               src={`${fileUrl}/upload/product/productImages/${img}`}
-              alt="Featured Bands"
+              alt="Img"
             />
           </span>
         </div>

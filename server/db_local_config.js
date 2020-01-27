@@ -5,7 +5,8 @@ const dbConnection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "ecommerce"
+  // database: "ecommerce"
+  database: "microfin_ecommerce"
 });
 
 /*dbConnection.connect(err => {

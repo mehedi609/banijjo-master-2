@@ -20,10 +20,14 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "../assets/social-share.css";
+import CardToListProducts from "../features/CardToListProducts";
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
+
+const img_src = `${fileUrl}/upload/product/productImages/`;
+const link = "/productDetails/";
 
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -58,7 +62,9 @@ class ProductDetails extends Component {
       cartArr: [],
       color: "",
       discountAmount: 0,
-      metaTags: []
+      metaTags: [],
+      colors: [],
+      sizes: []
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -78,12 +84,64 @@ class ProductDetails extends Component {
     axios
       .get(`${base}/api/getDiscountByProductId/${this.state.productId}`)
       .then(res => {
-        // console.log(res.data.discountAmount);
         this.setState({ discountAmount: res.data.discountAmount });
       });
   }
 
   getProductDetails() {
+    axios
+      .get(`${base}/api/productDetails/${this.state.productId}`)
+      .then(res => {
+        console.log(res.data);
+        const {
+          product_name,
+          productPrice,
+          home_image,
+          category_id,
+          vendor_id,
+          metaTags,
+          colors,
+          sizes,
+          carouselImages,
+          productSmVendor,
+          productSmCategory,
+          description,
+          qc_status,
+          status,
+          product_sku
+        } = res.data;
+
+        this.setState({
+          category_id,
+          vendor_id,
+          productName: product_name,
+          homeImage: !!home_image ? home_image : "default.png",
+          showClickedImage: !!home_image ? home_image : "default.png",
+          product_full_description: description,
+          carouselImages: !!carouselImages && carouselImages,
+          qc_status: !!qc_status && qc_status,
+          product_sku: !!product_sku && product_sku,
+          productPrice: !!productPrice && productPrice,
+          metaTags: !!metaTags && metaTags,
+          productListSmCategory: productSmCategory,
+          productListSmVendor: productSmVendor,
+          colors: !!colors && colors,
+          sizes: !!sizes && sizes
+        });
+
+        setTimeout(() => {
+          window.imageZoom(
+            "myimage",
+            "myresult",
+            fileUrl +
+              "/upload/product/productImages/" +
+              this.state.showClickedImage
+          );
+        }, 600);
+      });
+  }
+
+  /*getProductDetails() {
     fetch(base + "/api/productDetails", {
       method: "POST",
       headers: {
@@ -91,16 +149,13 @@ class ProductDetails extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        productId: this.state.productId
+        productId: this.props.match.params.id
       })
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
-        console.log(response.data);
-        this.setState({ productArray: response.data[0] });
-
         this.setState({
           productName: response.data.productDetails[0].product_name,
           productImage: response.data.productDetails[0].image,
@@ -151,7 +206,7 @@ class ProductDetails extends Component {
           );
         }, 600);
       });
-  }
+  }*/
 
   handleClickMinus() {
     if (this.state.productQuantity !== 0) {
@@ -205,6 +260,31 @@ class ProductDetails extends Component {
     return this.state.carouselImages;
   }
 
+  showCarouselSlider() {
+    return this.state.carouselImages.map(({ imageName, serialNumber }) => (
+      <React.Fragment>
+        <a
+          onClick={() => {
+            this.setState({ showClickedImage: imageName });
+            window.imageZoom(
+              "myimage",
+              "myresult",
+              fileUrl + "/upload/product/productImages/" + imageName
+            );
+          }}
+        >
+          <div className="frameZoomSlider">
+            <span className="helperZoomSlider">
+              <img
+                src={fileUrl + "/upload/product/productImages/" + imageName}
+              />
+            </span>
+          </div>
+        </a>
+      </React.Fragment>
+    ));
+  }
+
   productDescriptions() {
     let descriptionText = [];
     if (this.state.product_full_description.length > 0) {
@@ -237,7 +317,22 @@ class ProductDetails extends Component {
   }
 
   sameVendorOtherProductsDeskTop() {
-    if (this.state.productListSmVendor) {
+    const { productListSmVendor } = this.state;
+    const classes = ["frameMore", "helperframeMore"];
+
+    if (productListSmVendor) {
+      return productListSmVendor.map(({ id, home_image }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+      ));
+    }
+
+    /*if (this.state.productListSmVendor) {
       return this.state.productListSmVendor.map(item => (
         <div className="column" key={item.id}>
           <div className="frameMore">
@@ -254,13 +349,23 @@ class ProductDetails extends Component {
           </div>
         </div>
       ));
-    }
+    }*/
   }
 
   sameVendorOtherProductsMobile() {
-    if (this.state.productListSmVendor) {
-      return this.state.productListSmVendor.map(item => (
-        <div className="small-4 large-4 columns">
+    const { productListSmVendor } = this.state;
+    const classes = ["moreCatDiv", "moreCatSpan"];
+
+    if (productListSmVendor) {
+      return productListSmVendor.map(({ id, home_image }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+        /*<div className="column">
           <div className="moreCatDiv">
             <span className="moreCatSpan">
               <a href={"/productDetails/" + item.id}>
@@ -273,14 +378,29 @@ class ProductDetails extends Component {
               </a>
             </span>
           </div>
-        </div>
+        </div>*/
       ));
     }
   }
 
   sameProductsOtherVendorDesktop() {
-    if (this.state.productListSmCategory) {
-      return this.state.productListSmCategory.map(item => (
+    const { productListSmCategory } = this.state;
+    const classes = ["frameMore", "helperframeMore"];
+
+    if (productListSmCategory) {
+      return productListSmCategory.map(({ id, home_image }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+      ));
+    }
+
+    /*if (this.state.productListSmCategory) {
+      return this.state.productListSmCategory.map(({ id, home_image }) => (
         <div className="column" key={item.id}>
           <div className="frameMore">
             <span className="helperframeMore">
@@ -296,13 +416,22 @@ class ProductDetails extends Component {
           </div>
         </div>
       ));
-    }
+    }*/
   }
 
   sameProductsOtherVendorMobile() {
-    if (this.state.productListSmCategory) {
-      return this.state.productListSmCategory.map(item => (
-        <div className="small-4 large-4 columns">
+    const { productListSmCategory } = this.state;
+    const classes = ["moreCatDiv", "moreCatSpan"];
+    if (productListSmCategory) {
+      return productListSmCategory.map(({ home_image, id }) => (
+        <div className="column" key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={img_src + home_image}
+            link={link + id}
+          />
+        </div>
+        /*<div className="column">
           <div className="moreCatDiv">
             <span className="moreCatSpan">
               <a href={"/productDetails/" + item.id}>
@@ -315,7 +444,7 @@ class ProductDetails extends Component {
               </a>
             </span>
           </div>
-        </div>
+        </div>*/
       ));
     }
   }
@@ -524,18 +653,29 @@ class ProductDetails extends Component {
     }
   }
 
-  renderColorList(colors) {
-    return colors.map(el => (
+  renderColorList() {
+    const { colors } = this.state;
+    return colors.map(({ colorName }) => (
       <li>
         <a href="#">
-          <span style={{ backgroundColor: el.specificationNameValue }}></span>
+          <span style={{ backgroundColor: colorName }}></span>
         </a>
       </li>
     ));
   }
 
   render() {
-    const { productId, productName, metaTags, productImages } = this.state;
+    const options = {
+      items: 3,
+      slideBy: 1
+    };
+    const {
+      productId,
+      productName,
+      metaTags,
+      carouselImages,
+      colors
+    } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
     // const title = productName;
@@ -550,8 +690,8 @@ class ProductDetails extends Component {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           {metaTags &&
             metaTags.map(tags => <meta name="description" content={tags} />)}
-          {productImages &&
-            productImages.map(({ imageName }) => (
+          {carouselImages &&
+            carouselImages.map(({ imageName }) => (
               <meta name="description" content={imageName} />
             ))}
 
@@ -804,20 +944,59 @@ class ProductDetails extends Component {
               <div
                 id="zoomResult"
                 className="medium-3 large-3 columns"
-                style={{ zIndex: 1000, visibility: "hidden" }}
+                style={{
+                  zIndex: 1000,
+                  visibility: "hidden",
+                  marginRight: "-15px"
+                }}
               >
                 <div id="myresult" class="img-zoom-result"></div>
               </div>
             </div>
 
-            <OwlCarousel
+            {/*<OwlCarousel
               style={{ marginTop: "38%" }}
               className="owl-theme"
               margin={10}
               items={3}
               nav
             >
-              {this.couraselImages()}
+              {carouselImages && this.showCarouselSlider()}
+            </OwlCarousel>*/}
+
+            <OwlCarousel
+              style={{ marginTop: "15px", marginBottom: "10px" }}
+              className="owl-theme"
+              margin={10}
+              {...options}
+            >
+              {carouselImages.map(
+                item =>
+                  item && (
+                    <a
+                      key={item.serialNumber}
+                      onClick={() => {
+                        this.setState({ showClickedImage: item.imageName });
+                        window.imageZoom(
+                          "myimage",
+                          "myresult",
+                          fileUrl +
+                            "/upload/product/productImages/" +
+                            item.imageName
+                        );
+                      }}
+                    >
+                      <div className="frameZoomSlider">
+                        <span className="helperZoomSlider">
+                          <img
+                            src={`${fileUrl}/upload/product/productImages/${item.imageName}`}
+                            alt="Image"
+                          />
+                        </span>
+                      </div>
+                    </a>
+                  )
+              )}
             </OwlCarousel>
           </div>
 
@@ -847,9 +1026,7 @@ class ProductDetails extends Component {
             <div className="color-quality">
               <div className="color-quality-left">
                 <h5>Color : </h5>
-                <ul>
-                  {this.renderColorList(this.state.product_specification_name)}
-                </ul>
+                <ul>{colors.length && this.renderColorList()}</ul>
               </div>
 
               <div className="color-quality-right">
@@ -1339,8 +1516,8 @@ class ProductDetails extends Component {
             </div>
 
             {/*Mobile view*/}
-            <div className="moreCat">
-              <div className="row">{this.sameProductsOtherVendorMobile()}</div>
+            <div className="row small-up-3 moreCat">
+              {this.sameProductsOtherVendorMobile()}
             </div>
           </div>
         </div>
@@ -1364,8 +1541,8 @@ class ProductDetails extends Component {
             </div>
 
             {/*Mobile view*/}
-            <div className="moreCat">
-              <div className="row">{this.sameVendorOtherProductsMobile()}</div>
+            <div className="row small-up-3 moreCat">
+              {this.sameVendorOtherProductsMobile()}
             </div>
           </div>
         </div>

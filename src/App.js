@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Breadcums from "./include/breadcums";
 import axios from "axios";
 import Footer from "./include/footer";
@@ -9,10 +9,13 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import FeaturedCategoryImg from "./features/FeaturedCategoryImg";
 import CarouselSliderBannerImgs from "./include/CarouselSliderBannerImgs";
 import CarouselSliderMainBanner from "./include/CarouselSliderMainBanner";
+import CardToListProducts from "./features/CardToListProducts";
 
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
-const baseUrl = process.env.REACT_APP_FRONTEND_URL;
+
+const img_src = `${fileUrl}/upload/product/productImages/`;
+const link = "/productList/";
 
 class App extends Component {
   constructor(props) {
@@ -40,14 +43,24 @@ class App extends Component {
       BannerCarouselArr: [],
       Advertisement: "",
       featuredCategories: [],
-      featuredBannerProds: []
+      featuredBannerProds: [],
+      vendors: []
     };
+
+    console.log(fileUrl);
   }
 
   componentDidMount() {
     this.getAllProductList();
     this.getAdvertisement();
     this.getFeatureCategory();
+    this.getVendors();
+  }
+
+  getVendors() {
+    axios
+      .get(`${base}/api/vendors`)
+      .then(res => this.setState({ vendors: res.data }));
   }
 
   getFeatureCategory() {
@@ -167,18 +180,24 @@ class App extends Component {
         let coolView = [];
         let counter = 0;
         let activity = "";
+        const { BannerImagesCustom } = this.state;
         if (counter === 0) {
-          if (
-            !this.state.BannerImagesCustom ||
-            this.state.BannerImagesCustom.length === 0
-          ) {
-            this.state.BannerTop.map((item, key) => {
+          if (!BannerImagesCustom || BannerImagesCustom.length === 0) {
+            const { BannerTop } = this.state;
+            const classes = ["frameSliderBig", "helperSliderBig"];
+
+            BannerTop.map(({ productId, productImage }, key) => {
               activity = key === 0 ? (activity = "active") : "";
               coolView.push(
-                <div className={"item " + activity}>
+                <div className={"item " + activity} key={productId}>
                   <div className="row">
                     <div className="column">
-                      <a href={"/productDetails/" + item.productId}>
+                      <CardToListProducts
+                        classes={classes}
+                        img_src={img_src + productImage}
+                        link={`/productDetails/${productId}`}
+                      />
+                      {/*<a href={"/productDetails/" + item.productId}>
                         <div className="frameSliderBig">
                           <span className="helperSliderBig">
                             <img
@@ -191,7 +210,7 @@ class App extends Component {
                             />
                           </span>
                         </div>
-                      </a>
+                      </a>*/}
                     </div>
                   </div>
                 </div>
@@ -199,13 +218,20 @@ class App extends Component {
               counter++;
             });
           } else {
-            this.state.BannerImagesCustom.map((item, key) => {
+            const { BannerImagesCustom } = this.state;
+            const classes = ["frameSliderBig", "helperSliderBig"];
+            BannerImagesCustom.map(({ image, url }, key) => {
               activity = key === 0 ? (activity = "active") : "";
               coolView.push(
-                <div className={"item " + activity}>
+                <div className={"item " + activity} key={url}>
                   <div className="row">
                     <div className="column">
-                      <a href={item.url}>
+                      <CardToListProducts
+                        classes={classes}
+                        img_src={img_src + image}
+                        link={url}
+                      />
+                      {/*<a href={item.url}>
                         <div className="frameSliderBig">
                           <span className="helperSliderBig">
                             <img
@@ -218,7 +244,7 @@ class App extends Component {
                             />
                           </span>
                         </div>
-                      </a>
+                      </a>*/}
                     </div>
                   </div>
                 </div>
@@ -237,7 +263,22 @@ class App extends Component {
   }
 
   bannerImages() {
-    let hotView = [];
+    const { BannerImages } = this.state;
+    const classes = ["frameSlider", "helperSlider"];
+
+    if (BannerImages) {
+      return BannerImages.map(({ productId, productImage }) => (
+        <div className="column" key={productId}>
+          <CardToListProducts
+            img_src={img_src + productImage}
+            classes={classes}
+            link={`/productDetails/${productId}`}
+          />
+        </div>
+      ));
+    }
+
+    /*let hotView = [];
     let counter = 0;
     this.state.BannerImages.map((item, key) => {
       hotView.push(
@@ -277,11 +318,43 @@ class App extends Component {
         );
       }
     }
-    return hotView;
+    return hotView;*/
+  }
+
+  vendors() {
+    const { vendors } = this.state;
+    const classes = ["frameHotDeal", "helperHotDeal"];
+
+    if (vendors) {
+      return vendors.map(({ id, vendor_id, logo }) => (
+        <div key={id}>
+          <CardToListProducts
+            classes={classes}
+            img_src={`${fileUrl}/upload/vendor/${logo}`}
+            link={`/vendor/${vendor_id}`}
+          />
+        </div>
+      ));
+    }
   }
 
   hotDeal() {
-    let hotView = [];
+    const { HotDeals } = this.state;
+    const classes = ["frameHotDeal", "helperHotDeal"];
+
+    if (HotDeals) {
+      return HotDeals.map(({ productId, productImage }) => (
+        <div key={productId}>
+          <CardToListProducts
+            img_src={img_src + productImage}
+            link={`/productDetails/${productId}`}
+            classes={classes}
+          />
+        </div>
+      ));
+    }
+
+    /*let hotView = [];
     let counter = 0;
     if (counter === 0) {
       this.state.HotDeals.map(item => {
@@ -322,11 +395,27 @@ class App extends Component {
         );
       }
     }
-    return hotView;
+    return hotView;*/
   }
 
   topSelections() {
-    let hotView = [];
+    const { TopSelections } = this.state;
+    const classes = ["frameTopSelection", "helperframeTopSelection"];
+
+    if (TopSelections) {
+      return TopSelections.map(({ productId, productImage }) => (
+        <div className="column">
+          <CardToListProducts
+            img_src={img_src + productImage}
+            link={`/productDetails/${productId}`}
+            classes={classes}
+            key={productId}
+          />
+        </div>
+      ));
+    }
+
+    /*let hotView = [];
     let counter = 0;
     if (counter === 0) {
       this.state.TopSelections.map(item => {
@@ -367,11 +456,27 @@ class App extends Component {
         );
       }
     }
-    return hotView;
+    return hotView;*/
   }
 
   newForYou() {
-    let hotView = [];
+    const { NewForYou } = this.state;
+    const classes = ["frameTopSelection", "helperframeTopSelection"];
+
+    if (NewForYou) {
+      return NewForYou.map(({ productId, productImage }) => (
+        <div className="column">
+          <CardToListProducts
+            img_src={img_src + productImage}
+            link={`/productDetails/${productId}`}
+            classes={classes}
+            key={productId}
+          />
+        </div>
+      ));
+    }
+
+    /*let hotView = [];
     let counter = 0;
     if (counter === 0) {
       this.state.NewForYou.map((item, key) => {
@@ -412,11 +517,27 @@ class App extends Component {
         );
       }
     }
-    return hotView;
+    return hotView;*/
   }
 
   topSelectionBig() {
-    let hotView = [];
+    const { FeaturedBrands } = this.state;
+    const classes = ["frameFeatureBand", "helperframeFeatureBand"];
+
+    if (FeaturedBrands) {
+      return FeaturedBrands.map(({ productId, productImage }) => (
+        <div className="column">
+          <CardToListProducts
+            img_src={img_src + productImage}
+            link={`/productDetails/${productId}`}
+            classes={classes}
+            key={productId}
+          />
+        </div>
+      ));
+    }
+
+    /*let hotView = [];
     let counter = 0;
     if (counter === 0) {
       this.state.FeaturedBrands.map((item, key) => {
@@ -457,11 +578,26 @@ class App extends Component {
         );
       }
     }
-    return hotView;
+    return hotView;*/
   }
 
   storeWillLove() {
-    let hotView = [];
+    const { StoreWIllLove } = this.state;
+    const classes = ["frameFeatureBand", "helperframeFeatureBand"];
+
+    if (StoreWIllLove) {
+      return StoreWIllLove.map(({ productId, productImage }) => (
+        <div className="column">
+          <CardToListProducts
+            img_src={img_src + productImage}
+            link={`/productDetails/${productId}`}
+            classes={classes}
+            key={productId}
+          />
+        </div>
+      ));
+    }
+    /*let hotView = [];
     let counter = 0;
     if (counter === 0) {
       this.state.StoreWIllLove.map((item, key) => {
@@ -503,16 +639,30 @@ class App extends Component {
       }
     }
 
-    return hotView;
+    return hotView;*/
   }
 
   MoreMobile() {
-    let hotView = [];
+    const { More } = this.state;
+    const classes = ["moreCatDiv", "moreCatSpan"];
+    if (More) {
+      return More.map(({ productId, productImage }) => (
+        <div className="column">
+          <CardToListProducts
+            img_src={img_src + productImage}
+            link={`/productDetails/${productId}`}
+            classes={classes}
+            key={productId}
+          />
+        </div>
+      ));
+    }
+    /*let hotView = [];
     let counter = 0;
     if (counter === 0) {
       this.state.More.map((item, key) => {
         hotView.push(
-          <div className="small-4 large-4 columns">
+          <div className="column">
             <a href={"/productDetails/" + item.productId}>
               <div className="moreCatDiv">
                 <span className="moreCatSpan">
@@ -536,7 +686,7 @@ class App extends Component {
     if (counter < 6) {
       for (let i = counter; i < 6; i++) {
         hotView.push(
-          <div className="small-4 large-4 columns">
+          <div className="column">
             <a href="http://banijjo.com.bd/productDetails/48">
               <div className="moreCatDiv">
                 <span className="moreCatSpan">
@@ -548,11 +698,25 @@ class App extends Component {
         );
       }
     }
-    return hotView;
+    return hotView;*/
   }
 
   MoreDesk() {
-    let hotView = [];
+    const { More } = this.state;
+    const classes = ["frameMore", "helperframeMore"];
+    if (More) {
+      return More.map(({ productId, productImage }) => (
+        <div className="column">
+          <CardToListProducts
+            img_src={img_src + productImage}
+            link={`/productDetails/${productId}`}
+            classes={classes}
+            key={productId}
+          />
+        </div>
+      ));
+    }
+    /*let hotView = [];
     let counter = 0;
     if (counter === 0) {
       this.state.More.map((item, key) => {
@@ -593,7 +757,7 @@ class App extends Component {
         );
       }
     }
-    return hotView;
+    return hotView;*/
   }
 
   render() {
@@ -623,6 +787,10 @@ class App extends Component {
                   />
                 </div>
               </div>
+            </div>
+
+            <div className="row">
+              <p className="gap"></p>
             </div>
 
             <div className="row small-up-5">
@@ -764,6 +932,8 @@ class App extends Component {
             </h5>
             <div className="row small-up-2">{this.topSelectionBig()}</div>
           </div>
+
+          {/*Store Will Love*/}
           <div className="medium-6 columns">
             <h5 style={{ margin: "0" }} className="text-left">
               {this.state.StoreWIllLoveTitle}
@@ -780,210 +950,224 @@ class App extends Component {
           </div>
         </div>
 
-        {/*{this.state.featuredCategories &&
-          this.state.featuredCategories.map(
-            ({ parent, childs, lastChilds }) => (
-              <div className="row" key={parent.category_id}>
-                <div className="row column">
-                  <p>&nbsp;</p>
-                </div>
-                <h5
-                  style={{ margin: "0", paddingLeft: "15px" }}
-                  className="text-left"
-                >
-                  Featured Categories
-                </h5>
-                <div className="medium-3 columns">
+        {/*Brands Section*/}
+        {this.state.vendors.length && (
+          <div className="row">
+            <div className="row column"></div>
+            <div className="medium-12 columns">
+              <h5 style={{ margin: 0 }} className="text-left">
+                Brands
+              </h5>
+              <div className="row small-up-5">
+                <div className="container">
                   <div className="row">
-                    <div className="medium-2 columns">
-                      <p className="gap">&nbsp;</p>
-                      <p>&nbsp;</p>
+                    <div className="col-md-12">
+                      <OwlCarousel
+                        className="owl-theme"
+                        margin={10}
+                        {...options}
+                      >
+                        {this.vendors()}
+                      </OwlCarousel>
                     </div>
+                    <p className="gap">&nbsp;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/*Featured Category Section*/}
+        {this.state.featuredCategories.length &&
+          this.state.featuredCategories.map(
+            item =>
+              item.parent !== null && (
+                <div className="row">
+                  <div className="row column">
+                    <p>&nbsp;</p>
                   </div>
 
-                  <div className="row" style={{ marginTop: -30 }}>
-                    <div className="medium-8 columns">
-                      <a href={"/productList/" + parent.category_id}>
+                  <h5
+                    className="text-left"
+                    style={{ margin: "0", paddingLeft: "15px" }}
+                  >
+                    Featured Categories
+                  </h5>
+
+                  <div className="medium-3 columns">
+                    <div className="row">
+                      <div className="medium-2 columns">
+                        <p className="gap">&nbsp;</p>
+                        <p>&nbsp;</p>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div
+                        className="medium-8 columns"
+                        style={{ marginTop: "-40px" }}
+                      >
                         <div className="frameFeatureCat">
                           <span className="helperframeFeatureCat">
                             <img
-                              src={
-                                fileUrl +
-                                "/upload/product/productImages/" +
-                                parent.home_image
-                              }
-                              alt="Featured Categories Img"
+                              src={img_src + item.parent.category_image}
+                              alt="img"
                             />
                           </span>
                         </div>
-                      </a>
-                    </div>
-                    <p className="gap"></p>
+                      </div>
+                      <p></p>
 
-                    {childs.map(
-                      item =>
-                        item.category_id !== null && (
+                      <div className="medium-4 columns">
+                        <div className="row featureCatBigImgMob">
+                          {item.subCat &&
+                            item.subCat.map(({ cat_id, product_img }) => (
+                              <Fragment>
+                                <div
+                                  className="columns small-6 large-12 featureCatsmOne"
+                                  style={{ float: "left" }}
+                                >
+                                  <div className="frameFeatureCatSm">
+                                    <span className="helperframeFeatureCatSm">
+                                      <img
+                                        src={img_src + product_img}
+                                        alt="img"
+                                      />
+                                    </span>
+                                  </div>
+                                </div>
+                                <p className="gap">&nbsp;</p>
+                              </Fragment>
+                            ))}
+                        </div>
+                      </div>
+                      <p className="gap">&nbsp;</p>
+
+                      <div className="medium-4 columns"></div>
+                    </div>
+                  </div>
+
+                  {item.tree1 && (
+                    <div className="medium-9 columns">
+                      <div className="row">
+                        {item.tree1.map(({ cat_info, products }) => (
                           <div
                             className="medium-4 columns"
-                            key={item.category_id}
+                            style={{ float: "left" }}
                           >
-                            <div className="row">
-                              <div
-                                className="columns small-6 large-12 featureCatsmOne"
-                                style={{ marginTop: "-20px" }}
-                              >
-                                <FeaturedCategoryImg
-                                  id={item.category_id}
-                                  img={item.home_image}
-                                />
-                              </div>
-                              <p className="gap">&nbsp;</p>
-                            </div>
+                            <h6 style={{ fontSize: "14px" }}>
+                              &nbsp;&nbsp;&nbsp;{cat_info.category_name}
+                              <a href={`/productList/${cat_info.id}`}>
+                                <span
+                                  style={{
+                                    float: "right",
+                                    color: "#009345",
+                                    fontSize: "10px",
+                                    paddingRight: "5px"
+                                  }}
+                                >
+                                  See more
+                                </span>
+                              </a>
+                            </h6>
+                            {products.length &&
+                              products.map(({ id, home_image }) => (
+                                <a href={`/productDetails/${id}`}>
+                                  <div
+                                    className="small-4 large-4 columns"
+                                    style={{
+                                      paddingLeft: "2px",
+                                      paddingRight: "2px",
+                                      float: "left"
+                                    }}
+                                  >
+                                    <div className="frameFeatureCatSm">
+                                      <span className="helperframeFeatureCatSm">
+                                        <img
+                                          src={img_src + home_image}
+                                          alt="img"
+                                        />
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              ))}
                           </div>
-                        )
-                    )}
-                    <div className="medium-4 columns"></div>
-                  </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {item.tree2 && (
+                    <div
+                      className="medium-9 columns"
+                      style={{ marginTop: "20px" }}
+                    >
+                      <div className="row">
+                        {item.tree2.map(({ cat_info, products }) => (
+                          <div
+                            className="medium-4 columns"
+                            style={{ float: "left" }}
+                          >
+                            <h6 style={{ fontSize: "14px" }}>
+                              &nbsp;&nbsp;&nbsp;{cat_info.category_name}
+                              <a href={`/productList/${cat_info.id}`}>
+                                <span
+                                  style={{
+                                    float: "right",
+                                    color: "#009345",
+                                    fontSize: "10px",
+                                    paddingRight: "5px"
+                                  }}
+                                >
+                                  See more
+                                </span>
+                              </a>
+                            </h6>
+                            {products.length &&
+                              products.map(({ id, home_image }) => (
+                                <a href={`/productDetails/${id}`}>
+                                  <div
+                                    className="small-4 large-4 columns"
+                                    style={{
+                                      paddingLeft: "2px",
+                                      paddingRight: "2px",
+                                      float: "left"
+                                    }}
+                                  >
+                                    <div className="frameFeatureCatSm">
+                                      <span className="helperframeFeatureCatSm">
+                                        <img
+                                          src={img_src + home_image}
+                                          alt="img"
+                                        />
+                                      </span>
+                                    </div>
+                                  </div>
+                                </a>
+                              ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
+              )
+          )}
 
-                {lastChilds.map(({ gc1, gc2 }, index) => (
-                  <div
-                    className="medium-3 columns"
-                    style={{ paddingLeft: "15px" }}
-                  >
-                    {gc1.length ? (
-                      <div className="row">
-                        <h5>
-                          &nbsp;&nbsp;&nbsp;Sub category
-                          <a href={`/productList/${gc1[index].category_id}`}>
-                            <span
-                              style={{
-                                float: "right",
-                                color: "#009345",
-                                fontSize: "14px",
-                                paddingRight: "5px"
-                              }}
-                            >
-                              See more
-                            </span>
-                          </a>
-                        </h5>
-                        {gc1.map(({ category_id, home_image }) => (
-                          <div
-                            className="small-4 large-4 columns"
-                            key={category_id}
-                          >
-                            <FeaturedCategoryImg
-                              id={category_id}
-                              img={home_image}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                    <br />
-                    {gc2.length ? (
-                      <div className="row">
-                        <h5>
-                          &nbsp;&nbsp;&nbsp;Sub category
-                          <a href={`/productList/${gc2[index].category_id}`}>
-                            <span
-                              style={{
-                                float: "right",
-                                color: "#009345",
-                                fontSize: "14px",
-                                paddingRight: "15px"
-                              }}
-                            >
-                              See more
-                            </span>
-                          </a>
-                        </h5>
-                        {gc2.map(({ category_id, home_image }) => (
-                          <div
-                            className="small-4 large-4 columns"
-                            key={category_id}
-                          >
-                            <FeaturedCategoryImg
-                              id={category_id}
-                              img={home_image}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
-            )
-          )}*/}
-
+        {/*More Section*/}
         <div className="row">
           <div className="medium-12 columns">
             <h5 style={{ margin: "0" }} className="text-left">
               {this.state.MoreTitle}
             </h5>
-            <div className="moreCat">
-              <div className="row">{this.MoreMobile()}</div>
-            </div>
+            <div className="row small-up-3 moreCat">{this.MoreMobile()}</div>
 
             <div className="row small-up-6 desview">{this.MoreDesk()}</div>
             <div className="row column">&nbsp;</div>
           </div>
         </div>
-
-        {/*<div
-          className="modal"
-          id="image-gallery"
-          tabIndex="-1"
-          role="dialog"
-          aria-hidden="false"
-          style={{ backgroundColor: "#000000", opacity: "0.9" }}
-        >
-          <div
-            className="modal-dialog"
-            role="document"
-            style={{
-              top: "200px",
-              bottom: "200px"
-            }}
-          >
-            <div className="modal-content">
-              <div
-                className="modal-body"
-                style={{
-                  position: "relative",
-                  padding: "0px",
-                  marginTop: "-36px"
-                }}
-              >
-                <button
-                  type="button"
-                  className="close campaign-modal-close-btn"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <i
-                    className="fa fa-times-circle"
-                    style={{
-                      fontSize: "24px",
-                      color: "#FFFFFF"
-                    }}
-                  ></i>
-                </button>
-                <img
-                  className="img-responsive"
-                  src={
-                    fileUrl +
-                    "/upload/product/productImages/" +
-                    this.state.Advertisement
-                  }
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>*/}
 
         <div
           className="modal"
@@ -991,10 +1175,13 @@ class App extends Component {
           tabIndex="-1"
           role="dialog"
           aria-hidden="false"
-          style={{ backgroundColor: "#000000", opacity: "0.9" }}
+          style={{ backgroundColor: "rgba(0, 0, 0, .9)" }}
         >
           <div className="modal-dialog modalDialogTop" role="document">
-            <div className="modal-content">
+            <div
+              className="modal-content"
+              style={{ backgroundColor: "transparent" }}
+            >
               <div
                 className="modal-body"
                 style={{
@@ -1029,8 +1216,6 @@ class App extends Component {
 
         <div id="boxes">
           <div id="dialog" className="window">
-            {/* <img src={fileUrl + "/upload/product/productImages/" + this.state.Advertisement} alt="Advert" className="adsBigImage" /> */}
-
             <div className="frameAdsBig">
               <span className="helperAdsBig">
                 <img

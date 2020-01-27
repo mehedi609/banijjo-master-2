@@ -1,12 +1,14 @@
 body {
   overflow-x: hidden;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .modal-backdrop.in {
   opacity: 0.9;
 }
-/*div#image-gallery {
-    background: rgba(240, 248, 255, 0.18);
-    }*/
+
 #lblCartCount {
   font-size: 12px;
   background: #ff0000;
@@ -285,7 +287,6 @@ ul {
     z-index: 9000;
     background-color: #000;
     display: none;
-    opacity: 0.4;
   }
 
   #boxes .window {
@@ -528,6 +529,15 @@ ul {
     height: 247px;
     background: #ffffff;
   }
+  .img-zoom-result {
+    /*border: 0px solid #d4d4d4;*/
+    width: 300px;
+    height: 300px;
+    margin-left: 10px;
+    z-index: 9999;
+    display: inline-block;
+    position: absolute;
+  }
 
   .copyRightFooterYear {
     padding-left: 0px;
@@ -539,15 +549,10 @@ ul {
   .catDisplayMobile {
     display: none;
   }
-
   .modalDialogTop {
     top: 170px;
     bottom: 200px;
   }
-
-  /*.featureCatBigImgMob {*/
-  /*  margin-top: 0px;*/
-  /*}*/
 }
 
 @media only screen and (max-device-width: 500px) {
@@ -669,14 +674,6 @@ ul {
     font-family: "Segoe UI Light", sans-serif;
     font-size: 15pt;
   }
-
-  /*#popupfoot {*/
-  /*	font-size: 16pt;*/
-  /*	position: absolute;*/
-  /*	bottom: 0px;*/
-  /*	width: 250px;*/
-  /*	left: 30px;*/
-  /*}*/
 
   #popupfoot {
     font-size: 16pt;
@@ -842,19 +839,17 @@ ul {
   .liContractMob {
     display: block;
   }
+
   .copyRightFooterYear {
     padding-left: 0px;
   }
+
   .socialNone {
     display: block;
   }
 
   .catDisplayMobile {
     display: none;
-  }
-  .modalDialogTop {
-    top: 170px;
-    bottom: 200px;
   }
 }
 
@@ -1177,9 +1172,11 @@ ul {
   .liContractMob {
     display: block;
   }
+
   .copyRightFooterYear {
     padding-left: 0px;
   }
+
   .socialNone {
     display: block;
   }
@@ -1187,15 +1184,6 @@ ul {
   .catDisplayMobile {
     display: none;
   }
-
-  .modalDialogTop {
-    top: 170px;
-    bottom: 200px;
-  }
-
-  /*.featureCatBigImgMob {*/
-  /*  display: none;*/
-  /*}*/
 }
 
 @media only screen and (max-device-width: 700px) {
@@ -1309,44 +1297,6 @@ ul {
     border-radius: 15px;
     text-align: center;
   }
-
-  /*	#boxes #dialog {
-            width: 310px;
-            height: 420px;
-            padding: 10px;
-            background-color: #FFFFFF;
-            font-family: 'Segoe UI Light', sans-serif;
-            font-size: 15pt;
-        }
-
-
-            #popupfoot {
-                font-size: 16pt;
-                position: absolute;
-                bottom: 0px;
-                top:0;
-                width: 250px;
-                left: 30px;
-                padding-left: 245px;
-                margin-top: -7px;
-            }
-
-
-            .frameAdsBig {
-                height: 380px;
-                display: table;
-                width: 100%;
-                text-align: center;
-                padding: 0px;
-            }
-
-            .helperAdsBig {
-                display: table-cell;
-                text-align: center;
-                vertical-align: middle;
-                height: 304px;
-                background: #ddd;
-                }*/
 
   #boxes #dialog {
     max-height: 100%;
@@ -1529,17 +1479,10 @@ ul {
   .socialNone {
     display: block;
   }
+
   .catDisplayMobile {
     display: none;
   }
-
-  .modalDialogTop {
-    top: 170px;
-    bottom: 200px;
-  }
-  /*.featureCatBigImgMob {*/
-  /*  display: none;*/
-  /*}*/
 }
 
 @media only screen and (min-device-width: 701px) {
@@ -1594,16 +1537,6 @@ ul {
     display: block;
   }
 
-  /*.carousel-control {*/
-  /*	left: 2px;*/
-  /*	height: 40px;*/
-  /*	width: 40px;*/
-  /*	background: none repeat scroll 0 0 #222222;*/
-  /*	border: 4px solid #FFFFFF;*/
-  /*	border-radius: 23px 23px 23px 23px;*/
-  /*	margin-top: 90px;*/
-  /*}*/
-
   .carousel-control {
     left: 2px;
     height: 00px;
@@ -1647,14 +1580,6 @@ ul {
     font-family: "Segoe UI Light", sans-serif;
     font-size: 15pt;
   }
-
-  /*#popupfoot {*/
-  /*	font-size: 16pt;*/
-  /*	position: absolute;*/
-  /*	bottom: 0px;*/
-  /*	width: 250px;*/
-  /*	left: 250px;*/
-  /*}*/
 
   #popupfoot {
     font-size: 16pt;
@@ -1747,16 +1672,17 @@ ul {
   .liContractMob {
     display: none;
   }
+
   .socialNone {
     display: none;
   }
 
+  .catDisplayMobile {
+    display: block;
+  }
   .modalDialogTop {
     top: 70px;
     bottom: 200px;
-  }
-  .featureCatBigImgMob {
-    margin-top: -65px;
   }
 }
 
@@ -1890,56 +1816,6 @@ ul {
     display: none;
   }
 }
-
-/*@media (max-width:400px) {*/
-/*	.medium-9 {*/
-/*		max-width: 75%;*/
-/*		margin-top: -68px;*/
-
-/*	}*/
-/*}*/
-
-/*@media (max-width:500px) {*/
-/*	.medium-9 {*/
-/*		max-width: 75%;*/
-/*		margin-top: -68px;*/
-
-/*	}*/
-/*}*/
-
-/*	@media (max-width:400px) {
-        .medium-9 {
-            max-width:62%;
-            margin-top: -88px;
-            padding-left: 30px;
-
-        }
-    }
-
-    @media (max-width:500px) {
-        .medium-9 {
-            max-width:62%;
-            margin-top: -88px;
-            padding-left: 30px;
-
-        }
-    }
-    @media (max-width:600px) {
-        .medium-9 {
-            max-width:62%;
-            margin-top: -88px;
-            padding-left: 30px;
-
-        }
-    }
-    @media (max-width:700px) {
-        .medium-9 {
-            max-width:62%;
-            margin-top: -88px;
-            padding-left: 30px;
-
-        }
-        }*/
 
 @media (min-width: 701px) {
   .medium-9 {
@@ -2162,18 +2038,10 @@ ul {
   box-sizing: border-box;
 }
 
-/*.img-zoom-container {
+.img-zoom-container {
   position: relative;
   width: 320px;
   height: 320px;
-  margin-right: 20px;
-}*/
-
-.img-zoom-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
   margin-right: 20px;
 }
 
@@ -2187,21 +2055,10 @@ ul {
 
 .img-zoom-result {
   /*border: 1px solid #d4d4d4;*/
-  width: 415px;
-  height: 320px;
-  margin-left: 10px;
+  width: 430px;
+  height: 360px;
+  margin-left: 40px;
   z-index: 9999;
   display: inline-block;
   position: absolute;
-}
-
-.close {
-  float: right;
-  font-size: 21px;
-  font-weight: bold;
-  line-height: 1;
-  color: #000;
-  text-shadow: 0 1px 0 #fff;
-  filter: alpha(opacity=20);
-  opacity: 1;
 }
