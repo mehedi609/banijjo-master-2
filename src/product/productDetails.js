@@ -62,7 +62,9 @@ class ProductDetails extends Component {
       cartArr: [],
       color: "",
       discountAmount: 0,
-      metaTags: []
+      metaTags: [],
+      colors: [],
+      sizes: []
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -87,6 +89,59 @@ class ProductDetails extends Component {
   }
 
   getProductDetails() {
+    axios
+      .get(`${base}/api/productDetails/${this.state.productId}`)
+      .then(res => {
+        console.log(res.data);
+        const {
+          product_name,
+          productPrice,
+          home_image,
+          category_id,
+          vendor_id,
+          metaTags,
+          colors,
+          sizes,
+          carouselImages,
+          productSmVendor,
+          productSmCategory,
+          description,
+          qc_status,
+          status,
+          product_sku
+        } = res.data;
+
+        this.setState({
+          category_id,
+          vendor_id,
+          productName: product_name,
+          homeImage: !!home_image ? home_image : "default.png",
+          showClickedImage: !!home_image ? home_image : "default.png",
+          product_full_description: description,
+          carouselImages: !!carouselImages && carouselImages,
+          qc_status: !!qc_status && qc_status,
+          product_sku: !!product_sku && product_sku,
+          productPrice: !!productPrice && productPrice,
+          metaTags: !!metaTags && metaTags,
+          productListSmCategory: productSmCategory,
+          productListSmVendor: productSmVendor,
+          colors: !!colors && colors,
+          sizes: !!sizes && sizes
+        });
+
+        setTimeout(() => {
+          window.imageZoom(
+            "myimage",
+            "myresult",
+            fileUrl +
+              "/upload/product/productImages/" +
+              this.state.showClickedImage
+          );
+        }, 600);
+      });
+  }
+
+  /*getProductDetails() {
     fetch(base + "/api/productDetails", {
       method: "POST",
       headers: {
@@ -94,16 +149,13 @@ class ProductDetails extends Component {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        productId: this.state.productId
+        productId: this.props.match.params.id
       })
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
-        console.log(response.data);
-        this.setState({ productArray: response.data[0] });
-
         this.setState({
           productName: response.data.productDetails[0].product_name,
           productImage: response.data.productDetails[0].image,
@@ -154,7 +206,7 @@ class ProductDetails extends Component {
           );
         }, 600);
       });
-  }
+  }*/
 
   handleClickMinus() {
     if (this.state.productQuantity !== 0) {
@@ -206,6 +258,31 @@ class ProductDetails extends Component {
       }
     }
     return this.state.carouselImages;
+  }
+
+  showCarouselSlider() {
+    return this.state.carouselImages.map(({ imageName, serialNumber }) => (
+      <React.Fragment>
+        <a
+          onClick={() => {
+            this.setState({ showClickedImage: imageName });
+            window.imageZoom(
+              "myimage",
+              "myresult",
+              fileUrl + "/upload/product/productImages/" + imageName
+            );
+          }}
+        >
+          <div className="frameZoomSlider">
+            <span className="helperZoomSlider">
+              <img
+                src={fileUrl + "/upload/product/productImages/" + imageName}
+              />
+            </span>
+          </div>
+        </a>
+      </React.Fragment>
+    ));
   }
 
   productDescriptions() {
@@ -576,18 +653,29 @@ class ProductDetails extends Component {
     }
   }
 
-  renderColorList(colors) {
-    return colors.map(el => (
+  renderColorList() {
+    const { colors } = this.state;
+    return colors.map(({ colorName }) => (
       <li>
         <a href="#">
-          <span style={{ backgroundColor: el.specificationNameValue }}></span>
+          <span style={{ backgroundColor: colorName }}></span>
         </a>
       </li>
     ));
   }
 
   render() {
-    const { productId, productName, metaTags, productImages } = this.state;
+    const options = {
+      items: 3,
+      slideBy: 1
+    };
+    const {
+      productId,
+      productName,
+      metaTags,
+      carouselImages,
+      colors
+    } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
     // const title = productName;
@@ -602,8 +690,8 @@ class ProductDetails extends Component {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           {metaTags &&
             metaTags.map(tags => <meta name="description" content={tags} />)}
-          {productImages &&
-            productImages.map(({ imageName }) => (
+          {carouselImages &&
+            carouselImages.map(({ imageName }) => (
               <meta name="description" content={imageName} />
             ))}
 
@@ -866,14 +954,49 @@ class ProductDetails extends Component {
               </div>
             </div>
 
-            <OwlCarousel
+            {/*<OwlCarousel
               style={{ marginTop: "38%" }}
               className="owl-theme"
               margin={10}
               items={3}
               nav
             >
-              {this.couraselImages()}
+              {carouselImages && this.showCarouselSlider()}
+            </OwlCarousel>*/}
+
+            <OwlCarousel
+              style={{ marginTop: "15px", marginBottom: "10px" }}
+              className="owl-theme"
+              margin={10}
+              {...options}
+            >
+              {carouselImages.map(
+                item =>
+                  item && (
+                    <a
+                      key={item.serialNumber}
+                      onClick={() => {
+                        this.setState({ showClickedImage: item.imageName });
+                        window.imageZoom(
+                          "myimage",
+                          "myresult",
+                          fileUrl +
+                            "/upload/product/productImages/" +
+                            item.imageName
+                        );
+                      }}
+                    >
+                      <div className="frameZoomSlider">
+                        <span className="helperZoomSlider">
+                          <img
+                            src={`${fileUrl}/upload/product/productImages/${item.imageName}`}
+                            alt="Image"
+                          />
+                        </span>
+                      </div>
+                    </a>
+                  )
+              )}
             </OwlCarousel>
           </div>
 
@@ -903,9 +1026,7 @@ class ProductDetails extends Component {
             <div className="color-quality">
               <div className="color-quality-left">
                 <h5>Color : </h5>
-                <ul>
-                  {this.renderColorList(this.state.product_specification_name)}
-                </ul>
+                <ul>{colors.length && this.renderColorList()}</ul>
               </div>
 
               <div className="color-quality-right">

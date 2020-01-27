@@ -1,11 +1,6 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const { sampleSize } = require("lodash");
-/*const {
-  _getRandEleFromArray,
-  _sampleSize,
-  _getARandomNumber
-} = require("./helpers");*/
 const { dbConnection, query } = require("./db_local_config");
 // const { dbConnection, query } = require("./db_com_bd_config");
 
@@ -125,7 +120,7 @@ router.get("/getDiscountByProductId/:product_id", async (req, res) => {
   }
 });
 
-router.post("/productDetails", async (req, res) => {
+/*router.post("/productDetails", async (req, res) => {
   const resultArray = {};
   const specificationActualArray = [];
   const productDetails = await query(
@@ -180,6 +175,99 @@ router.post("/productDetails", async (req, res) => {
     data: resultArray,
     message: "all Product Deatils list."
   });
+});*/
+
+router.get("/productDetails/:productId", async (req, res) => {
+  const { productId } = req.params;
+
+  try {
+    const data = await query(
+      `SELECT * FROM products WHERE id=${productId} AND softDelete=0 AND isApprove='authorize' AND status='active'`
+    );
+
+    const productDetails = { ...data[0] };
+
+    const {
+      id,
+      product_specification_name,
+      image,
+      metaTags,
+      vendor_id,
+      category_id,
+      product_full_description
+    } = productDetails;
+
+    const product_specification = JSON.parse(product_specification_name);
+
+    // colors array
+    if (product_specification.hasOwnProperty("color")) {
+      const { color } = product_specification;
+      productDetails.colors = await Promise.all(
+        color.map(async item => {
+          const data = await query(
+            `SELECT id, name FROM color_infos WHERE id=${item.colorId} AND softDel=0 AND status=1`
+          );
+          return { ...item, colorName: data[0].name };
+        })
+      );
+    } else {
+      productDetails.colors = null;
+    }
+
+    // size array
+    if (product_specification.hasOwnProperty("size")) {
+      const { size } = product_specification;
+      productDetails.sizes = await Promise.all(
+        size.map(async id => {
+          const data = await query(
+            `SELECT id, size, size_type_id FROM size_infos WHERE id=${id} AND softDel=0 AND status=1`
+          );
+          return { ...data[0] };
+        })
+      );
+    } else {
+      productDetails.sizes = null;
+    }
+
+    // Carousel Images
+    const imageArr = JSON.parse(image);
+    productDetails.carouselImages = imageArr.length ? imageArr : null;
+
+    //metaTags
+    productDetails.metaTags = !!metaTags ? JSON.parse(metaTags) : null;
+
+    // product_full_description
+    const product_description = JSON.parse(product_full_description);
+    productDetails.description = product_description.length
+      ? product_description
+      : null;
+
+    // product List of Similar Vendor-Other Category
+    productDetails.productSmVendor = await query(
+      `SELECT id, product_name, product_sku, home_image, productPrice FROM products 
+      WHERE vendor_id=${vendor_id} AND category_id <> ${category_id} AND 
+      id <> ${id} ORDER BY RAND() LIMIT 6`
+    );
+
+    // product List of Similar Vendor-Other Category
+    productDetails.productSmCategory = await query(
+      `SELECT id, product_name, product_sku, home_image, productPrice FROM products 
+       WHERE category_id=${category_id} AND vendor_id <> ${vendor_id} AND 
+       id <> ${id} ORDER BY RAND() LIMIT 6`
+    );
+
+    delete productDetails.product_specification_id;
+    delete productDetails.product_specification_details;
+    delete productDetails.product_specification_details_description;
+    delete productDetails.product_full_description;
+    delete productDetails.product_specification_name;
+    delete productDetails.image;
+
+    return res.json(productDetails);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("Server Error");
+  }
 });
 
 var lastChildsAll = [];
