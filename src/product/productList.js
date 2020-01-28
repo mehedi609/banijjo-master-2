@@ -82,14 +82,6 @@ class ProductList extends Component {
                               item.home_image
                             }
                           />
-                          <img
-                            className="pic-2"
-                            src={
-                              fileUrl +
-                              "/upload/product/productImages/" +
-                              item.home_image
-                            }
-                          />
                         </span>
                       </div>
                     </a>

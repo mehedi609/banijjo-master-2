@@ -27,7 +27,8 @@ const fileUrl = process.env.REACT_APP_FILE_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
 
 const img_src = `${fileUrl}/upload/product/productImages/`;
-const link = "/productDetails/";
+const pd = "/productDetails/";
+const pl = "/productList/";
 
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -261,30 +262,11 @@ class ProductDetails extends Component {
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={`/vendor/${this.state.vendor_id}`}
+            link={`/productDetails/${id}`}
           />
         </div>
       ));
     }
-
-    /*if (this.state.productListSmVendor) {
-      return this.state.productListSmVendor.map(item => (
-        <div className="column" key={item.id}>
-          <div className="frameMore">
-            <span className="helperframeMore">
-              <a href={"/productDetails/" + item.id}>
-                <img
-                  src={
-                    fileUrl + "/upload/product/productImages/" + item.home_image
-                  }
-                  alt="More"
-                />
-              </a>
-            </span>
-          </div>
-        </div>
-      ));
-    }*/
   }
 
   sameVendorOtherProductsMobile() {
@@ -297,23 +279,9 @@ class ProductDetails extends Component {
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={`/vendor/${this.state.vendor_id}`}
+            link={`/productDetails/${id}`}
           />
         </div>
-        /*<div className="column">
-          <div className="moreCatDiv">
-            <span className="moreCatSpan">
-              <a href={"/productDetails/" + item.id}>
-                <img
-                  src={
-                    fileUrl + "/upload/product/productImages/" + item.home_image
-                  }
-                  alt="More"
-                />
-              </a>
-            </span>
-          </div>
-        </div>*/
       ));
     }
   }
@@ -328,30 +296,11 @@ class ProductDetails extends Component {
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={`/productList/${this.state.category_id}`}
+            link={`/productDetails/${id}`}
           />
         </div>
       ));
     }
-
-    /*if (this.state.productListSmCategory) {
-      return this.state.productListSmCategory.map(({ id, home_image }) => (
-        <div className="column" key={item.id}>
-          <div className="frameMore">
-            <span className="helperframeMore">
-              <a href={"/productDetails/" + item.id}>
-                <img
-                  src={
-                    fileUrl + "/upload/product/productImages/" + item.home_image
-                  }
-                  alt="More"
-                />
-              </a>
-            </span>
-          </div>
-        </div>
-      ));
-    }*/
   }
 
   sameProductsOtherVendorMobile() {
@@ -363,23 +312,9 @@ class ProductDetails extends Component {
           <CardToListProducts
             classes={classes}
             img_src={img_src + home_image}
-            link={`/productList/${this.state.category_id}`}
+            link={`/productDetails/${id}`}
           />
         </div>
-        /*<div className="column">
-          <div className="moreCatDiv">
-            <span className="moreCatSpan">
-              <a href={"/productDetails/" + item.id}>
-                <img
-                  src={
-                    fileUrl + "/upload/product/productImages/" + item.home_image
-                  }
-                  alt="More"
-                />
-              </a>
-            </span>
-          </div>
-        </div>*/
       ));
     }
   }
@@ -611,7 +546,9 @@ class ProductDetails extends Component {
       carouselImages,
       colors,
       productListSmCategory,
-      productListSmVendor
+      productListSmVendor,
+      category_id,
+      vendor_id
     } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
@@ -1439,7 +1376,7 @@ class ProductDetails extends Component {
             <div className="medium-12 columns">
               <h5 style={{ color: "#009345" }} className="text-left">
                 Similar Products
-                <a href="">
+                <a href={`/productList/${category_id}`}>
                   <span
                     style={{
                       float: "right",
@@ -1470,7 +1407,7 @@ class ProductDetails extends Component {
             <div className="medium-12 columns">
               <h5 style={{ color: "#009345" }} className="text-left">
                 Same Vendor Other Products{" "}
-                <a href="">
+                <a href={`/vendor/${vendor_id}`}>
                   <span
                     style={{
                       float: "right",
