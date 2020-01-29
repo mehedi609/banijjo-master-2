@@ -48,14 +48,14 @@ body {
   display: inline-block;
   margin-left: 0.255em;
   vertical-align: 0.255em;
-  content: "";
+  content: '';
   border-top: 0.3em solid;
   border-right: 0.3em solid transparent;
   border-bottom: 0;
   border-left: 0.3em solid transparent;
 }
 
-input[type="submit"] {
+input[type='submit'] {
   font-family: FontAwesome;
 }
 
@@ -345,7 +345,7 @@ ul {
     height: auto;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -409,7 +409,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -428,8 +428,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f067";
+    font-family: 'FontAwesome';
+    content: '\f067';
     position: absolute;
     right: 15px;
     top: 18px;
@@ -437,7 +437,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f068";
+    content: '\f068';
   }
   .copyRightFooter {
     text-align: left !important;
@@ -543,6 +543,44 @@ ul {
   .modalDialogTop {
     top: 170px;
     bottom: 200px;
+  }
+
+  .img-zoom-result {
+    display: inline-block;
+  }
+
+  .img-zoom-lens {
+    position: absolute;
+    border: none;
+    width: 100px;
+    height: 100px;
+    visibility: hidden;
+  }
+
+  .vendorLogoHeader {
+    display: none;
+  }
+
+  .vendorNameHeader {
+    display: none;
+  }
+
+  .vendorSearchHeader {
+    margin-top: 10px;
+  }
+
+  .vendorMobileHeader {
+    display: block;
+    margin-top: -20px;
+  }
+
+  .vendorCoverImage {
+    width: 100%;
+    margin-top: -5px;
+  }
+
+  .vendorLogoHeaderMobile {
+    margin-top: -30px;
   }
 
   /*.featureCatBigImgMob {*/
@@ -666,7 +704,7 @@ ul {
     height: 420px;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -728,7 +766,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -747,8 +785,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f067";
+    font-family: 'FontAwesome';
+    content: '\f067';
     position: absolute;
     right: 15px;
     top: 18px;
@@ -756,7 +794,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f068";
+    content: '\f068';
   }
   .copyRightFooter {
     text-align: left !important;
@@ -855,6 +893,44 @@ ul {
   .modalDialogTop {
     top: 170px;
     bottom: 200px;
+  }
+
+  .img-zoom-result {
+    display: inline-block;
+  }
+
+  .img-zoom-lens {
+    position: absolute;
+    border: none;
+    width: 100px;
+    height: 100px;
+    visibility: hidden;
+  }
+
+  .vendorLogoHeader {
+    display: none;
+  }
+
+  .vendorNameHeader {
+    display: none;
+  }
+
+  .vendorSearchHeader {
+    margin-top: 10px;
+  }
+
+  .vendorMobileHeader {
+    display: block;
+    margin-top: -20px;
+  }
+
+  .vendorCoverImage {
+    width: 100%;
+    margin-top: -5px;
+  }
+
+  .vendorLogoHeaderMobile {
+    margin-top: -30px;
   }
 }
 
@@ -1011,7 +1087,7 @@ ul {
     height: auto;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -1065,7 +1141,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -1084,8 +1160,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f067";
+    font-family: 'FontAwesome';
+    content: '\f067';
     position: absolute;
     right: 15px;
     top: 18px;
@@ -1093,7 +1169,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f068";
+    content: '\f068';
   }
 
   .copyRightFooter {
@@ -1191,6 +1267,44 @@ ul {
   .modalDialogTop {
     top: 170px;
     bottom: 200px;
+  }
+
+  .img-zoom-result {
+    display: inline-block;
+  }
+
+  .img-zoom-lens {
+    position: absolute;
+    border: none;
+    width: 100px;
+    height: 100px;
+    visibility: hidden;
+  }
+
+  .vendorLogoHeader {
+    display: none;
+  }
+
+  .vendorNameHeader {
+    display: none;
+  }
+
+  .vendorSearchHeader {
+    margin-top: 10px;
+  }
+
+  .vendorMobileHeader {
+    display: block;
+    margin-top: -20px;
+  }
+
+  .vendorCoverImage {
+    width: 100%;
+    margin-top: -5px;
+  }
+
+  .vendorLogoHeaderMobile {
+    margin-top: -30px;
   }
 
   /*.featureCatBigImgMob {*/
@@ -1353,7 +1467,7 @@ ul {
     max-width: 90%;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -1407,7 +1521,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -1426,8 +1540,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f107";
+    font-family: 'FontAwesome';
+    content: '\f107';
     position: absolute;
     right: 15px;
     top: 20px;
@@ -1435,7 +1549,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f106";
+    content: '\f106';
   }
 
   .copyRightFooter {
@@ -1536,6 +1650,44 @@ ul {
   .modalDialogTop {
     top: 170px;
     bottom: 200px;
+  }
+
+  .img-zoom-result {
+    display: inline-block;
+  }
+
+  .img-zoom-lens {
+    position: absolute;
+    border: none;
+    width: 100px;
+    height: 100px;
+    visibility: hidden;
+  }
+
+  .vendorLogoHeader {
+    display: none;
+  }
+
+  .vendorNameHeader {
+    display: none;
+  }
+
+  .vendorSearchHeader {
+    margin-top: 10px;
+  }
+
+  .vendorMobileHeader {
+    display: block;
+    margin-top: -20px;
+  }
+
+  .vendorCoverImage {
+    width: 100%;
+    margin-top: -5px;
+  }
+
+  .vendorLogoHeaderMobile {
+    margin-top: -30px;
   }
   /*.featureCatBigImgMob {*/
   /*  display: none;*/
@@ -1644,7 +1796,7 @@ ul {
     height: 443px;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -1757,6 +1909,38 @@ ul {
   }
   .featureCatBigImgMob {
     margin-top: -65px;
+  }
+
+  .img-zoom-result {
+    /*border: 1px solid #d4d4d4;*/
+    width: 415px;
+    height: 320px;
+    margin-left: 10px;
+    z-index: 9999;
+    display: inline-block;
+    position: absolute;
+  }
+
+  .vendorLogoHeader {
+    text-align: left;
+    /* margin-top: -20px;*/
+  }
+
+  /*   .vendorNameHeader{
+         margin-top: 45px;
+         text-align: left;
+         }*/
+  .vendorSearchHeader {
+    margin-top: 45px;
+  }
+
+  .vendorCoverImage {
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .vendorMobileHeader {
+    display: none;
   }
 }
 
@@ -2074,20 +2258,20 @@ ul {
 .p-2 {
   padding: 0.1rem !important;
 }
-
+.p-2 a {
+  color: #009345;
+  text-decoration: none;
+}
 .p-2 a.headerCat:hover {
-  /*background-color:#c5c7c9;*/
-  color: #c5c7c9;
-
-  background-color: #c5c7c9;
-
-  margin-left: -5px;
-
   padding-left: 5px;
-
   padding-right: 5px;
-
-  /*width:100px;*/
+  border-radius: 50px;
+  color: white;
+  background: linear-gradient(to right, #009345 0%, #009345 100%);
+  content: '';
+  display: block;
+  -webkit-transition: 0.5s ease-out;
+  transition: 0.5s ease-out;
 }
 /*    a.headerCat:hover, a.headerCat :active {color: red;}*/
 
@@ -2183,16 +2367,6 @@ ul {
   width: 100px;
   height: 100px;
   visibility: hidden;
-}
-
-.img-zoom-result {
-  /*border: 1px solid #d4d4d4;*/
-  width: 415px;
-  height: 320px;
-  margin-left: 10px;
-  z-index: 9999;
-  display: inline-block;
-  position: absolute;
 }
 
 .close {

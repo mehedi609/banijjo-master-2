@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Header from "../include/header";
-import Footer from "../include/footer";
-import Breadcums from "../include/breadcums";
-import Categories from "../include/categories";
+import React, { Component } from 'react';
+import Header from '../include/header';
+import Footer from '../include/footer';
+import Breadcums from '../include/breadcums';
+import Categories from '../include/categories';
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -17,8 +17,8 @@ class WishList extends Component {
       textArray: [],
       allCategories: [],
       wishProducts: [],
-      responseMessage: "",
-      itemQuantityState: []
+      responseMessage: '',
+      itemQuantityState: [],
     };
     this.loadProduct = this.loadProduct.bind(this);
   }
@@ -28,7 +28,7 @@ class WishList extends Component {
   }
 
   requiredFunc() {
-    let wishData = JSON.parse(localStorage.getItem("wish"));
+    let wishData = JSON.parse(localStorage.getItem('wish'));
     let productIds = [];
 
     if (wishData) {
@@ -62,7 +62,7 @@ class WishList extends Component {
 
   getCustomerWishProducts() {
     if (!localStorage.customer_id) {
-      let wishData = JSON.parse(localStorage.getItem("wish"));
+      let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
       let uniqueProductIds = [];
 
@@ -72,7 +72,7 @@ class WishList extends Component {
         });
 
         let uniqueProductIds = productIds.filter(
-          (v, i, a) => a.indexOf(v) === i
+          (v, i, a) => a.indexOf(v) === i,
         );
         let revisedwishData = [];
 
@@ -92,26 +92,26 @@ class WishList extends Component {
         });
 
         this.setState({
-          revisedwishDataKeyValue: revisedwishDataKeyValue
+          revisedwishDataKeyValue: revisedwishDataKeyValue,
         });
 
-        fetch(base + "/api/getCustomerWishProducts", {
-          method: "POST",
+        fetch(base + '/api/getCustomerWishProducts', {
+          method: 'POST',
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             customerId: 0,
-            uniqueProductIds: JSON.stringify(uniqueProductIds)
-          })
+            uniqueProductIds: JSON.stringify(uniqueProductIds),
+          }),
         })
           .then(res => {
             return res.json();
           })
           .then(response => {
             this.setState({
-              wishProducts: response.data
+              wishProducts: response.data,
             });
             let requiredFunc = this.requiredFunc();
             let itemQuantityState = {};
@@ -124,26 +124,26 @@ class WishList extends Component {
         this.setState({
           revisedwishDataKeyValue: [],
           wishProducts: [],
-          itemQuantityState: 0
+          itemQuantityState: 0,
         });
       }
     } else {
-      fetch(base + "/api/getCustomerWishProducts", {
-        method: "POST",
+      fetch(base + '/api/getCustomerWishProducts', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          customerId: localStorage.customer_id
-        })
+          customerId: localStorage.customer_id,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
           this.setState({
-            wishProducts: response.data
+            wishProducts: response.data,
           });
           let itemQuantityState = {};
           response.data.map(function(item, key) {
@@ -156,7 +156,7 @@ class WishList extends Component {
 
   handleClickDelete(itemId) {
     if (!localStorage.customer_id) {
-      let wishData = JSON.parse(localStorage.getItem("wish"));
+      let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
       wishData.map(function(val, index) {
         productIds.push(val.productId);
@@ -177,25 +177,25 @@ class WishList extends Component {
         if (itemId != val.productId) {
           newWishData.push({
             productId: val.productId,
-            quantity: val.quantity
+            quantity: val.quantity,
           });
         }
       });
       console.log(revisedwishData);
-      localStorage.removeItem("wish");
-      localStorage.setItem("wish", JSON.stringify(newWishData));
+      localStorage.removeItem('wish');
+      localStorage.setItem('wish', JSON.stringify(newWishData));
       this.getCustomerWishProducts();
     } else {
-      fetch(base + "/api/deleteCustomerWishProducts", {
-        method: "POST",
+      fetch(base + '/api/deleteCustomerWishProducts', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
-          itemId: itemId
-        })
+          itemId: itemId,
+        }),
       })
         .then(res => {
           return res.json();
@@ -208,7 +208,7 @@ class WishList extends Component {
 
   handleClickQuantity(itemId, type) {
     if (!localStorage.customer_id) {
-      let wishData = JSON.parse(localStorage.getItem("wish"));
+      let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
       wishData.map(function(val, index) {
         productIds.push(val.productId);
@@ -239,26 +239,26 @@ class WishList extends Component {
         } else {
           newWishData.push({
             productId: val.productId,
-            quantity: val.quantity
+            quantity: val.quantity,
           });
         }
       });
 
-      localStorage.removeItem("wish");
-      localStorage.setItem("wish", JSON.stringify(newWishData));
+      localStorage.removeItem('wish');
+      localStorage.setItem('wish', JSON.stringify(newWishData));
       this.getCustomerWishProducts();
     } else {
-      fetch(base + "/api/updateCustomerWishProducts", {
-        method: "POST",
+      fetch(base + '/api/updateCustomerWishProducts', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
           itemId: itemId,
-          type: type // 0 for decrement, 1 for increment
-        })
+          type: type, // 0 for decrement, 1 for increment
+        }),
       })
         .then(res => {
           return res.json();
@@ -271,39 +271,39 @@ class WishList extends Component {
 
   addCartLocal(itemId, Qty) {
     let cartArr = [{ productId: itemId, quantity: Qty }];
-    let wishDataExisting = JSON.parse(localStorage.getItem("cart"));
-    localStorage.removeItem("cart");
+    let wishDataExisting = JSON.parse(localStorage.getItem('cart'));
+    localStorage.removeItem('cart');
 
     if (wishDataExisting) {
       wishDataExisting.push({ productId: itemId, quantity: Qty });
-      localStorage.setItem("cart", JSON.stringify(wishDataExisting));
+      localStorage.setItem('cart', JSON.stringify(wishDataExisting));
     } else {
-      localStorage.setItem("cart", JSON.stringify(cartArr));
+      localStorage.setItem('cart', JSON.stringify(cartArr));
     }
-    var link = document.getElementById("successCartMessage");
+    var link = document.getElementById('successCartMessage');
     link.click();
     this.handleClickDelete(itemId);
   }
 
   addCartDirect(itemId, Qty) {
-    fetch(base + "/api/add_cart_direct_from_wish", {
-      method: "POST",
+    fetch(base + '/api/add_cart_direct_from_wish', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         productId: itemId,
         customerId: localStorage.customer_id,
-        quantity: Qty
-      })
+        quantity: Qty,
+      }),
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
         if (response.data == true) {
-          var link = document.getElementById("successCartMessage");
+          var link = document.getElementById('successCartMessage');
           link.click();
         }
       });
@@ -312,7 +312,7 @@ class WishList extends Component {
 
   handleClickDelete(itemId) {
     if (!localStorage.customer_id) {
-      let wishData = JSON.parse(localStorage.getItem("wish"));
+      let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
       wishData.map(function(val, index) {
         productIds.push(val.productId);
@@ -333,46 +333,46 @@ class WishList extends Component {
         if (itemId != val.productId) {
           newWishData.push({
             productId: val.productId,
-            quantity: val.quantity
+            quantity: val.quantity,
           });
         }
       });
       // console.log(revisedwishData)
-      localStorage.removeItem("wish");
-      localStorage.setItem("wish", JSON.stringify(newWishData));
+      localStorage.removeItem('wish');
+      localStorage.setItem('wish', JSON.stringify(newWishData));
       this.getCustomerWishProducts();
-      window.location = "/wish";
+      window.location = '/wish';
     } else {
-      fetch(base + "/api/deleteCustomerWishProducts", {
-        method: "POST",
+      fetch(base + '/api/deleteCustomerWishProducts', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
-          itemId: itemId
-        })
+          itemId: itemId,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
           this.getCustomerWishProducts();
-          window.location = "/wish";
+          window.location = '/wish';
         });
     }
   }
 
   loadProduct() {
-    window.location.href = "/";
+    window.location.href = '/';
   }
 
   render() {
     return (
       <React.Fragment>
         <button
-          style={{ display: "none !important" }}
+          style={{ display: 'none !important' }}
           id="successCartMessage"
           type="button"
           data-toggle="modal"
@@ -386,9 +386,9 @@ class WishList extends Component {
           role="dialog"
         >
           <div className="modal-dialog" role="document">
-            <div className="modal-content" style={{ width: "900px" }}>
+            <div className="modal-content" style={{ width: '900px' }}>
               <div className="modal-header">
-                <h5 className="modal-title" style={{ textAlign: "center" }}>
+                <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
                 <button
@@ -396,7 +396,7 @@ class WishList extends Component {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: "-25px" }}
+                  style={{ marginTop: '-25px' }}
                 >
                   <span aria-hidden="true">×</span>
                 </button>
@@ -408,15 +408,15 @@ class WishList extends Component {
                     <i
                       className="fa fa-check"
                       style={{
-                        fontSize: "50px",
-                        color: "white",
-                        backgroundColor: "#009345",
-                        borderRadius: "40px"
+                        fontSize: '50px',
+                        color: 'white',
+                        backgroundColor: '#009345',
+                        borderRadius: '40px',
                       }}
                     ></i>
                   </div>
                   <div className="col-md-11 col-lg-11">
-                    <p style={{ color: "#009345" }}>
+                    <p style={{ color: '#009345' }}>
                       Nice. A new item has been added to your Shopping Cart.
                     </p>
                   </div>
@@ -428,8 +428,8 @@ class WishList extends Component {
                       href="/cart"
                       className="btn btn-success"
                       style={{
-                        backgroundColor: "#ec1c24",
-                        borderColor: "#ec1c24"
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24',
                       }}
                     >
                       View Shopping Cart
@@ -440,8 +440,8 @@ class WishList extends Component {
                       href={frontEndUrl}
                       className="btn btn-success"
                       style={{
-                        backgroundColor: "#ec1c24",
-                        borderColor: "#ec1c24"
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24',
                       }}
                     >
                       Continue Shopping
@@ -460,7 +460,7 @@ class WishList extends Component {
               <div className="card-header bg-dark text-light">
                 <a
                   href={frontEndUrl}
-                  style={{ color: "#ec1c24" }}
+                  style={{ color: '#ec1c24' }}
                   className="btn btn-outline-info btn-sm pull-right"
                 >
                   Continue shopping
@@ -479,7 +479,7 @@ class WishList extends Component {
                                   className="img-responsive"
                                   src={
                                     fileUrl +
-                                    "/upload/product/productImages/" +
+                                    '/upload/product/productImages/' +
                                     item.home_image
                                   }
                                   alt="prewiew"
@@ -501,11 +501,11 @@ class WishList extends Component {
                               <h5 className="product-name">
                                 <strong>{item.product_name}</strong>
                               </h5>
-                              <strong style={{ fontSize: "12px" }}>
+                              <strong style={{ fontSize: '12px' }}>
                                 <b>Color:</b>Black Tshirt
                               </strong>
                               &nbsp;&nbsp;&nbsp;
-                              <strong style={{ fontSize: "12px" }}>
+                              <strong style={{ fontSize: '12px' }}>
                                 <b>Model:</b>M
                               </strong>
                               <h6>
@@ -548,10 +548,10 @@ class WishList extends Component {
                                     onClick={() =>
                                       this.addCartLocal(
                                         item.id,
-                                        this.state.itemQuantityState[item.id]
+                                        this.state.itemQuantityState[item.id],
                                       )
                                     }
-                                    style={{ backgroundColor: "009345" }}
+                                    style={{ backgroundColor: '009345' }}
                                     className="btn btn-primary"
                                   >
                                     Add to cart
@@ -561,10 +561,10 @@ class WishList extends Component {
                                     onClick={() =>
                                       this.addCartDirect(
                                         item.id,
-                                        this.state.itemQuantityState[item.id]
+                                        this.state.itemQuantityState[item.id],
                                       )
                                     }
-                                    style={{ backgroundColor: "009345" }}
+                                    style={{ backgroundColor: '009345' }}
                                     className="btn btn-primary"
                                   >
                                     Add to cart
@@ -580,7 +580,7 @@ class WishList extends Component {
                                   <i
                                     className="fa fa-trash"
                                     aria-hidden="true"
-                                    style={{ fontSize: "24px", color: "red" }}
+                                    style={{ fontSize: '24px', color: 'red' }}
                                   ></i>
                                 </button>
                               </div>
@@ -590,7 +590,7 @@ class WishList extends Component {
                         </React.Fragment>
                       );
                     })
-                  : ""}
+                  : ''}
               </div>
             </div>
           </div>

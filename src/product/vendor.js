@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Breadcums from "../include/breadcums";
-import Footer from "../include/footer";
+import React, { Component } from 'react';
+import Breadcums from '../include/breadcums';
+import Footer from '../include/footer';
 
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
@@ -11,12 +11,12 @@ class Vendor extends Component {
 
     this.state = {
       VendorId: this.props.match.params.id,
-      VendorName: "",
-      VendorLogo: "",
-      VendorCover: "",
+      VendorName: '',
+      VendorLogo: '',
+      VendorCover: '',
       VendorCategories: [],
       CategoryIds: [],
-      ClickedCategory: 0
+      ClickedCategory: 0,
     };
     this.handleClick = this.handleClick.bind(this);
     this.showAll = this.showAll.bind(this);
@@ -29,9 +29,9 @@ class Vendor extends Component {
 
   config = {
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    }
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
   };
 
   /*getVendorData() {
@@ -85,14 +85,14 @@ class Vendor extends Component {
 
   getVendorData() {
     fetch(`${base}/api/getVendorData`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        vendorId: this.state.VendorId
-      })
+        vendorId: this.state.VendorId,
+      }),
     })
       .then(res => {
         return res.json();
@@ -103,7 +103,7 @@ class Vendor extends Component {
           this.setState({
             VendorName: name,
             VendorLogo: logo,
-            VendorCover: cover_photo
+            VendorCover: cover_photo,
           });
         }
       });
@@ -111,14 +111,14 @@ class Vendor extends Component {
 
   getVendorCategories() {
     fetch(`${base}/api/getVendorCategories`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        vendorId: this.state.VendorId
-      })
+        vendorId: this.state.VendorId,
+      }),
     })
       .then(res => {
         return res.json();
@@ -131,7 +131,7 @@ class Vendor extends Component {
           let CategoryKeyValue = [];
           this.state.VendorCategories.map(function(item, key) {
             CategoryList.push(
-              <option value={item.category_id}>{item.category_name}</option>
+              <option value={item.category_id}>{item.category_name}</option>,
             );
             CategoryIdArr.push(item.category_id);
             CategoryKeyValue[item.category_id] = item.category_name;
@@ -139,7 +139,7 @@ class Vendor extends Component {
           this.setState({
             CategoryList: CategoryList,
             CategoryIds: CategoryIdArr,
-            CategoryKeyValue: CategoryKeyValue
+            CategoryKeyValue: CategoryKeyValue,
           });
           this.getProducts(CategoryIdArr);
         }
@@ -158,16 +158,16 @@ class Vendor extends Component {
   }
 
   getProducts(CategoryIdArr) {
-    fetch(base + "/api/getVendorProductsByCategory", {
-      method: "POST",
+    fetch(base + '/api/getVendorProductsByCategory', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         vendorId: this.state.VendorId,
-        categoryIds: CategoryIdArr
-      })
+        categoryIds: CategoryIdArr,
+      }),
     })
       .then(res => {
         return res.json();
@@ -189,9 +189,9 @@ class Vendor extends Component {
           Object.keys(RevisedArr).length > 0
             ? Object.keys(RevisedArr).map(function(key, index) {
                 ProductJSX.push(
-                  <h3 style={{ clear: "both", marginTop: "2%" }} className="h3">
+                  <h3 style={{ clear: 'both', marginTop: '2%' }} className="h3">
                     {CategoryKeyValue[key]}
-                  </h3>
+                  </h3>,
                 );
                 let IterationArr = RevisedArr[key];
                 for (var i = 0; i < IterationArr.length; i++) {
@@ -202,25 +202,17 @@ class Vendor extends Component {
                     <div className="col-md-3 col-sm-6">
                       <div className="product-grid7">
                         <div className="product-image7">
-                          <a href={"/productDetails/" + IterationArr[i].id}>
+                          <a href={'/productDetails/' + IterationArr[i].id}>
                             <div
                               className="frameProductImg"
-                              style={{ borderBottom: "1px solid #ddd" }}
+                              style={{ borderBottom: '1px solid #ddd' }}
                             >
                               <span className="helperProductImg">
                                 <img
                                   className="pic-1"
                                   src={
                                     fileUrl +
-                                    "/upload/product/productImages/" +
-                                    IterationArr[i].home_image
-                                  }
-                                />
-                                <img
-                                  className="pic-2"
-                                  src={
-                                    fileUrl +
-                                    "/upload/product/productImages/" +
+                                    '/upload/product/productImages/' +
                                     IterationArr[i].home_image
                                   }
                                 />
@@ -236,48 +228,48 @@ class Vendor extends Component {
                                     let wishArr = [
                                       {
                                         productId: event.target.id,
-                                        quantity: 1
-                                      }
+                                        quantity: 1,
+                                      },
                                     ];
                                     let wishDataExisting = JSON.parse(
-                                      localStorage.getItem("wish")
+                                      localStorage.getItem('wish'),
                                     );
-                                    localStorage.removeItem("wish");
+                                    localStorage.removeItem('wish');
                                     if (wishDataExisting) {
                                       wishDataExisting.push({
                                         productId: event.target.id,
-                                        quantity: 1
+                                        quantity: 1,
                                       });
                                       localStorage.setItem(
-                                        "wish",
-                                        JSON.stringify(wishDataExisting)
+                                        'wish',
+                                        JSON.stringify(wishDataExisting),
                                       );
                                     } else {
                                       localStorage.setItem(
-                                        "wish",
-                                        JSON.stringify(wishArr)
+                                        'wish',
+                                        JSON.stringify(wishArr),
                                       );
                                     }
-                                    alert("Product Added To Wish List!");
+                                    alert('Product Added To Wish List!');
                                   } else {
-                                    fetch(base + "/api/add_wish_direct", {
-                                      method: "POST",
+                                    fetch(base + '/api/add_wish_direct', {
+                                      method: 'POST',
                                       headers: {
-                                        Accept: "application/json",
-                                        "Content-Type": "application/json"
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json',
                                       },
                                       body: JSON.stringify({
                                         productId: event.target.id,
                                         customerId: localStorage.customer_id,
-                                        quantity: 1
-                                      })
+                                        quantity: 1,
+                                      }),
                                     })
                                       .then(res => {
                                         return res.json();
                                       })
                                       .then(response => {
                                         if (response.data == true) {
-                                          alert("Product Added To Wish List!");
+                                          alert('Product Added To Wish List!');
                                         }
                                       });
                                   }
@@ -293,49 +285,49 @@ class Vendor extends Component {
                                     let cartArr = [
                                       {
                                         productId: event.target.id,
-                                        quantity: 1
-                                      }
+                                        quantity: 1,
+                                      },
                                     ];
                                     let cartDataExisting = JSON.parse(
-                                      localStorage.getItem("cart")
+                                      localStorage.getItem('cart'),
                                     );
-                                    localStorage.removeItem("cart");
+                                    localStorage.removeItem('cart');
 
                                     if (cartDataExisting) {
                                       cartDataExisting.push({
                                         productId: event.target.id,
-                                        quantity: 1
+                                        quantity: 1,
                                       });
                                       localStorage.setItem(
-                                        "cart",
-                                        JSON.stringify(cartDataExisting)
+                                        'cart',
+                                        JSON.stringify(cartDataExisting),
                                       );
                                     } else {
                                       localStorage.setItem(
-                                        "cart",
-                                        JSON.stringify(cartArr)
+                                        'cart',
+                                        JSON.stringify(cartArr),
                                       );
                                     }
-                                    alert("Product Added To Cart!");
+                                    alert('Product Added To Cart!');
                                   } else {
-                                    fetch(base + "/api/add_cart_direct", {
-                                      method: "POST",
+                                    fetch(base + '/api/add_cart_direct', {
+                                      method: 'POST',
                                       headers: {
-                                        Accept: "application/json",
-                                        "Content-Type": "application/json"
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json',
                                       },
                                       body: JSON.stringify({
                                         productId: event.target.id,
                                         customerId: localStorage.customer_id,
-                                        quantity: 1
-                                      })
+                                        quantity: 1,
+                                      }),
                                     })
                                       .then(res => {
                                         return res.json();
                                       })
                                       .then(response => {
                                         if (response.data == true) {
-                                          alert("Product Added To Cart!");
+                                          alert('Product Added To Cart!');
                                         }
                                       });
                                   }
@@ -365,7 +357,7 @@ class Vendor extends Component {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div>,
                   );
                 }
 
@@ -374,32 +366,32 @@ class Vendor extends Component {
                     <p
                       onClick={() => this.showAll(key)}
                       style={{
-                        clear: "both",
-                        marginTop: "2%",
-                        color: "green",
-                        textAlign: "right",
-                        fontWeight: "bold",
-                        cursor: "pointer"
+                        clear: 'both',
+                        marginTop: '2%',
+                        color: 'green',
+                        textAlign: 'right',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
                       }}
                       className="p"
                     >
                       See More
-                    </p>
+                    </p>,
                   );
                 }
               }, this)
             : ProductJSX.push(
                 <h5
                   style={{
-                    clear: "both",
-                    marginTop: "2%",
-                    color: "red",
-                    textAlign: "center"
+                    clear: 'both',
+                    marginTop: '2%',
+                    color: 'red',
+                    textAlign: 'center',
                   }}
                   className="h5"
                 >
                   No Product To Display
-                </h5>
+                </h5>,
               );
           this.setState({ ProductJSX: ProductJSX });
         }
@@ -418,33 +410,56 @@ class Vendor extends Component {
         <br />
         <Breadcums />
 
-        <div className="row">
-          <div className="columns large-4">
-            <p style={{ textAlign: "left" }}>
+        <div className="row vendorMobileHeader">
+          <div className="columns small-6 large-2 vendorLogoHeaderMobile">
+            <p style={{ textAlign: 'left' }}>
               {!this.state.VendorLogo ? (
                 <img
-                  style={{ width: "150px", height: "150px" }}
-                  src={fileUrl + "/upload/product/productImages/asche.jpg"}
+                  src={fileUrl + '/upload/product/productImages/asche.jpg'}
                   className="imglogo"
                   alt="Vendor logo"
                 />
               ) : (
                 <img
-                  style={{ width: "150px", height: "150px" }}
-                  src={fileUrl + "/upload/vendor/" + this.state.VendorLogo}
+                  src={fileUrl + '/upload/vendor/' + this.state.VendorLogo}
                   className="imglogo"
                   alt="Vendor logo"
                 />
               )}
             </p>
           </div>
-          <div className="columns large-5">
-            <h1 style={{ marginTop: "45px" }}>{this.state.VendorName}</h1>
+          <div className="columns small-6 large-10">
+            <h6 style={{ marginTop: '45px' }}>{this.state.VendorName}</h6>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="columns large-4 vendorLogoHeader">
+            <p style={{ textAlign: 'left' }}>
+              {!this.state.VendorLogo ? (
+                <img
+                  style={{ width: '150px', height: '150px' }}
+                  src={fileUrl + '/upload/product/productImages/asche.jpg'}
+                  className="imglogo"
+                  alt="Vendor logo"
+                />
+              ) : (
+                <img
+                  style={{ width: '150px', height: '150px' }}
+                  src={fileUrl + '/upload/vendor/' + this.state.VendorLogo}
+                  className="imglogo"
+                  alt="Vendor logo"
+                />
+              )}
+            </p>
+          </div>
+          <div className="columns large-5 vendorNameHeader">
+            <h1 style={{ marginTop: '45px' }}>{this.state.VendorName}</h1>
           </div>
           <div className="columns large-3">
-            <p style={{ marginTop: "45px" }}>
+            <p className="vendorSearchHeader">
               <select
-                style={{ border: "1px solid green" }}
+                style={{ border: '1px solid green' }}
                 className="form-control"
                 onChange={this.handleClick}
               >
@@ -455,19 +470,19 @@ class Vendor extends Component {
           </div>
         </div>
 
-        <div className="row" style={{ marginTop: "2%" }}>
+        <div className="row" style={{ marginTop: '2%' }}>
           <div className="columns large-12">
             {!this.state.VendorCover ? (
               <img
-                src={fileUrl + "/upload/vendor/cover1.jpg"}
+                className="vendorCoverImage"
+                src={fileUrl + '/upload/vendor/cover1.jpg'}
                 alt="Snow"
-                style={{ width: "100%", marginTop: "40px" }}
               />
             ) : (
               <img
-                src={fileUrl + "/upload/vendor/" + this.state.VendorCover}
+                className="vendorCoverImage"
+                src={fileUrl + '/upload/vendor/' + this.state.VendorCover}
                 alt="Snow"
-                style={{ width: "100%", marginTop: "40px" }}
               />
             )}
           </div>

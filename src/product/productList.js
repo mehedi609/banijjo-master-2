@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import Footer from "../include/footer";
-import Navbar from "../include/Navbar";
-import Categories from "../include/categories";
+import React, { Component } from 'react';
+import Footer from '../include/footer';
+import Navbar from '../include/Navbar';
+import Categories from '../include/categories';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -12,7 +12,7 @@ class ProductList extends Component {
     this.state = {
       categoryId: this.props.match.params.cid,
       status: this.props.match.params.status,
-      categoryProductList: []
+      categoryProductList: [],
     };
   }
 
@@ -21,13 +21,13 @@ class ProductList extends Component {
   }
 
   categoryProductLIst() {
-    if (this.state.status === "multiple") {
-      fetch(base + "/api/all_category_product_list", {
-        method: "GET",
+    if (this.state.status === 'multiple') {
+      fetch(base + '/api/all_category_product_list', {
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       })
         .then(res => {
           console.log(res);
@@ -35,24 +35,24 @@ class ProductList extends Component {
         })
         .then(products => {
           this.setState({
-            categoryProductList: products.data
+            categoryProductList: products.data,
           });
         });
     } else {
       //  CATEGORY WISE PRODUCTS.......... CREATED AT 12/17/2019
       fetch(base + `/api/category_product_list/${this.state.categoryId}`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        }
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       })
         .then(res => {
           return res.json();
         })
         .then(products => {
           this.setState({
-            categoryProductList: products.data
+            categoryProductList: products.data,
           });
         });
     }
@@ -71,14 +71,14 @@ class ProductList extends Component {
               <div className="col-md-3 col-sm-6">
                 <div className="product-grid7">
                   <div className="product-image7">
-                    <a href={"/productDetails/" + item.id}>
+                    <a href={'/productDetails/' + item.id}>
                       <div className="frameProductImg">
                         <span className="helperProductImg">
                           <img
                             className="pic-1"
                             src={
                               fileUrl +
-                              "/upload/product/productImages/" +
+                              '/upload/product/productImages/' +
                               item.home_image
                             }
                           />
@@ -86,7 +86,7 @@ class ProductList extends Component {
                             className="pic-2"
                             src={
                               fileUrl +
-                              "/upload/product/productImages/" +
+                              '/upload/product/productImages/' +
                               item.home_image
                             }
                           />
@@ -123,13 +123,13 @@ class ProductList extends Component {
                   </div>
                 </div>
               </div>
-            </React.Fragment>
+            </React.Fragment>,
           );
         })
       : listArray.push(
           <React.Fragment>
-            <p style={{ color: "#ec1c24" }}>No product for this category</p>{" "}
-          </React.Fragment>
+            <p style={{ color: '#ec1c24' }}>No product for this category</p>{' '}
+          </React.Fragment>,
         );
 
     return listArray;
@@ -151,7 +151,7 @@ class ProductList extends Component {
           </div>
           <div className="row"></div>
           <Footer />
-        </div>{" "}
+        </div>{' '}
       </React.Fragment>
     );
   }

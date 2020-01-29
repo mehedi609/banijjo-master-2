@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Footer from "../include/footer";
-import Breadcums from "../include/breadcums";
+import React, { Component } from 'react';
+import Footer from '../include/footer';
+import Breadcums from '../include/breadcums';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
@@ -18,17 +18,17 @@ class ShoppingCart extends Component {
       cartProducts: [],
       isAddress: false,
       checkAgreement: false,
-      responseMessage: "",
-      termsMessage: "",
+      responseMessage: '',
+      termsMessage: '',
       itemQuantityState: [],
       customerInfo: [],
-      customerName: "",
-      customerPhone: "",
-      customerAddress: "",
+      customerName: '',
+      customerPhone: '',
+      customerAddress: '',
       discountAmount: 0,
       promoCodeAmount: 0,
       discountDetail: [],
-      promoCodeDetail: []
+      promoCodeDetail: [],
     };
 
     this.payOrder = this.payOrder.bind(this);
@@ -48,16 +48,16 @@ class ShoppingCart extends Component {
   }
 
   getDiscounts(cartProducts) {
-    fetch(base + "/api/getDiscounts", {
-      method: "POST",
+    fetch(base + '/api/getDiscounts', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         cartProducts: cartProducts,
-        customerId: localStorage.customer_id
-      })
+        customerId: localStorage.customer_id,
+      }),
     })
       .then(res => {
         return res.json();
@@ -65,14 +65,14 @@ class ShoppingCart extends Component {
       .then(response => {
         this.setState({
           discountAmount: response.data,
-          discountDetail: response.dataDetail
+          discountDetail: response.dataDetail,
         });
       });
   }
 
   gettermsConditions() {
-    fetch(base + "/api/get_terms_conditions", {
-      method: "GET"
+    fetch(base + '/api/get_terms_conditions', {
+      method: 'GET',
     })
       .then(res => {
         return res.json();
@@ -84,17 +84,17 @@ class ShoppingCart extends Component {
   }
 
   getCustomerInfo() {
-    fetch(base + "/api/getCustomerInfo", {
-      method: "POST",
+    fetch(base + '/api/getCustomerInfo', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        customerId: localStorage.getItem("customer_id")
-          ? localStorage.getItem("customer_id")
-          : 0
-      })
+        customerId: localStorage.getItem('customer_id')
+          ? localStorage.getItem('customer_id')
+          : 0,
+      }),
     })
       .then(res => {
         return res.json();
@@ -104,7 +104,7 @@ class ShoppingCart extends Component {
           this.setState({
             customerName: response.data.name,
             customerPhone: response.data.phone_number,
-            customerAddress: response.data.address
+            customerAddress: response.data.address,
           });
         }
         return false;
@@ -114,17 +114,17 @@ class ShoppingCart extends Component {
   changeAgreement() {
     if (this.state.checkAgreement === false) {
       this.setState({ checkAgreement: !this.state.checkAgreement }, () => {
-        console.log("aaa", this.state);
+        console.log('aaa', this.state);
       });
     } else {
       this.setState({ checkAgreement: !this.state.checkAgreement }, () => {
-        console.log("bbb", this.state);
+        console.log('bbb', this.state);
       });
     }
   }
 
   requiredFunc() {
-    let cartData = JSON.parse(localStorage.getItem("cart"));
+    let cartData = JSON.parse(localStorage.getItem('cart'));
     let productIds = [];
 
     if (cartData) {
@@ -157,7 +157,7 @@ class ShoppingCart extends Component {
 
   getCustomerCartProducts() {
     if (!localStorage.customer_id) {
-      let cartData = JSON.parse(localStorage.getItem("cart"));
+      let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
 
       if (cartData) {
@@ -166,7 +166,7 @@ class ShoppingCart extends Component {
         });
 
         let uniqueProductIds = productIds.filter(
-          (v, i, a) => a.indexOf(v) === i
+          (v, i, a) => a.indexOf(v) === i,
         );
         let revisedCartData = [];
 
@@ -186,26 +186,26 @@ class ShoppingCart extends Component {
         });
 
         this.setState({
-          revisedCartDataKeyValue: revisedCartDataKeyValue
+          revisedCartDataKeyValue: revisedCartDataKeyValue,
         });
 
-        fetch(base + "/api/getCustomerCartProducts", {
-          method: "POST",
+        fetch(base + '/api/getCustomerCartProducts', {
+          method: 'POST',
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({
             customerId: 0,
-            uniqueProductIds: JSON.stringify(uniqueProductIds)
-          })
+            uniqueProductIds: JSON.stringify(uniqueProductIds),
+          }),
         })
           .then(res => {
             return res.json();
           })
           .then(response => {
             this.setState({
-              cartProducts: response.data
+              cartProducts: response.data,
             });
 
             let requiredFunc = this.requiredFunc();
@@ -219,28 +219,28 @@ class ShoppingCart extends Component {
         this.setState({
           revisedCartDataKeyValue: [],
           itemQuantityState: 0,
-          cartProducts: []
+          cartProducts: [],
         });
       }
 
       this.getDiscounts(cartData);
     } else {
-      fetch(base + "/api/getCustomerCartProducts", {
-        method: "POST",
+      fetch(base + '/api/getCustomerCartProducts', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          customerId: localStorage.customer_id
-        })
+          customerId: localStorage.customer_id,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
           this.setState({
-            cartProducts: response.data
+            cartProducts: response.data,
           });
 
           this.getDiscounts(response.data);
@@ -258,7 +258,7 @@ class ShoppingCart extends Component {
 
   handleClickDelete(itemId) {
     if (!localStorage.customer_id) {
-      let cartData = JSON.parse(localStorage.getItem("cart"));
+      let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
       cartData.map(function(val, index) {
         productIds.push(val.productId);
@@ -279,40 +279,40 @@ class ShoppingCart extends Component {
         if (itemId != val.productId) {
           newCartData.push({
             productId: val.productId,
-            quantity: val.quantity
+            quantity: val.quantity,
           });
         }
       });
       console.log(revisedCartData);
-      localStorage.removeItem("cart");
-      localStorage.setItem("cart", JSON.stringify(newCartData));
+      localStorage.removeItem('cart');
+      localStorage.setItem('cart', JSON.stringify(newCartData));
       this.getCustomerCartProducts();
-      window.location = "/cart";
+      window.location = '/cart';
     } else {
-      fetch(base + "/api/deleteCustomerCartProducts", {
-        method: "POST",
+      fetch(base + '/api/deleteCustomerCartProducts', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
-          itemId: itemId
-        })
+          itemId: itemId,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
           this.getCustomerCartProducts();
-          window.location = "/cart";
+          window.location = '/cart';
         });
     }
   }
 
   handleClickQuantity(itemId, type) {
     if (!localStorage.customer_id) {
-      let cartData = JSON.parse(localStorage.getItem("cart"));
+      let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
       cartData.map(function(val, index) {
         productIds.push(val.productId);
@@ -343,25 +343,25 @@ class ShoppingCart extends Component {
         } else {
           newCartData.push({
             productId: val.productId,
-            quantity: val.quantity
+            quantity: val.quantity,
           });
         }
       });
-      localStorage.removeItem("cart");
-      localStorage.setItem("cart", JSON.stringify(newCartData));
+      localStorage.removeItem('cart');
+      localStorage.setItem('cart', JSON.stringify(newCartData));
       this.getCustomerCartProducts();
     } else {
-      fetch(base + "/api/updateCustomerCartProducts", {
-        method: "POST",
+      fetch(base + '/api/updateCustomerCartProducts', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
           itemId: itemId,
-          type: type // 0 for decrement, 1 for increment
-        })
+          type: type, // 0 for decrement, 1 for increment
+        }),
       })
         .then(res => {
           return res.json();
@@ -373,20 +373,20 @@ class ShoppingCart extends Component {
   }
 
   payOrder() {
-    fetch(base + "/api/payOrder", {
-      method: "POST",
+    fetch(base + '/api/payOrder', {
+      method: 'POST',
       crossDomain: true,
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         customerId: localStorage.customer_id,
         discountAmount: this.state.discountAmount,
         discountDetail: this.state.discountDetail,
         promoCodeAmount: this.state.promoCodeAmount,
-        promoCodeDetail: this.state.promoCodeDetail
-      })
+        promoCodeDetail: this.state.promoCodeDetail,
+      }),
     })
       .then(res => {
         return res.json();
@@ -395,17 +395,17 @@ class ShoppingCart extends Component {
         // console.log(response);
         if (response.data == true) {
           this.setState({ responseMessage: response.message });
-          var link = document.getElementById("successCartMessage");
-          var cartModalclose = document.getElementById("cartModalClose");
-          var paymentModalClose = document.getElementById("paymentModalClose");
+          var link = document.getElementById('successCartMessage');
+          var cartModalclose = document.getElementById('cartModalClose');
+          var paymentModalClose = document.getElementById('paymentModalClose');
           paymentModalClose.click();
           cartModalclose.click();
           link.click();
         } else if (response.data == false) {
           this.setState({ responseMessage: response.message });
-          var link = document.getElementById("successCartMessage");
-          var cartModalclose = document.getElementById("cartModalClose");
-          var paymentModalClose = document.getElementById("paymentModalClose");
+          var link = document.getElementById('successCartMessage');
+          var cartModalclose = document.getElementById('cartModalClose');
+          var paymentModalClose = document.getElementById('paymentModalClose');
           paymentModalClose.click();
           cartModalclose.click();
           link.click();
@@ -414,20 +414,20 @@ class ShoppingCart extends Component {
   }
 
   paySsl() {
-    fetch(base + "/api/paySsl", {
-      method: "POST",
+    fetch(base + '/api/paySsl', {
+      method: 'POST',
       crossDomain: true,
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         customerId: localStorage.customer_id,
         discountAmount: this.state.discountAmount,
         discountDetail: this.state.discountDetail,
         promoCodeAmount: this.state.promoCodeAmount,
-        promoCodeDetail: this.state.promoCodeDetail
-      })
+        promoCodeDetail: this.state.promoCodeDetail,
+      }),
     })
       .then(res => {
         return res.json();
@@ -439,8 +439,8 @@ class ShoppingCart extends Component {
   }
 
   getAllCategories() {
-    fetch(base + "/api/all_category_list_more", {
-      method: "GET"
+    fetch(base + '/api/all_category_list_more', {
+      method: 'GET',
     })
       .then(res => {
         return res.json();
@@ -452,17 +452,17 @@ class ShoppingCart extends Component {
   }
 
   loadProduct() {
-    window.location.href = "/";
+    window.location.href = '/';
   }
 
   addressSubmit(event) {
     event.preventDefault();
 
-    fetch(base + "/api/saveCustomerAddress", {
-      method: "POST",
+    fetch(base + '/api/saveCustomerAddress', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         name: this.state.customerName,
@@ -470,16 +470,16 @@ class ShoppingCart extends Component {
         address: this.state.customerAddress,
         city: event.target.city.value,
         district: event.target.district.value,
-        customerId: localStorage.customer_id
-      })
+        customerId: localStorage.customer_id,
+      }),
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
-        if (response.data !== "") {
+        if (response.data !== '') {
           this.setState({ isAddress: true });
-          let link = document.getElementById("closeAddress");
+          let link = document.getElementById('closeAddress');
           link.click();
         }
       });
@@ -487,26 +487,26 @@ class ShoppingCart extends Component {
 
   customerLoginSubmit(event) {
     event.preventDefault();
-    fetch(base + "/api/loginCustomerInitial", {
-      method: "POST",
+    fetch(base + '/api/loginCustomerInitial', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: event.target.emailField.value,
-        password: event.target.passwordField.value
-      })
+        password: event.target.passwordField.value,
+      }),
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
         // console.log('aa', response);
-        if (response.data !== "") {
-          localStorage.setItem("customer_id", response.data);
-          var link = document.getElementById("successCartMessage");
-          var hide = document.getElementById("hideLogin");
+        if (response.data !== '') {
+          localStorage.setItem('customer_id', response.data);
+          var link = document.getElementById('successCartMessage');
+          var hide = document.getElementById('hideLogin');
           hide.click();
           link.click();
         }
@@ -518,17 +518,17 @@ class ShoppingCart extends Component {
     let promoCodeInput = event.target.promoCodeText.value;
     let totalAmount = event.target.totalAmount.value;
 
-    fetch(base + "/api/getPromoCodeAmount", {
-      method: "POST",
+    fetch(base + '/api/getPromoCodeAmount', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         promoCodeInput: promoCodeInput,
         totalAmount: totalAmount,
-        customerId: localStorage.customer_id
-      })
+        customerId: localStorage.customer_id,
+      }),
     })
       .then(res => {
         return res.json();
@@ -537,19 +537,19 @@ class ShoppingCart extends Component {
         if (response.data > 0) {
           this.setState({
             promoCodeAmount: response.data,
-            promoCodeDetail: response.dataDetail
+            promoCodeDetail: response.dataDetail,
           });
         }
-        var hidePromoCodeModal = document.getElementById("hidePromoCodeModal");
+        var hidePromoCodeModal = document.getElementById('hidePromoCodeModal');
         hidePromoCodeModal.click();
       });
   }
 
   createAccountNext(event) {
     event.preventDefault();
-    if (event.target.email.value === "" || event.target.email.value == null) {
+    if (event.target.email.value === '' || event.target.email.value == null) {
       this.setState({
-        emailError: "Email cannot be empty"
+        emailError: 'Email cannot be empty',
       });
       return false;
     } else if (
@@ -557,19 +557,19 @@ class ShoppingCart extends Component {
       event.target.email.value > 0
     ) {
       this.setState({
-        emailError: "Enter a valid Password"
+        emailError: 'Enter a valid Password',
       });
       return false;
     } else if (
-      event.target.password.value === "" ||
+      event.target.password.value === '' ||
       event.target.password.value == null
     ) {
       this.setState({
-        passwordError: "Password cannot be empty"
+        passwordError: 'Password cannot be empty',
       });
       return false;
     } else {
-      let cartData = JSON.parse(localStorage.getItem("cart"));
+      let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
       cartData.map(function(val, index) {
         productIds.push(val.productId);
@@ -586,26 +586,26 @@ class ShoppingCart extends Component {
         revisedCartData.push({ productId: valParent, quantity: totalCount });
       });
 
-      fetch(base + "/api/saveCustomerInitial", {
-        method: "POST",
+      fetch(base + '/api/saveCustomerInitial', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: event.target.email.value,
           password: event.target.password.value,
-          cartData: revisedCartData
-        })
+          cartData: revisedCartData,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
-          if (response.data !== "") {
-            localStorage.setItem("customer_id", response.data);
-            var hideLogin = document.getElementById("hideLogin");
-            var link = document.getElementById("successCartMessage");
+          if (response.data !== '') {
+            localStorage.setItem('customer_id', response.data);
+            var hideLogin = document.getElementById('hideLogin');
+            var link = document.getElementById('successCartMessage');
             hideLogin.click();
             link.click();
           }
@@ -615,36 +615,36 @@ class ShoppingCart extends Component {
 
   checkInventory(type) {
     if (this.state.cartProducts.length > 0) {
-      fetch(base + "/api/checkInventory", {
-        method: "POST",
+      fetch(base + '/api/checkInventory', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          cartProducts: this.state.cartProducts
-        })
+          cartProducts: this.state.cartProducts,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
           if (response.data) {
-            if (type == "Order Place") {
+            if (type == 'Order Place') {
               var LoginRegisterModal = document.getElementById(
-                "LoginRegisterModalButton"
+                'LoginRegisterModalButton',
               );
               var ShippingModal = document.getElementById(
-                "ShippingModalButton"
+                'ShippingModalButton',
               );
               if (!localStorage.customer_id) {
                 LoginRegisterModal.click();
               } else {
                 ShippingModal.click();
               }
-            } else if (type === "Order Confirm") {
+            } else if (type === 'Order Confirm') {
               var PaymentModalButton = document.getElementById(
-                "PaymentModalButton"
+                'PaymentModalButton',
               );
               PaymentModalButton.click();
             }
@@ -653,18 +653,18 @@ class ShoppingCart extends Component {
           }
         });
     } else {
-      alert("Your cart is empty!");
+      alert('Your cart is empty!');
     }
   }
 
   handleInputChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
   promoCodeModalDisplay() {
-    var PromoCodeModalButton = document.getElementById("PromoCodeModalButton");
+    var PromoCodeModalButton = document.getElementById('PromoCodeModalButton');
     PromoCodeModalButton.click();
   }
 
@@ -674,7 +674,7 @@ class ShoppingCart extends Component {
     return (
       <React.Fragment>
         <button
-          style={{ display: "none !important" }}
+          style={{ display: 'none !important' }}
           id="successCartMessage"
           type="button"
           data-toggle="modal"
@@ -688,9 +688,9 @@ class ShoppingCart extends Component {
           role="dialog"
         >
           <div className="modal-dialog" role="document">
-            <div className="modal-content" style={{ width: "900px" }}>
+            <div className="modal-content" style={{ width: '900px' }}>
               <div className="modal-header">
-                <h5 className="modal-title" style={{ textAlign: "center" }}>
+                <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
                 <button
@@ -699,7 +699,7 @@ class ShoppingCart extends Component {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: "-25px" }}
+                  style={{ marginTop: '-25px' }}
                 >
                   <span aria-hidden="true">×</span>
                 </button>
@@ -710,15 +710,15 @@ class ShoppingCart extends Component {
                     <i
                       className="fa fa-check"
                       style={{
-                        fontSize: "50px",
-                        color: "white",
-                        backgroundColor: "#009345",
-                        borderRadius: "40px"
+                        fontSize: '50px',
+                        color: 'white',
+                        backgroundColor: '#009345',
+                        borderRadius: '40px',
                       }}
                     ></i>
                   </div>
                   <div className="col-md-11 col-lg-11">
-                    <p style={{ color: "#ec1c24" }}>
+                    <p style={{ color: '#ec1c24' }}>
                       {this.state.responseMessage}.
                     </p>
                   </div>
@@ -731,8 +731,8 @@ class ShoppingCart extends Component {
                       href={frontEndUrl}
                       className="btn btn-success"
                       style={{
-                        backgroundColor: "#ec1c24",
-                        borderColor: "#ec1c24"
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24',
                       }}
                     >
                       Buy More Product
@@ -753,7 +753,7 @@ class ShoppingCart extends Component {
               <div className="card-header bg-dark text-light">
                 <a
                   href={frontEndUrl}
-                  style={{ color: "#ec1c24" }}
+                  style={{ color: '#ec1c24' }}
                   className="btn btn-outline-info btn-sm pull-right"
                 >
                   Continue shopping
@@ -782,7 +782,7 @@ class ShoppingCart extends Component {
                                   className="img-responsive"
                                   src={
                                     fileUrl +
-                                    "/upload/product/productImages/" +
+                                    '/upload/product/productImages/' +
                                     item.home_image
                                   }
                                   alt="prewiew"
@@ -803,11 +803,11 @@ class ShoppingCart extends Component {
                               <h5 className="product-name">
                                 <strong>{item.product_name}</strong>
                               </h5>
-                              <strong style={{ fontSize: "12px" }}>
+                              <strong style={{ fontSize: '12px' }}>
                                 <b>Color:</b>Black Tshirt
                               </strong>
                               &nbsp;&nbsp;&nbsp;
-                              <strong style={{ fontSize: "12px" }}>
+                              <strong style={{ fontSize: '12px' }}>
                                 <b>Model:</b>M
                               </strong>
                               <h6>
@@ -855,7 +855,7 @@ class ShoppingCart extends Component {
                                   <i
                                     className="fa fa-trash"
                                     aria-hidden="true"
-                                    style={{ fontSize: "24px", color: "red" }}
+                                    style={{ fontSize: '24px', color: 'red' }}
                                   ></i>
                                 </button>
                               </div>
@@ -865,16 +865,16 @@ class ShoppingCart extends Component {
                         </React.Fragment>
                       );
                     })
-                  : ""}
+                  : ''}
                 {/* <button id="pos" ref={this.clickDiv} onClick={this.testClick}></button> */}
               </div>
               <div className="card-footer">
-                <div className="pull-right" style={{ margin: "10px" }}>
-                  <div className="pull-right" style={{ margin: "5px" }}>
+                <div className="pull-right" style={{ margin: '10px' }}>
+                  <div className="pull-right" style={{ margin: '5px' }}>
                     Total price: <b>{totalAmount}৳</b>
                   </div>
                   <button
-                    style={{ display: "none !important" }}
+                    style={{ display: 'none !important' }}
                     id="LoginRegisterModalButton"
                     type="button"
                     data-toggle="modal"
@@ -882,7 +882,7 @@ class ShoppingCart extends Component {
                     role="button"
                   ></button>
                   <button
-                    style={{ display: "none !important" }}
+                    style={{ display: 'none !important' }}
                     id="ShippingModalButton"
                     type="button"
                     data-toggle="modal"
@@ -925,10 +925,10 @@ class ShoppingCart extends Component {
                 </div>
                 <div className="col-md-12">
                   <strong>
-                    Promo Code{" "}
+                    Promo Code{' '}
                     <span
                       onClick={this.promoCodeModalDisplay}
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       className="label label-success"
                     >
                       Apply
@@ -962,15 +962,15 @@ class ShoppingCart extends Component {
 
                 <button
                   type="button"
-                  onClick={() => this.checkInventory("Order Place")}
+                  onClick={() => this.checkInventory('Order Place')}
                   className="btn btn-primary btn-lg btn-block"
-                  style={{ backgroundColor: "#EB1C22", borderColor: "#EB1C22" }}
+                  style={{ backgroundColor: '#EB1C22', borderColor: '#EB1C22' }}
                 >
                   Place Order
                 </button>
 
                 <button
-                  style={{ display: "none !important" }}
+                  style={{ display: 'none !important' }}
                   id="PromoCodeModalButton"
                   type="button"
                   data-toggle="modal"
@@ -987,7 +987,7 @@ class ShoppingCart extends Component {
                   <div className="modal-dialog" role="document">
                     <div
                       className="modal-content"
-                      style={{ width: "50%", marginLeft: "20%" }}
+                      style={{ width: '50%', marginLeft: '20%' }}
                     >
                       <div className="modal-header">
                         <button
@@ -1002,7 +1002,7 @@ class ShoppingCart extends Component {
                         <div className="frameTopSelection">
                           <span
                             className="helperframeTopSelection"
-                            style={{ background: "white" }}
+                            style={{ background: 'white' }}
                           >
                             <img
                               src="/image/banijjoLogo.png"
@@ -1036,7 +1036,7 @@ class ShoppingCart extends Component {
                             <button
                               type="submit"
                               className="btn btn-danger"
-                              style={{ backgroundColor: "#ec1c24" }}
+                              style={{ backgroundColor: '#ec1c24' }}
                             >
                               Apply Code
                             </button>
@@ -1059,7 +1059,7 @@ class ShoppingCart extends Component {
             <div className="modal-dialog" role="document">
               <div
                 className="modal-content"
-                style={{ width: "50%", marginLeft: "20%" }}
+                style={{ width: '50%', marginLeft: '20%' }}
               >
                 <div className="modal-header">
                   <button
@@ -1074,19 +1074,19 @@ class ShoppingCart extends Component {
                   <div className="frameTopSelection">
                     <span
                       className="helperframeTopSelection"
-                      style={{ background: "white" }}
+                      style={{ background: 'white' }}
                     >
                       <img src="/image/banijjoLogo.png" alt="banijjoLogo" />
                     </span>
                   </div>
                 </div>
                 <ul className="nav nav-tabs">
-                  <li className="active" style={{ paddingLeft: "80px" }}>
+                  <li className="active" style={{ paddingLeft: '80px' }}>
                     <a data-toggle="tab" href="#registerCart">
                       REGISTER
                     </a>
                   </li>
-                  <li style={{ paddingLeft: "30px" }}>
+                  <li style={{ paddingLeft: '30px' }}>
                     <a data-toggle="tab" href="#loginCart">
                       Sign In
                     </a>
@@ -1109,11 +1109,11 @@ class ShoppingCart extends Component {
                             required
                           />
                           {this.state.emailError ? (
-                            <span style={{ color: "red" }}>
+                            <span style={{ color: 'red' }}>
                               {this.state.emailError}
                             </span>
                           ) : (
-                            ""
+                            ''
                           )}
                         </div>
 
@@ -1127,18 +1127,18 @@ class ShoppingCart extends Component {
                             required
                           />
                           {this.state.passwordError ? (
-                            <span style={{ color: "red" }}>
+                            <span style={{ color: 'red' }}>
                               {this.state.passwordError}
                             </span>
                           ) : (
-                            ""
+                            ''
                           )}
                         </div>
                         <div className="modal-footer">
                           <button
                             type="submit"
                             className="btn btn-danger"
-                            style={{ backgroundColor: "#ec1c24" }}
+                            style={{ backgroundColor: '#ec1c24' }}
                           >
                             Create Account
                           </button>
@@ -1180,7 +1180,7 @@ class ShoppingCart extends Component {
                           <button
                             type="submit"
                             className="btn btn-danger"
-                            style={{ backgroundColor: "#ec1c24" }}
+                            style={{ backgroundColor: '#ec1c24' }}
                           >
                             Login
                           </button>
@@ -1199,14 +1199,14 @@ class ShoppingCart extends Component {
           </div>
 
           <div
-            style={{ marginLeft: "20%", background: "none" }}
+            style={{ marginLeft: '20%', background: 'none' }}
             className="modal"
             id="ShippingModal"
             tabIndex="-1"
             role="dialog"
           >
             <div className="modal-dialog" role="document">
-              <div className="modal-content" style={{ width: "450px" }}>
+              <div className="modal-content" style={{ width: '450px' }}>
                 <div className="modal-header">
                   <button
                     id="cartModalClose"
@@ -1220,7 +1220,7 @@ class ShoppingCart extends Component {
                   <div className="frameTopSelection">
                     <span
                       className="helperframeTopSelection"
-                      style={{ background: "white" }}
+                      style={{ background: 'white' }}
                     >
                       <img src="/image/banijjoLogo.png" alt="banijjoLogo" />
                     </span>
@@ -1233,7 +1233,7 @@ class ShoppingCart extends Component {
                       <i
                         className="fa fa-angle-right"
                         aria-hidden="true"
-                        style={{ fontSize: "32px" }}
+                        style={{ fontSize: '32px' }}
                       ></i>
                     </div>
                   </div>
@@ -1253,7 +1253,7 @@ class ShoppingCart extends Component {
                       <i
                         className="fa fa-angle-right"
                         aria-hidden="true"
-                        style={{ fontSize: "32px" }}
+                        style={{ fontSize: '32px' }}
                       ></i>
                     </div>
                     <br />
@@ -1266,15 +1266,15 @@ class ShoppingCart extends Component {
                     >
                       <i
                         className="fa fa-plus"
-                        style={{ fontSize: "15px" }}
-                      ></i>{" "}
+                        style={{ fontSize: '15px' }}
+                      ></i>{' '}
                       Add new address
                     </button>
                   </div>
                   <p>&nbsp;</p>
                   <div className="col-md-12">
                     <input
-                      style={{ width: "20px" }}
+                      style={{ width: '20px' }}
                       onChange={this.changeAgreement}
                       name="agree"
                       type="checkbox"
@@ -1288,7 +1288,7 @@ class ShoppingCart extends Component {
                 </div>
                 <div className="modal-footer">
                   <button
-                    style={{ display: "none !important" }}
+                    style={{ display: 'none !important' }}
                     id="PaymentModalButton"
                     type="button"
                     data-toggle="modal"
@@ -1296,7 +1296,7 @@ class ShoppingCart extends Component {
                     role="button"
                   ></button>
                   <button
-                    onClick={() => this.checkInventory("Order Confirm")}
+                    onClick={() => this.checkInventory('Order Confirm')}
                     disabled={
                       this.state.customerAddress && this.state.checkAgreement
                         ? false
@@ -1304,11 +1304,11 @@ class ShoppingCart extends Component {
                     }
                     className="btn btn-danger"
                     style={{
-                      backgroundColor: "#EB1C22",
-                      borderColor: "#EB1C22"
+                      backgroundColor: '#EB1C22',
+                      borderColor: '#EB1C22',
                     }}
                   >
-                    {" "}
+                    {' '}
                     Order Confirm
                   </button>
                 </div>
@@ -1317,7 +1317,7 @@ class ShoppingCart extends Component {
           </div>
 
           <div
-            style={{ marginLeft: "20%", background: "none" }}
+            style={{ marginLeft: '20%', background: 'none' }}
             className="modal"
             id="termsModal"
             tabIndex="-1"
@@ -1326,9 +1326,9 @@ class ShoppingCart extends Component {
             <div className="modal-dialog" role="document">
               <div
                 className="modal-content"
-                style={{ width: "500px", minHeight: "500px" }}
+                style={{ width: '500px', minHeight: '500px' }}
               >
-                <div className="modal-header" style={{ textAlign: "center" }}>
+                <div className="modal-header" style={{ textAlign: 'center' }}>
                   <button
                     type="button"
                     className="close"
@@ -1340,7 +1340,7 @@ class ShoppingCart extends Component {
                   <div className="frameTopSelection">
                     <span
                       className="helperframeTopSelection"
-                      style={{ background: "white" }}
+                      style={{ background: 'white' }}
                     >
                       <img src="/image/banijjoLogo.png" alt="banijjoLogo" />
                     </span>
@@ -1359,7 +1359,7 @@ class ShoppingCart extends Component {
             role="dialog"
           >
             <div className="modal-dialog" role="document">
-              <div className="modal-content" style={{ width: "900px" }}>
+              <div className="modal-content" style={{ width: '900px' }}>
                 <div className="modal-header">
                   <button
                     id="paymentModalClose"
@@ -1373,25 +1373,25 @@ class ShoppingCart extends Component {
                   <div className="frameTopSelection">
                     <span
                       className="helperframeTopSelection"
-                      style={{ background: "white" }}
+                      style={{ background: 'white' }}
                     >
                       <img src="/image/banijjoLogo.png" alt="banijjoLogo" />
                     </span>
                   </div>
                 </div>
 
-                <ul className="nav nav-tabs" style={{ marginLeft: "10%" }}>
-                  <li className="active" style={{ paddingLeft: "80px" }}>
+                <ul className="nav nav-tabs" style={{ marginLeft: '10%' }}>
+                  <li className="active" style={{ paddingLeft: '80px' }}>
                     <a data-toggle="tab" href="#cod">
                       Cash on Delivery
                     </a>
                   </li>
-                  <li style={{ paddingLeft: "30px" }}>
+                  <li style={{ paddingLeft: '30px' }}>
                     <a data-toggle="tab" href="#ssl">
                       SSLCOMMERZE
                     </a>
                   </li>
-                  <li style={{ paddingLeft: "30px" }}>
+                  <li style={{ paddingLeft: '30px' }}>
                     <a data-toggle="tab" href="#dmoney">
                       DMoney
                     </a>
@@ -1405,13 +1405,13 @@ class ShoppingCart extends Component {
                         <div className="col-md-6 col-lg-6">
                           <div
                             className="form-group"
-                            style={{ marginLeft: "133px" }}
+                            style={{ marginLeft: '133px' }}
                           >
                             <label className="control-label">
-                              Total Amount :{" "}
+                              Total Amount :{' '}
                             </label>
                             <span>
-                              {" "}
+                              {' '}
                               ৳
                               {totalAmount -
                                 this.state.discountAmount -
@@ -1423,13 +1423,13 @@ class ShoppingCart extends Component {
                       <div className="row">
                         <div
                           className="col-md-2 col-lg-2"
-                          style={{ marginLeft: "133px" }}
+                          style={{ marginLeft: '133px' }}
                         >
                           <button
                             onClick={this.payOrder}
                             type="button"
                             className="btn btn-danger"
-                            style={{ backgroundColor: "#FF4747" }}
+                            style={{ backgroundColor: '#FF4747' }}
                           >
                             Pay Cash
                           </button>
@@ -1443,13 +1443,13 @@ class ShoppingCart extends Component {
                       <div className="col-md-6 col-lg-6">
                         <div
                           className="form-group"
-                          style={{ marginLeft: "65px" }}
+                          style={{ marginLeft: '65px' }}
                         >
                           <label className="control-label">
-                            Total Amount :{" "}
+                            Total Amount :{' '}
                           </label>
                           <span>
-                            {" "}
+                            {' '}
                             ৳
                             {totalAmount -
                               this.state.discountAmount -
@@ -1461,13 +1461,13 @@ class ShoppingCart extends Component {
                     <div className="row">
                       <div
                         className="col-md-2 col-lg-2"
-                        style={{ marginLeft: "65px" }}
+                        style={{ marginLeft: '65px' }}
                       >
                         <button
                           type="button"
                           onClick={this.paySsl}
                           className="btn btn-danger"
-                          style={{ backgroundColor: "#FF4747", wicth: "150%" }}
+                          style={{ backgroundColor: '#FF4747', wicth: '150%' }}
                         >
                           Pay With SSL
                         </button>
@@ -1480,13 +1480,13 @@ class ShoppingCart extends Component {
                       <div className="col-md-6 col-lg-6">
                         <div
                           className="form-group"
-                          style={{ marginLeft: "75px" }}
+                          style={{ marginLeft: '75px' }}
                         >
                           <label className="control-label">
-                            Total Amount:{" "}
+                            Total Amount:{' '}
                           </label>
                           <span>
-                            {" "}
+                            {' '}
                             ৳
                             {totalAmount -
                               this.state.discountAmount -
@@ -1498,12 +1498,12 @@ class ShoppingCart extends Component {
                     <div className="row">
                       <div
                         className="col-md-2 col-lg-2"
-                        style={{ marginLeft: "75px" }}
+                        style={{ marginLeft: '75px' }}
                       >
                         <button
                           type="button"
                           className="btn btn-danger"
-                          style={{ backgroundColor: "#FF4747" }}
+                          style={{ backgroundColor: '#FF4747' }}
                         >
                           Pay With DMoney
                         </button>
@@ -1518,12 +1518,12 @@ class ShoppingCart extends Component {
 
           <div className="modal" id="addressModal" tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
-              <div className="modal-content" style={{ width: "900px" }}>
+              <div className="modal-content" style={{ width: '900px' }}>
                 <div className="modal-header">
                   <div className="frameTopSelection">
                     <span
                       className="helperframeTopSelection"
-                      style={{ background: "white" }}
+                      style={{ background: 'white' }}
                     >
                       <img src="/image/banijjoLogo.png" alt="banijjoLogo" />
                     </span>
@@ -1534,7 +1534,7 @@ class ShoppingCart extends Component {
                     className="close"
                     data-dismiss="modal"
                     aria-label="Close"
-                    style={{ marginTop: "-25px" }}
+                    style={{ marginTop: '-25px' }}
                   >
                     <span aria-hidden="true">×</span>
                   </button>
@@ -1600,7 +1600,7 @@ class ShoppingCart extends Component {
                         <div className="form-group">
                           <label className="control-label">Address</label>
                           <textarea
-                            style={{ height: "100px" }}
+                            style={{ height: '100px' }}
                             onChange={this.handleInputChange}
                             name="customerAddress"
                             className="form-control"
@@ -1615,7 +1615,7 @@ class ShoppingCart extends Component {
                         <button
                           type="submit"
                           className="btn btn-danger"
-                          style={{ backgroundColor: "#FF4747" }}
+                          style={{ backgroundColor: '#FF4747' }}
                         >
                           save
                         </button>
@@ -1629,12 +1629,12 @@ class ShoppingCart extends Component {
           </div>
           <div className="modal" id="paymentModal" tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">
-              <div className="modal-content" style={{ width: "900px" }}>
+              <div className="modal-content" style={{ width: '900px' }}>
                 <div className="modal-header">
                   <div className="frameTopSelection">
                     <span
                       className="helperframeTopSelection"
-                      style={{ background: "white" }}
+                      style={{ background: 'white' }}
                     >
                       <img src="/image/banijjoLogo.png" alt="banijjoLogo" />
                     </span>
@@ -1644,7 +1644,7 @@ class ShoppingCart extends Component {
                     className="close"
                     data-dismiss="modal"
                     aria-label="Close"
-                    style={{ marginTop: "-25px;" }}
+                    style={{ marginTop: '-25px;' }}
                   >
                     <span aria-hidden="true">×</span>
                   </button>
@@ -1724,7 +1724,7 @@ class ShoppingCart extends Component {
                       <button
                         type="button"
                         className="btn btn-danger"
-                        style={{ backgroundColor: "#FF4747" }}
+                        style={{ backgroundColor: '#FF4747' }}
                       >
                         Confirm
                       </button>

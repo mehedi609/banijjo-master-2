@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import Header from "../include/header";
-import Footer from "../include/footer";
-import Breadcums from "../include/breadcums";
-import Categories from "../include/categories";
+import React, { Component } from 'react';
+import Header from '../include/header';
+import Footer from '../include/footer';
+import Breadcums from '../include/breadcums';
+import Categories from '../include/categories';
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 class MoreCategory extends Component {
@@ -11,7 +11,7 @@ class MoreCategory extends Component {
     this.state = {
       Categories: [],
       textArray: [],
-      allCategories: []
+      allCategories: [],
     };
   }
   componentDidMount() {
@@ -19,26 +19,26 @@ class MoreCategory extends Component {
   }
 
   getAllCategories() {
-    fetch(base + "/api/all_category_list_more", {
-      method: "GET"
+    fetch(base + '/api/all_category_list_more', {
+      method: 'GET',
     })
       .then(res => {
         console.log(res);
         return res.json();
       })
       .then(categories => {
-        console.log("cccccccc", categories);
+        console.log('cccccccc', categories);
         this.setState({
-          Categories: categories.data
+          Categories: categories.data,
           // allCategories :categories.data.allCategories
         });
         return false;
       });
   }
   render() {
-    let url = "http://admin.banijjo.com.bd";
+    let url = 'http://admin.banijjo.com.bd';
     let counter = 1;
-    let specificationName = "";
+    let specificationName = '';
     return (
       <React.Fragment>
         <br />
@@ -48,15 +48,15 @@ class MoreCategory extends Component {
             return (
               <React.Fragment>
                 <div class="row">
-                  <div style={{ marginLeft: "15%" }} class="container">
+                  <div style={{ marginLeft: '15%' }} class="container">
                     <div class="cg-main">
                       <div class="item util-clearfix">
                         <h3 class="big-title anchor1 anchor-agricuture">
                           <span id="anchor1" class="anchor-subsitution"></span>
                           <i class="cg-icon"></i>
                           <a
-                            style={{ color: "#009345" }}
-                            href={"/productList/" + item.category.id}
+                            style={{ color: '#009345' }}
+                            href={'/productList/' + item.category.id}
                           >
                             {item.category.category_name}
                           </a>
@@ -70,11 +70,11 @@ class MoreCategory extends Component {
                                     <h4 class="sub-title">
                                       <a
                                         href={
-                                          "/productList/" + item2.category.id
+                                          '/productList/' + item2.category.id
                                         }
                                         style={{
-                                          color: "#ec1c24",
-                                          textDecoration: "none"
+                                          color: '#ec1c24',
+                                          textDecoration: 'none',
                                         }}
                                       >
                                         {item2.category.category_name}
@@ -93,7 +93,7 @@ class MoreCategory extends Component {
                                                       <a
                                                         className="megamenu_a"
                                                         href={
-                                                          "/productList/" +
+                                                          '/productList/' +
                                                           item3.id
                                                         }
                                                         title="T-shirts"
@@ -105,7 +105,7 @@ class MoreCategory extends Component {
                                                   <li>
                                                     <a
                                                       href={
-                                                        "/productList/" +
+                                                        '/productList/' +
                                                         item3.id
                                                       }
                                                     >
@@ -114,10 +114,10 @@ class MoreCategory extends Component {
                                                   </li>
                                                 </React.Fragment>
                                               );
-                                            }
+                                            },
                                           )
                                         ) : (
-                                          <p style={{ color: "#ec1c24" }}>
+                                          <p style={{ color: '#ec1c24' }}>
                                             No More Sub-Categories
                                           </p>
                                         )}
@@ -128,7 +128,7 @@ class MoreCategory extends Component {
                               );
                             })
                           ) : (
-                            <p style={{ color: "#ec1c24" }}>
+                            <p style={{ color: '#ec1c24' }}>
                               No More Sub-Categories
                             </p>
                           )}
@@ -141,7 +141,7 @@ class MoreCategory extends Component {
             );
           })
         ) : (
-          <p style={{ color: "#ec1c24" }}>No More Categories</p>
+          <p style={{ color: '#ec1c24' }}>No More Categories</p>
         )}
         <Footer />
       </React.Fragment>

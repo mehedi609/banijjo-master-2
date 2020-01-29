@@ -1,21 +1,21 @@
-import React, { Component, Fragment } from "react";
-import Breadcums from "./include/breadcums";
-import axios from "axios";
-import Footer from "./include/footer";
-import Categories from "./include/categories";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import FeaturedCategoryImg from "./features/FeaturedCategoryImg";
-import CarouselSliderBannerImgs from "./include/CarouselSliderBannerImgs";
-import CarouselSliderMainBanner from "./include/CarouselSliderMainBanner";
-import CardToListProducts from "./features/CardToListProducts";
+import React, { Component, Fragment } from 'react';
+import Breadcums from './include/breadcums';
+import axios from 'axios';
+import Footer from './include/footer';
+import Categories from './include/categories';
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import FeaturedCategoryImg from './features/FeaturedCategoryImg';
+import CarouselSliderBannerImgs from './include/CarouselSliderBannerImgs';
+import CarouselSliderMainBanner from './include/CarouselSliderMainBanner';
+import CardToListProducts from './features/CardToListProducts';
 
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 
 const img_src = `${fileUrl}/upload/product/productImages/`;
-const link = "/productList/";
+const link = '/productList/';
 
 class App extends Component {
   constructor(props) {
@@ -31,20 +31,20 @@ class App extends Component {
       BannerTop: [],
       FeaturedBrands: [],
       Categories: [],
-      HotDealsTitle: "",
-      TopSelectionsTitle: "",
-      NewForYouTitle: "",
-      BannerTopTitle: "",
-      StoreWIllLoveTitle: "",
-      MoreTitle: "",
-      BannerImagesTitle: "",
-      FeaturedBrandsTitle: "",
+      HotDealsTitle: '',
+      TopSelectionsTitle: '',
+      NewForYouTitle: '',
+      BannerTopTitle: '',
+      StoreWIllLoveTitle: '',
+      MoreTitle: '',
+      BannerImagesTitle: '',
+      FeaturedBrandsTitle: '',
       BannerImagesCustom: [],
       BannerCarouselArr: [],
-      Advertisement: "",
+      Advertisement: '',
       featuredCategories: [],
       featuredBannerProds: [],
-      vendors: []
+      vendors: [],
     };
 
     console.log(fileUrl);
@@ -81,12 +81,12 @@ class App extends Component {
   }
 
   getAdvertisement() {
-    fetch(base + "/api/getAdvertisement", {
-      method: "GET",
+    fetch(base + '/api/getAdvertisement', {
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     })
       .then(res => {
         return res.json();
@@ -94,15 +94,15 @@ class App extends Component {
       .then(response => {
         if (response.data) {
           this.setState({
-            Advertisement: response.data.image
+            Advertisement: response.data.image,
           });
         }
       });
   }
 
   getAllProductList() {
-    fetch(base + "/api/all_product_list", {
-      method: "GET"
+    fetch(base + '/api/all_product_list', {
+      method: 'GET',
     })
       .then(res => {
         return res.json();
@@ -111,7 +111,7 @@ class App extends Component {
         if (products.data.categories) {
           this.setState({
             Categories: products.data.categories,
-            BannerImagesCustom: products.data.bannerImagesCustom
+            BannerImagesCustom: products.data.bannerImagesCustom,
           });
         }
         this.setState({
@@ -122,74 +122,74 @@ class App extends Component {
           BannerImagesTitle: products.data.BannerImagesTitle,
           NewForYouTitle: products.data.NewForYouTitle,
           FeaturedBrandsTitle: products.data.FeaturedBrandsTitle,
-          BannerTopTitle: products.data.BannerTopTitle
+          BannerTopTitle: products.data.BannerTopTitle,
         });
 
         if (products.data.HotDeals[0]) {
           this.setState({
-            HotDeals: JSON.parse(products.data.HotDeals[0].feature_products)
+            HotDeals: JSON.parse(products.data.HotDeals[0].feature_products),
           });
         }
         if (products.data.TopSelections[0]) {
           this.setState({
             TopSelections: JSON.parse(
-              products.data.TopSelections[0].feature_products
-            )
+              products.data.TopSelections[0].feature_products,
+            ),
           });
         }
         if (products.data.StoreWIllLove[0]) {
           this.setState({
             StoreWIllLove: JSON.parse(
-              products.data.StoreWIllLove[0].feature_products
-            )
+              products.data.StoreWIllLove[0].feature_products,
+            ),
           });
         }
         if (products.data.More[0]) {
           this.setState({
-            More: JSON.parse(products.data.More[0].feature_products)
+            More: JSON.parse(products.data.More[0].feature_products),
           });
         }
         if (products.data.BannerImages[0]) {
           this.setState({
             BannerImages: JSON.parse(
-              products.data.BannerImages[0].feature_products
-            )
+              products.data.BannerImages[0].feature_products,
+            ),
           });
         }
 
         if (products.data.NewForYou[0]) {
           this.setState({
-            NewForYou: JSON.parse(products.data.NewForYou[0].feature_products)
+            NewForYou: JSON.parse(products.data.NewForYou[0].feature_products),
           });
         }
 
         if (products.data.FeaturedBrands[0]) {
           this.setState({
             FeaturedBrands: JSON.parse(
-              products.data.FeaturedBrands[0].feature_products
-            )
+              products.data.FeaturedBrands[0].feature_products,
+            ),
           });
         }
 
         if (products.data.BannerTop[0]) {
           this.setState({
-            BannerTop: JSON.parse(products.data.BannerTop[0].feature_products)
+            BannerTop: JSON.parse(products.data.BannerTop[0].feature_products),
           });
         }
 
         let coolView = [];
         let counter = 0;
-        let activity = "";
+        let activity = '';
         const { BannerImagesCustom } = this.state;
         if (counter === 0) {
           if (!BannerImagesCustom || BannerImagesCustom.length === 0) {
             const { BannerTop } = this.state;
-            const classes = ["frameSliderBig", "helperSliderBig"];
+            const classes = ['frameSliderBig', 'helperSliderBig'];
 
             BannerTop.map(({ productId, productImage }, key) => {
-              activity = key === 0 ? (activity = "active") : "";
+              activity = key === 0 ? (activity = 'active') : '';
               coolView.push(
-                <div className={"item " + activity} key={productId}>
+                <div className={'item ' + activity} key={productId}>
                   <div className="row">
                     <div className="column">
                       <CardToListProducts
@@ -213,17 +213,17 @@ class App extends Component {
                       </a>*/}
                     </div>
                   </div>
-                </div>
+                </div>,
               );
               counter++;
             });
           } else {
             const { BannerImagesCustom } = this.state;
-            const classes = ["frameSliderBig", "helperSliderBig"];
+            const classes = ['frameSliderBig', 'helperSliderBig'];
             BannerImagesCustom.map(({ image, url }, key) => {
-              activity = key === 0 ? (activity = "active") : "";
+              activity = key === 0 ? (activity = 'active') : '';
               coolView.push(
-                <div className={"item " + activity} key={url}>
+                <div className={'item ' + activity} key={url}>
                   <div className="row">
                     <div className="column">
                       <CardToListProducts
@@ -247,7 +247,7 @@ class App extends Component {
                       </a>*/}
                     </div>
                   </div>
-                </div>
+                </div>,
               );
               counter++;
             });
@@ -255,7 +255,7 @@ class App extends Component {
         }
 
         this.setState({
-          BannerCarouselArr: coolView
+          BannerCarouselArr: coolView,
         });
 
         return false;
@@ -264,7 +264,7 @@ class App extends Component {
 
   bannerImages() {
     const { BannerImages } = this.state;
-    const classes = ["frameSlider", "helperSlider"];
+    const classes = ['frameSlider', 'helperSlider'];
 
     if (BannerImages) {
       return BannerImages.map(({ productId, productImage }) => (
@@ -323,7 +323,7 @@ class App extends Component {
 
   vendors() {
     const { vendors } = this.state;
-    const classes = ["frameHotDeal", "helperHotDeal"];
+    const classes = ['frameHotDeal', 'helperHotDeal'];
 
     if (vendors) {
       return vendors.map(({ id, vendor_id, logo }) => (
@@ -340,7 +340,7 @@ class App extends Component {
 
   hotDeal() {
     const { HotDeals } = this.state;
-    const classes = ["frameHotDeal", "helperHotDeal"];
+    const classes = ['frameHotDeal', 'helperHotDeal'];
 
     if (HotDeals) {
       return HotDeals.map(({ productId, productImage }) => (
@@ -400,7 +400,7 @@ class App extends Component {
 
   topSelections() {
     const { TopSelections } = this.state;
-    const classes = ["frameTopSelection", "helperframeTopSelection"];
+    const classes = ['frameTopSelection', 'helperframeTopSelection'];
 
     if (TopSelections) {
       return TopSelections.map(({ productId, productImage }) => (
@@ -461,7 +461,7 @@ class App extends Component {
 
   newForYou() {
     const { NewForYou } = this.state;
-    const classes = ["frameTopSelection", "helperframeTopSelection"];
+    const classes = ['frameTopSelection', 'helperframeTopSelection'];
 
     if (NewForYou) {
       return NewForYou.map(({ productId, productImage }) => (
@@ -522,7 +522,7 @@ class App extends Component {
 
   topSelectionBig() {
     const { FeaturedBrands } = this.state;
-    const classes = ["frameFeatureBand", "helperframeFeatureBand"];
+    const classes = ['frameFeatureBand', 'helperframeFeatureBand'];
 
     if (FeaturedBrands) {
       return FeaturedBrands.map(({ productId, productImage }) => (
@@ -583,7 +583,7 @@ class App extends Component {
 
   storeWillLove() {
     const { StoreWIllLove } = this.state;
-    const classes = ["frameFeatureBand", "helperframeFeatureBand"];
+    const classes = ['frameFeatureBand', 'helperframeFeatureBand'];
 
     if (StoreWIllLove) {
       return StoreWIllLove.map(({ productId, productImage }) => (
@@ -644,7 +644,7 @@ class App extends Component {
 
   MoreMobile() {
     const { More } = this.state;
-    const classes = ["moreCatDiv", "moreCatSpan"];
+    const classes = ['moreCatDiv', 'moreCatSpan'];
     if (More) {
       return More.map(({ productId, productImage }) => (
         <div className="column">
@@ -703,7 +703,7 @@ class App extends Component {
 
   MoreDesk() {
     const { More } = this.state;
-    const classes = ["frameMore", "helperframeMore"];
+    const classes = ['frameMore', 'helperframeMore'];
     if (More) {
       return More.map(({ productId, productImage }) => (
         <div className="column">
@@ -766,7 +766,7 @@ class App extends Component {
       rewind: true,
       autoplay: true,
       slideBy: 1,
-      loop: true
+      loop: true,
     };
     return (
       <div>
@@ -779,9 +779,9 @@ class App extends Component {
             <div className="container">
               <div
                 className="row"
-                style={{ marginLeft: "-30px", marginRight: "-30px" }}
+                style={{ marginLeft: '-30px', marginRight: '-30px' }}
               >
-                <div className="col-md-6" style={{ marginTop: "5px" }}>
+                <div className="col-md-6" style={{ marginTop: '5px' }}>
                   <CarouselSliderMainBanner
                     bannerImagesCustom={this.state.BannerImagesCustom}
                   />
@@ -807,7 +807,7 @@ class App extends Component {
           </div>
 
           <div className="medium-3 large-3 columns adspos">
-            <p align="center" style={{ color: "#009345", fontSize: 14 }}>
+            <p align="center" style={{ color: '#009345', fontSize: 14 }}>
               Welcome
             </p>
             <p>
@@ -819,16 +819,16 @@ class App extends Component {
             </p>
             <p
               style={{
-                color: "#ec1c24",
-                fontSize: "14px",
-                textAlign: "center"
+                color: '#ec1c24',
+                fontSize: '14px',
+                textAlign: 'center',
               }}
             >
-              <strong style={{ color: "#ec1c24", fontWeight: "normal" }}>
+              <strong style={{ color: '#ec1c24', fontWeight: 'normal' }}>
                 One Account
               </strong>
               <br />
-              <strong style={{ color: "#009345", fontWeight: "normal" }}>
+              <strong style={{ color: '#009345', fontWeight: 'normal' }}>
                 All of Banijjo
               </strong>
             </p>
@@ -846,7 +846,7 @@ class App extends Component {
             <a
               href="#"
               className="button large expanded"
-              style={{ backgroundColor: "#009345", fontSize: 12 }}
+              style={{ backgroundColor: '#009345', fontSize: 12 }}
             >
               Next
             </a>
@@ -857,7 +857,7 @@ class App extends Component {
               </a>
             </p>
             <p>
-              {" "}
+              {' '}
               <a style={{ fontSize: 12 }} href="#" className="google btn">
                 <i className="fa fa-google fa-fw"></i> Login with Google+
               </a>
@@ -888,25 +888,25 @@ class App extends Component {
 
         <div className="row">
           <div className="medium-6 columns">
-            <h5 style={{ margin: "0" }} className="text-left">
+            <h5 style={{ margin: '0' }} className="text-left">
               {this.state.TopSelectionsTitle}
               <a href="/featureproducts/2">
                 <span
-                  style={{ float: "right", color: "#009345", fontSize: "14px" }}
+                  style={{ float: 'right', color: '#009345', fontSize: '14px' }}
                 >
                   See more
                 </span>
-              </a>{" "}
+              </a>{' '}
             </h5>
             <div className="row small-up-4">{this.topSelections()}</div>
           </div>
 
           <div className="medium-6 columns">
-            <h5 style={{ margin: "0" }} className="text-left">
+            <h5 style={{ margin: '0' }} className="text-left">
               {this.state.NewForYouTitle}
               <a href="/featureproducts/3">
                 <span
-                  style={{ float: "right", color: "#009345", fontSize: "14px" }}
+                  style={{ float: 'right', color: '#009345', fontSize: '14px' }}
                 >
                   See more
                 </span>
@@ -920,11 +920,11 @@ class App extends Component {
             <p>&nbsp;</p>
           </div>
           <div className="medium-6 columns">
-            <h5 style={{ margin: "0" }} className="text-left">
+            <h5 style={{ margin: '0' }} className="text-left">
               {this.state.FeaturedBrandsTitle}
               <a href="/featureproducts/4">
                 <span
-                  style={{ float: "right", color: "#009345", fontSize: "14px" }}
+                  style={{ float: 'right', color: '#009345', fontSize: '14px' }}
                 >
                   See more
                 </span>
@@ -935,12 +935,12 @@ class App extends Component {
 
           {/*Store Will Love*/}
           <div className="medium-6 columns">
-            <h5 style={{ margin: "0" }} className="text-left">
+            <h5 style={{ margin: '0' }} className="text-left">
               {this.state.StoreWIllLoveTitle}
 
               <a href="/featureproducts/7">
                 <span
-                  style={{ float: "right", color: "#009345", fontSize: "14px" }}
+                  style={{ float: 'right', color: '#009345', fontSize: '14px' }}
                 >
                   See more
                 </span>
@@ -990,7 +990,7 @@ class App extends Component {
 
                   <h5
                     className="text-left"
-                    style={{ margin: "0", paddingLeft: "15px" }}
+                    style={{ margin: '0', paddingLeft: '15px' }}
                   >
                     Featured Categories
                   </h5>
@@ -1006,7 +1006,7 @@ class App extends Component {
                     <div className="row">
                       <div
                         className="medium-8 columns"
-                        style={{ marginTop: "-40px" }}
+                        style={{ marginTop: '-40px' }}
                       >
                         <div className="frameFeatureCat">
                           <span className="helperframeFeatureCat">
@@ -1026,7 +1026,7 @@ class App extends Component {
                               <Fragment>
                                 <div
                                   className="columns small-6 large-12 featureCatsmOne"
-                                  style={{ float: "left" }}
+                                  style={{ float: 'left' }}
                                 >
                                   <div className="frameFeatureCatSm">
                                     <span className="helperframeFeatureCatSm">
@@ -1054,17 +1054,17 @@ class App extends Component {
                         {item.tree1.map(({ cat_info, products }) => (
                           <div
                             className="medium-4 columns"
-                            style={{ float: "left" }}
+                            style={{ float: 'left' }}
                           >
-                            <h6 style={{ fontSize: "14px" }}>
+                            <h6 style={{ fontSize: '14px' }}>
                               &nbsp;&nbsp;&nbsp;{cat_info.category_name}
                               <a href={`/productList/${cat_info.id}`}>
                                 <span
                                   style={{
-                                    float: "right",
-                                    color: "#009345",
-                                    fontSize: "10px",
-                                    paddingRight: "5px"
+                                    float: 'right',
+                                    color: '#009345',
+                                    fontSize: '10px',
+                                    paddingRight: '5px',
                                   }}
                                 >
                                   See more
@@ -1077,9 +1077,9 @@ class App extends Component {
                                   <div
                                     className="small-4 large-4 columns"
                                     style={{
-                                      paddingLeft: "2px",
-                                      paddingRight: "2px",
-                                      float: "left"
+                                      paddingLeft: '2px',
+                                      paddingRight: '2px',
+                                      float: 'left',
                                     }}
                                   >
                                     <div className="frameFeatureCatSm">
@@ -1102,23 +1102,23 @@ class App extends Component {
                   {item.tree2 && (
                     <div
                       className="medium-9 columns"
-                      style={{ marginTop: "20px" }}
+                      style={{ marginTop: '20px' }}
                     >
                       <div className="row">
                         {item.tree2.map(({ cat_info, products }) => (
                           <div
                             className="medium-4 columns"
-                            style={{ float: "left" }}
+                            style={{ float: 'left' }}
                           >
-                            <h6 style={{ fontSize: "14px" }}>
+                            <h6 style={{ fontSize: '14px' }}>
                               &nbsp;&nbsp;&nbsp;{cat_info.category_name}
                               <a href={`/productList/${cat_info.id}`}>
                                 <span
                                   style={{
-                                    float: "right",
-                                    color: "#009345",
-                                    fontSize: "10px",
-                                    paddingRight: "5px"
+                                    float: 'right',
+                                    color: '#009345',
+                                    fontSize: '10px',
+                                    paddingRight: '5px',
                                   }}
                                 >
                                   See more
@@ -1131,9 +1131,9 @@ class App extends Component {
                                   <div
                                     className="small-4 large-4 columns"
                                     style={{
-                                      paddingLeft: "2px",
-                                      paddingRight: "2px",
-                                      float: "left"
+                                      paddingLeft: '2px',
+                                      paddingRight: '2px',
+                                      float: 'left',
                                     }}
                                   >
                                     <div className="frameFeatureCatSm">
@@ -1153,13 +1153,13 @@ class App extends Component {
                     </div>
                   )}
                 </div>
-              )
+              ),
           )}
 
         {/*More Section*/}
         <div className="row">
           <div className="medium-12 columns">
-            <h5 style={{ margin: "0" }} className="text-left">
+            <h5 style={{ margin: '0' }} className="text-left">
               {this.state.MoreTitle}
             </h5>
             <div className="row small-up-3 moreCat">{this.MoreMobile()}</div>
@@ -1175,19 +1175,19 @@ class App extends Component {
           tabIndex="-1"
           role="dialog"
           aria-hidden="false"
-          style={{ backgroundColor: "rgba(0, 0, 0, .9)" }}
+          style={{ backgroundColor: 'rgba(0, 0, 0, .9)' }}
         >
           <div className="modal-dialog modalDialogTop" role="document">
             <div
               className="modal-content"
-              style={{ backgroundColor: "transparent" }}
+              style={{ backgroundColor: 'transparent' }}
             >
               <div
                 className="modal-body"
                 style={{
-                  position: "relative",
-                  padding: "0px",
-                  marginTop: "-36px"
+                  position: 'relative',
+                  padding: '0px',
+                  marginTop: '-36px',
                 }}
               >
                 <button
@@ -1199,14 +1199,14 @@ class App extends Component {
                   <i
                     className="fa fa-times-circle"
                     style={{
-                      fontSize: "24px",
-                      color: "#ffffff"
+                      fontSize: '24px',
+                      color: '#ffffff',
                     }}
                   ></i>
                 </button>
                 <img
                   className="img-responsive"
-                  src={fileUrl + "/upload/product/productImages/asche.jpg"}
+                  src={fileUrl + '/upload/product/productImages/asche.jpg'}
                   alt=""
                 />
               </div>
@@ -1221,7 +1221,7 @@ class App extends Component {
                 <img
                   src={
                     fileUrl +
-                    "/upload/product/productImages/" +
+                    '/upload/product/productImages/' +
                     this.state.Advertisement
                   }
                   alt="Advert"
@@ -1232,16 +1232,16 @@ class App extends Component {
             <div id="popupfoot">
               <button
                 type="button"
-                style={{ color: "#ffffff", marginBottom: "8px" }}
+                style={{ color: '#ffffff', marginBottom: '8px' }}
                 className="btn-sm closeButton agree"
               >
                 <i
                   className="fa fa-remove"
                   style={{
-                    fontSize: "30px",
-                    color: "#EC1624",
-                    marginTop: "5px",
-                    marginLeft: "-4px"
+                    fontSize: '30px',
+                    color: '#EC1624',
+                    marginTop: '5px',
+                    marginLeft: '-4px',
                   }}
                 ></i>
               </button>

@@ -56,5 +56,5 @@ module.exports = {
   _unique,
   _slice,
   _sampleSize,
-  _getRandEleFromArray
+  _getRandEleFromArray,
 };

@@ -1,7 +1,7 @@
-import React, { Component, useEffect, useState } from "react";
-import Footer from "../include/footer";
-import Navbar from "../include/Navbar";
-import Categories from "../include/categories";
+import React, { Component, useEffect, useState } from 'react';
+import Footer from '../include/footer';
+import Navbar from '../include/Navbar';
+import Categories from '../include/categories';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -166,14 +166,14 @@ const FeatureProductsList = ({ match }) => {
       <div className="col-md-3 col-sm-6" key={item.id}>
         <div className="product-grid7">
           <div className="product-image7">
-            <a href={"/productDetails/" + item.id}>
+            <a href={'/productDetails/' + item.id}>
               <div className="frameProductImg">
                 <span className="helperProductImg">
                   <img
                     className="pic-1"
                     src={
                       fileUrl +
-                      "/upload/product/productImages/" +
+                      '/upload/product/productImages/' +
                       item.home_image
                     }
                   />
@@ -181,7 +181,7 @@ const FeatureProductsList = ({ match }) => {
                     className="pic-2"
                     src={
                       fileUrl +
-                      "/upload/product/productImages/" +
+                      '/upload/product/productImages/' +
                       item.home_image
                     }
                   />
@@ -202,7 +202,7 @@ const FeatureProductsList = ({ match }) => {
           </div>
           <div className="product-content">
             <h3 className="title">
-              <a href={"/productDetails/" + item.id}>{item.product_name}r</a>
+              <a href={'/productDetails/' + item.id}>{item.product_name}r</a>
             </h3>
             <ul className="rating">
               <li className="fa fa-star"></li>
@@ -222,11 +222,11 @@ const FeatureProductsList = ({ match }) => {
 
   useEffect(() => {
     fetch(`${base}/api/featureproducts/${match.params.id}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
     })
       .then(res => {
         return res.json();
