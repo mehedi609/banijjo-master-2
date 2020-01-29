@@ -1,60 +1,53 @@
-const _getARandomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+const { sampleSize } = require('lodash');
 
-const _unique = arr => arr.filter((item, i, ar) => ar.indexOf(item) === i);
+exports.getRandomChildArr = async (query, children, threshold) => {
+  let filtered_firstChildren = [];
 
-const _slice = (array, start, end) => {
-  let length = array == null ? 0 : array.length;
-  if (!length) {
-    return [];
-  }
-  start = start == null ? 0 : start;
-  end = end === undefined ? length : end;
+  for (const { id } of children) {
+    const data = await query(
+      `SELECT COUNT(*) as no_of_children FROM category WHERE parent_category_id=${id}`,
+    );
 
-  if (start < 0) {
-    start = -start > length ? 0 : length + start;
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : (end - start) >>> 0;
-  start >>>= 0;
+    const { no_of_children } = data[0];
 
-  let index = -1;
-  const result = new Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
+    filtered_firstChildren =
+      no_of_children > threshold - 1
+        ? [...filtered_firstChildren, { id, no_of_children }]
+        : [...filtered_firstChildren];
   }
-  return result;
+
+  return filtered_firstChildren.length > threshold
+    ? sampleSize(filtered_firstChildren, threshold)
+    : filtered_firstChildren;
 };
 
-const _sampleSize = (array, n) => {
-  n = n == null ? 1 : n;
-  const length = array == null ? 0 : array.length;
-  if (!length || n < 1) {
-    return [];
+exports.getRandomProductArr = async (query, children, threshold) => {
+  let productArr = [];
+  for (const { id, category_name, parent_category_id } of children) {
+    const data = await query(`SELECT COUNT(*) as no_of_products FROM products WHERE category_id=${id} AND 
+                             softDelete=0 AND isApprove='authorize' AND status='active'`);
+    const { no_of_products } = data[0];
+
+    if (no_of_products > threshold - 2) {
+      let products = await query(`SELECT id, home_image, category_id FROM products WHERE category_id=${id} AND 
+                                  softDelete=0 AND isApprove='authorize' AND status='active'`);
+      products =
+        products.length > threshold
+          ? sampleSize(products, threshold)
+          : products;
+
+      const cat_info = { id, category_name, parent_category_id };
+
+      if (products.length) {
+        productArr = [...productArr, { cat_info, products }];
+      }
+    }
   }
-  n = n > length ? length : n;
-  let index = -1;
-  const lastIndex = length - 1;
-  const result = [...array];
-  while (++index < n) {
-    const rand = index + Math.floor(Math.random() * (lastIndex - index + 1));
-    const value = result[rand];
-    result[rand] = result[index];
-    result[index] = value;
-  }
-  return _slice(result, 0, n);
+  return productArr;
 };
 
-const _getRandEleFromArray = (my_arr, sample_size) =>
-  _sampleSize(_unique(my_arr.map(({ id }) => id)), sample_size);
-
-module.exports = {
-  _getARandomNumber,
-  _unique,
-  _slice,
-  _sampleSize,
-  _getRandEleFromArray
+exports.getChildrenFromCategory = async (query, cat_id) => {
+  return await query(
+    `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`,
+  );
 };

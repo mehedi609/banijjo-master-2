@@ -1,7 +1,16 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const { sampleSize } = require('lodash');
-const { checkInventory, checkInventoryFunc } = require('./checkInventory');
+const {
+  checkInventoryFunc,
+  checkProductAvailability,
+  netProductsFromStock,
+} = require('./checkInventory');
+const {
+  getChildrenFromCategory,
+  getRandomChildArr,
+  getRandomProductArr,
+} = require('./helpers');
 const { dbConnection, query } = require('./db_local_config');
 // const { dbConnection, query } = require("./db_com_bd_config");
 
@@ -1417,58 +1426,6 @@ router.get('/featureproducts/:id', async (req, res) => {
   }
 });
 
-const _getRandomChildArr = async (children, threshold) => {
-  let filtered_firstChildren = [];
-
-  for (const { id } of children) {
-    const data = await query(
-      `SELECT COUNT(*) as no_of_children FROM category WHERE parent_category_id=${id}`,
-    );
-
-    const { no_of_children } = data[0];
-
-    filtered_firstChildren =
-      no_of_children > threshold - 1
-        ? [...filtered_firstChildren, { id, no_of_children }]
-        : [...filtered_firstChildren];
-  }
-
-  return filtered_firstChildren.length > threshold
-    ? sampleSize(filtered_firstChildren, threshold)
-    : filtered_firstChildren;
-};
-
-const _getRandomProductArr = async (children, threshold) => {
-  let productArr = [];
-  for (const { id, category_name, parent_category_id } of children) {
-    const data = await query(`SELECT COUNT(*) as no_of_products FROM products WHERE category_id=${id} AND 
-                             softDelete=0 AND isApprove='authorize' AND status='active'`);
-    const { no_of_products } = data[0];
-
-    if (no_of_products > threshold - 2) {
-      let products = await query(`SELECT id, home_image, category_id FROM products WHERE category_id=${id} AND 
-                                  softDelete=0 AND isApprove='authorize' AND status='active'`);
-      products =
-        products.length > threshold
-          ? sampleSize(products, threshold)
-          : products;
-
-      const cat_info = { id, category_name, parent_category_id };
-
-      if (products.length) {
-        productArr = [...productArr, { cat_info, products }];
-      }
-    }
-  }
-  return productArr;
-};
-
-const _getChildrenFromCategory = async cat_id => {
-  return await query(
-    `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`,
-  );
-};
-
 // route api/feature_category
 // desc  Get feature Categories and build the tree
 router.get('/feature_category', async (req, res) => {
@@ -1480,7 +1437,6 @@ router.get('/feature_category', async (req, res) => {
     for (const fc_id of featured_categories) {
       const { category_id } = fc_id;
       let resObj = {};
-      let resNullObj = null;
 
       const parent = await query(
         `SELECT * FROM category WHERE id=${category_id} AND status='active'`,
@@ -1493,14 +1449,18 @@ router.get('/feature_category', async (req, res) => {
 
       resObj.parent = parent[0];
 
-      const first_children = await _getChildrenFromCategory(category_id);
+      const first_children = await getChildrenFromCategory(query, category_id);
 
       if (!first_children.length) {
         resObj.f_children = null;
         return res.json([...res_arr, resObj]);
       }
 
-      const randomFirstChildren = await _getRandomChildArr(first_children, 2);
+      const randomFirstChildren = await getRandomChildArr(
+        query,
+        first_children,
+        2,
+      );
       // if no children of first_children return lastChildren NULL
       if (!randomFirstChildren.length) {
         resObj.parent = null;
@@ -1512,8 +1472,8 @@ router.get('/feature_category', async (req, res) => {
       let subcatArr = [];
 
       for (const [i, { id }] of randomFirstChildren.entries()) {
-        const l_children = await _getChildrenFromCategory(id);
-        const cat = await _getRandomProductArr(l_children, 3);
+        const l_children = await getChildrenFromCategory(query, id);
+        const cat = await getRandomProductArr(query, l_children, 3);
 
         if (cat.length) {
           let product_arr = [];
@@ -1566,26 +1526,47 @@ router.get('/vendors', async (req, res) => {
   }
 });
 
-/*router.post('/check_inventory', async (req, res) => {
-  let { productId, colorId, sizeId } = req.body;
-  colorId = !!colorId ? colorId : 0;
-  sizeId = !!sizeId ? sizeId : 0;
-
-  if (!productId)
-    return res.json({ msg: 'A product id is required', total_amount: 0 });
-});*/
-
-// router.post('/check_inventory', checkInventory);
 router.post('/check_inventory', async (req, res) => {
   let { productId, colorId, sizeId } = req.body;
   productId = !!productId ? productId : 0;
-  colorId = !!colorId ? colorId : 0;
-  sizeId = !!sizeId ? sizeId : 0;
 
   if (!productId)
     return res.json({ msg: 'A productId is required', net_products: 0 });
   try {
     const net_products = await checkInventoryFunc(
+      productId,
+      colorId,
+      sizeId,
+      query,
+    );
+    res.json({ net_products });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Server Error');
+  }
+});
+
+router.get('/checkProductAvailability/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  try {
+    const isProductFound = await checkProductAvailability(id, query);
+    res.json({ isProductFound });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Server Error');
+  }
+});
+
+// get net products amount from stock table
+router.post('/getNetProductsFromStock', async (req, res) => {
+  let { productId, colorId, sizeId } = req.body;
+  productId = !!productId ? productId : 0;
+
+  if (!productId)
+    return res.json({ msg: 'A productId is required', net_products: 0 });
+  try {
+    const net_products = await netProductsFromStock(
       productId,
       colorId,
       sizeId,

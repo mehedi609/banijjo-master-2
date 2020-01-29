@@ -74,3 +74,45 @@ exports.checkInventoryFunc = async (productId, colorId, sizeId, query) => {
     return 0;
   }
 };
+
+exports.checkProductAvailability = async (productId, query) => {
+  const db_tables = [...db_tables_plus, ...db_tables_minus];
+  for (const dbTable of db_tables) {
+    const query_str = `SELECT count(*) as num_of_rows FROM ${dbTable}
+                        WHERE productId=${productId} AND status=1 AND softDel=0`;
+    try {
+      const data = await query(query_str);
+
+      const { num_of_rows } = data[0];
+      if (num_of_rows > 0) return true;
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  }
+  return false;
+};
+
+exports.netProductsFromStock = async (productId, colorId, sizeId, query) => {
+  productId = !!productId ? productId : 0;
+  colorId = !!colorId ? colorId : 0;
+  sizeId = !!sizeId ? sizeId : 0;
+
+  if (!productId) return 0;
+
+  const query_str = `SELECT productId, colorId, sizeId, sum(quantity) as total_quantity FROM stock
+                       WHERE productId=${productId} AND sizeId=${sizeId} AND colorId=${colorId} AND status=1 AND softDel=0
+                       GROUP BY productId, colorId, sizeId`;
+
+  try {
+    const data = await query(query_str);
+    return data.length
+      ? data[0].total_quantity > 0
+        ? data[0].total_quantity
+        : 0
+      : 0;
+  } catch (e) {
+    console.error(e);
+    return 0;
+  }
+};
