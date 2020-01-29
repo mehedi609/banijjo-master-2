@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import axios from "axios";
-import TopNavbarCategories from "./TopNavbarCategories";
+import React, { Component } from 'react';
+import axios from 'axios';
+import TopNavbarCategories from './TopNavbarCategories';
 
 const homeUrl = process.env.REACT_APP_FRONTEND_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
@@ -11,9 +11,9 @@ class Breadcums extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cartItemCount: "",
+      cartItemCount: '',
       customerId: localStorage.customer_id,
-      searchKeyText: ""
+      searchKeyText: '',
     };
     this.searchItem = this.searchItem.bind(this);
   }
@@ -25,7 +25,7 @@ class Breadcums extends Component {
 
   getCustomerCartProducts() {
     if (!localStorage.customer_id) {
-      let cartData = JSON.parse(localStorage.getItem("cart"));
+      let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
 
       if (cartData) {
@@ -33,7 +33,7 @@ class Breadcums extends Component {
           productIds.push(val.productId);
         });
         let uniqueProductIds = productIds.filter(
-          (v, i, a) => a.indexOf(v) === i
+          (v, i, a) => a.indexOf(v) === i,
         );
         let revisedCartData = [];
         uniqueProductIds.map(function(valParent, keyParent) {
@@ -46,31 +46,31 @@ class Breadcums extends Component {
           revisedCartData.push({ productId: valParent, quantity: totalCount });
         });
         this.setState({
-          cartItemCount: revisedCartData.length
+          cartItemCount: revisedCartData.length,
         });
       } else {
         this.setState({
-          cartItemCount: 0
+          cartItemCount: 0,
         });
       }
     } else {
-      fetch(base + "/api/getCustomerCartProductsCount", {
-        method: "POST",
+      fetch(base + '/api/getCustomerCartProductsCount', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          customerId: this.state.customerId
-        })
+          customerId: this.state.customerId,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
-          console.log("rererere", response);
+          console.log('rererere', response);
           this.setState({
-            cartItemCount: response.data[0].counting
+            cartItemCount: response.data[0].counting,
           });
         });
     }
@@ -80,14 +80,14 @@ class Breadcums extends Component {
     axios
       .get(`${base}/api/getTopNavbarCategory`)
       .then(response =>
-        this.setState({ ...this.state, categories: response.data })
+        this.setState({ ...this.state, categories: response.data }),
       );
   }
 
   searchItem(event) {
     event.preventDefault();
     this.setState({ searchKeyText: event.target.searchKey.value });
-    window.location.href = "/search/" + event.target.searchKey.value;
+    window.location.href = '/search/' + event.target.searchKey.value;
   }
 
   render() {
@@ -104,14 +104,14 @@ class Breadcums extends Component {
                   <input
                     name="searchKey"
                     className="input-group-field ex1"
-                    style={{ border: "1px solid #009345" }}
+                    style={{ border: '1px solid #009345' }}
                     type="search"
                     placeholder="Search Item"
                   />
                   <div className="input-group-button">
                     <input
                       type="submit"
-                      style={{ background: "#ec1c24" }}
+                      style={{ background: '#ec1c24' }}
                       className="button secondary"
                       value="&#xf002;"
                     />
@@ -123,14 +123,14 @@ class Breadcums extends Component {
             {/*cartHeade*/}
             <div className="medium-3 large-3 columns">
               <div className="cartHead">
-                <a className="" href="/cart" style={{ color: "#009345" }}>
+                <a className="" href="/cart" style={{ color: '#009345' }}>
                   <i
                     className="fa fa-shopping-cart"
-                    style={{ fontSize: "40px" }}
-                  ></i>{" "}
+                    style={{ fontSize: '40px' }}
+                  ></i>{' '}
                   <span
                     className="badge badge-light"
-                    style={{ backgroundColor: "#ec1624" }}
+                    style={{ backgroundColor: '#ec1624' }}
                   >
                     {this.state.cartItemCount > 0
                       ? this.state.cartItemCount
@@ -143,20 +143,20 @@ class Breadcums extends Component {
             {/*CartIcon*/}
             <div
               className="columns small-6 large-4"
-              style={{ marginTop: "22px", paddingLeft: "8px" }}
+              style={{ marginTop: '22px', paddingLeft: '8px' }}
             >
               <div className="cartIcon">
-                <a href="/cart" style={{ color: "#009345", fontSize: "12px" }}>
+                <a href="/cart" style={{ color: '#009345', fontSize: '12px' }}>
                   <i
                     className="fa fa-shopping-cart"
-                    style={{ fontSize: "18px" }}
-                  ></i>{" "}
+                    style={{ fontSize: '18px' }}
+                  ></i>{' '}
                   <span
                     className="badge badge-light"
                     style={{
-                      backgroundColor: "transparent",
-                      fontSize: "13px",
-                      color: "#ec1624"
+                      backgroundColor: 'transparent',
+                      fontSize: '13px',
+                      color: '#ec1624',
                     }}
                   >
                     {this.state.cartItemCount > 0

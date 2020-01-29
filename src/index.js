@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import ProductDetails from "./product/productDetails";
-import ProductList from "./product/productList";
-import Search from "./product/search";
-import MoreCategory from "./product/moreCategory";
-import ShoppingCart from "./product/shoppingCart";
-import WishList from "./product/wishList";
-import Vendor from "./product/vendor";
-import NotFound from "./not_found";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import ContactUs from "./include/ContactUs";
-import FeatureProductsList from "./product/FeatureProductsList";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import ProductDetails from './product/productDetails';
+import ProductList from './product/productList';
+import Search from './product/search';
+import MoreCategory from './product/moreCategory';
+import ShoppingCart from './product/shoppingCart';
+import WishList from './product/wishList';
+import Vendor from './product/vendor';
+import NotFound from './not_found';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ContactUs from './include/ContactUs';
+import FeatureProductsList from './product/FeatureProductsList';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -40,7 +40,7 @@ ReactDOM.render(
       </Switch>
     </div>
   </BrowserRouter>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

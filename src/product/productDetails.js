@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -7,28 +7,28 @@ import {
   PinterestShareButton,
   PinterestIcon,
   LinkedinShareButton,
-  LinkedinIcon
-} from "react-share";
-import { Helmet } from "react-helmet";
+  LinkedinIcon,
+} from 'react-share';
+import { Helmet } from 'react-helmet';
 
-import Footer from "../include/footer";
-import Navbar from "../include/Navbar";
-import axios from "axios";
-import $ from "jquery";
+import Footer from '../include/footer';
+import Navbar from '../include/Navbar';
+import axios from 'axios';
+import $ from 'jquery';
 
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import "../assets/social-share.css";
-import CardToListProducts from "../features/CardToListProducts";
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import '../assets/social-share.css';
+import CardToListProducts from '../features/CardToListProducts';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
 
 const img_src = `${fileUrl}/upload/product/productImages/`;
-const pd = "/productDetails/";
-const pl = "/productList/";
+const pd = '/productDetails/';
+const pl = '/productList/';
 
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -38,36 +38,36 @@ class ProductDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category_id: "",
-      vendor_id: "",
-      showClickedImage: "",
+      category_id: '',
+      vendor_id: '',
+      showClickedImage: '',
       carouselImages: [],
       productQuantity: 1,
       productId: this.props.match.params.id,
-      productName: "",
-      productImage: "",
+      productName: '',
+      productImage: '',
       product_full_description: [],
-      product_sku: "",
+      product_sku: '',
       product_specification_details: [],
       product_specification_details_description: [],
       product_specification_name: [],
-      qc_status: "",
+      qc_status: '',
       price: 0,
       reload: false,
       productImages: [],
-      homeImage: "",
+      homeImage: '',
       productListSmVendor: [],
       productListSmCategory: [],
-      email: "",
-      password: "",
-      emailError: "",
-      passwordError: "",
+      email: '',
+      password: '',
+      emailError: '',
+      passwordError: '',
       cartArr: [],
-      color: "",
+      color: '',
       discountAmount: 0,
       metaTags: [],
       colors: [],
-      sizes: []
+      sizes: [],
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -111,15 +111,15 @@ class ProductDetails extends Component {
           description,
           qc_status,
           status,
-          product_sku
+          product_sku,
         } = res.data;
 
         this.setState({
           category_id,
           vendor_id,
           productName: product_name,
-          homeImage: !!home_image ? home_image : "default.png",
-          showClickedImage: !!home_image ? home_image : "default.png",
+          homeImage: !!home_image ? home_image : 'default.png',
+          showClickedImage: !!home_image ? home_image : 'default.png',
           product_full_description: description,
           carouselImages: !!carouselImages && carouselImages,
           qc_status: !!qc_status && qc_status,
@@ -129,16 +129,16 @@ class ProductDetails extends Component {
           productListSmCategory: productSmCategory,
           productListSmVendor: productSmVendor,
           colors: !!colors && colors,
-          sizes: !!sizes && sizes
+          sizes: !!sizes && sizes,
         });
 
         setTimeout(() => {
           window.imageZoom(
-            "myimage",
-            "myresult",
+            'myimage',
+            'myresult',
             fileUrl +
-              "/upload/product/productImages/" +
-              this.state.showClickedImage
+              '/upload/product/productImages/' +
+              this.state.showClickedImage,
           );
         }, 600);
       });
@@ -147,14 +147,14 @@ class ProductDetails extends Component {
   handleClickMinus() {
     if (this.state.productQuantity !== 0) {
       this.setState({
-        productQuantity: this.state.productQuantity - 1
+        productQuantity: this.state.productQuantity - 1,
       });
     }
   }
 
   handleClickPlus() {
     this.setState({
-      productQuantity: this.state.productQuantity + 1
+      productQuantity: this.state.productQuantity + 1,
     });
   }
 
@@ -165,14 +165,14 @@ class ProductDetails extends Component {
           this.state.carouselImages.push(
             <React.Fragment>
               <a
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
                 data-imageSource={item.imageName}
                 onClick={() => {
                   this.setState({ showClickedImage: item.imageName });
                   window.imageZoom(
-                    "myimage",
-                    "myresult",
-                    fileUrl + "/upload/product/productImages/" + item.imageName
+                    'myimage',
+                    'myresult',
+                    fileUrl + '/upload/product/productImages/' + item.imageName,
                   );
                 }}
               >
@@ -181,14 +181,14 @@ class ProductDetails extends Component {
                     <img
                       src={
                         fileUrl +
-                        "/upload/product/productImages/" +
+                        '/upload/product/productImages/' +
                         item.imageName
                       }
                     />
                   </span>
                 </div>
               </a>
-            </React.Fragment>
+            </React.Fragment>,
           );
         });
       }
@@ -203,16 +203,16 @@ class ProductDetails extends Component {
           onClick={() => {
             this.setState({ showClickedImage: imageName });
             window.imageZoom(
-              "myimage",
-              "myresult",
-              fileUrl + "/upload/product/productImages/" + imageName
+              'myimage',
+              'myresult',
+              fileUrl + '/upload/product/productImages/' + imageName,
             );
           }}
         >
           <div className="frameZoomSlider">
             <span className="helperZoomSlider">
               <img
-                src={fileUrl + "/upload/product/productImages/" + imageName}
+                src={fileUrl + '/upload/product/productImages/' + imageName}
               />
             </span>
           </div>
@@ -232,21 +232,21 @@ class ProductDetails extends Component {
               <img
                 src={
                   fileUrl +
-                  "/upload/product/productDescriptionImages/" +
+                  '/upload/product/productDescriptionImages/' +
                   item.descriptionImage
                 }
               ></img>
             ) : (
-              ""
+              ''
             )}
 
             <p>{item.description}</p>
-          </React.Fragment>
+          </React.Fragment>,
         );
       });
     } else {
       descriptionText.push(
-        <p style={{ color: "#ec1c24" }}>No Descriptions Added</p>
+        <p style={{ color: '#ec1c24' }}>No Descriptions Added</p>,
       );
     }
     return descriptionText;
@@ -254,7 +254,7 @@ class ProductDetails extends Component {
 
   sameVendorOtherProductsDeskTop() {
     const { productListSmVendor } = this.state;
-    const classes = ["frameMore", "helperframeMore"];
+    const classes = ['frameMore', 'helperframeMore'];
 
     if (productListSmVendor.length) {
       return productListSmVendor.map(({ id, home_image }) => (
@@ -271,7 +271,7 @@ class ProductDetails extends Component {
 
   sameVendorOtherProductsMobile() {
     const { productListSmVendor } = this.state;
-    const classes = ["moreCatDiv", "moreCatSpan"];
+    const classes = ['moreCatDiv', 'moreCatSpan'];
 
     if (productListSmVendor.length) {
       return productListSmVendor.map(({ id, home_image }) => (
@@ -288,7 +288,7 @@ class ProductDetails extends Component {
 
   sameProductsOtherVendorDesktop() {
     const { productListSmCategory } = this.state;
-    const classes = ["frameMore", "helperframeMore"];
+    const classes = ['frameMore', 'helperframeMore'];
 
     if (productListSmCategory.length) {
       return productListSmCategory.map(({ id, home_image }) => (
@@ -305,7 +305,7 @@ class ProductDetails extends Component {
 
   sameProductsOtherVendorMobile() {
     const { productListSmCategory } = this.state;
-    const classes = ["moreCatDiv", "moreCatSpan"];
+    const classes = ['moreCatDiv', 'moreCatSpan'];
     if (productListSmCategory.length) {
       return productListSmCategory.map(({ home_image, id }) => (
         <div className="column" key={id}>
@@ -336,7 +336,7 @@ class ProductDetails extends Component {
                       {item1.specificationNameValue}
                     </label>
                   </div>
-                </div>
+                </div>,
               );
             }
           });
@@ -349,49 +349,49 @@ class ProductDetails extends Component {
 
   addCartLocal = data => e => {
     let cartArr = [
-      { productId: this.state.productId, quantity: this.state.productQuantity }
+      { productId: this.state.productId, quantity: this.state.productQuantity },
     ];
-    let cartDataExisting = JSON.parse(localStorage.getItem("cart"));
-    localStorage.removeItem("cart");
+    let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
+    localStorage.removeItem('cart');
 
     if (cartDataExisting) {
       cartDataExisting.push({
         productId: this.state.productId,
-        quantity: this.state.productQuantity
+        quantity: this.state.productQuantity,
       });
-      localStorage.setItem("cart", JSON.stringify(cartDataExisting));
+      localStorage.setItem('cart', JSON.stringify(cartDataExisting));
     } else {
-      localStorage.setItem("cart", JSON.stringify(cartArr));
+      localStorage.setItem('cart', JSON.stringify(cartArr));
     }
 
-    if (data === "buy_now") window.location = "/cart";
-    else if (data === "add_to_cart") {
-      var link = document.getElementById("successCartMessage");
+    if (data === 'buy_now') window.location = '/cart';
+    else if (data === 'add_to_cart') {
+      var link = document.getElementById('successCartMessage');
       link.click();
     }
   };
 
   addCartDirect = data => e => {
-    fetch(base + "/api/add_cart_direct", {
-      method: "POST",
+    fetch(base + '/api/add_cart_direct', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         productId: this.state.productId,
         customerId: localStorage.customer_id,
-        quantity: this.state.productQuantity
-      })
+        quantity: this.state.productQuantity,
+      }),
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
         if (response.data === true) {
-          if (data === "buy_now") window.location = "/cart";
-          else if (data === "add_to_cart") {
-            var link = document.getElementById("successCartMessage");
+          if (data === 'buy_now') window.location = '/cart';
+          else if (data === 'add_to_cart') {
+            var link = document.getElementById('successCartMessage');
             link.click();
           }
         }
@@ -400,42 +400,42 @@ class ProductDetails extends Component {
 
   addWishLocal() {
     let wishArr = [
-      { productId: this.state.productId, quantity: this.state.productQuantity }
+      { productId: this.state.productId, quantity: this.state.productQuantity },
     ];
-    let wishDataExisting = JSON.parse(localStorage.getItem("wish"));
-    localStorage.removeItem("wish");
+    let wishDataExisting = JSON.parse(localStorage.getItem('wish'));
+    localStorage.removeItem('wish');
     if (wishDataExisting) {
       wishDataExisting.push({
         productId: this.state.productId,
-        quantity: this.state.productQuantity
+        quantity: this.state.productQuantity,
       });
-      localStorage.setItem("wish", JSON.stringify(wishDataExisting));
+      localStorage.setItem('wish', JSON.stringify(wishDataExisting));
     } else {
-      localStorage.setItem("wish", JSON.stringify(wishArr));
+      localStorage.setItem('wish', JSON.stringify(wishArr));
     }
-    var link = document.getElementById("WishListModalButton");
+    var link = document.getElementById('WishListModalButton');
     link.click();
   }
 
   addWishDirect() {
-    fetch(base + "/api/add_wish_direct", {
-      method: "POST",
+    fetch(base + '/api/add_wish_direct', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         productId: this.state.productId,
         customerId: localStorage.customer_id,
-        quantity: this.state.productQuantity
-      })
+        quantity: this.state.productQuantity,
+      }),
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
         if (response.data === true) {
-          var link = document.getElementById("WishListModalButton");
+          var link = document.getElementById('WishListModalButton');
           link.click();
         }
       });
@@ -443,28 +443,28 @@ class ProductDetails extends Component {
 
   customerLoginSubmit(event) {
     event.preventDefault();
-    fetch(base + "/api/loginCustomerInitial", {
-      method: "POST",
+    fetch(base + '/api/loginCustomerInitial', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: event.target.emailField.value,
         password: event.target.passwordField.value,
         productId: this.state.productId,
-        quantity: this.state.productQuantity
-      })
+        quantity: this.state.productQuantity,
+      }),
     })
       .then(res => {
         return res.json();
       })
       .then(response => {
-        console.log("aa", response);
-        if (response.data !== "") {
-          localStorage.setItem("customer_id", response.data);
-          var link = document.getElementById("successCartMessage");
-          var hide = document.getElementById("hideLogin");
+        console.log('aa', response);
+        if (response.data !== '') {
+          localStorage.setItem('customer_id', response.data);
+          var link = document.getElementById('successCartMessage');
+          var hide = document.getElementById('hideLogin');
           hide.click();
           link.click();
         }
@@ -473,9 +473,9 @@ class ProductDetails extends Component {
 
   createAccountNext(event) {
     event.preventDefault();
-    if (event.target.email.value === "" || event.target.email.value == null) {
+    if (event.target.email.value === '' || event.target.email.value == null) {
       this.setState({
-        emailError: "Email cannot be empty"
+        emailError: 'Email cannot be empty',
       });
       return false;
     } else if (
@@ -483,39 +483,39 @@ class ProductDetails extends Component {
       event.target.email.value > 0
     ) {
       this.setState({
-        emailError: "Enter a valid Password"
+        emailError: 'Enter a valid Password',
       });
       return false;
     } else if (
-      event.target.password.value === "" ||
+      event.target.password.value === '' ||
       event.target.password.value == null
     ) {
       this.setState({
-        passwordError: "Password cannot be empty"
+        passwordError: 'Password cannot be empty',
       });
       return false;
     } else {
-      fetch(base + "/api/saveCustomerInitial", {
-        method: "POST",
+      fetch(base + '/api/saveCustomerInitial', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: event.target.email.value,
           password: event.target.password.value,
           productId: this.state.productId,
-          quantity: this.state.productQuantity
-        })
+          quantity: this.state.productQuantity,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
-          if (response.data !== "") {
-            localStorage.setItem("customer_id", response.data);
-            var hideLogin = document.getElementById("hideLogin");
-            var link = document.getElementById("successCartMessage");
+          if (response.data !== '') {
+            localStorage.setItem('customer_id', response.data);
+            var hideLogin = document.getElementById('hideLogin');
+            var link = document.getElementById('successCartMessage');
             hideLogin.click();
             link.click();
           }
@@ -537,7 +537,7 @@ class ProductDetails extends Component {
   render() {
     const options = {
       items: 3,
-      slideBy: 1
+      slideBy: 1,
     };
     const {
       productId,
@@ -548,7 +548,7 @@ class ProductDetails extends Component {
       productListSmCategory,
       productListSmVendor,
       category_id,
-      vendor_id
+      vendor_id,
     } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
@@ -612,7 +612,7 @@ class ProductDetails extends Component {
         </div>
 
         <button
-          style={{ display: "none !important" }}
+          style={{ display: 'none !important' }}
           id="successCartMessage"
           type="button"
           data-toggle="modal"
@@ -621,7 +621,7 @@ class ProductDetails extends Component {
         ></button>
 
         <button
-          style={{ display: "none !important" }}
+          style={{ display: 'none !important' }}
           id="WishListModalButton"
           type="button"
           data-toggle="modal"
@@ -635,9 +635,9 @@ class ProductDetails extends Component {
           role="dialog"
         >
           <div className="modal-dialog" role="document">
-            <div className="modal-content" style={{ width: "auto" }}>
+            <div className="modal-content" style={{ width: 'auto' }}>
               <div className="modal-header">
-                <h5 className="modal-title" style={{ textAlign: "center" }}>
+                <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
                 <button
@@ -645,7 +645,7 @@ class ProductDetails extends Component {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: "-25px" }}
+                  style={{ marginTop: '-25px' }}
                 >
                   <span aria-hidden="true">×</span>
                 </button>
@@ -654,29 +654,29 @@ class ProductDetails extends Component {
               <div className="modal-body">
                 <div className="row">
                   <div className="col-md-12 col-lg-12">
-                    <p style={{ color: "#009345" }} className="checkDes">
+                    <p style={{ color: '#009345' }} className="checkDes">
                       <i
                         className="fa fa-check"
                         style={{
-                          fontSize: "50px",
-                          color: "white",
-                          backgroundColor: "#009345",
-                          borderRadius: "40px"
+                          fontSize: '50px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px',
                         }}
-                      ></i>{" "}
+                      ></i>{' '}
                       Nice. A new item has been added to your Shopping Cart.
                     </p>
 
-                    <p style={{ color: "#009345" }} className="checkMobile">
+                    <p style={{ color: '#009345' }} className="checkMobile">
                       <i
                         className="fa fa-check"
                         style={{
-                          fontSize: "20px",
-                          color: "white",
-                          backgroundColor: "#009345",
-                          borderRadius: "40px"
+                          fontSize: '20px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px',
                         }}
-                      ></i>{" "}
+                      ></i>{' '}
                       Nice. A new item has been added to your Shopping Cart.
                     </p>
                   </div>
@@ -688,8 +688,8 @@ class ProductDetails extends Component {
                       href="/cart"
                       className="btn btn-success"
                       style={{
-                        backgroundColor: "#ec1c24",
-                        borderColor: "#ec1c24"
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24',
                       }}
                     >
                       View Shopping Cart
@@ -700,8 +700,8 @@ class ProductDetails extends Component {
                       href={frontEndUrl}
                       className="btn btn-success"
                       style={{
-                        backgroundColor: "#ec1c24",
-                        borderColor: "#ec1c24"
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24',
                       }}
                     >
                       Continue Shopping
@@ -716,9 +716,9 @@ class ProductDetails extends Component {
 
         <div className="modal" id="WishListModal" tabIndex="-1" role="dialog">
           <div className="modal-dialog" role="document">
-            <div className="modal-content" style={{ width: "auto" }}>
+            <div className="modal-content" style={{ width: 'auto' }}>
               <div className="modal-header">
-                <h5 className="modal-title" style={{ textAlign: "center" }}>
+                <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
                 <button
@@ -726,7 +726,7 @@ class ProductDetails extends Component {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: "-25px" }}
+                  style={{ marginTop: '-25px' }}
                 >
                   <span aria-hidden="true">×</span>
                 </button>
@@ -735,30 +735,30 @@ class ProductDetails extends Component {
               <div className="modal-body">
                 <div className="row">
                   <div className="col-md-12 col-lg-12">
-                    <p style={{ color: "#009345" }} className="checkDes">
+                    <p style={{ color: '#009345' }} className="checkDes">
                       <i
                         className="fa fa-check"
                         style={{
-                          fontSize: "50px",
-                          color: "white",
-                          backgroundColor: "#009345",
-                          borderRadius: "40px"
+                          fontSize: '50px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px',
                         }}
-                      ></i>{" "}
+                      ></i>{' '}
                       Nice. A new item has been added to your Wish List.
                     </p>
-                    <p style={{ color: "#009345" }} className="checkMobile">
+                    <p style={{ color: '#009345' }} className="checkMobile">
                       <i
                         className="fa fa-check"
                         style={{
-                          fontSize: "20px",
-                          color: "white",
-                          backgroundColor: "#009345",
-                          borderRadius: "40px"
+                          fontSize: '20px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px',
                         }}
-                      ></i>{" "}
+                      ></i>{' '}
                       Nice. A new item has been added to your Wish List.
-                    </p>{" "}
+                    </p>{' '}
                   </div>
                 </div>
                 <div className="row">
@@ -768,8 +768,8 @@ class ProductDetails extends Component {
                       href="/wish"
                       className="btn btn-success"
                       style={{
-                        backgroundColor: "#ec1c24",
-                        borderColor: "#ec1c24"
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24',
                       }}
                     >
                       View Wish List
@@ -780,8 +780,8 @@ class ProductDetails extends Component {
                       href={frontEndUrl}
                       className="btn btn-success"
                       style={{
-                        backgroundColor: "#ec1c24",
-                        borderColor: "#ec1c24"
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24',
                       }}
                     >
                       Continue Shopping
@@ -799,14 +799,14 @@ class ProductDetails extends Component {
 
         <div className="row">
           <div className="medium-4 large-4 columns">
-            <div className="row" style={{ marginTop: "0px" }}>
+            <div className="row" style={{ marginTop: '0px' }}>
               <div className="medium-9 large-9 columns">
                 <div className="img-zoom-container">
                   <img
                     id="myimage"
                     src={
                       fileUrl +
-                      "/upload/product/productImages/" +
+                      '/upload/product/productImages/' +
                       this.state.showClickedImage
                     }
                     width="500"
@@ -820,8 +820,8 @@ class ProductDetails extends Component {
                 className="medium-3 large-3 columns"
                 style={{
                   zIndex: 1000,
-                  visibility: "hidden",
-                  marginRight: "-15px"
+                  visibility: 'hidden',
+                  marginRight: '-15px',
                 }}
               >
                 <div id="myresult" class="img-zoom-result"></div>
@@ -839,7 +839,7 @@ class ProductDetails extends Component {
             </OwlCarousel>*/}
 
             <OwlCarousel
-              style={{ marginTop: "15px", marginBottom: "10px" }}
+              style={{ marginTop: '15px', marginBottom: '10px' }}
               className="owl-theme"
               margin={10}
               {...options}
@@ -852,11 +852,11 @@ class ProductDetails extends Component {
                       onClick={() => {
                         this.setState({ showClickedImage: item.imageName });
                         window.imageZoom(
-                          "myimage",
-                          "myresult",
+                          'myimage',
+                          'myresult',
                           fileUrl +
-                            "/upload/product/productImages/" +
-                            item.imageName
+                            '/upload/product/productImages/' +
+                            item.imageName,
                         );
                       }}
                     >
@@ -869,7 +869,7 @@ class ProductDetails extends Component {
                         </span>
                       </div>
                     </a>
-                  )
+                  ),
               )}
             </OwlCarousel>
           </div>
@@ -936,7 +936,7 @@ class ProductDetails extends Component {
                   </Fragment>
                 ) : (
                   <Fragment>
-                    <span>৳{this.state.productPrice}</span>{" "}
+                    <span>৳{this.state.productPrice}</span>{' '}
                     <i className="item_price">
                       ৳{this.state.productPrice - this.state.discountAmount}
                     </i>
@@ -952,8 +952,8 @@ class ProductDetails extends Component {
                 {!localStorage.customer_id ? (
                   <button
                     type="button"
-                    onClick={this.addCartLocal("add_to_cart")}
-                    style={{ backgroundColor: "009345", marginRight: "10px" }}
+                    onClick={this.addCartLocal('add_to_cart')}
+                    style={{ backgroundColor: '009345', marginRight: '10px' }}
                     className="w3ls-cart"
                   >
                     Add to cart
@@ -961,8 +961,8 @@ class ProductDetails extends Component {
                 ) : (
                   <button
                     type="button"
-                    onClick={this.addCartDirect("add_to_cart")}
-                    style={{ backgroundColor: "009345", marginRight: "10px" }}
+                    onClick={this.addCartDirect('add_to_cart')}
+                    style={{ backgroundColor: '009345', marginRight: '10px' }}
                     className="w3ls-cart"
                   >
                     Add to cart
@@ -972,7 +972,7 @@ class ProductDetails extends Component {
                   <button
                     type="button"
                     onClick={this.addWishLocal}
-                    style={{ backgroundColor: "009345" }}
+                    style={{ backgroundColor: '009345' }}
                     className="w3ls-cart"
                   >
                     Add to wish list
@@ -981,7 +981,7 @@ class ProductDetails extends Component {
                   <button
                     type="button"
                     onClick={this.addWishDirect}
-                    style={{ backgroundColor: "009345" }}
+                    style={{ backgroundColor: '009345' }}
                     className="w3ls-cart"
                   >
                     Add to wish list
@@ -995,7 +995,7 @@ class ProductDetails extends Component {
             <div className="modal-dialog" role="document">
               <div
                 className="modal-content"
-                style={{ width: "50%", marginLeft: "20%" }}
+                style={{ width: '50%', marginLeft: '20%' }}
               >
                 <div className="modal-header">
                   <button
@@ -1010,19 +1010,19 @@ class ProductDetails extends Component {
                   <div className="frameTopSelection">
                     <span
                       className="helperframeTopSelection"
-                      style={{ background: "white" }}
+                      style={{ background: 'white' }}
                     >
                       <img src="/image/banijjoLogo.png" alt="" />
                     </span>
                   </div>
                 </div>
                 <ul className="nav nav-tabs">
-                  <li className="active" style={{ paddingLeft: "80px" }}>
+                  <li className="active" style={{ paddingLeft: '80px' }}>
                     <a data-toggle="tab" href="#home">
                       REGISTER
                     </a>
                   </li>
-                  <li style={{ paddingLeft: "30px" }}>
+                  <li style={{ paddingLeft: '30px' }}>
                     <a data-toggle="tab" href="#menu1">
                       Sign In
                     </a>
@@ -1045,11 +1045,11 @@ class ProductDetails extends Component {
                             required
                           />
                           {this.state.emailError ? (
-                            <span style={{ color: "red" }}>
+                            <span style={{ color: 'red' }}>
                               {this.state.emailError}
                             </span>
                           ) : (
-                            ""
+                            ''
                           )}
                         </div>
 
@@ -1063,18 +1063,18 @@ class ProductDetails extends Component {
                             required
                           />
                           {this.state.passwordError ? (
-                            <span style={{ color: "red" }}>
+                            <span style={{ color: 'red' }}>
                               {this.state.passwordError}
                             </span>
                           ) : (
-                            ""
+                            ''
                           )}
                         </div>
                         <div className="modal-footer">
                           <button
                             type="submit"
                             className="btn btn-danger"
-                            style={{ backgroundColor: "#ec1c24" }}
+                            style={{ backgroundColor: '#ec1c24' }}
                           >
                             Create Account
                           </button>
@@ -1116,7 +1116,7 @@ class ProductDetails extends Component {
                           <button
                             type="submit"
                             className="btn btn-danger"
-                            style={{ backgroundColor: "#ec1c24" }}
+                            style={{ backgroundColor: '#ec1c24' }}
                           >
                             Login
                           </button>
@@ -1141,10 +1141,10 @@ class ProductDetails extends Component {
             <div
               id="horizontalTab1"
               style={{
-                display: "block",
-                width: "100%",
-                margin: "0px",
-                paddingLeft: "6px"
+                display: 'block',
+                width: '100%',
+                margin: '0px',
+                paddingLeft: '6px',
               }}
             >
               <ul>
@@ -1337,15 +1337,15 @@ class ProductDetails extends Component {
                               } else {
                                 return (
                                   <li>
-                                    {item.specificationDetailsName}:{" "}
+                                    {item.specificationDetailsName}:{' '}
                                     {item.specificationDetailsValue}
                                   </li>
                                 );
                               }
                             }
-                          }
+                          },
                         )
-                      : ""}
+                      : ''}
                   </div>
 
                   <div className="medium-6 large-6 columns">
@@ -1356,14 +1356,14 @@ class ProductDetails extends Component {
                               return (
                                 <li>
                                   {counter}
-                                  {item.specificationDetailsName}:{" "}
+                                  {item.specificationDetailsName}:{' '}
                                   {item.specificationDetailsValue}
                                 </li>
                               );
                             }
-                          }
+                          },
                         )
-                      : ""}
+                      : ''}
                   </div>
                 </div>
               </div>
@@ -1372,16 +1372,16 @@ class ProductDetails extends Component {
         </div>
 
         {productListSmCategory.length && (
-          <div className="row" style={{ marginTop: "10px" }}>
+          <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
-              <h5 style={{ color: "#009345" }} className="text-left">
+              <h5 style={{ color: '#009345' }} className="text-left">
                 Similar Products
                 <a href={`/productList/${category_id}`}>
                   <span
                     style={{
-                      float: "right",
-                      color: "#009345",
-                      fontSize: "14px"
+                      float: 'right',
+                      color: '#009345',
+                      fontSize: '14px',
                     }}
                   >
                     See more
@@ -1403,16 +1403,16 @@ class ProductDetails extends Component {
         )}
 
         {productListSmVendor.length && (
-          <div className="row" style={{ marginTop: "10px" }}>
+          <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
-              <h5 style={{ color: "#009345" }} className="text-left">
-                Same Vendor Other Products{" "}
+              <h5 style={{ color: '#009345' }} className="text-left">
+                Same Vendor Other Products{' '}
                 <a href={`/vendor/${vendor_id}`}>
                   <span
                     style={{
-                      float: "right",
-                      color: "#009345",
-                      fontSize: "14px"
+                      float: 'right',
+                      color: '#009345',
+                      fontSize: '14px',
                     }}
                   >
                     See more

@@ -48,14 +48,14 @@ body {
   display: inline-block;
   margin-left: 0.255em;
   vertical-align: 0.255em;
-  content: "";
+  content: '';
   border-top: 0.3em solid;
   border-right: 0.3em solid transparent;
   border-bottom: 0;
   border-left: 0.3em solid transparent;
 }
 
-input[type="submit"] {
+input[type='submit'] {
   font-family: FontAwesome;
 }
 
@@ -345,7 +345,7 @@ ul {
     height: auto;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -409,7 +409,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -428,8 +428,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f067";
+    font-family: 'FontAwesome';
+    content: '\f067';
     position: absolute;
     right: 15px;
     top: 18px;
@@ -437,7 +437,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f068";
+    content: '\f068';
   }
   .copyRightFooter {
     text-align: left !important;
@@ -704,7 +704,7 @@ ul {
     height: 420px;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -766,7 +766,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -785,8 +785,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f067";
+    font-family: 'FontAwesome';
+    content: '\f067';
     position: absolute;
     right: 15px;
     top: 18px;
@@ -794,7 +794,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f068";
+    content: '\f068';
   }
   .copyRightFooter {
     text-align: left !important;
@@ -1087,7 +1087,7 @@ ul {
     height: auto;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -1141,7 +1141,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -1160,8 +1160,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f067";
+    font-family: 'FontAwesome';
+    content: '\f067';
     position: absolute;
     right: 15px;
     top: 18px;
@@ -1169,7 +1169,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f068";
+    content: '\f068';
   }
 
   .copyRightFooter {
@@ -1467,7 +1467,7 @@ ul {
     max-width: 90%;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -1521,7 +1521,7 @@ ul {
 
   .cat-title {
     display: block;
-    font: 600 18px/22px "Open Sans", sans-serif;
+    font: 600 18px/22px 'Open Sans', sans-serif;
     text-transform: uppercase;
     display: block;
     padding: 17px 20px;
@@ -1540,8 +1540,8 @@ ul {
 
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f107";
+    font-family: 'FontAwesome';
+    content: '\f107';
     position: absolute;
     right: 15px;
     top: 20px;
@@ -1549,7 +1549,7 @@ ul {
   }
 
   .cat-title.active:after {
-    content: "\f106";
+    content: '\f106';
   }
 
   .copyRightFooter {
@@ -1796,7 +1796,7 @@ ul {
     height: 443px;
     padding: 10px;
     background-color: #ffffff;
-    font-family: "Segoe UI Light", sans-serif;
+    font-family: 'Segoe UI Light', sans-serif;
     font-size: 15pt;
   }
 
@@ -2268,7 +2268,7 @@ ul {
   border-radius: 50px;
   color: white;
   background: linear-gradient(to right, #009345 0%, #009345 100%);
-  content: "";
+  content: '';
   display: block;
   -webkit-transition: 0.5s ease-out;
   transition: 0.5s ease-out;

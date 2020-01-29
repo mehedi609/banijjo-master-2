@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import TopNavbarCategories from "./TopNavbarCategories";
+import React, { Component } from 'react';
+import TopNavbarCategories from './TopNavbarCategories';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -8,9 +8,9 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cartItemCount: "",
+      cartItemCount: '',
       customerId: localStorage.customer_id,
-      searchKeyText: ""
+      searchKeyText: '',
     };
     this.searchItem = this.searchItem.bind(this);
   }
@@ -21,7 +21,7 @@ class Navbar extends Component {
 
   getCustomerCartProducts() {
     if (!localStorage.customer_id) {
-      let cartData = JSON.parse(localStorage.getItem("cart"));
+      let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
 
       if (cartData) {
@@ -29,7 +29,7 @@ class Navbar extends Component {
           productIds.push(val.productId);
         });
         let uniqueProductIds = productIds.filter(
-          (v, i, a) => a.indexOf(v) === i
+          (v, i, a) => a.indexOf(v) === i,
         );
         let revisedCartData = [];
         uniqueProductIds.map(function(valParent, keyParent) {
@@ -42,31 +42,31 @@ class Navbar extends Component {
           revisedCartData.push({ productId: valParent, quantity: totalCount });
         });
         this.setState({
-          cartItemCount: revisedCartData.length
+          cartItemCount: revisedCartData.length,
         });
       } else {
         this.setState({
-          cartItemCount: 0
+          cartItemCount: 0,
         });
       }
     } else {
-      fetch(base + "/api/getCustomerCartProductsCount", {
-        method: "POST",
+      fetch(base + '/api/getCustomerCartProductsCount', {
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          customerId: this.state.customerId
-        })
+          customerId: this.state.customerId,
+        }),
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
-          console.log("rererere", response);
+          console.log('rererere', response);
           this.setState({
-            cartItemCount: response.data[0].counting
+            cartItemCount: response.data[0].counting,
           });
         });
     }
@@ -75,7 +75,7 @@ class Navbar extends Component {
   searchItem(event) {
     event.preventDefault();
     this.setState({ searchKeyText: event.target.searchKey.value });
-    window.location.href = "/search/" + event.target.searchKey.value;
+    window.location.href = '/search/' + event.target.searchKey.value;
   }
 
   render() {
@@ -91,14 +91,14 @@ class Navbar extends Component {
                 <input
                   name="searchKey"
                   className="input-group-field ex1"
-                  style={{ border: "1px solid #009345" }}
+                  style={{ border: '1px solid #009345' }}
                   type="search"
                   placeholder="Search Item"
                 />
                 <div className="input-group-button">
                   <input
                     type="submit"
-                    style={{ background: "#ec1c24" }}
+                    style={{ background: '#ec1c24' }}
                     className="button secondary"
                     value="&#xf002;"
                   />
@@ -108,15 +108,15 @@ class Navbar extends Component {
           </div>
           <div className="medium-3 large-3 columns">
             <div className="cartHead">
-              <a className="" href="/cart" style={{ color: "#009345" }}>
+              <a className="" href="/cart" style={{ color: '#009345' }}>
                 <i
                   className="fa fa-shopping-cart"
-                  style={{ fontSize: "40px" }}
-                ></i>{" "}
+                  style={{ fontSize: '40px' }}
+                ></i>{' '}
                 Cart
                 <span
                   className="badge badge-light"
-                  style={{ backgroundColor: "#ec1624" }}
+                  style={{ backgroundColor: '#ec1624' }}
                 >
                   {this.state.cartItemCount > 0 ? this.state.cartItemCount : 0}
                 </span>
@@ -125,22 +125,22 @@ class Navbar extends Component {
           </div>
           <div
             className="columns small-6 large-4"
-            style={{ marginTop: "22px", paddingLeft: "8px" }}
+            style={{ marginTop: '22px', paddingLeft: '8px' }}
           >
             <div className="cartIcon">
               <a
                 class=""
                 href="/cart"
-                style={{ color: "#009345", fontSize: "12px" }}
+                style={{ color: '#009345', fontSize: '12px' }}
               >
-                <i class="fa fa-shopping-cart" style={{ fontSize: "18px" }}></i>
+                <i class="fa fa-shopping-cart" style={{ fontSize: '18px' }}></i>
                 <span
                   class="badge badge-light"
                   style={{
-                    backgroundColor: "transparent",
-                    fontSize: "13px",
-                    color: "#ec1624",
-                    paddingLeft: "11px"
+                    backgroundColor: 'transparent',
+                    fontSize: '13px',
+                    color: '#ec1624',
+                    paddingLeft: '11px',
                   }}
                 >
                   {this.state.cartItemCount > 0 ? this.state.cartItemCount : 0}

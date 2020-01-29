@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 
 class TopNavbarCategories extends Component {
   state = {
-    categories: []
+    categories: [],
   };
 
   async componentDidMount() {
@@ -12,15 +12,15 @@ class TopNavbarCategories extends Component {
   }
 
   getAllCategories() {
-    fetch(base + "/api/getTopNavbarCategory", {
-      method: "GET"
+    fetch(base + '/api/getTopNavbarCategory', {
+      method: 'GET',
     })
       .then(res => {
         return res.json();
       })
       .then(categories => {
         this.setState({
-          categories: categories.data
+          categories: categories.data,
         });
         return false;
       });
@@ -29,7 +29,7 @@ class TopNavbarCategories extends Component {
   redenderCategories(categories) {
     return categories.map(el => (
       <div className="p-2" key={el.id}>
-        <a className="headerCat" href={"/productList/" + el.id}>
+        <a className="headerCat" href={'/productList/' + el.id}>
           {el.category_name}
         </a>
       </div>
@@ -40,7 +40,7 @@ class TopNavbarCategories extends Component {
     return (
       <div
         className="medium-6 columns d-flex justify-content-between"
-        style={{ float: "left" }}
+        style={{ float: 'left' }}
       >
         {this.redenderCategories(this.state.categories)}
       </div>
