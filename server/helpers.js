@@ -1,11 +1,11 @@
-const { sampleSize } = require('lodash');
+const { sampleSize, uniqBy } = require('lodash');
 
-exports.getRandomChildArr = async (query, children, threshold) => {
+const getRandomChildArr = async (query, children, threshold) => {
   let filtered_firstChildren = [];
 
   for (const { id } of children) {
     const data = await query(
-      `SELECT COUNT(*) as no_of_children FROM category WHERE parent_category_id=${id}`,
+      `SELECT COUNT(*) as no_of_children FROM category WHERE parent_category_id=${id}`
     );
 
     const { no_of_children } = data[0];
@@ -21,7 +21,7 @@ exports.getRandomChildArr = async (query, children, threshold) => {
     : filtered_firstChildren;
 };
 
-exports.getRandomProductArr = async (query, children, threshold) => {
+const getRandomProductArr = async (query, children, threshold) => {
   let productArr = [];
   for (const { id, category_name, parent_category_id } of children) {
     const data = await query(`SELECT COUNT(*) as no_of_products FROM products WHERE category_id=${id} AND 
@@ -46,8 +46,73 @@ exports.getRandomProductArr = async (query, children, threshold) => {
   return productArr;
 };
 
-exports.getChildrenFromCategory = async (query, cat_id) => {
+const getChildrenFromCategory = async (query, cat_id) => {
   return await query(
-    `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`,
+    `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`
   );
+};
+
+const getCategoryInfoById = async (query, cat_id) => {
+  return await query(
+    `SELECT id, category_name, parent_category_id 
+      FROM category 
+      WHERE id=${cat_id} AND status='active'`
+  );
+};
+
+const getProductsFromParent = async (query, id) => {
+  return await query(
+    `SELECT id, category_name, parent_category_id 
+     FROM category
+     WHERE parent_category_id IN
+      (SELECT id FROM category WHERE parent_category_id = ${id} AND status='active')`
+  );
+};
+
+const getProductsFromChild = async (query, id) => {
+  return await query(
+    `SELECT id, category_name, parent_category_id
+     FROM category
+     WHERE parent_category_id=${id} AND status='active'`
+  );
+};
+
+const getProductsByCatgoryId = async (query, cat_id) => {
+  return await query(
+    `SELECT *
+     FROM products
+     WHERE category_id=${cat_id} AND status='active' 
+     AND isApprove='authorize' AND softDelete=0`
+  );
+};
+
+const showProductListByCategory = async (query, cat_id) => {
+  // clicked on parent category
+  const parent = await getProductsFromParent(query, cat_id);
+  if (parent.length) {
+    const resArr = [];
+
+    for (const { id, parent_category_id } of parent) {
+      const products = await getProductsByCatgoryId(query, id);
+      if (products.length) {
+        // pass
+      }
+    }
+    resObj.breadcums = breadcrumbsArr;
+    return [{ ...resObj }];
+  }
+
+  // clicked on child category
+  const children = await getProductsFromChild(query, cat_id);
+  if (children.length) {
+    return children;
+  }
+};
+
+module.exports = {
+  getChildrenFromCategory,
+  getRandomProductArr,
+  getRandomChildArr,
+  showProductListByCategory,
+  getCategoryInfoById
 };
