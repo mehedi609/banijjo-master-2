@@ -5,7 +5,7 @@ exports.getRandomChildArr = async (query, children, threshold) => {
 
   for (const { id } of children) {
     const data = await query(
-      `SELECT COUNT(*) as no_of_children FROM category WHERE parent_category_id=${id}`,
+      `SELECT COUNT(*) as no_of_children FROM category WHERE parent_category_id=${id}`
     );
 
     const { no_of_children } = data[0];
@@ -48,6 +48,6 @@ exports.getRandomProductArr = async (query, children, threshold) => {
 
 exports.getChildrenFromCategory = async (query, cat_id) => {
   return await query(
-    `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`,
+    `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`
   );
 };
