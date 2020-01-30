@@ -190,6 +190,9 @@ ul {
 }
 
 @media only screen and (max-device-width: 400px) {
+  /*   .contactMap{
+       margin-top:none;
+       }*/
   .qrImageMobile {
     width: 120px;
     margin-left: -16px;
@@ -1349,6 +1352,9 @@ ul {
 }
 
 @media only screen and (max-device-width: 768px) {
+  .medium-9 {
+    width: 100%;
+  }
   .qrImageMobile {
     width: 120px;
     margin-left: -16px;
@@ -1358,14 +1364,10 @@ ul {
   .qrImage {
     display: none;
   }
-  /*  .frameSlider {
-     height: 73px;
-     display: table;
-     width: 100%;
-     text-align: center;
-     padding: 20px;
-     overflow: hidden;
-     }*/
+  /*   .contactMap{
+      margin-top:35px;
+      }*/
+
   .deviceSearch {
     display: block;
   }
@@ -1722,6 +1724,9 @@ ul {
 }
 
 @media only screen and (max-device-width: 800px) {
+  .medium-9 {
+    width: 100%;
+  }
   /*  .frameSlider {
       height: 73px;
       display: table;

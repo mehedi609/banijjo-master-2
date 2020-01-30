@@ -48,7 +48,7 @@ class Footer extends Component {
                     alt="QR Code Banijjo"
                   />
                 </p>
-                <p class="socialNone">
+                <p className="socialNone">
                   <a href="https://www.facebook.com/banijjo/" target="_blank">
                     <i
                       id="social-fb"
@@ -102,7 +102,7 @@ class Footer extends Component {
               </div>
               <div className="col-md-4 footerContract">
                 <h5 className="footerHeader" style={{ marginTop: '15px' }}>
-                  Contact us
+                  Contact
                 </h5>
                 <ul className="nav-list" style={{ paddingLeft: '10px' }}>
                   <li>
