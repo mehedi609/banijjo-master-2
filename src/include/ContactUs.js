@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
-import Footer from "./footer";
-import "../assets/contactUs.css";
+import React, { Fragment } from 'react';
+import Footer from './footer';
+import '../assets/contactUs.css';
 
-const marginBottom = { marginBottom: "20px" };
+const marginBottom = { marginBottom: '20px' };
 
 const ContactUs = () => {
   return (
@@ -18,7 +18,7 @@ const ContactUs = () => {
             width="100%"
             height="550px"
             frameBorder="0"
-            style={{ border: "3px solid #ccc" }}
+            style={{ border: '3px solid #ccc' }}
             allowFullScreen
           ></iframe>
         </div>
@@ -29,7 +29,7 @@ const ContactUs = () => {
                 Contact Us
               </h2>
             </div>
-            <div className="row" style={{ height: "550px", marginTop: "10px" }}>
+            <div className="row" style={{ height: '550px', marginTop: '10px' }}>
               <div className="col-md-6">
                 <form action="">
                   <div className="row">
@@ -88,7 +88,7 @@ const ContactUs = () => {
                       <button
                         className="btn btn-primary"
                         type="submit"
-                        style={{ backgroundColor: "#009345" }}
+                        style={{ backgroundColor: '#009345' }}
                       >
                         Submit
                       </button>
@@ -113,7 +113,7 @@ const ContactUs = () => {
                       <div className="email-left">
                         <i
                           className="fa fa-envelope-open"
-                          style={{ fontSize: "10px" }}
+                          style={{ fontSize: '10px' }}
                         ></i>
                       </div>
                       <div className="email-right">
@@ -139,21 +139,21 @@ const ContactUs = () => {
                         <i
                           id="social-fb"
                           className="fa fa-facebook-square fa-3x socialFooter"
-                          style={{ color: "#3b5998" }}
+                          style={{ color: '#3b5998' }}
                         ></i>
                       </a>
                       <a href="#">
                         <i
                           id="social-tw"
                           className="fa fa-twitter-square fa-3x socialFooter"
-                          style={{ color: "#26a7de" }}
+                          style={{ color: '#26a7de' }}
                         ></i>
                       </a>
                       <a href="#">
                         <i
                           id="social-gp"
                           className="fa fa-linkedin-square fa-3x socialFooter"
-                          style={{ color: "#0e76a8" }}
+                          style={{ color: '#0e76a8' }}
                         ></i>
                       </a>
                     </p>

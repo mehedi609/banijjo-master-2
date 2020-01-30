@@ -1,4 +1,4 @@
-const { sampleSize, uniqBy } = require('lodash');
+const { sampleSize } = require('lodash');
 
 const getRandomChildArr = async (query, children, threshold) => {
   let filtered_firstChildren = [];
@@ -77,7 +77,7 @@ const getProductsFromChild = async (query, id) => {
   );
 };
 
-const getProductsByCatgoryId = async (query, cat_id) => {
+const getProductsByCategoryId = async (query, cat_id) => {
   return await query(
     `SELECT *
      FROM products
@@ -86,27 +86,50 @@ const getProductsByCatgoryId = async (query, cat_id) => {
   );
 };
 
+const getCategoryWiseProductList = async (query, leafChildrenArr, cat_id) => {
+  let resArr = [];
+
+  for (const { id, parent_category_id } of leafChildrenArr) {
+    let breadcrumbs = [];
+    const arr =
+      cat_id !== parent_category_id
+        ? [cat_id, parent_category_id, id]
+        : [cat_id, id];
+
+    const products = await getProductsByCategoryId(query, id);
+
+    if (products.length) {
+      for (const arrElement of arr) {
+        breadcrumbs = [
+          ...breadcrumbs,
+          ...(await getCategoryInfoById(query, arrElement))
+        ];
+      }
+    }
+    resArr = [...resArr, { breadcrumbs, products }];
+  }
+  return resArr.filter(({ products }) => products.length);
+};
+
 const showProductListByCategory = async (query, cat_id) => {
   // clicked on parent category
   const parent = await getProductsFromParent(query, cat_id);
   if (parent.length) {
-    const resArr = [];
-
-    for (const { id, parent_category_id } of parent) {
-      const products = await getProductsByCatgoryId(query, id);
-      if (products.length) {
-        // pass
-      }
-    }
-    resObj.breadcums = breadcrumbsArr;
-    return [{ ...resObj }];
+    return await getCategoryWiseProductList(query, parent, cat_id);
   }
 
   // clicked on child category
   const children = await getProductsFromChild(query, cat_id);
   if (children.length) {
-    return children;
+    return await getCategoryWiseProductList(query, children, cat_id);
   }
+
+  // click on leaf child
+  let resArr = [];
+  const products = await getProductsByCategoryId(query, cat_id);
+  const breadcrumbs = await getCategoryInfoById(query, cat_id);
+  resArr = [...resArr, { breadcrumbs, products }];
+  return resArr.filter(({ products }) => products.length);
 };
 
 module.exports = {

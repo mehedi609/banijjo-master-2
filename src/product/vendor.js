@@ -16,7 +16,7 @@ class Vendor extends Component {
       VendorCover: '',
       VendorCategories: [],
       CategoryIds: [],
-      ClickedCategory: 0,
+      ClickedCategory: 0
     };
     this.handleClick = this.handleClick.bind(this);
     this.showAll = this.showAll.bind(this);
@@ -30,8 +30,8 @@ class Vendor extends Component {
   config = {
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   };
 
   /*getVendorData() {
@@ -88,11 +88,11 @@ class Vendor extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        vendorId: this.state.VendorId,
-      }),
+        vendorId: this.state.VendorId
+      })
     })
       .then(res => {
         return res.json();
@@ -103,7 +103,7 @@ class Vendor extends Component {
           this.setState({
             VendorName: name,
             VendorLogo: logo,
-            VendorCover: cover_photo,
+            VendorCover: cover_photo
           });
         }
       });
@@ -114,11 +114,11 @@ class Vendor extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        vendorId: this.state.VendorId,
-      }),
+        vendorId: this.state.VendorId
+      })
     })
       .then(res => {
         return res.json();
@@ -131,7 +131,7 @@ class Vendor extends Component {
           let CategoryKeyValue = [];
           this.state.VendorCategories.map(function(item, key) {
             CategoryList.push(
-              <option value={item.category_id}>{item.category_name}</option>,
+              <option value={item.category_id}>{item.category_name}</option>
             );
             CategoryIdArr.push(item.category_id);
             CategoryKeyValue[item.category_id] = item.category_name;
@@ -139,7 +139,7 @@ class Vendor extends Component {
           this.setState({
             CategoryList: CategoryList,
             CategoryIds: CategoryIdArr,
-            CategoryKeyValue: CategoryKeyValue,
+            CategoryKeyValue: CategoryKeyValue
           });
           this.getProducts(CategoryIdArr);
         }
@@ -162,12 +162,12 @@ class Vendor extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         vendorId: this.state.VendorId,
-        categoryIds: CategoryIdArr,
-      }),
+        categoryIds: CategoryIdArr
+      })
     })
       .then(res => {
         return res.json();
@@ -191,7 +191,7 @@ class Vendor extends Component {
                 ProductJSX.push(
                   <h3 style={{ clear: 'both', marginTop: '2%' }} className="h3">
                     {CategoryKeyValue[key]}
-                  </h3>,
+                  </h3>
                 );
                 let IterationArr = RevisedArr[key];
                 for (var i = 0; i < IterationArr.length; i++) {
@@ -228,26 +228,26 @@ class Vendor extends Component {
                                     let wishArr = [
                                       {
                                         productId: event.target.id,
-                                        quantity: 1,
-                                      },
+                                        quantity: 1
+                                      }
                                     ];
                                     let wishDataExisting = JSON.parse(
-                                      localStorage.getItem('wish'),
+                                      localStorage.getItem('wish')
                                     );
                                     localStorage.removeItem('wish');
                                     if (wishDataExisting) {
                                       wishDataExisting.push({
                                         productId: event.target.id,
-                                        quantity: 1,
+                                        quantity: 1
                                       });
                                       localStorage.setItem(
                                         'wish',
-                                        JSON.stringify(wishDataExisting),
+                                        JSON.stringify(wishDataExisting)
                                       );
                                     } else {
                                       localStorage.setItem(
                                         'wish',
-                                        JSON.stringify(wishArr),
+                                        JSON.stringify(wishArr)
                                       );
                                     }
                                     alert('Product Added To Wish List!');
@@ -256,13 +256,13 @@ class Vendor extends Component {
                                       method: 'POST',
                                       headers: {
                                         Accept: 'application/json',
-                                        'Content-Type': 'application/json',
+                                        'Content-Type': 'application/json'
                                       },
                                       body: JSON.stringify({
                                         productId: event.target.id,
                                         customerId: localStorage.customer_id,
-                                        quantity: 1,
-                                      }),
+                                        quantity: 1
+                                      })
                                     })
                                       .then(res => {
                                         return res.json();
@@ -285,27 +285,27 @@ class Vendor extends Component {
                                     let cartArr = [
                                       {
                                         productId: event.target.id,
-                                        quantity: 1,
-                                      },
+                                        quantity: 1
+                                      }
                                     ];
                                     let cartDataExisting = JSON.parse(
-                                      localStorage.getItem('cart'),
+                                      localStorage.getItem('cart')
                                     );
                                     localStorage.removeItem('cart');
 
                                     if (cartDataExisting) {
                                       cartDataExisting.push({
                                         productId: event.target.id,
-                                        quantity: 1,
+                                        quantity: 1
                                       });
                                       localStorage.setItem(
                                         'cart',
-                                        JSON.stringify(cartDataExisting),
+                                        JSON.stringify(cartDataExisting)
                                       );
                                     } else {
                                       localStorage.setItem(
                                         'cart',
-                                        JSON.stringify(cartArr),
+                                        JSON.stringify(cartArr)
                                       );
                                     }
                                     alert('Product Added To Cart!');
@@ -314,13 +314,13 @@ class Vendor extends Component {
                                       method: 'POST',
                                       headers: {
                                         Accept: 'application/json',
-                                        'Content-Type': 'application/json',
+                                        'Content-Type': 'application/json'
                                       },
                                       body: JSON.stringify({
                                         productId: event.target.id,
                                         customerId: localStorage.customer_id,
-                                        quantity: 1,
-                                      }),
+                                        quantity: 1
+                                      })
                                     })
                                       .then(res => {
                                         return res.json();
@@ -357,7 +357,7 @@ class Vendor extends Component {
                           </div>
                         </div>
                       </div>
-                    </div>,
+                    </div>
                   );
                 }
 
@@ -371,12 +371,12 @@ class Vendor extends Component {
                         color: 'green',
                         textAlign: 'right',
                         fontWeight: 'bold',
-                        cursor: 'pointer',
+                        cursor: 'pointer'
                       }}
                       className="p"
                     >
                       See More
-                    </p>,
+                    </p>
                   );
                 }
               }, this)
@@ -386,12 +386,12 @@ class Vendor extends Component {
                     clear: 'both',
                     marginTop: '2%',
                     color: 'red',
-                    textAlign: 'center',
+                    textAlign: 'center'
                   }}
                   className="h5"
                 >
                   No Product To Display
-                </h5>,
+                </h5>
               );
           this.setState({ ProductJSX: ProductJSX });
         }

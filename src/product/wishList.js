@@ -18,7 +18,7 @@ class WishList extends Component {
       allCategories: [],
       wishProducts: [],
       responseMessage: '',
-      itemQuantityState: [],
+      itemQuantityState: []
     };
     this.loadProduct = this.loadProduct.bind(this);
   }
@@ -72,7 +72,7 @@ class WishList extends Component {
         });
 
         let uniqueProductIds = productIds.filter(
-          (v, i, a) => a.indexOf(v) === i,
+          (v, i, a) => a.indexOf(v) === i
         );
         let revisedwishData = [];
 
@@ -92,26 +92,26 @@ class WishList extends Component {
         });
 
         this.setState({
-          revisedwishDataKeyValue: revisedwishDataKeyValue,
+          revisedwishDataKeyValue: revisedwishDataKeyValue
         });
 
         fetch(base + '/api/getCustomerWishProducts', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             customerId: 0,
-            uniqueProductIds: JSON.stringify(uniqueProductIds),
-          }),
+            uniqueProductIds: JSON.stringify(uniqueProductIds)
+          })
         })
           .then(res => {
             return res.json();
           })
           .then(response => {
             this.setState({
-              wishProducts: response.data,
+              wishProducts: response.data
             });
             let requiredFunc = this.requiredFunc();
             let itemQuantityState = {};
@@ -124,7 +124,7 @@ class WishList extends Component {
         this.setState({
           revisedwishDataKeyValue: [],
           wishProducts: [],
-          itemQuantityState: 0,
+          itemQuantityState: 0
         });
       }
     } else {
@@ -132,18 +132,18 @@ class WishList extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          customerId: localStorage.customer_id,
-        }),
+          customerId: localStorage.customer_id
+        })
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
           this.setState({
-            wishProducts: response.data,
+            wishProducts: response.data
           });
           let itemQuantityState = {};
           response.data.map(function(item, key) {
@@ -177,7 +177,7 @@ class WishList extends Component {
         if (itemId != val.productId) {
           newWishData.push({
             productId: val.productId,
-            quantity: val.quantity,
+            quantity: val.quantity
           });
         }
       });
@@ -190,12 +190,12 @@ class WishList extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
-          itemId: itemId,
-        }),
+          itemId: itemId
+        })
       })
         .then(res => {
           return res.json();
@@ -239,7 +239,7 @@ class WishList extends Component {
         } else {
           newWishData.push({
             productId: val.productId,
-            quantity: val.quantity,
+            quantity: val.quantity
           });
         }
       });
@@ -252,13 +252,13 @@ class WishList extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
           itemId: itemId,
-          type: type, // 0 for decrement, 1 for increment
-        }),
+          type: type // 0 for decrement, 1 for increment
+        })
       })
         .then(res => {
           return res.json();
@@ -290,13 +290,13 @@ class WishList extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         productId: itemId,
         customerId: localStorage.customer_id,
-        quantity: Qty,
-      }),
+        quantity: Qty
+      })
     })
       .then(res => {
         return res.json();
@@ -333,7 +333,7 @@ class WishList extends Component {
         if (itemId != val.productId) {
           newWishData.push({
             productId: val.productId,
-            quantity: val.quantity,
+            quantity: val.quantity
           });
         }
       });
@@ -347,12 +347,12 @@ class WishList extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
-          itemId: itemId,
-        }),
+          itemId: itemId
+        })
       })
         .then(res => {
           return res.json();
@@ -411,7 +411,7 @@ class WishList extends Component {
                         fontSize: '50px',
                         color: 'white',
                         backgroundColor: '#009345',
-                        borderRadius: '40px',
+                        borderRadius: '40px'
                       }}
                     ></i>
                   </div>
@@ -429,7 +429,7 @@ class WishList extends Component {
                       className="btn btn-success"
                       style={{
                         backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24',
+                        borderColor: '#ec1c24'
                       }}
                     >
                       View Shopping Cart
@@ -441,7 +441,7 @@ class WishList extends Component {
                       className="btn btn-success"
                       style={{
                         backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24',
+                        borderColor: '#ec1c24'
                       }}
                     >
                       Continue Shopping
@@ -548,7 +548,7 @@ class WishList extends Component {
                                     onClick={() =>
                                       this.addCartLocal(
                                         item.id,
-                                        this.state.itemQuantityState[item.id],
+                                        this.state.itemQuantityState[item.id]
                                       )
                                     }
                                     style={{ backgroundColor: '009345' }}
@@ -561,7 +561,7 @@ class WishList extends Component {
                                     onClick={() =>
                                       this.addCartDirect(
                                         item.id,
-                                        this.state.itemQuantityState[item.id],
+                                        this.state.itemQuantityState[item.id]
                                       )
                                     }
                                     style={{ backgroundColor: '009345' }}

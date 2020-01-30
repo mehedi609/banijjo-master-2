@@ -7,7 +7,7 @@ import {
   PinterestShareButton,
   PinterestIcon,
   LinkedinShareButton,
-  LinkedinIcon,
+  LinkedinIcon
 } from 'react-share';
 import { Helmet } from 'react-helmet';
 
@@ -67,7 +67,7 @@ class ProductDetails extends Component {
       discountAmount: 0,
       metaTags: [],
       colors: [],
-      sizes: [],
+      sizes: []
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -111,7 +111,7 @@ class ProductDetails extends Component {
           description,
           qc_status,
           status,
-          product_sku,
+          product_sku
         } = res.data;
 
         this.setState({
@@ -129,7 +129,7 @@ class ProductDetails extends Component {
           productListSmCategory: productSmCategory,
           productListSmVendor: productSmVendor,
           colors: !!colors && colors,
-          sizes: !!sizes && sizes,
+          sizes: !!sizes && sizes
         });
 
         setTimeout(() => {
@@ -138,7 +138,7 @@ class ProductDetails extends Component {
             'myresult',
             fileUrl +
               '/upload/product/productImages/' +
-              this.state.showClickedImage,
+              this.state.showClickedImage
           );
         }, 600);
       });
@@ -147,14 +147,14 @@ class ProductDetails extends Component {
   handleClickMinus() {
     if (this.state.productQuantity !== 0) {
       this.setState({
-        productQuantity: this.state.productQuantity - 1,
+        productQuantity: this.state.productQuantity - 1
       });
     }
   }
 
   handleClickPlus() {
     this.setState({
-      productQuantity: this.state.productQuantity + 1,
+      productQuantity: this.state.productQuantity + 1
     });
   }
 
@@ -172,7 +172,7 @@ class ProductDetails extends Component {
                   window.imageZoom(
                     'myimage',
                     'myresult',
-                    fileUrl + '/upload/product/productImages/' + item.imageName,
+                    fileUrl + '/upload/product/productImages/' + item.imageName
                   );
                 }}
               >
@@ -188,7 +188,7 @@ class ProductDetails extends Component {
                   </span>
                 </div>
               </a>
-            </React.Fragment>,
+            </React.Fragment>
           );
         });
       }
@@ -205,7 +205,7 @@ class ProductDetails extends Component {
             window.imageZoom(
               'myimage',
               'myresult',
-              fileUrl + '/upload/product/productImages/' + imageName,
+              fileUrl + '/upload/product/productImages/' + imageName
             );
           }}
         >
@@ -241,12 +241,12 @@ class ProductDetails extends Component {
             )}
 
             <p>{item.description}</p>
-          </React.Fragment>,
+          </React.Fragment>
         );
       });
     } else {
       descriptionText.push(
-        <p style={{ color: '#ec1c24' }}>No Descriptions Added</p>,
+        <p style={{ color: '#ec1c24' }}>No Descriptions Added</p>
       );
     }
     return descriptionText;
@@ -336,7 +336,7 @@ class ProductDetails extends Component {
                       {item1.specificationNameValue}
                     </label>
                   </div>
-                </div>,
+                </div>
               );
             }
           });
@@ -349,7 +349,7 @@ class ProductDetails extends Component {
 
   addCartLocal = data => e => {
     let cartArr = [
-      { productId: this.state.productId, quantity: this.state.productQuantity },
+      { productId: this.state.productId, quantity: this.state.productQuantity }
     ];
     let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
     localStorage.removeItem('cart');
@@ -357,7 +357,7 @@ class ProductDetails extends Component {
     if (cartDataExisting) {
       cartDataExisting.push({
         productId: this.state.productId,
-        quantity: this.state.productQuantity,
+        quantity: this.state.productQuantity
       });
       localStorage.setItem('cart', JSON.stringify(cartDataExisting));
     } else {
@@ -376,13 +376,13 @@ class ProductDetails extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         productId: this.state.productId,
         customerId: localStorage.customer_id,
-        quantity: this.state.productQuantity,
-      }),
+        quantity: this.state.productQuantity
+      })
     })
       .then(res => {
         return res.json();
@@ -400,14 +400,14 @@ class ProductDetails extends Component {
 
   addWishLocal() {
     let wishArr = [
-      { productId: this.state.productId, quantity: this.state.productQuantity },
+      { productId: this.state.productId, quantity: this.state.productQuantity }
     ];
     let wishDataExisting = JSON.parse(localStorage.getItem('wish'));
     localStorage.removeItem('wish');
     if (wishDataExisting) {
       wishDataExisting.push({
         productId: this.state.productId,
-        quantity: this.state.productQuantity,
+        quantity: this.state.productQuantity
       });
       localStorage.setItem('wish', JSON.stringify(wishDataExisting));
     } else {
@@ -422,13 +422,13 @@ class ProductDetails extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         productId: this.state.productId,
         customerId: localStorage.customer_id,
-        quantity: this.state.productQuantity,
-      }),
+        quantity: this.state.productQuantity
+      })
     })
       .then(res => {
         return res.json();
@@ -447,14 +447,14 @@ class ProductDetails extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         email: event.target.emailField.value,
         password: event.target.passwordField.value,
         productId: this.state.productId,
-        quantity: this.state.productQuantity,
-      }),
+        quantity: this.state.productQuantity
+      })
     })
       .then(res => {
         return res.json();
@@ -475,7 +475,7 @@ class ProductDetails extends Component {
     event.preventDefault();
     if (event.target.email.value === '' || event.target.email.value == null) {
       this.setState({
-        emailError: 'Email cannot be empty',
+        emailError: 'Email cannot be empty'
       });
       return false;
     } else if (
@@ -483,7 +483,7 @@ class ProductDetails extends Component {
       event.target.email.value > 0
     ) {
       this.setState({
-        emailError: 'Enter a valid Password',
+        emailError: 'Enter a valid Password'
       });
       return false;
     } else if (
@@ -491,7 +491,7 @@ class ProductDetails extends Component {
       event.target.password.value == null
     ) {
       this.setState({
-        passwordError: 'Password cannot be empty',
+        passwordError: 'Password cannot be empty'
       });
       return false;
     } else {
@@ -499,14 +499,14 @@ class ProductDetails extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: event.target.email.value,
           password: event.target.password.value,
           productId: this.state.productId,
-          quantity: this.state.productQuantity,
-        }),
+          quantity: this.state.productQuantity
+        })
       })
         .then(res => {
           return res.json();
@@ -537,7 +537,7 @@ class ProductDetails extends Component {
   render() {
     const options = {
       items: 3,
-      slideBy: 1,
+      slideBy: 1
     };
     const {
       productId,
@@ -548,7 +548,7 @@ class ProductDetails extends Component {
       productListSmCategory,
       productListSmVendor,
       category_id,
-      vendor_id,
+      vendor_id
     } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
@@ -661,7 +661,7 @@ class ProductDetails extends Component {
                           fontSize: '50px',
                           color: 'white',
                           backgroundColor: '#009345',
-                          borderRadius: '40px',
+                          borderRadius: '40px'
                         }}
                       ></i>{' '}
                       Nice. A new item has been added to your Shopping Cart.
@@ -674,7 +674,7 @@ class ProductDetails extends Component {
                           fontSize: '20px',
                           color: 'white',
                           backgroundColor: '#009345',
-                          borderRadius: '40px',
+                          borderRadius: '40px'
                         }}
                       ></i>{' '}
                       Nice. A new item has been added to your Shopping Cart.
@@ -689,7 +689,7 @@ class ProductDetails extends Component {
                       className="btn btn-success"
                       style={{
                         backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24',
+                        borderColor: '#ec1c24'
                       }}
                     >
                       View Shopping Cart
@@ -701,7 +701,7 @@ class ProductDetails extends Component {
                       className="btn btn-success"
                       style={{
                         backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24',
+                        borderColor: '#ec1c24'
                       }}
                     >
                       Continue Shopping
@@ -742,7 +742,7 @@ class ProductDetails extends Component {
                           fontSize: '50px',
                           color: 'white',
                           backgroundColor: '#009345',
-                          borderRadius: '40px',
+                          borderRadius: '40px'
                         }}
                       ></i>{' '}
                       Nice. A new item has been added to your Wish List.
@@ -754,7 +754,7 @@ class ProductDetails extends Component {
                           fontSize: '20px',
                           color: 'white',
                           backgroundColor: '#009345',
-                          borderRadius: '40px',
+                          borderRadius: '40px'
                         }}
                       ></i>{' '}
                       Nice. A new item has been added to your Wish List.
@@ -769,7 +769,7 @@ class ProductDetails extends Component {
                       className="btn btn-success"
                       style={{
                         backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24',
+                        borderColor: '#ec1c24'
                       }}
                     >
                       View Wish List
@@ -781,7 +781,7 @@ class ProductDetails extends Component {
                       className="btn btn-success"
                       style={{
                         backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24',
+                        borderColor: '#ec1c24'
                       }}
                     >
                       Continue Shopping
@@ -821,7 +821,7 @@ class ProductDetails extends Component {
                 style={{
                   zIndex: 1000,
                   visibility: 'hidden',
-                  marginRight: '-15px',
+                  marginRight: '-15px'
                 }}
               >
                 <div id="myresult" class="img-zoom-result"></div>
@@ -856,7 +856,7 @@ class ProductDetails extends Component {
                           'myresult',
                           fileUrl +
                             '/upload/product/productImages/' +
-                            item.imageName,
+                            item.imageName
                         );
                       }}
                     >
@@ -869,7 +869,7 @@ class ProductDetails extends Component {
                         </span>
                       </div>
                     </a>
-                  ),
+                  )
               )}
             </OwlCarousel>
           </div>
@@ -1144,7 +1144,7 @@ class ProductDetails extends Component {
                 display: 'block',
                 width: '100%',
                 margin: '0px',
-                paddingLeft: '6px',
+                paddingLeft: '6px'
               }}
             >
               <ul>
@@ -1343,7 +1343,7 @@ class ProductDetails extends Component {
                                 );
                               }
                             }
-                          },
+                          }
                         )
                       : ''}
                   </div>
@@ -1361,7 +1361,7 @@ class ProductDetails extends Component {
                                 </li>
                               );
                             }
-                          },
+                          }
                         )
                       : ''}
                   </div>
@@ -1381,7 +1381,7 @@ class ProductDetails extends Component {
                     style={{
                       float: 'right',
                       color: '#009345',
-                      fontSize: '14px',
+                      fontSize: '14px'
                     }}
                   >
                     See more
@@ -1412,7 +1412,7 @@ class ProductDetails extends Component {
                     style={{
                       float: 'right',
                       color: '#009345',
-                      fontSize: '14px',
+                      fontSize: '14px'
                     }}
                   >
                     See more

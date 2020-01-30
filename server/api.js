@@ -1584,8 +1584,8 @@ router.post('/getNetProductsFromStock', async (req, res) => {
 router.get('/productListByCat/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const rst = await showProductListByCategory(query, id);
-    res.json({ rst });
+    const data = await showProductListByCategory(query, id);
+    res.json([...data]);
   } catch (e) {
     console.error(e);
     res.status(500).send('Server Error');
