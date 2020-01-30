@@ -106,7 +106,8 @@ ul ul {
 /*}*/
 .frameHotDeal {
   /*height: 198px;*/
-  height: 150px;
+  /*height: 150px;*/
+  height: 100px;
 
   display: table;
   width: 100%;
@@ -119,7 +120,8 @@ ul ul {
   text-align: center;
   vertical-align: middle;
   /* height: 198px;*/
-  height: 150px;
+  /*height: 150px;*/
+  height: 100px;
   background: #ffffff;
 }
 .frameHotDeal > span > img {
@@ -476,4 +478,4 @@ input:hover,
     vertical-align: middle;
     max-height: 247px;
     max-width: auto;
-  }*/
+    }*/

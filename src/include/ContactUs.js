@@ -12,14 +12,14 @@ const ContactUs = () => {
           <p className="gap">&nbsp;</p>
         </div>
         <p className="gap"></p>
-        <div className="contactMap">
+        <div className="contactMap" style={{ marginTop: '35px' }}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11880.492291371422!2d12.4922309!3d41.8902102!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x28f1c82e908503c4!2sColosseo!5e0!3m2!1sit!2sit!4v1524815927977"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14605.88690770744!2d90.36374143036696!3d23.766210653303634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8968a250d73%3A0x8f874ef58c652d1a!2sbanijjo.com!5e0!3m2!1sen!2sbd!4v1580383181324!5m2!1sen!2sbd"
             width="100%"
             height="550px"
-            frameBorder="0"
+            frameborder="0"
             style={{ border: '3px solid #ccc' }}
-            allowFullScreen
+            allowfullscreen=""
           ></iframe>
         </div>
         <div className="row" id="contatti">
@@ -106,7 +106,7 @@ const ContactUs = () => {
                         <i className="fa fa-map-marker"></i>
                       </div>
                       <div className="email-right">
-                        <span>Demo Address</span>
+                        <span>164/A Shahjahan Rd, Dhaka 1207</span>
                       </div>
                     </div>
                     <div className="col-md-12" style={marginBottom}>
@@ -163,6 +163,7 @@ const ContactUs = () => {
             </div>
           </div>
         </div>
+        <p>&nbsp;</p>
       </Fragment>
 
       <Footer />
