@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+const fileUrl = process.env.REACT_APP_FILE_URL;
 
 class Footer extends Component {
   render() {
@@ -7,14 +8,14 @@ class Footer extends Component {
         <div className="row fullWidth column">
           <footer
             className="section footer-classic context-dark bg-image"
-            style={{ background: "#6d6e70" }}
+            style={{ background: '#6d6e70' }}
           >
             <div className="container">
               <div className="col-md-4">
-                <h5 className="footerHeader" style={{ marginTop: "15px" }}>
+                <h5 className="footerHeader" style={{ marginTop: '15px' }}>
                   About us
                 </h5>
-                <ul className="nav-list" style={{ paddingLeft: "10px" }}>
+                <ul className="nav-list" style={{ paddingLeft: '10px' }}>
                   <li>
                     <a href="#">Privacy Policy</a>
                   </li>
@@ -40,6 +41,13 @@ class Footer extends Component {
                     <a href="/contactUs">Contact us</a>
                   </li>
                 </ul>
+                <p>
+                  <img
+                    src={`${fileUrl}/assets/img/qr_code_banijjo.png`}
+                    className="img-responsive qrImageMobile"
+                    alt="QR Code Banijjo"
+                  />
+                </p>
                 <p class="socialNone">
                   <a href="https://www.facebook.com/banijjo/" target="_blank">
                     <i
@@ -62,10 +70,10 @@ class Footer extends Component {
                 </p>
               </div>
               <div className="col-md-4 sCatFooter">
-                <h5 className="footerHeader" style={{ marginTop: "15px" }}>
+                <h5 className="footerHeader" style={{ marginTop: '15px' }}>
                   Special Category
                 </h5>
-                <ul className="nav-list" style={{ paddingLeft: "10px" }}>
+                <ul className="nav-list" style={{ paddingLeft: '10px' }}>
                   <li>
                     <a href="#">Mens</a>
                   </li>
@@ -93,14 +101,21 @@ class Footer extends Component {
                 </ul>
               </div>
               <div className="col-md-4 footerContract">
-                <h5 className="footerHeader" style={{ marginTop: "15px" }}>
+                <h5 className="footerHeader" style={{ marginTop: '15px' }}>
                   Contact us
                 </h5>
-                <ul className="nav-list" style={{ paddingLeft: "10px" }}>
+                <ul className="nav-list" style={{ paddingLeft: '10px' }}>
                   <li>
                     <a href="/contactUs">Contact us</a>
                   </li>
                 </ul>
+                <p>
+                  <img
+                    src={`${fileUrl}/assets/img/qr_code_banijjo.png`}
+                    className="img-responsive qrImage"
+                    alt="QR Code Banijjo"
+                  />
+                </p>
                 <p>
                   <a href="https://www.facebook.com/banijjo/" target="_blank">
                     <i
@@ -129,19 +144,19 @@ class Footer extends Component {
         <div className="row">
           <div className="container">
             <div className="col-md-6 copyRightFooterYear">
-              <p style={{ fontSize: "14px" }}>
-                {" "}
-                ©️ 2010-2019{" "}
+              <p style={{ fontSize: '14px' }}>
+                {' '}
+                ©️ 2010-2019{' '}
                 <a href="http://banijjo.com.bd/" target="_blank">
                   banijjo.com.bd
-                </a>{" "}
+                </a>{' '}
                 All rights reserved.
               </p>
             </div>
 
             <div className="col-md-6 copyRightFooter">
-              <p style={{ fontSize: "14px" }}>
-                {" "}
+              <p style={{ fontSize: '14px' }}>
+                {' '}
                 Design and Developed By
                 <a href="http://www.ambalait.com/" target="_blank">
                   <img src="../image/ambala_it.png" />

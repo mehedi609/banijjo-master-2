@@ -9,7 +9,7 @@ class Search extends Component {
     super(props);
     this.state = {
       searchKey: this.props.match.params.keyName,
-      categoryProductList: [],
+      categoryProductList: []
     };
   }
 
@@ -26,11 +26,11 @@ class Search extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        searchKey: this.state.searchKey,
-      }),
+        searchKey: this.state.searchKey
+      })
     })
       .then(res => {
         console.log(res);
@@ -40,11 +40,11 @@ class Search extends Component {
         console.log('cattttt', products);
         this.setState(
           {
-            categoryProductList: products.data,
+            categoryProductList: products.data
           },
           () => {
             console.log('consling prfff', this.state);
-          },
+          }
         );
       });
   }
@@ -126,13 +126,13 @@ class Search extends Component {
                   </div>
                 </div>
               </div>
-            </React.Fragment>,
+            </React.Fragment>
           );
         })
       : listArray.push(
           <React.Fragment>
             <p style={{ color: '#ec1c24' }}>No Product Found</p>{' '}
-          </React.Fragment>,
+          </React.Fragment>
         );
 
     return listArray;

@@ -12,7 +12,7 @@ class ProductList extends Component {
     this.state = {
       categoryId: this.props.match.params.cid,
       status: this.props.match.params.status,
-      categoryProductList: [],
+      categoryProductList: []
     };
   }
 
@@ -26,8 +26,8 @@ class ProductList extends Component {
         method: 'GET',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       })
         .then(res => {
           console.log(res);
@@ -35,7 +35,7 @@ class ProductList extends Component {
         })
         .then(products => {
           this.setState({
-            categoryProductList: products.data,
+            categoryProductList: products.data
           });
         });
     } else {
@@ -44,15 +44,15 @@ class ProductList extends Component {
         method: 'GET',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       })
         .then(res => {
           return res.json();
         })
         .then(products => {
           this.setState({
-            categoryProductList: products.data,
+            categoryProductList: products.data
           });
         });
     }
@@ -115,13 +115,13 @@ class ProductList extends Component {
                   </div>
                 </div>
               </div>
-            </React.Fragment>,
+            </React.Fragment>
           );
         })
       : listArray.push(
           <React.Fragment>
             <p style={{ color: '#ec1c24' }}>No product for this category</p>{' '}
-          </React.Fragment>,
+          </React.Fragment>
         );
 
     return listArray;

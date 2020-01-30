@@ -28,7 +28,7 @@ class ShoppingCart extends Component {
       discountAmount: 0,
       promoCodeAmount: 0,
       discountDetail: [],
-      promoCodeDetail: [],
+      promoCodeDetail: []
     };
 
     this.payOrder = this.payOrder.bind(this);
@@ -52,12 +52,12 @@ class ShoppingCart extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         cartProducts: cartProducts,
-        customerId: localStorage.customer_id,
-      }),
+        customerId: localStorage.customer_id
+      })
     })
       .then(res => {
         return res.json();
@@ -65,14 +65,14 @@ class ShoppingCart extends Component {
       .then(response => {
         this.setState({
           discountAmount: response.data,
-          discountDetail: response.dataDetail,
+          discountDetail: response.dataDetail
         });
       });
   }
 
   gettermsConditions() {
     fetch(base + '/api/get_terms_conditions', {
-      method: 'GET',
+      method: 'GET'
     })
       .then(res => {
         return res.json();
@@ -88,13 +88,13 @@ class ShoppingCart extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         customerId: localStorage.getItem('customer_id')
           ? localStorage.getItem('customer_id')
-          : 0,
-      }),
+          : 0
+      })
     })
       .then(res => {
         return res.json();
@@ -104,7 +104,7 @@ class ShoppingCart extends Component {
           this.setState({
             customerName: response.data.name,
             customerPhone: response.data.phone_number,
-            customerAddress: response.data.address,
+            customerAddress: response.data.address
           });
         }
         return false;
@@ -166,7 +166,7 @@ class ShoppingCart extends Component {
         });
 
         let uniqueProductIds = productIds.filter(
-          (v, i, a) => a.indexOf(v) === i,
+          (v, i, a) => a.indexOf(v) === i
         );
         let revisedCartData = [];
 
@@ -186,26 +186,26 @@ class ShoppingCart extends Component {
         });
 
         this.setState({
-          revisedCartDataKeyValue: revisedCartDataKeyValue,
+          revisedCartDataKeyValue: revisedCartDataKeyValue
         });
 
         fetch(base + '/api/getCustomerCartProducts', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             customerId: 0,
-            uniqueProductIds: JSON.stringify(uniqueProductIds),
-          }),
+            uniqueProductIds: JSON.stringify(uniqueProductIds)
+          })
         })
           .then(res => {
             return res.json();
           })
           .then(response => {
             this.setState({
-              cartProducts: response.data,
+              cartProducts: response.data
             });
 
             let requiredFunc = this.requiredFunc();
@@ -219,7 +219,7 @@ class ShoppingCart extends Component {
         this.setState({
           revisedCartDataKeyValue: [],
           itemQuantityState: 0,
-          cartProducts: [],
+          cartProducts: []
         });
       }
 
@@ -229,18 +229,18 @@ class ShoppingCart extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          customerId: localStorage.customer_id,
-        }),
+          customerId: localStorage.customer_id
+        })
       })
         .then(res => {
           return res.json();
         })
         .then(response => {
           this.setState({
-            cartProducts: response.data,
+            cartProducts: response.data
           });
 
           this.getDiscounts(response.data);
@@ -279,7 +279,7 @@ class ShoppingCart extends Component {
         if (itemId != val.productId) {
           newCartData.push({
             productId: val.productId,
-            quantity: val.quantity,
+            quantity: val.quantity
           });
         }
       });
@@ -293,12 +293,12 @@ class ShoppingCart extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
-          itemId: itemId,
-        }),
+          itemId: itemId
+        })
       })
         .then(res => {
           return res.json();
@@ -343,7 +343,7 @@ class ShoppingCart extends Component {
         } else {
           newCartData.push({
             productId: val.productId,
-            quantity: val.quantity,
+            quantity: val.quantity
           });
         }
       });
@@ -355,13 +355,13 @@ class ShoppingCart extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           customerId: localStorage.customer_id,
           itemId: itemId,
-          type: type, // 0 for decrement, 1 for increment
-        }),
+          type: type // 0 for decrement, 1 for increment
+        })
       })
         .then(res => {
           return res.json();
@@ -378,15 +378,15 @@ class ShoppingCart extends Component {
       crossDomain: true,
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         customerId: localStorage.customer_id,
         discountAmount: this.state.discountAmount,
         discountDetail: this.state.discountDetail,
         promoCodeAmount: this.state.promoCodeAmount,
-        promoCodeDetail: this.state.promoCodeDetail,
-      }),
+        promoCodeDetail: this.state.promoCodeDetail
+      })
     })
       .then(res => {
         return res.json();
@@ -419,15 +419,15 @@ class ShoppingCart extends Component {
       crossDomain: true,
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         customerId: localStorage.customer_id,
         discountAmount: this.state.discountAmount,
         discountDetail: this.state.discountDetail,
         promoCodeAmount: this.state.promoCodeAmount,
-        promoCodeDetail: this.state.promoCodeDetail,
-      }),
+        promoCodeDetail: this.state.promoCodeDetail
+      })
     })
       .then(res => {
         return res.json();
@@ -440,7 +440,7 @@ class ShoppingCart extends Component {
 
   getAllCategories() {
     fetch(base + '/api/all_category_list_more', {
-      method: 'GET',
+      method: 'GET'
     })
       .then(res => {
         return res.json();
@@ -462,7 +462,7 @@ class ShoppingCart extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         name: this.state.customerName,
@@ -470,8 +470,8 @@ class ShoppingCart extends Component {
         address: this.state.customerAddress,
         city: event.target.city.value,
         district: event.target.district.value,
-        customerId: localStorage.customer_id,
-      }),
+        customerId: localStorage.customer_id
+      })
     })
       .then(res => {
         return res.json();
@@ -491,12 +491,12 @@ class ShoppingCart extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         email: event.target.emailField.value,
-        password: event.target.passwordField.value,
-      }),
+        password: event.target.passwordField.value
+      })
     })
       .then(res => {
         return res.json();
@@ -522,13 +522,13 @@ class ShoppingCart extends Component {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         promoCodeInput: promoCodeInput,
         totalAmount: totalAmount,
-        customerId: localStorage.customer_id,
-      }),
+        customerId: localStorage.customer_id
+      })
     })
       .then(res => {
         return res.json();
@@ -537,7 +537,7 @@ class ShoppingCart extends Component {
         if (response.data > 0) {
           this.setState({
             promoCodeAmount: response.data,
-            promoCodeDetail: response.dataDetail,
+            promoCodeDetail: response.dataDetail
           });
         }
         var hidePromoCodeModal = document.getElementById('hidePromoCodeModal');
@@ -549,7 +549,7 @@ class ShoppingCart extends Component {
     event.preventDefault();
     if (event.target.email.value === '' || event.target.email.value == null) {
       this.setState({
-        emailError: 'Email cannot be empty',
+        emailError: 'Email cannot be empty'
       });
       return false;
     } else if (
@@ -557,7 +557,7 @@ class ShoppingCart extends Component {
       event.target.email.value > 0
     ) {
       this.setState({
-        emailError: 'Enter a valid Password',
+        emailError: 'Enter a valid Password'
       });
       return false;
     } else if (
@@ -565,7 +565,7 @@ class ShoppingCart extends Component {
       event.target.password.value == null
     ) {
       this.setState({
-        passwordError: 'Password cannot be empty',
+        passwordError: 'Password cannot be empty'
       });
       return false;
     } else {
@@ -590,13 +590,13 @@ class ShoppingCart extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: event.target.email.value,
           password: event.target.password.value,
-          cartData: revisedCartData,
-        }),
+          cartData: revisedCartData
+        })
       })
         .then(res => {
           return res.json();
@@ -619,11 +619,11 @@ class ShoppingCart extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          cartProducts: this.state.cartProducts,
-        }),
+          cartProducts: this.state.cartProducts
+        })
       })
         .then(res => {
           return res.json();
@@ -632,10 +632,10 @@ class ShoppingCart extends Component {
           if (response.data) {
             if (type == 'Order Place') {
               var LoginRegisterModal = document.getElementById(
-                'LoginRegisterModalButton',
+                'LoginRegisterModalButton'
               );
               var ShippingModal = document.getElementById(
-                'ShippingModalButton',
+                'ShippingModalButton'
               );
               if (!localStorage.customer_id) {
                 LoginRegisterModal.click();
@@ -644,7 +644,7 @@ class ShoppingCart extends Component {
               }
             } else if (type === 'Order Confirm') {
               var PaymentModalButton = document.getElementById(
-                'PaymentModalButton',
+                'PaymentModalButton'
               );
               PaymentModalButton.click();
             }
@@ -659,7 +659,7 @@ class ShoppingCart extends Component {
 
   handleInputChange(e) {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   }
 
@@ -713,7 +713,7 @@ class ShoppingCart extends Component {
                         fontSize: '50px',
                         color: 'white',
                         backgroundColor: '#009345',
-                        borderRadius: '40px',
+                        borderRadius: '40px'
                       }}
                     ></i>
                   </div>
@@ -732,7 +732,7 @@ class ShoppingCart extends Component {
                       className="btn btn-success"
                       style={{
                         backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24',
+                        borderColor: '#ec1c24'
                       }}
                     >
                       Buy More Product
@@ -1305,7 +1305,7 @@ class ShoppingCart extends Component {
                     className="btn btn-danger"
                     style={{
                       backgroundColor: '#EB1C22',
-                      borderColor: '#EB1C22',
+                      borderColor: '#EB1C22'
                     }}
                   >
                     {' '}

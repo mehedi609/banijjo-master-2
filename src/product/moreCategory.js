@@ -11,7 +11,7 @@ class MoreCategory extends Component {
     this.state = {
       Categories: [],
       textArray: [],
-      allCategories: [],
+      allCategories: []
     };
   }
   componentDidMount() {
@@ -20,7 +20,7 @@ class MoreCategory extends Component {
 
   getAllCategories() {
     fetch(base + '/api/all_category_list_more', {
-      method: 'GET',
+      method: 'GET'
     })
       .then(res => {
         console.log(res);
@@ -29,7 +29,7 @@ class MoreCategory extends Component {
       .then(categories => {
         console.log('cccccccc', categories);
         this.setState({
-          Categories: categories.data,
+          Categories: categories.data
           // allCategories :categories.data.allCategories
         });
         return false;
@@ -74,7 +74,7 @@ class MoreCategory extends Component {
                                         }
                                         style={{
                                           color: '#ec1c24',
-                                          textDecoration: 'none',
+                                          textDecoration: 'none'
                                         }}
                                       >
                                         {item2.category.category_name}
@@ -114,7 +114,7 @@ class MoreCategory extends Component {
                                                   </li>
                                                 </React.Fragment>
                                               );
-                                            },
+                                            }
                                           )
                                         ) : (
                                           <p style={{ color: '#ec1c24' }}>

@@ -106,7 +106,8 @@ ul ul {
 /*}*/
 .frameHotDeal {
   /*height: 198px;*/
-  height: 150px;
+  /*height: 150px;*/
+  height: 100px;
 
   display: table;
   width: 100%;
@@ -119,7 +120,8 @@ ul ul {
   text-align: center;
   vertical-align: middle;
   /* height: 198px;*/
-  height: 150px;
+  /*height: 150px;*/
+  height: 100px;
   background: #ffffff;
 }
 .frameHotDeal > span > img {
@@ -313,8 +315,8 @@ ol {
   align-items: center;
   width: 100%;
   padding: 23px;
-  font: 900 13px/1 "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font: 900 13px/1 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.5);
 }
@@ -322,8 +324,8 @@ ol {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .nav-list li a:before {
-  content: "\f14f";
-  font: 400 21px/1 "Material Design Icons";
+  content: '\f14f';
+  font: 400 21px/1 'Material Design Icons';
   color: #4d6de6;
   display: inline-block;
   vertical-align: baseline;
@@ -476,4 +478,4 @@ input:hover,
     vertical-align: middle;
     max-height: 247px;
     max-width: auto;
-  }*/
+    }*/
