@@ -68,7 +68,6 @@ class Breadcums extends Component {
           return res.json();
         })
         .then(response => {
-          console.log('rererere', response);
           this.setState({
             cartItemCount: response.data[0].counting
           });
@@ -94,7 +93,7 @@ class Breadcums extends Component {
     return (
       <React.Fragment>
         <section className="cartDesktopView">
-          <div className="row" style={{ marginTop: -40 }}>
+          <div className="row deviceSearch">
             <div className="medium-3 large-3 columns">
               <p className="gap">&nbsp;</p>
             </div>

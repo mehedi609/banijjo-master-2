@@ -1,6 +1,7 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const { sampleSize } = require('lodash');
+
 const {
   checkInventoryFunc,
   checkProductAvailability,
@@ -9,8 +10,11 @@ const {
 const {
   getChildrenFromCategory,
   getRandomChildArr,
-  getRandomProductArr
+  getRandomProductArr,
+  showProductListByCategory,
+  getDiscountByProductId
 } = require('./helpers');
+
 const { dbConnection, query } = require('./db_local_config');
 // const { dbConnection, query } = require("./db_com_bd_config");
 
@@ -110,18 +114,12 @@ router.get('/all_product_list', async function(req, res) {
 
 router.get('/getDiscountByProductId/:product_id', async (req, res) => {
   try {
-    let discountAmount = 0;
     const { product_id } = req.params;
     const discountArr = await query(
       `select product_id from discount where softDel=0 and status='active' and curdate() between effective_from and effective_to`
     );
 
-    for (const item of discountArr) {
-      const itemArr = JSON.parse(item['product_id']);
-      itemArr.forEach(({ id, discount }) => {
-        if (id === product_id) discountAmount += parseInt(discount);
-      });
-    }
+    const discountAmount = getDiscountByProductId(discountArr, product_id);
 
     res.json({ discountAmount });
   } catch (e) {
@@ -1578,5 +1576,26 @@ router.post('/getNetProductsFromStock', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+router.get('/productListByCat/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await showProductListByCategory(query, id);
+    res.json([...data]);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Server Error');
+  }
+});
+
+/*router.get('/getCategoryInfoById/:id', async (req, res) => {
+  try {
+    const data = await getCategoryInfoById(query, req.params.id);
+    res.json(data);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Server Error');
+  }
+});*/
 
 module.exports = router;

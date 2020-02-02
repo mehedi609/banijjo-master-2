@@ -81,7 +81,7 @@ class Navbar extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row" style={{ marginTop: -40 }}>
+        <div className="row deviceSearch">
           <div className="medium-3 large-3 columns">
             <p className="gap">&nbsp;</p>
           </div>

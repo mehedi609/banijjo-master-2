@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const fileUrl = process.env.REACT_APP_FILE_URL;
 
 class Footer extends Component {
   render() {
@@ -40,7 +41,14 @@ class Footer extends Component {
                     <a href="/contactUs">Contact us</a>
                   </li>
                 </ul>
-                <p class="socialNone">
+                <p>
+                  <img
+                    src={`${fileUrl}/assets/img/qr_code_banijjo.png`}
+                    className="img-responsive qrImageMobile"
+                    alt="QR Code Banijjo"
+                  />
+                </p>
+                <p className="socialNone">
                   <a href="https://www.facebook.com/banijjo/" target="_blank">
                     <i
                       id="social-fb"
@@ -94,13 +102,20 @@ class Footer extends Component {
               </div>
               <div className="col-md-4 footerContract">
                 <h5 className="footerHeader" style={{ marginTop: '15px' }}>
-                  Contact us
+                  Contact
                 </h5>
                 <ul className="nav-list" style={{ paddingLeft: '10px' }}>
                   <li>
                     <a href="/contactUs">Contact us</a>
                   </li>
                 </ul>
+                <p>
+                  <img
+                    src={`${fileUrl}/assets/img/qr_code_banijjo.png`}
+                    className="img-responsive qrImage"
+                    alt="QR Code Banijjo"
+                  />
+                </p>
                 <p>
                   <a href="https://www.facebook.com/banijjo/" target="_blank">
                     <i
