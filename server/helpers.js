@@ -88,15 +88,24 @@ const getProductsByCategoryId = async (query, cat_id) => {
 
 const getCategoryWiseProductList = async (query, leafChildrenArr, cat_id) => {
   let resArr = [];
+  const discountArr = await query(
+    `select product_id from discount where softDel=0 and status='active' and curdate() between effective_from and effective_to`
+  );
 
   for (const { id, parent_category_id } of leafChildrenArr) {
     let breadcrumbs = [];
+    let productList = [];
     const arr =
-      cat_id !== parent_category_id
+      cat_id !== `${parent_category_id}`
         ? [cat_id, parent_category_id, id]
         : [cat_id, id];
 
     const products = await getProductsByCategoryId(query, id);
+    for (const product of products) {
+      const discountAmount = getDiscountByProductId(discountArr, product.id);
+      const productWithDiscount = { ...product, discountAmount };
+      productList = [...productList, productWithDiscount];
+    }
 
     if (products.length) {
       for (const arrElement of arr) {
@@ -106,7 +115,7 @@ const getCategoryWiseProductList = async (query, leafChildrenArr, cat_id) => {
         ];
       }
     }
-    resArr = [...resArr, { breadcrumbs, products }];
+    resArr = [...resArr, { breadcrumbs, products: productList }];
   }
   return resArr.filter(({ products }) => products.length);
 };
@@ -126,10 +135,33 @@ const showProductListByCategory = async (query, cat_id) => {
 
   // click on leaf child
   let resArr = [];
+  let productList = [];
+  const discountArr = await query(
+    `select product_id from discount where softDel=0 and status='active' and curdate() between effective_from and effective_to`
+  );
   const products = await getProductsByCategoryId(query, cat_id);
   const breadcrumbs = await getCategoryInfoById(query, cat_id);
-  resArr = [...resArr, { breadcrumbs, products }];
+  for (const product of products) {
+    const discountAmount = getDiscountByProductId(discountArr, product.id);
+    const productWithDiscount = { ...product, discountAmount };
+    productList = [...productList, productWithDiscount];
+  }
+  resArr = [...resArr, { breadcrumbs, products: productList }];
   return resArr.filter(({ products }) => products.length);
+};
+
+// get Discount By ProductId
+const getDiscountByProductId = (discountArr, product_id) => {
+  let discountAmount = 0;
+
+  for (const item of discountArr) {
+    const itemArr = JSON.parse(item['product_id']);
+    itemArr.forEach(({ id, discount }) => {
+      if (id === `${product_id}`) discountAmount += parseInt(discount);
+    });
+  }
+
+  return discountAmount;
 };
 
 module.exports = {
@@ -137,5 +169,6 @@ module.exports = {
   getRandomProductArr,
   getRandomChildArr,
   showProductListByCategory,
-  getCategoryInfoById
+  getCategoryInfoById,
+  getDiscountByProductId
 };
