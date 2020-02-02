@@ -17,7 +17,7 @@
   text-transform: uppercase;
   /*   font: 600 18px/22px "Open Sans", sans-serif;*/
   /*font: 600 13px/13px "Open Sans", sans-serif;*/
-  font: 600 13px/13px "Roboto";
+  font: 600 13px/13px 'Roboto';
   margin: 0px;
   padding: 10px 15px 10px 35px;
   width: 100%;
@@ -306,7 +306,7 @@
 }
 
 .sp-vertical-megamenu .vf-megamenu li.spvmm-havechild > a.megamenu_a:after {
-  content: "\f054";
+  content: '\f054';
   color: #009345;
   font-family: Fontawesome;
   font-size: 15px;
@@ -435,7 +435,7 @@
   }
 
   .sp-vertical-megamenu .vf-megamenu li.spvmm-havechild > a.megamenu_a:after {
-    content: "";
+    content: '';
   }
 
   /*  .cat-title:after
@@ -450,8 +450,8 @@
            }*/
   .cat-title:after {
     display: block;
-    font-family: "FontAwesome";
-    content: "\f067";
+    font-family: 'FontAwesome';
+    content: '\f067';
     position: absolute;
     right: 20px;
     /* top: 10px !important;*/
@@ -473,7 +473,7 @@
   }
 
   .sp-vertical-megamenu .vf-megamenu li.spvmm-havechild .icon-open:after {
-    content: "\f106";
+    content: '\f106';
     color: #999;
   }
 
@@ -487,7 +487,7 @@
   .sp-vertical-megamenu .vf-megamenu li.spvmm-havechild .icon-close:after {
     /* content: "\f0fe";
         color: #999;*/
-    content: "\f107";
+    content: '\f107';
     color: #000000;
   }
 

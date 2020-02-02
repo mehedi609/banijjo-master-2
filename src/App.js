@@ -44,7 +44,7 @@ class App extends Component {
       Advertisement: '',
       featuredCategories: [],
       featuredBannerProds: [],
-      vendors: [],
+      vendors: []
     };
 
     console.log(fileUrl);
@@ -85,8 +85,8 @@ class App extends Component {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     })
       .then(res => {
         return res.json();
@@ -94,7 +94,7 @@ class App extends Component {
       .then(response => {
         if (response.data) {
           this.setState({
-            Advertisement: response.data.image,
+            Advertisement: response.data.image
           });
         }
       });
@@ -102,7 +102,7 @@ class App extends Component {
 
   getAllProductList() {
     fetch(base + '/api/all_product_list', {
-      method: 'GET',
+      method: 'GET'
     })
       .then(res => {
         return res.json();
@@ -111,7 +111,7 @@ class App extends Component {
         if (products.data.categories) {
           this.setState({
             Categories: products.data.categories,
-            BannerImagesCustom: products.data.bannerImagesCustom,
+            BannerImagesCustom: products.data.bannerImagesCustom
           });
         }
         this.setState({
@@ -122,58 +122,58 @@ class App extends Component {
           BannerImagesTitle: products.data.BannerImagesTitle,
           NewForYouTitle: products.data.NewForYouTitle,
           FeaturedBrandsTitle: products.data.FeaturedBrandsTitle,
-          BannerTopTitle: products.data.BannerTopTitle,
+          BannerTopTitle: products.data.BannerTopTitle
         });
 
         if (products.data.HotDeals[0]) {
           this.setState({
-            HotDeals: JSON.parse(products.data.HotDeals[0].feature_products),
+            HotDeals: JSON.parse(products.data.HotDeals[0].feature_products)
           });
         }
         if (products.data.TopSelections[0]) {
           this.setState({
             TopSelections: JSON.parse(
-              products.data.TopSelections[0].feature_products,
-            ),
+              products.data.TopSelections[0].feature_products
+            )
           });
         }
         if (products.data.StoreWIllLove[0]) {
           this.setState({
             StoreWIllLove: JSON.parse(
-              products.data.StoreWIllLove[0].feature_products,
-            ),
+              products.data.StoreWIllLove[0].feature_products
+            )
           });
         }
         if (products.data.More[0]) {
           this.setState({
-            More: JSON.parse(products.data.More[0].feature_products),
+            More: JSON.parse(products.data.More[0].feature_products)
           });
         }
         if (products.data.BannerImages[0]) {
           this.setState({
             BannerImages: JSON.parse(
-              products.data.BannerImages[0].feature_products,
-            ),
+              products.data.BannerImages[0].feature_products
+            )
           });
         }
 
         if (products.data.NewForYou[0]) {
           this.setState({
-            NewForYou: JSON.parse(products.data.NewForYou[0].feature_products),
+            NewForYou: JSON.parse(products.data.NewForYou[0].feature_products)
           });
         }
 
         if (products.data.FeaturedBrands[0]) {
           this.setState({
             FeaturedBrands: JSON.parse(
-              products.data.FeaturedBrands[0].feature_products,
-            ),
+              products.data.FeaturedBrands[0].feature_products
+            )
           });
         }
 
         if (products.data.BannerTop[0]) {
           this.setState({
-            BannerTop: JSON.parse(products.data.BannerTop[0].feature_products),
+            BannerTop: JSON.parse(products.data.BannerTop[0].feature_products)
           });
         }
 
@@ -213,7 +213,7 @@ class App extends Component {
                       </a>*/}
                     </div>
                   </div>
-                </div>,
+                </div>
               );
               counter++;
             });
@@ -247,7 +247,7 @@ class App extends Component {
                       </a>*/}
                     </div>
                   </div>
-                </div>,
+                </div>
               );
               counter++;
             });
@@ -255,7 +255,7 @@ class App extends Component {
         }
 
         this.setState({
-          BannerCarouselArr: coolView,
+          BannerCarouselArr: coolView
         });
 
         return false;
@@ -766,7 +766,7 @@ class App extends Component {
       rewind: true,
       autoplay: true,
       slideBy: 1,
-      loop: true,
+      loop: true
     };
     return (
       <div>
@@ -821,7 +821,7 @@ class App extends Component {
               style={{
                 color: '#ec1c24',
                 fontSize: '14px',
-                textAlign: 'center',
+                textAlign: 'center'
               }}
             >
               <strong style={{ color: '#ec1c24', fontWeight: 'normal' }}>
@@ -1064,7 +1064,7 @@ class App extends Component {
                                     float: 'right',
                                     color: '#009345',
                                     fontSize: '10px',
-                                    paddingRight: '5px',
+                                    paddingRight: '5px'
                                   }}
                                 >
                                   See more
@@ -1079,7 +1079,7 @@ class App extends Component {
                                     style={{
                                       paddingLeft: '2px',
                                       paddingRight: '2px',
-                                      float: 'left',
+                                      float: 'left'
                                     }}
                                   >
                                     <div className="frameFeatureCatSm">
@@ -1118,7 +1118,7 @@ class App extends Component {
                                     float: 'right',
                                     color: '#009345',
                                     fontSize: '10px',
-                                    paddingRight: '5px',
+                                    paddingRight: '5px'
                                   }}
                                 >
                                   See more
@@ -1133,7 +1133,7 @@ class App extends Component {
                                     style={{
                                       paddingLeft: '2px',
                                       paddingRight: '2px',
-                                      float: 'left',
+                                      float: 'left'
                                     }}
                                   >
                                     <div className="frameFeatureCatSm">
@@ -1153,7 +1153,7 @@ class App extends Component {
                     </div>
                   )}
                 </div>
-              ),
+              )
           )}
 
         {/*More Section*/}
@@ -1187,7 +1187,7 @@ class App extends Component {
                 style={{
                   position: 'relative',
                   padding: '0px',
-                  marginTop: '-36px',
+                  marginTop: '-36px'
                 }}
               >
                 <button
@@ -1200,7 +1200,7 @@ class App extends Component {
                     className="fa fa-times-circle"
                     style={{
                       fontSize: '24px',
-                      color: '#ffffff',
+                      color: '#ffffff'
                     }}
                   ></i>
                 </button>
@@ -1241,7 +1241,7 @@ class App extends Component {
                     fontSize: '30px',
                     color: '#EC1624',
                     marginTop: '5px',
-                    marginLeft: '-4px',
+                    marginLeft: '-4px'
                   }}
                 ></i>
               </button>
