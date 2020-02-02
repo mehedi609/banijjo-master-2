@@ -68,7 +68,6 @@ class Breadcums extends Component {
           return res.json();
         })
         .then(response => {
-          console.log('rererere', response);
           this.setState({
             cartItemCount: response.data[0].counting
           });
