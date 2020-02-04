@@ -16,7 +16,7 @@ const {
 } = require('./helpers');
 
 const { dbConnection, query } = require('./db_local_config');
-// const { dbConnection, query } = require("./db_com_bd_config");
+// const { dbConnection, query } = require('./db_com_bd_config');
 
 dbConnection.connect(err => {
   if (err) {
