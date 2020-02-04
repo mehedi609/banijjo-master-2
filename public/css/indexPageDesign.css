@@ -955,6 +955,17 @@ ul {
 }
 
 @media only screen and (min-device-width: 992px) {
+  .dropdown.menu .submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 140px;
+    z-index: 1;
+    background: #fefefe;
+    border: 1px solid #cacaca;
+  }
+
   .helperSliderBig {
     /* display: table;*/
     display: table-cell;
@@ -1271,6 +1282,17 @@ ul {
 }
 
 @media only screen and (min-device-width: 1200px) {
+  .dropdown.menu .submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 200px;
+    z-index: 1;
+    background: #fefefe;
+    border: 1px solid #cacaca;
+  }
+
   .p-2 {
     padding: 0.1rem !important;
     font-size: 16px;
