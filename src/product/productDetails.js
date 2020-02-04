@@ -640,7 +640,7 @@ class ProductDetails extends Component {
           tabIndex="-1"
           role="dialog"
         >
-          <div className="modal-dialog" role="document">
+          {/*<div className="modal-dialog" role="document">
             <div className="modal-content" style={{ width: 'auto' }}>
               <div className="modal-header">
                 <h5 className="modal-title" style={{ textAlign: 'center' }}>
@@ -721,11 +721,102 @@ class ProductDetails extends Component {
               </div>
               <div className="modal-footer">{''}</div>
             </div>
+          </div>*/}
+
+          <div
+            className="modal-dialog"
+            role="document"
+            style={{ marginTop: '250px' }}
+          >
+            <div className="modal-content" style={{ width: 'auto' }}>
+              <div className="modal-header" style={{ padding: '0' }}>
+                <h5 className="modal-title" style={{ textAlign: 'center' }}>
+                  &nbsp;
+                </h5>
+
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  style={{ marginTop: '-55px' }}
+                >
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      marginTop: '-55px',
+                      fontSize: '24px',
+                      color: 'rgb(255, 255, 255)'
+                    }}
+                  ></i>
+                </button>
+              </div>
+
+              <div className="modal-body">
+                <div className="row">
+                  <div className="col-md-12 col-lg-12">
+                    <p style={{ color: '#009345' }} className="checkDes">
+                      <i
+                        className="fa fa-check"
+                        style={{
+                          fontSize: '50px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px'
+                        }}
+                      ></i>{' '}
+                      Nice. A new item has been added to your Shopping Cart.
+                    </p>
+
+                    <p style={{ color: '#009345' }} className="checkMobile">
+                      <i
+                        className="fa fa-check"
+                        style={{
+                          fontSize: '20px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px'
+                        }}
+                      ></i>{' '}
+                      Nice. A new item has been added to your Shopping Cart.
+                    </p>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-1 col-lg-1"></div>
+                  <div className="col-md-3 col-lg-3">
+                    <a
+                      href="/cart"
+                      className="btn btn-success"
+                      style={{
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24'
+                      }}
+                    >
+                      View Shopping Cart
+                    </a>
+                  </div>
+                  <div className="col-md-3 col-lg-3">
+                    <a
+                      href={frontEndUrl}
+                      className="btn btn-success"
+                      style={{
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24'
+                      }}
+                    >
+                      Continue Shopping
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer"></div>
+            </div>
           </div>
         </div>
 
         <div className="modal" id="WishListModal" tabIndex="-1" role="dialog">
-          <div className="modal-dialog" role="document">
+          {/*<div className="modal-dialog" role="document">
             <div className="modal-content" style={{ width: 'auto' }}>
               <div className="modal-header">
                 <h5 className="modal-title" style={{ textAlign: 'center' }}>
@@ -804,6 +895,94 @@ class ProductDetails extends Component {
                 </div>
               </div>
               <div className="modal-footer">{''}</div>
+            </div>
+          </div>*/}
+          <div
+            className="modal-dialog"
+            role="document"
+            style={{ marginTop: '250px' }}
+          >
+            <div className="modal-content" style={{ width: 'auto' }}>
+              <div className="modal-header" style={{ padding: '0' }}>
+                <h5 className="modal-title" style={{ textAlign: 'center' }}>
+                  &nbsp;
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  style={{ marginTop: '-55px' }}
+                >
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      marginTop: '-55px',
+                      fontSize: '24px',
+                      color: 'rgb(255, 255, 255)'
+                    }}
+                  ></i>
+                </button>
+              </div>
+
+              <div className="modal-body">
+                <div className="row">
+                  <div className="col-md-12 col-lg-12">
+                    <p style={{ color: '#009345' }} className="checkDes">
+                      <i
+                        className="fa fa-check"
+                        style={{
+                          fontSize: '50px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px'
+                        }}
+                      ></i>{' '}
+                      Nice. A new item has been added to your Wish List.
+                    </p>
+                    <p style={{ color: '#009345' }} className="checkMobile">
+                      <i
+                        className="fa fa-check"
+                        style={{
+                          fontSize: '20px',
+                          color: 'white',
+                          backgroundColor: '#009345',
+                          borderRadius: '40px'
+                        }}
+                      ></i>{' '}
+                      Nice. A new item has been added to your Wish List.
+                    </p>{' '}
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-1 col-lg-1"></div>
+                  <div className="col-md-3 col-lg-3">
+                    <a
+                      href="/wish"
+                      className="btn btn-success"
+                      style={{
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24'
+                      }}
+                    >
+                      View Wish List
+                    </a>
+                  </div>
+                  <div className="col-md-3 col-lg-3">
+                    <a
+                      href={frontEndUrl}
+                      className="btn btn-success"
+                      style={{
+                        backgroundColor: '#ec1c24',
+                        borderColor: '#ec1c24'
+                      }}
+                    >
+                      Continue Shopping
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="modal-footer"></div>
             </div>
           </div>
         </div>
@@ -1395,7 +1574,14 @@ class ProductDetails extends Component {
         {productListSmCategory.length && (
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
-              <h5 style={{ color: '#009345' }} className="text-left">
+              <h5
+                style={{
+                  color: '#009345',
+                  marginTop: '5px',
+                  marginBottom: '5px'
+                }}
+                className="text-left"
+              >
                 Similar Products
                 <a href={`/productList/${category_id}`}>
                   <span
@@ -1426,14 +1612,17 @@ class ProductDetails extends Component {
         {productListSmVendor.length && (
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
-              <h5 style={{ color: '#009345' }} className="text-left">
+              <h5
+                style={{
+                  color: '#009345'
+                }}
+                className="text-left"
+              >
                 Same Vendor Other Products{' '}
                 <a href={`/vendor/${vendor_id}`}>
                   <span
                     style={{
-                      float: 'right',
-                      color: '#009345',
-                      fontSize: '14px'
+                      float: 'right'
                     }}
                   >
                     See more
