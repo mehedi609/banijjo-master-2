@@ -1614,7 +1614,9 @@ class ProductDetails extends Component {
             <div className="medium-12 columns">
               <h5
                 style={{
-                  color: '#009345'
+                  color: '#009345',
+                  marginTop: '5px',
+                  marginBottom: '5px'
                 }}
                 className="text-left"
               >
@@ -1622,7 +1624,9 @@ class ProductDetails extends Component {
                 <a href={`/vendor/${vendor_id}`}>
                   <span
                     style={{
-                      float: 'right'
+                      float: 'right',
+                      color: '#009345',
+                      fontSize: '14px'
                     }}
                   >
                     See more
@@ -1639,6 +1643,7 @@ class ProductDetails extends Component {
               <div className="row small-up-3 moreCat">
                 {this.sameVendorOtherProductsMobile()}
               </div>
+              <div className="row column">&nbsp;</div>
             </div>
           </div>
         )}

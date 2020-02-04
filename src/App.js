@@ -17,6 +17,8 @@ const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const img_src = `${fileUrl}/upload/product/productImages/`;
 // const link = '/productList/';
 
+const style = { marginTop: '5px', marginBottom: '5px' };
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -411,6 +413,7 @@ class App extends Component {
 
             <div className="row">
               <p className="gap">{''}</p>
+              <p className="gapTab">{''}</p>
             </div>
 
             <div className="row small-up-5">
@@ -488,7 +491,7 @@ class App extends Component {
         <div className="row">
           <div className="row column">{''}</div>
           <div className="medium-12 columns">
-            <h5 style={{ margin: 0 }} className="text-left">
+            <h5 style={style} className="text-left">
               {this.state.HotDealsTitle}
             </h5>
             <div className="row small-up-5">
@@ -508,7 +511,7 @@ class App extends Component {
 
         <div className="row">
           <div className="medium-6 columns">
-            <h5 style={{ margin: '0' }} className="text-left">
+            <h5 style={style} className="text-left">
               {this.state.TopSelectionsTitle}
               <a href="/featureproducts/2">
                 <span
@@ -522,7 +525,7 @@ class App extends Component {
           </div>
 
           <div className="medium-6 columns">
-            <h5 style={{ margin: '0' }} className="text-left">
+            <h5 style={style} className="text-left">
               {this.state.NewForYouTitle}
               <a href="/featureproducts/3">
                 <span
@@ -540,7 +543,7 @@ class App extends Component {
             <p>&nbsp;</p>
           </div>
           <div className="medium-6 columns">
-            <h5 style={{ margin: '0' }} className="text-left">
+            <h5 style={style} className="text-left">
               {this.state.FeaturedBrandsTitle}
               <a href="/featureproducts/4">
                 <span
@@ -555,7 +558,7 @@ class App extends Component {
 
           {/*Store Will Love*/}
           <div className="medium-6 columns">
-            <h5 style={{ margin: '0' }} className="text-left">
+            <h5 style={style} className="text-left">
               {this.state.StoreWIllLoveTitle}
 
               <a href="/featureproducts/7">
@@ -575,7 +578,7 @@ class App extends Component {
           <div className="row">
             <div className="row column">{''}</div>
             <div className="medium-12 columns">
-              <h5 style={{ margin: 0 }} className="text-left">
+              <h5 style={style} className="text-left">
                 Brands
               </h5>
               <div className="row small-up-5">
@@ -610,7 +613,7 @@ class App extends Component {
 
                   <h5
                     className="text-left"
-                    style={{ margin: '0', paddingLeft: '15px' }}
+                    style={{ ...style, paddingLeft: '15px' }}
                   >
                     Featured Categories
                   </h5>
@@ -779,7 +782,7 @@ class App extends Component {
         {/*More Section*/}
         <div className="row">
           <div className="medium-12 columns">
-            <h5 style={{ margin: '0' }} className="text-left">
+            <h5 style={style} className="text-left">
               {this.state.MoreTitle}
             </h5>
             <div className="row small-up-3 moreCat">{this.MoreMobile()}</div>
