@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// import { animateScroll as scroll } from 'react-scroll';
+
 const fileUrl = process.env.REACT_APP_FILE_URL;
 
 class Footer extends Component {
@@ -17,25 +19,25 @@ class Footer extends Component {
                 </h5>
                 <ul className="nav-list" style={{ paddingLeft: '10px' }}>
                   <li>
-                    <a href="#">Privacy Policy</a>
+                    <a href="!#">Privacy Policy</a>
                   </li>
                   <li>
-                    <a href="#">Cookie Policy</a>
+                    <a href="!#">Cookie Policy</a>
                   </li>
                   <li>
-                    <a href="#">Warranty Policy</a>
+                    <a href="!#">Warranty Policy</a>
                   </li>
                   <li>
-                    <a href="#">Shipping Policy</a>
+                    <a href="!#">Shipping Policy</a>
                   </li>
                   <li>
-                    <a href="#">Terms & Conditions</a>
+                    <a href="!#">Terms & Conditions</a>
                   </li>
                   <li>
-                    <a href="#">Returns and Replacement</a>
+                    <a href="!#">Returns and Replacement</a>
                   </li>
                   <li>
-                    <a href="#">FAQ</a>
+                    <a href="!#">FAQ</a>
                   </li>
                   <li className="liContractMob">
                     <a href="/contactUs">Contact us</a>
@@ -45,23 +47,35 @@ class Footer extends Component {
                   <img
                     src={`${fileUrl}/assets/img/qr_code_banijjo.png`}
                     className="img-responsive qrImageMobile"
-                    alt="QR Code Banijjo"
+                    alt="QR-Code"
                   />
                 </p>
                 <p className="socialNone">
-                  <a href="https://www.facebook.com/banijjo/" target="_blank">
+                  <a
+                    href="https://www.facebook.com/banijjo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i
                       id="social-fb"
                       className="fa fa-facebook-square fa-3x socialFooter"
                     ></i>
                   </a>
-                  <a href="#">
+                  <a
+                    href="https://twitter.com/banijjo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i
                       id="social-tw"
                       className="fa fa-twitter-square fa-3x socialFooter"
                     ></i>
                   </a>
-                  <a href="#">
+                  <a
+                    href="https://www.linkedin.com/showcase/banijjo.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i
                       id="social-gp"
                       className="fa fa-linkedin-square fa-3x socialFooter"
@@ -75,28 +89,28 @@ class Footer extends Component {
                 </h5>
                 <ul className="nav-list" style={{ paddingLeft: '10px' }}>
                   <li>
-                    <a href="#">Mens</a>
+                    <a href="!#">Mens</a>
                   </li>
                   <li>
-                    <a href="#">Jute Products</a>
+                    <a href="!#">Jute Products</a>
                   </li>
                   <li>
-                    <a href="#">Handicraft</a>
+                    <a href="!#">Handicraft</a>
                   </li>
                   <li>
-                    <a href="#">Leather Products</a>
+                    <a href="!#">Leather Products</a>
                   </li>
                   <li>
-                    <a href="#">Women</a>
+                    <a href="!#">Women</a>
                   </li>
                   <li>
-                    <a href="#">Furniture</a>
+                    <a href="!#">Furniture</a>
                   </li>
                   <li>
-                    <a href="#">Wooden Crafts</a>
+                    <a href="!#">Wooden Crafts</a>
                   </li>
                   <li>
-                    <a href="#">Jewellary</a>
+                    <a href="!#">Jewellary</a>
                   </li>
                 </ul>
               </div>
@@ -117,25 +131,38 @@ class Footer extends Component {
                   />
                 </p>
                 <p>
-                  <a href="https://www.facebook.com/banijjo/" target="_blank">
+                  <a
+                    href="https://www.facebook.com/banijjo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i
                       id="social-fb"
                       className="fa fa-facebook-square fa-3x socialFooter"
                     ></i>
                   </a>
-                  <a href="#">
+                  <a
+                    href="https://twitter.com/banijjo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i
                       id="social-tw"
                       className="fa fa-twitter-square fa-3x socialFooter"
                     ></i>
                   </a>
-                  <a href="#">
+                  <a
+                    href="https://www.linkedin.com/showcase/banijjo.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i
                       id="social-gp"
                       className="fa fa-linkedin-square fa-3x socialFooter"
                     ></i>
                   </a>
                 </p>
+                {/*<a onClick={() => scroll.scrollToTop()}>to top</a>*/}
               </div>
             </div>
           </footer>
@@ -146,8 +173,7 @@ class Footer extends Component {
             <div className="col-md-6 copyRightFooterYear">
               <p style={{ fontSize: '14px' }}>
                 {' '}
-                ©️ 2010-2019{' '}
-                <a href="http://banijjo.com.bd/" target="_blank">
+                ©️ 2010-2019 <a href="http://banijjo.com.bd/">
                   banijjo.com.bd
                 </a>{' '}
                 All rights reserved.
@@ -158,8 +184,12 @@ class Footer extends Component {
               <p style={{ fontSize: '14px' }}>
                 {' '}
                 Design and Developed By
-                <a href="http://www.ambalait.com/" target="_blank">
-                  <img src="../image/ambala_it.png" />
+                <a
+                  href="http://www.ambalait.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="../image/ambala_it.png" alt={`ambalaIT`} />
                 </a>
               </p>
             </div>

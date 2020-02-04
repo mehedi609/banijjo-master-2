@@ -6,7 +6,7 @@ import Categories from './include/categories';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import FeaturedCategoryImg from './features/FeaturedCategoryImg';
+// import FeaturedCategoryImg from './features/FeaturedCategoryImg';
 import CarouselSliderBannerImgs from './include/CarouselSliderBannerImgs';
 import CarouselSliderMainBanner from './include/CarouselSliderMainBanner';
 import CardToListProducts from './features/CardToListProducts';
@@ -15,7 +15,7 @@ const fileUrl = process.env.REACT_APP_FILE_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 
 const img_src = `${fileUrl}/upload/product/productImages/`;
-const link = '/productList/';
+// const link = '/productList/';
 
 class App extends Component {
   constructor(props) {
@@ -67,17 +67,6 @@ class App extends Component {
     axios
       .get(`${base}/api/feature_category`)
       .then(res => this.setState({ featuredCategories: res.data }));
-    /*fetch(`${base}/api/feature_category`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => {
-        return res.json();
-      })
-      .then(response => this.setState({ featuredCategories: response }));*/
   }
 
   getAdvertisement() {
@@ -186,7 +175,7 @@ class App extends Component {
             const { BannerTop } = this.state;
             const classes = ['frameSliderBig', 'helperSliderBig'];
 
-            BannerTop.map(({ productId, productImage }, key) => {
+            BannerTop.forEach(({ productId, productImage }, key) => {
               activity = key === 0 ? (activity = 'active') : '';
               coolView.push(
                 <div className={'item ' + activity} key={productId}>
@@ -197,20 +186,6 @@ class App extends Component {
                         img_src={img_src + productImage}
                         link={`/productDetails/${productId}`}
                       />
-                      {/*<a href={"/productDetails/" + item.productId}>
-                        <div className="frameSliderBig">
-                          <span className="helperSliderBig">
-                            <img
-                              src={
-                                fileUrl +
-                                "/upload/product/productImages/" +
-                                item.productImage
-                              }
-                              alt=""
-                            />
-                          </span>
-                        </div>
-                      </a>*/}
                     </div>
                   </div>
                 </div>
@@ -220,7 +195,7 @@ class App extends Component {
           } else {
             const { BannerImagesCustom } = this.state;
             const classes = ['frameSliderBig', 'helperSliderBig'];
-            BannerImagesCustom.map(({ image, url }, key) => {
+            BannerImagesCustom.forEach(({ image, url }, key) => {
               activity = key === 0 ? (activity = 'active') : '';
               coolView.push(
                 <div className={'item ' + activity} key={url}>
@@ -231,20 +206,6 @@ class App extends Component {
                         img_src={img_src + image}
                         link={url}
                       />
-                      {/*<a href={item.url}>
-                        <div className="frameSliderBig">
-                          <span className="helperSliderBig">
-                            <img
-                              src={
-                                fileUrl +
-                                "/upload/product/productImages/" +
-                                item.image
-                              }
-                              alt={item.name}
-                            />
-                          </span>
-                        </div>
-                      </a>*/}
                     </div>
                   </div>
                 </div>
@@ -277,48 +238,6 @@ class App extends Component {
         </div>
       ));
     }
-
-    /*let hotView = [];
-    let counter = 0;
-    this.state.BannerImages.map((item, key) => {
-      hotView.push(
-        <div className="column">
-          <a href={"/productDetails/" + item.productId}>
-            <div className="frameSlider">
-              <span className="helperSlider">
-                <img
-                  src={
-                    fileUrl +
-                    "/upload/product/productImages/" +
-                    item.productImage
-                  }
-                  alt=""
-                />
-              </span>
-            </div>
-          </a>
-        </div>
-      );
-
-      counter++;
-    });
-
-    if (counter < 5) {
-      for (let i = counter; i < 5; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div className="frameSlider">
-                <span className="helperSlider">
-                  <img src="/asche.jpg" alt="" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;*/
   }
 
   vendors() {
@@ -353,49 +272,6 @@ class App extends Component {
         </div>
       ));
     }
-
-    /*let hotView = [];
-    let counter = 0;
-    if (counter === 0) {
-      this.state.HotDeals.map(item => {
-        hotView.push(
-          <div>
-            <a href={"/productDetails/" + item.productId}>
-              <div className="frameHotDeal">
-                <span className="helperHotDeal">
-                  <img
-                    src={
-                      fileUrl +
-                      "/upload/product/productImages/" +
-                      item.productImage
-                    }
-                    alt="productImage"
-                  />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-        counter++;
-      });
-    }
-
-    if (counter < 4) {
-      for (let i = counter; i < 4; i++) {
-        hotView.push(
-          <div>
-            <a target="__blank" href={"/productDetails/" + 103}>
-              <div className="frameHotDeal">
-                <span className="helperHotDeal">
-                  <img src="/ppppp.jpg" alt="productImage" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;*/
   }
 
   topSelections() {
@@ -414,49 +290,6 @@ class App extends Component {
         </div>
       ));
     }
-
-    /*let hotView = [];
-    let counter = 0;
-    if (counter === 0) {
-      this.state.TopSelections.map(item => {
-        hotView.push(
-          <div className="column">
-            <a href={"/productDetails/" + item.productId}>
-              <div className="frameTopSelection">
-                <span className="helperframeTopSelection">
-                  <img
-                    src={
-                      fileUrl +
-                      "/upload/product/productImages/" +
-                      item.productImage
-                    }
-                    alt="productImage"
-                  />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-        counter++;
-      });
-    }
-
-    if (counter < 4) {
-      for (let i = counter; i < 4; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div className="frameTopSelection">
-                <span className="helperframeTopSelection">
-                  <img src="/ppppp.jpg" alt="productImage" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;*/
   }
 
   newForYou() {
@@ -475,49 +308,6 @@ class App extends Component {
         </div>
       ));
     }
-
-    /*let hotView = [];
-    let counter = 0;
-    if (counter === 0) {
-      this.state.NewForYou.map((item, key) => {
-        hotView.push(
-          <div className="column">
-            <a href={"/productDetails/" + item.productId}>
-              <div className="frameTopSelection">
-                <span className="helperframeTopSelection">
-                  <img
-                    src={
-                      fileUrl +
-                      "/upload/product/productImages/" +
-                      item.productImage
-                    }
-                    alt=""
-                  />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-        counter++;
-      });
-    }
-
-    if (counter < 4) {
-      for (let i = counter; i < 4; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div className="frameTopSelection">
-                <span className="helperframeTopSelection">
-                  <img src="/ppppp.jpg" alt="" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;*/
   }
 
   topSelectionBig() {
@@ -536,49 +326,6 @@ class App extends Component {
         </div>
       ));
     }
-
-    /*let hotView = [];
-    let counter = 0;
-    if (counter === 0) {
-      this.state.FeaturedBrands.map((item, key) => {
-        hotView.push(
-          <div className="column">
-            <a href={"/productDetails/" + item.productId}>
-              <div className="frameFeatureBand">
-                <span className="helperframeFeatureBand">
-                  <img
-                    src={
-                      fileUrl +
-                      "/upload/product/productImages/" +
-                      item.productImage
-                    }
-                    alt=""
-                  />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-        counter++;
-      });
-    }
-
-    if (counter < 2) {
-      for (let i = counter; i < 2; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div className="frameFeatureBand">
-                <span className="helperframeFeatureBand">
-                  <img src="/asche.jpg" alt="" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;*/
   }
 
   storeWillLove() {
@@ -597,49 +344,6 @@ class App extends Component {
         </div>
       ));
     }
-    /*let hotView = [];
-    let counter = 0;
-    if (counter === 0) {
-      this.state.StoreWIllLove.map((item, key) => {
-        hotView.push(
-          <div className="column">
-            <a href={"/productDetails/" + item.productId}>
-              <div className="frameFeatureBand">
-                <span className="helperframeFeatureBand">
-                  <img
-                    src={
-                      fileUrl +
-                      "/upload/product/productImages/" +
-                      item.productImage
-                    }
-                    alt=""
-                  />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-        counter++;
-      });
-    }
-
-    if (counter < 2) {
-      for (let i = counter; i < 2; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div className="frameFeatureBand">
-                <span className="helperframeFeatureBand">
-                  <img src="/asche.jpg" alt="" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-
-    return hotView;*/
   }
 
   MoreMobile() {
@@ -657,48 +361,6 @@ class App extends Component {
         </div>
       ));
     }
-    /*let hotView = [];
-    let counter = 0;
-    if (counter === 0) {
-      this.state.More.map((item, key) => {
-        hotView.push(
-          <div className="column">
-            <a href={"/productDetails/" + item.productId}>
-              <div className="moreCatDiv">
-                <span className="moreCatSpan">
-                  <img
-                    src={
-                      fileUrl +
-                      "/upload/product/productImages/" +
-                      item.productImage
-                    }
-                    alt=""
-                  />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-        counter++;
-      });
-    }
-
-    if (counter < 6) {
-      for (let i = counter; i < 6; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div className="moreCatDiv">
-                <span className="moreCatSpan">
-                  <img src="/asche.jpg" alt="" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;*/
   }
 
   MoreDesk() {
@@ -716,48 +378,6 @@ class App extends Component {
         </div>
       ));
     }
-    /*let hotView = [];
-    let counter = 0;
-    if (counter === 0) {
-      this.state.More.map((item, key) => {
-        hotView.push(
-          <div className="column">
-            <a href={"/productDetails/" + item.productId}>
-              <div className="frameMore">
-                <span className="helperframeMore">
-                  <img
-                    src={
-                      fileUrl +
-                      "/upload/product/productImages/" +
-                      item.productImage
-                    }
-                    alt=""
-                  />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-        counter++;
-      });
-    }
-
-    if (counter < 6) {
-      for (let i = counter; i < 6; i++) {
-        hotView.push(
-          <div className="column">
-            <a href="http://banijjo.com.bd/productDetails/48">
-              <div className="frameMore">
-                <span className="helperframeMore">
-                  <img src="/asche.jpg" alt="" />
-                </span>
-              </div>
-            </a>
-          </div>
-        );
-      }
-    }
-    return hotView;*/
   }
 
   render() {
@@ -790,7 +410,7 @@ class App extends Component {
             </div>
 
             <div className="row">
-              <p className="gap"></p>
+              <p className="gap">{''}</p>
             </div>
 
             <div className="row small-up-5">
@@ -844,7 +464,7 @@ class App extends Component {
               </div>
             </div>
             <a
-              href="#"
+              href="!#"
               className="button large expanded"
               style={{ backgroundColor: '#009345', fontSize: 12 }}
             >
@@ -852,21 +472,21 @@ class App extends Component {
             </a>
             <p style={{ fontSize: 12 }}>Or Sign Up with</p>
             <p>
-              <a href="#" className="fb btn" style={{ fontSize: 12 }}>
-                <i className="fa fa-facebook fa-fw"></i> Login with Facebook
+              <a href="!#" className="fb btn" style={{ fontSize: 12 }}>
+                <i className="fa fa-facebook fa-fw">{''}</i> Login with Facebook
               </a>
             </p>
             <p>
               {' '}
-              <a style={{ fontSize: 12 }} href="#" className="google btn">
-                <i className="fa fa-google fa-fw"></i> Login with Google+
+              <a style={{ fontSize: 12 }} href="!#" className="google btn">
+                <i className="fa fa-google fa-fw">{''}</i> Login with Google+
               </a>
             </p>
           </div>
         </div>
 
         <div className="row">
-          <div className="row column"></div>
+          <div className="row column">{''}</div>
           <div className="medium-12 columns">
             <h5 style={{ margin: 0 }} className="text-left">
               {this.state.HotDealsTitle}
@@ -953,7 +573,7 @@ class App extends Component {
         {/*Brands Section*/}
         {this.state.vendors.length && (
           <div className="row">
-            <div className="row column"></div>
+            <div className="row column">{''}</div>
             <div className="medium-12 columns">
               <h5 style={{ margin: 0 }} className="text-left">
                 Brands
@@ -1017,7 +637,7 @@ class App extends Component {
                           </span>
                         </div>
                       </div>
-                      <p></p>
+                      <p>{''}</p>
 
                       <div className="medium-4 columns">
                         <div className="row featureCatBigImgMob">
@@ -1044,7 +664,7 @@ class App extends Component {
                       </div>
                       <p className="gap">&nbsp;</p>
 
-                      <div className="medium-4 columns"></div>
+                      <div className="medium-4 columns">{''}</div>
                     </div>
                   </div>
 
@@ -1202,7 +822,9 @@ class App extends Component {
                       fontSize: '24px',
                       color: '#ffffff'
                     }}
-                  ></i>
+                  >
+                    {''}
+                  </i>
                 </button>
                 <img
                   className="img-responsive"
@@ -1243,11 +865,13 @@ class App extends Component {
                     marginTop: '5px',
                     marginLeft: '-4px'
                   }}
-                ></i>
+                >
+                  {''}
+                </i>
               </button>
             </div>
           </div>
-          <div id="mask"></div>
+          <div id="mask">{''}</div>
         </div>
 
         <Footer />

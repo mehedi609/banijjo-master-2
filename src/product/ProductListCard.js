@@ -20,6 +20,7 @@ const ProductListCard = ({ productInfo }) => {
               <img
                 className="pic-1"
                 src={fileUrl + '/upload/product/productImages/' + home_image}
+                alt={`img`}
               />
             </span>
           </div>
@@ -27,10 +28,14 @@ const ProductListCard = ({ productInfo }) => {
 
         <ul className="socialProductList">
           <li>
-            <a href="" className="fa fa-heart-o"></a>
+            <a href="!#" className="fa fa-heart-o">
+              {''}
+            </a>
           </li>
           <li>
-            <a href="" className="fa fa-shopping-cart"></a>
+            <a href="!#" className="fa fa-shopping-cart">
+              {''}
+            </a>
           </li>
         </ul>
         <span className="product-new-label">New</span>

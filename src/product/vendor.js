@@ -129,7 +129,7 @@ class Vendor extends Component {
           let CategoryList = [];
           let CategoryIdArr = [];
           let CategoryKeyValue = [];
-          this.state.VendorCategories.map(function(item, key) {
+          this.state.VendorCategories.forEach((item, key) => {
             CategoryList.push(
               <option value={item.category_id}>{item.category_name}</option>
             );
@@ -187,7 +187,7 @@ class Vendor extends Component {
           let CategoryKeyValue = this.state.CategoryKeyValue;
 
           Object.keys(RevisedArr).length > 0
-            ? Object.keys(RevisedArr).map(function(key, index) {
+            ? Object.keys(RevisedArr).forEach(function(key, index) {
                 ProductJSX.push(
                   <h3 style={{ clear: 'both', marginTop: '2%' }} className="h3">
                     {CategoryKeyValue[key]}
@@ -215,6 +215,7 @@ class Vendor extends Component {
                                     '/upload/product/productImages/' +
                                     IterationArr[i].home_image
                                   }
+                                  alt="img"
                                 />
                               </span>
                             </div>
@@ -222,6 +223,7 @@ class Vendor extends Component {
                           <ul className="socialProductList">
                             <li>
                               <a
+                                href="!#"
                                 id={IterationArr[i].id}
                                 onClick={event => {
                                   if (!localStorage.customer_id) {
@@ -268,17 +270,20 @@ class Vendor extends Component {
                                         return res.json();
                                       })
                                       .then(response => {
-                                        if (response.data == true) {
+                                        if (response.data === true) {
                                           alert('Product Added To Wish List!');
                                         }
                                       });
                                   }
                                 }}
                                 className="fa fa-heart-o"
-                              ></a>
+                              >
+                                {''}
+                              </a>
                             </li>
                             <li>
                               <a
+                                href="!#"
                                 id={IterationArr[i].id}
                                 onClick={event => {
                                   if (!localStorage.customer_id) {
@@ -326,14 +331,16 @@ class Vendor extends Component {
                                         return res.json();
                                       })
                                       .then(response => {
-                                        if (response.data == true) {
+                                        if (response.data === true) {
                                           alert('Product Added To Cart!');
                                         }
                                       });
                                   }
                                 }}
                                 className="fa fa-shopping-cart"
-                              ></a>
+                              >
+                                {''}
+                              </a>
                             </li>
                           </ul>
                           <span className="product-new-label">New</span>
@@ -342,14 +349,14 @@ class Vendor extends Component {
 
                         <div className="product-content">
                           <h3 className="title">
-                            <a href="#">{IterationArr[i].product_name}</a>
+                            <a href="!#">{IterationArr[i].product_name}</a>
                           </h3>
                           <ul className="rating">
-                            <li className="fa fa-star"></li>
-                            <li className="fa fa-star"></li>
-                            <li className="fa fa-star"></li>
-                            <li className="fa fa-star"></li>
-                            <li className="fa fa-star"></li>
+                            <li className="fa fa-star">{''}</li>
+                            <li className="fa fa-star">{''}</li>
+                            <li className="fa fa-star">{''}</li>
+                            <li className="fa fa-star">{''}</li>
+                            <li className="fa fa-star">{''}</li>
                           </ul>
                           <div className="price">
                             ${IterationArr[i].productPrice}

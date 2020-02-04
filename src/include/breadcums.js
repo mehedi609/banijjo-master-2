@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TopNavbarCategories from './TopNavbarCategories';
 
-const homeUrl = process.env.REACT_APP_FRONTEND_URL;
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
-const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
-const fileUrl = process.env.REACT_APP_FILE_URL;
+// const homeUrl = process.env.REACT_APP_FRONTEND_URL;
+// const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
+// const fileUrl = process.env.REACT_APP_FILE_URL;
 
 class Breadcums extends Component {
   constructor(props) {
@@ -29,16 +29,16 @@ class Breadcums extends Component {
       let productIds = [];
 
       if (cartData) {
-        cartData.map(function(val, index) {
+        cartData.forEach(function(val, index) {
           productIds.push(val.productId);
         });
         let uniqueProductIds = productIds.filter(
           (v, i, a) => a.indexOf(v) === i
         );
         let revisedCartData = [];
-        uniqueProductIds.map(function(valParent, keyParent) {
+        uniqueProductIds.forEach(function(valParent, keyParent) {
           let totalCount = 0;
-          cartData.map(function(val, key) {
+          cartData.forEach(function(val, key) {
             if (valParent === val.productId) {
               totalCount += val.quantity;
             }

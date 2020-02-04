@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Header from '../include/header';
 import Footer from '../include/footer';
 import Breadcums from '../include/breadcums';
-import Categories from '../include/categories';
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
+// import Categories from '../include/categories';
+// import Header from '../include/header';
 
-const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 class WishList extends Component {
   constructor(props) {
@@ -32,17 +32,17 @@ class WishList extends Component {
     let productIds = [];
 
     if (wishData) {
-      wishData.map(function(val, index) {
+      wishData.forEach(function(val, index) {
         productIds.push(val.productId);
       });
 
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedwishData = [];
 
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent, keyParent) {
         let totalCount = 0;
-        wishData.map(function(val, key) {
-          if (valParent == val.productId) {
+        wishData.forEach(function(val, key) {
+          if (valParent === val.productId) {
             totalCount += val.quantity;
           }
         });
@@ -50,7 +50,7 @@ class WishList extends Component {
       });
 
       let revisedwishDataKeyValue = [];
-      revisedwishData.map(function(value, key) {
+      revisedwishData.forEach(function(value, key) {
         revisedwishDataKeyValue[value.productId] = value.quantity;
       });
 
@@ -64,10 +64,10 @@ class WishList extends Component {
     if (!localStorage.customer_id) {
       let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
-      let uniqueProductIds = [];
+      // let uniqueProductIds = [];
 
       if (wishData) {
-        wishData.map(function(val, index) {
+        wishData.forEach(function(val, index) {
           productIds.push(val.productId);
         });
 
@@ -76,10 +76,10 @@ class WishList extends Component {
         );
         let revisedwishData = [];
 
-        uniqueProductIds.map(function(valParent, keyParent) {
+        uniqueProductIds.forEach(function(valParent, keyParent) {
           let totalCount = 0;
-          wishData.map(function(val, key) {
-            if (valParent == val.productId) {
+          wishData.forEach(function(val, key) {
+            if (valParent === val.productId) {
               totalCount += val.quantity;
             }
           });
@@ -87,7 +87,7 @@ class WishList extends Component {
         });
 
         let revisedwishDataKeyValue = [];
-        revisedwishData.map(function(value, key) {
+        revisedwishData.forEach(function(value, key) {
           revisedwishDataKeyValue[value.productId] = value.quantity;
         });
 
@@ -115,7 +115,7 @@ class WishList extends Component {
             });
             let requiredFunc = this.requiredFunc();
             let itemQuantityState = {};
-            response.data.map(function(item, key) {
+            response.data.forEach(function(item, key) {
               itemQuantityState[item.id] = requiredFunc[item.id];
             });
             this.setState({ itemQuantityState: itemQuantityState });
@@ -146,7 +146,7 @@ class WishList extends Component {
             wishProducts: response.data
           });
           let itemQuantityState = {};
-          response.data.map(function(item, key) {
+          response.data.forEach(function(item, key) {
             itemQuantityState[item.id] = item.quantity;
           });
           this.setState({ itemQuantityState: itemQuantityState });
@@ -158,23 +158,23 @@ class WishList extends Component {
     if (!localStorage.customer_id) {
       let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
-      wishData.map(function(val, index) {
+      wishData.forEach(function(val, index) {
         productIds.push(val.productId);
       });
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedwishData = [];
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent, keyParent) {
         let totalCount = 0;
-        wishData.map(function(val, key) {
-          if (valParent == val.productId) {
+        wishData.forEach(function(val, key) {
+          if (valParent === val.productId) {
             totalCount += val.quantity;
           }
         });
         revisedwishData.push({ productId: valParent, quantity: totalCount });
       });
       let newWishData = [];
-      revisedwishData.map(function(val, key) {
-        if (itemId != val.productId) {
+      revisedwishData.forEach(function(val, key) {
+        if (itemId !== val.productId) {
           newWishData.push({
             productId: val.productId,
             quantity: val.quantity
@@ -210,25 +210,25 @@ class WishList extends Component {
     if (!localStorage.customer_id) {
       let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
-      wishData.map(function(val, index) {
+      wishData.forEach(function(val, index) {
         productIds.push(val.productId);
       });
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedwishData = [];
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent, keyParent) {
         let totalCount = 0;
-        wishData.map(function(val, key) {
-          if (valParent == val.productId) {
+        wishData.forEach(function(val, key) {
+          if (valParent === val.productId) {
             totalCount += val.quantity;
           }
         });
         revisedwishData.push({ productId: valParent, quantity: totalCount });
       });
       let newWishData = [];
-      revisedwishData.map(function(val, key) {
-        if (itemId == val.productId) {
+      revisedwishData.forEach(function(val, key) {
+        if (itemId === val.productId) {
           let newQty = val.quantity;
-          if (type == 0) {
+          if (type === 0) {
             if (val.quantity > 0) {
               newQty -= 1;
             }
@@ -302,7 +302,7 @@ class WishList extends Component {
         return res.json();
       })
       .then(response => {
-        if (response.data == true) {
+        if (response.data === true) {
           var link = document.getElementById('successCartMessage');
           link.click();
         }
@@ -310,27 +310,28 @@ class WishList extends Component {
     this.handleClickDelete(itemId);
   }
 
+  // eslint-disable-next-line
   handleClickDelete(itemId) {
     if (!localStorage.customer_id) {
       let wishData = JSON.parse(localStorage.getItem('wish'));
       let productIds = [];
-      wishData.map(function(val, index) {
+      wishData.forEach(function(val, index) {
         productIds.push(val.productId);
       });
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedwishData = [];
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent, keyParent) {
         let totalCount = 0;
-        wishData.map(function(val, key) {
-          if (valParent == val.productId) {
+        wishData.forEach(function(val, key) {
+          if (valParent === val.productId) {
             totalCount += val.quantity;
           }
         });
         revisedwishData.push({ productId: valParent, quantity: totalCount });
       });
       let newWishData = [];
-      revisedwishData.map(function(val, key) {
-        if (itemId != val.productId) {
+      revisedwishData.forEach(function(val, key) {
+        if (itemId !== val.productId) {
           newWishData.push({
             productId: val.productId,
             quantity: val.quantity
@@ -377,12 +378,13 @@ class WishList extends Component {
           type="button"
           data-toggle="modal"
           data-target="#exampleModalShipping"
-          role="button"
-        ></button>
+        >
+          {''}
+        </button>
         <div
           className="modal"
           id="exampleModalShipping"
-          tabindex="-1"
+          tabIndex="-1"
           role="dialog"
         >
           <div className="modal-dialog" role="document">
@@ -413,7 +415,9 @@ class WishList extends Component {
                         backgroundColor: '#009345',
                         borderRadius: '40px'
                       }}
-                    ></i>
+                    >
+                      {''}
+                    </i>
                   </div>
                   <div className="col-md-11 col-lg-11">
                     <p style={{ color: '#009345' }}>
@@ -422,7 +426,7 @@ class WishList extends Component {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-1 col-lg-1"></div>
+                  <div className="col-md-1 col-lg-1">{''}</div>
                   <div className="col-md-3 col-lg-3">
                     <a
                       href="/cart"
@@ -449,7 +453,7 @@ class WishList extends Component {
                   </div>
                 </div>
               </div>
-              <div className="modal-footer"></div>
+              <div className="modal-footer">{''}</div>
             </div>
           </div>
         </div>
@@ -465,7 +469,7 @@ class WishList extends Component {
                 >
                   Continue shopping
                 </a>
-                <div className="clearfix"></div>
+                <div className="clearfix">{''}</div>
               </div>
               <div className="card-body">
                 {this.state.wishProducts.length > 0
@@ -581,7 +585,9 @@ class WishList extends Component {
                                     className="fa fa-trash"
                                     aria-hidden="true"
                                     style={{ fontSize: '24px', color: 'red' }}
-                                  ></i>
+                                  >
+                                    {''}
+                                  </i>
                                 </button>
                               </div>
                             </div>

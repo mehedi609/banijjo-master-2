@@ -27,9 +27,10 @@ const fileUrl = process.env.REACT_APP_FILE_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
 
 const img_src = `${fileUrl}/upload/product/productImages/`;
-const pd = '/productDetails/';
-const pl = '/productList/';
+// const pd = '/productDetails/';
+// const pl = '/productList/';
 
+// eslint-disable-next-line
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 window.jQuery = window.$ = $;
@@ -95,7 +96,6 @@ class ProductDetails extends Component {
     axios
       .get(`${base}/api/productDetails/${this.state.productId}`)
       .then(res => {
-        console.log(res.data);
         const {
           product_name,
           productPrice,
@@ -110,7 +110,6 @@ class ProductDetails extends Component {
           productSmCategory,
           description,
           qc_status,
-          status,
           product_sku
         } = res.data;
 
@@ -161,10 +160,11 @@ class ProductDetails extends Component {
   couraselImages() {
     if (this.state.productImages) {
       if (this.state.carouselImages.length === 0) {
-        this.state.productImages.map((item, key) => {
+        this.state.productImages.forEach(item => {
           this.state.carouselImages.push(
             <React.Fragment>
               <a
+                href={`!#`}
                 style={{ cursor: 'pointer' }}
                 data-imageSource={item.imageName}
                 onClick={() => {
@@ -184,6 +184,7 @@ class ProductDetails extends Component {
                         '/upload/product/productImages/' +
                         item.imageName
                       }
+                      alt={''}
                     />
                   </span>
                 </div>
@@ -200,6 +201,7 @@ class ProductDetails extends Component {
     return this.state.carouselImages.map(({ imageName, serialNumber }) => (
       <React.Fragment>
         <a
+          href={`!#`}
           onClick={() => {
             this.setState({ showClickedImage: imageName });
             window.imageZoom(
@@ -213,6 +215,7 @@ class ProductDetails extends Component {
             <span className="helperZoomSlider">
               <img
                 src={fileUrl + '/upload/product/productImages/' + imageName}
+                alt={''}
               />
             </span>
           </div>
@@ -224,7 +227,7 @@ class ProductDetails extends Component {
   productDescriptions() {
     let descriptionText = [];
     if (this.state.product_full_description.length > 0) {
-      this.state.product_full_description.map((item, key) => {
+      this.state.product_full_description.forEach((item, key) => {
         descriptionText.push(
           <React.Fragment key={key}>
             <h3>{item.title}</h3>
@@ -235,7 +238,8 @@ class ProductDetails extends Component {
                   '/upload/product/productDescriptionImages/' +
                   item.descriptionImage
                 }
-              ></img>
+                alt={''}
+              />
             ) : (
               ''
             )}
@@ -322,10 +326,10 @@ class ProductDetails extends Component {
   specificationDetailsPart() {
     const spcArray = [];
     if (this.state.product_specification_name.length > 1) {
-      this.state.product_specification_name.map((item, key) => {
+      this.state.product_specification_name.forEach((item, key) => {
         if (key === 1) {
           spcArray.push(<h5>{item.specificationName.toUpperCase()} :</h5>);
-          this.state.product_specification_name.map((item1, key1) => {
+          this.state.product_specification_name.forEach((item1, key1) => {
             if (item.specificationName === item1.specificationName) {
               spcArray.push(
                 <div className="colr ert">
@@ -527,8 +531,8 @@ class ProductDetails extends Component {
     const { colors } = this.state;
     return colors.map(({ colorName }) => (
       <li>
-        <a href="#">
-          <span style={{ backgroundColor: colorName }}></span>
+        <a href={`!#`}>
+          <span style={{ backgroundColor: colorName }}>{''}</span>
         </a>
       </li>
     ));
@@ -617,8 +621,9 @@ class ProductDetails extends Component {
           type="button"
           data-toggle="modal"
           data-target="#exampleModalShipping"
-          role="button"
-        ></button>
+        >
+          {''}
+        </button>
 
         <button
           style={{ display: 'none !important' }}
@@ -626,8 +631,9 @@ class ProductDetails extends Component {
           type="button"
           data-toggle="modal"
           data-target="#WishListModal"
-          role="button"
-        ></button>
+        >
+          {''}
+        </button>
         <div
           className="modal"
           id="exampleModalShipping"
@@ -663,7 +669,9 @@ class ProductDetails extends Component {
                           backgroundColor: '#009345',
                           borderRadius: '40px'
                         }}
-                      ></i>{' '}
+                      >
+                        {''}
+                      </i>{' '}
                       Nice. A new item has been added to your Shopping Cart.
                     </p>
 
@@ -676,13 +684,15 @@ class ProductDetails extends Component {
                           backgroundColor: '#009345',
                           borderRadius: '40px'
                         }}
-                      ></i>{' '}
+                      >
+                        {''}
+                      </i>{' '}
                       Nice. A new item has been added to your Shopping Cart.
                     </p>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-1 col-lg-1"></div>
+                  <div className="col-md-1 col-lg-1">{''}</div>
                   <div className="col-md-3 col-lg-3">
                     <a
                       href="/cart"
@@ -709,7 +719,7 @@ class ProductDetails extends Component {
                   </div>
                 </div>
               </div>
-              <div className="modal-footer"></div>
+              <div className="modal-footer">{''}</div>
             </div>
           </div>
         </div>
@@ -744,7 +754,9 @@ class ProductDetails extends Component {
                           backgroundColor: '#009345',
                           borderRadius: '40px'
                         }}
-                      ></i>{' '}
+                      >
+                        {''}
+                      </i>{' '}
                       Nice. A new item has been added to your Wish List.
                     </p>
                     <p style={{ color: '#009345' }} className="checkMobile">
@@ -756,13 +768,15 @@ class ProductDetails extends Component {
                           backgroundColor: '#009345',
                           borderRadius: '40px'
                         }}
-                      ></i>{' '}
+                      >
+                        {''}
+                      </i>{' '}
                       Nice. A new item has been added to your Wish List.
                     </p>{' '}
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-1 col-lg-1"></div>
+                  <div className="col-md-1 col-lg-1">{''}</div>
                   <div className="col-md-3 col-lg-3">
                     <a
                       href="/wish"
@@ -789,7 +803,7 @@ class ProductDetails extends Component {
                   </div>
                 </div>
               </div>
-              <div className="modal-footer"></div>
+              <div className="modal-footer">{''}</div>
             </div>
           </div>
         </div>
@@ -811,6 +825,7 @@ class ProductDetails extends Component {
                     }
                     width="500"
                     height="500"
+                    alt={''}
                   />
                 </div>
               </div>
@@ -824,7 +839,9 @@ class ProductDetails extends Component {
                   marginRight: '-15px'
                 }}
               >
-                <div id="myresult" class="img-zoom-result"></div>
+                <div id="myresult" class="img-zoom-result">
+                  {''}
+                </div>
               </div>
             </div>
 
@@ -848,6 +865,7 @@ class ProductDetails extends Component {
                 item =>
                   item && (
                     <a
+                      href={`!#`}
                       key={item.serialNumber}
                       onClick={() => {
                         this.setState({ showClickedImage: item.imageName });
@@ -864,7 +882,7 @@ class ProductDetails extends Component {
                         <span className="helperZoomSlider">
                           <img
                             src={`${fileUrl}/upload/product/productImages/${item.imageName}`}
-                            alt="Image"
+                            alt={''}
                           />
                         </span>
                       </div>
@@ -1079,7 +1097,8 @@ class ProductDetails extends Component {
                             Create Account
                           </button>
                           <p align="left">
-                            <a href="#" target="_blank" className="">
+                            {/*eslint-disable-next-line*/}
+                            <a href={`!#`} target="_blank">
                               Forgot Password?
                             </a>
                           </p>
@@ -1121,7 +1140,8 @@ class ProductDetails extends Component {
                             Login
                           </button>
                           <p align="left">
-                            <a href="#" target="_blank" className="">
+                            {/*eslint-disable-next-line*/}
+                            <a href="!#" target="_blank">
                               Forgot Password?
                             </a>
                           </p>
@@ -1327,8 +1347,9 @@ class ProductDetails extends Component {
               >
                 <div className="row">
                   <div className="medium-6 large-6 columns">
+                    {/*array-callback-return*/}
                     {this.state.product_specification_details_description
-                      ? this.state.product_specification_details_description.map(
+                      ? this.state.product_specification_details_description.forEach(
                           (item, key) => {
                             if (counter === 1) {
                               if ((key + 1) % 8 === 0) {
@@ -1361,6 +1382,7 @@ class ProductDetails extends Component {
                                 </li>
                               );
                             }
+                            return '';
                           }
                         )
                       : ''}

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Header from '../include/header';
 import Footer from '../include/footer';
 import Breadcums from '../include/breadcums';
-import Categories from '../include/categories';
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
-const fileUrl = process.env.REACT_APP_FILE_URL;
+// import Categories from '../include/categories';
+// import Header from '../include/header';
+// const fileUrl = process.env.REACT_APP_FILE_URL;
+
 class MoreCategory extends Component {
   constructor(props) {
     super(props);
@@ -36,9 +37,9 @@ class MoreCategory extends Component {
       });
   }
   render() {
-    let url = 'http://admin.banijjo.com.bd';
-    let counter = 1;
-    let specificationName = '';
+    // let url = 'http://admin.banijjo.com.bd';
+    // let counter = 1;
+    // let specificationName = '';
     return (
       <React.Fragment>
         <br />

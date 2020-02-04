@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import SubcategoryList from "./subcategoryList";
+import React, { Component } from 'react';
+import SubcategoryList from './subcategoryList';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
-const baseUrl = process.env.REACT_APP_FRONTEND_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
+// const baseUrl = process.env.REACT_APP_FRONTEND_URL;
 
 class Categories extends Component {
   state = {
@@ -15,8 +15,8 @@ class Categories extends Component {
   }
 
   getAllCategories() {
-    fetch(base + "/api/all_category_list", {
-      method: "GET"
+    fetch(base + '/api/all_category_list', {
+      method: 'GET'
     })
       .then(res => {
         return res.json();
@@ -32,11 +32,11 @@ class Categories extends Component {
   renderVendorImages(ven_images) {
     return ven_images.map(item => (
       <li className="sup-brand-item" key={item.vendor_id}>
-        <a href={"/vendor/" + item.vendor_id}>
+        <a href={'/vendor/' + item.vendor_id}>
           {item.logo !== null ? (
-            <img src={fileUrl + "/upload/vendor/" + item.logo} />
+            <img src={fileUrl + '/upload/vendor/' + item.logo} alt={''} />
           ) : (
-            <img src={fileUrl + "/upload/vendor/default.png"} />
+            <img src={fileUrl + '/upload/vendor/default.png'} alt={''} />
           )}
         </a>
       </li>
@@ -48,7 +48,7 @@ class Categories extends Component {
       <React.Fragment>
         <div
           className="medium-3 large-3 columns"
-          style={{ marginTop: "-27px" }}
+          style={{ marginTop: '-27px' }}
         >
           <div
             id="sp_vertical_megamenu"
@@ -67,7 +67,7 @@ class Categories extends Component {
                         <li className="spvmm-havechild" key={category.id}>
                           <a
                             className="megamenu_a"
-                            href={"/productList/" + category.id}
+                            href={'/productList/' + category.id}
                           >
                             {category.category_name}
                           </a>
@@ -76,7 +76,7 @@ class Categories extends Component {
                           <div className="spvmm_container_menu_child">
                             <div
                               className="spvmm_menu_child"
-                              style={{ width: "902px" }}
+                              style={{ width: '902px' }}
                             >
                               <div className="spvmm_numbers_col col4">
                                 <div className="row">
@@ -92,8 +92,8 @@ class Categories extends Component {
                                   ) : (
                                     <p
                                       style={{
-                                        color: "#ec1c24",
-                                        paddingLeft: "20px"
+                                        color: '#ec1c24',
+                                        paddingLeft: '20px'
                                       }}
                                     >
                                       No Categories to show
@@ -106,11 +106,11 @@ class Categories extends Component {
                                     <p
                                       className="vendorImageMobile"
                                       style={{
-                                        paddingLeft: "20px",
-                                        marginBottom: "0px",
-                                        fontWeight: "bolder",
-                                        color: "#000000",
-                                        fontSize: "13px"
+                                        paddingLeft: '20px',
+                                        marginBottom: '0px',
+                                        fontWeight: 'bolder',
+                                        color: '#000000',
+                                        fontSize: '13px'
                                       }}
                                     >
                                       Vendor Image
@@ -135,17 +135,17 @@ class Categories extends Component {
                   }
                 )
               ) : (
-                <p style={{ color: "#ec1c24" }}>No More Categories</p>
+                <p style={{ color: '#ec1c24' }}>No More Categories</p>
               )}
 
-              <li style={{ textAlign: "left" }} className="spvmm-nochild">
+              <li style={{ textAlign: 'left' }} className="spvmm-nochild">
                 <a
                   href="/moreCategory"
-                  style={{ color: "#ec1c24", textAlign: "center" }}
+                  style={{ color: '#ec1c24', textAlign: 'center' }}
                   className="megamenu_a"
                 >
-                  <i className="fa fa-plus-circle" style={{ color: "#009345" }}>
-                    {" "}
+                  <i className="fa fa-plus-circle" style={{ color: '#009345' }}>
+                    {' '}
                     More
                   </i>
                 </a>

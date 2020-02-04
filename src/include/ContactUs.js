@@ -11,16 +11,19 @@ const ContactUs = () => {
         <div className="row">
           <p className="gap">&nbsp;</p>
         </div>
-        <p className="gap"></p>
+        <p className="gap">{''}</p>
         <div className="contactMap" style={{ marginTop: '35px' }}>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14605.88690770744!2d90.36374143036696!3d23.766210653303634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8968a250d73%3A0x8f874ef58c652d1a!2sbanijjo.com!5e0!3m2!1sen!2sbd!4v1580383181324!5m2!1sen!2sbd"
             width="100%"
             height="550px"
-            frameborder="0"
+            frameBorder="0"
             style={{ border: '3px solid #ccc' }}
-            allowfullscreen=""
-          ></iframe>
+            allowFullScreen=""
+            title="googleMap"
+          >
+            {''}
+          </iframe>
         </div>
         <div className="row" id="contatti">
           <div className="container">
@@ -81,7 +84,9 @@ const ContactUs = () => {
                           placeholder="Description"
                           rows="3"
                           required
-                        ></textarea>
+                        >
+                          {''}
+                        </textarea>
                       </div>
                     </div>
                     <div className="col-md-2">
@@ -132,29 +137,32 @@ const ContactUs = () => {
 
                   <div className="my-4">
                     <p>
-                      <a
-                        href="https://www.facebook.com/banijjo/"
-                        target="_blank"
-                      >
+                      <a href="https://www.facebook.com/banijjo/">
                         <i
                           id="social-fb"
                           className="fa fa-facebook-square fa-3x socialFooter"
                           style={{ color: '#3b5998' }}
-                        ></i>
+                        >
+                          {''}
+                        </i>
                       </a>
-                      <a href="#">
+                      <a href="https://twitter.com/banijjo">
                         <i
                           id="social-tw"
                           className="fa fa-twitter-square fa-3x socialFooter"
                           style={{ color: '#26a7de' }}
-                        ></i>
+                        >
+                          {''}
+                        </i>
                       </a>
-                      <a href="#">
+                      <a href="https://www.linkedin.com/showcase/banijjo.com">
                         <i
                           id="social-gp"
                           className="fa fa-linkedin-square fa-3x socialFooter"
                           style={{ color: '#0e76a8' }}
-                        ></i>
+                        >
+                          {''}
+                        </i>
                       </a>
                     </p>
                   </div>

@@ -51,9 +51,9 @@ class Search extends Component {
   productListDynamic() {
     let listArray = [];
     this.state.categoryProductList.length > 0
-      ? this.state.categoryProductList.map((item, key) => {
+      ? this.state.categoryProductList.forEach((item, key) => {
           console.log();
-          if (key > 1 && key % 4 == 0) {
+          if (key > 1 && key % 4 === 0) {
             listArray.push(<hr />);
           }
           listArray.push(
@@ -61,19 +61,12 @@ class Search extends Component {
               <div className="col-md-3 col-sm-6">
                 <div className="product-grid7">
                   <div className="product-image7">
-                    {/* <div class="frameProductImg" style="border-bottom: 1px solid #ddd; ">
-        <span class="helperProductImg">
-           <img class="pic-1" src="image/responssive.jpg">
-           <img class="pic-2" src="image/responssive.jpg">
-        </span>
-     </div> */}
-
                     <a href={'/productDetails/' + item.id}>
                       <div
-                        class="frameProductImg"
+                        className="frameProductImg"
                         style={{ borderBottom: '1px solid #ddd' }}
                       >
-                        <span class="helperProductImg">
+                        <span className="helperProductImg">
                           <img
                             className="pic-1"
                             src={
@@ -81,6 +74,7 @@ class Search extends Component {
                               '/upload/product/productImages/' +
                               item.home_image
                             }
+                            alt={''}
                           />
                           <img
                             className="pic-2"
@@ -89,6 +83,7 @@ class Search extends Component {
                               '/upload/product/productImages/' +
                               item.home_image
                             }
+                            alt={''}
                           />
                         </span>
                       </div>
@@ -96,13 +91,19 @@ class Search extends Component {
 
                     <ul className="social">
                       <li>
-                        <a href="" className="fa fa-search"></a>
+                        <a href="!#" className="fa fa-search">
+                          {''}
+                        </a>
                       </li>
                       <li>
-                        <a href="" className="fa fa-shopping-bag"></a>
+                        <a href="!#" className="fa fa-shopping-bag">
+                          {''}
+                        </a>
                       </li>
                       <li>
-                        <a href="" className="fa fa-shopping-cart"></a>
+                        <a href="!#" className="fa fa-shopping-cart">
+                          {''}
+                        </a>
                       </li>
                     </ul>
                     <span className="product-new-label">New</span>
@@ -110,14 +111,14 @@ class Search extends Component {
                   </div>
                   <div className="product-content">
                     <h3 className="title">
-                      <a href="#">{item.product_name}r</a>
+                      <a href="!#">{item.product_name}r</a>
                     </h3>
                     <ul className="rating">
-                      <li className="fa fa-star"></li>
-                      <li className="fa fa-star"></li>
-                      <li className="fa fa-star"></li>
-                      <li className="fa fa-star"></li>
-                      <li className="fa fa-star"></li>
+                      <li className="fa fa-star">{''}</li>
+                      <li className="fa fa-star">{''}</li>
+                      <li className="fa fa-star">{''}</li>
+                      <li className="fa fa-star">{''}</li>
+                      <li className="fa fa-star">{''}</li>
                     </ul>
                     <div className="price">
                       ৳{item.productPrice}
@@ -139,9 +140,9 @@ class Search extends Component {
   }
 
   render() {
-    let url = 'http://admin.banijjo.com.bd';
-    let counter = 1;
-    let specificationName = '';
+    // let url = 'http://admin.banijjo.com.bd';
+    // let counter = 1;
+    // let specificationName = '';
     return (
       <React.Fragment>
         <div>
@@ -155,13 +156,13 @@ class Search extends Component {
                 <h4 style={{ color: '#ec1c24', textAlign: 'center' }}>
                   Search Results for "{this.state.searchKey}"
                 </h4>
-                <div style={{ height: '10px' }}></div>
+                <div style={{ height: '10px' }}>{''}</div>
                 {this.productListDynamic()}
               </div>
               <hr />
             </div>
           </div>
-          <div className="row"></div>
+          <div className="row">{''}</div>
           <Footer />
         </div>
       </React.Fragment>

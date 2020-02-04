@@ -6,7 +6,7 @@ const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 
-const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailPattern = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
 
 class ShoppingCart extends Component {
   constructor(props) {
@@ -128,16 +128,16 @@ class ShoppingCart extends Component {
     let productIds = [];
 
     if (cartData) {
-      cartData.map(function(val, index) {
+      cartData.forEach(function(val, index) {
         productIds.push(val.productId);
       });
 
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedCartData = [];
 
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent, keyParent) {
         let totalCount = 0;
-        cartData.map(function(val, key) {
+        cartData.forEach(function(val, key) {
           if (parseInt(valParent) === parseInt(val.productId)) {
             totalCount += val.quantity;
           }
@@ -146,7 +146,7 @@ class ShoppingCart extends Component {
       });
 
       let revisedCartDataKeyValue = [];
-      revisedCartData.map(function(value, key) {
+      revisedCartData.forEach(function(value, key) {
         revisedCartDataKeyValue[value.productId] = value.quantity;
       });
       return revisedCartDataKeyValue;
@@ -161,7 +161,7 @@ class ShoppingCart extends Component {
       let productIds = [];
 
       if (cartData) {
-        cartData.map(function(val, index) {
+        cartData.forEach(function(val) {
           productIds.push(val.productId);
         });
 
@@ -170,9 +170,9 @@ class ShoppingCart extends Component {
         );
         let revisedCartData = [];
 
-        uniqueProductIds.map(function(valParent, keyParent) {
+        uniqueProductIds.forEach(function(valParent) {
           let totalCount = 0;
-          cartData.map(function(val, key) {
+          cartData.forEach(function(val) {
             if (parseInt(valParent) === parseInt(val.productId)) {
               totalCount += val.quantity;
             }
@@ -181,7 +181,7 @@ class ShoppingCart extends Component {
         });
 
         let revisedCartDataKeyValue = [];
-        revisedCartData.map(function(value, key) {
+        revisedCartData.forEach(function(value, key) {
           revisedCartDataKeyValue[value.productId] = value.quantity;
         });
 
@@ -210,7 +210,7 @@ class ShoppingCart extends Component {
 
             let requiredFunc = this.requiredFunc();
             let itemQuantityState = {};
-            response.data.map(function(item, key) {
+            response.data.forEach(function(item, key) {
               itemQuantityState[item.id] = requiredFunc[item.id];
             });
             this.setState({ itemQuantityState: itemQuantityState });
@@ -245,9 +245,9 @@ class ShoppingCart extends Component {
 
           this.getDiscounts(response.data);
 
-          let requiredFunc = this.requiredFunc();
+          // let requiredFunc = this.requiredFunc();
           let itemQuantityState = {};
-          response.data.map(function(item, key) {
+          response.data.forEach(function(item, key) {
             itemQuantityState[item.id] = item.quantity;
           });
 
@@ -260,30 +260,29 @@ class ShoppingCart extends Component {
     if (!localStorage.customer_id) {
       let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
-      cartData.map(function(val, index) {
+      cartData.forEach(function(val, index) {
         productIds.push(val.productId);
       });
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedCartData = [];
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent) {
         let totalCount = 0;
-        cartData.map(function(val, key) {
-          if (valParent == val.productId) {
+        cartData.forEach(function(val) {
+          if (valParent === val.productId) {
             totalCount += val.quantity;
           }
         });
         revisedCartData.push({ productId: valParent, quantity: totalCount });
       });
       let newCartData = [];
-      revisedCartData.map(function(val, key) {
-        if (itemId != val.productId) {
+      revisedCartData.forEach(function(val, key) {
+        if (itemId !== val.productId) {
           newCartData.push({
             productId: val.productId,
             quantity: val.quantity
           });
         }
       });
-      console.log(revisedCartData);
       localStorage.removeItem('cart');
       localStorage.setItem('cart', JSON.stringify(newCartData));
       this.getCustomerCartProducts();
@@ -314,14 +313,14 @@ class ShoppingCart extends Component {
     if (!localStorage.customer_id) {
       let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
-      cartData.map(function(val, index) {
+      cartData.forEach(function(val) {
         productIds.push(val.productId);
       });
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedCartData = [];
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent) {
         let totalCount = 0;
-        cartData.map(function(val, key) {
+        cartData.forEach(function(val) {
           if (parseInt(valParent) === parseInt(val.productId)) {
             totalCount += val.quantity;
           }
@@ -329,7 +328,7 @@ class ShoppingCart extends Component {
         revisedCartData.push({ productId: valParent, quantity: totalCount });
       });
       let newCartData = [];
-      revisedCartData.map(function(val, key) {
+      revisedCartData.forEach(function(val, key) {
         if (parseInt(itemId) === parseInt(val.productId)) {
           let newQty = val.quantity;
           if (type === 0) {
@@ -393,7 +392,7 @@ class ShoppingCart extends Component {
       })
       .then(response => {
         // console.log(response);
-        if (response.data == true) {
+        if (response.data === true) {
           this.setState({ responseMessage: response.message });
           var link = document.getElementById('successCartMessage');
           var cartModalclose = document.getElementById('cartModalClose');
@@ -401,11 +400,11 @@ class ShoppingCart extends Component {
           paymentModalClose.click();
           cartModalclose.click();
           link.click();
-        } else if (response.data == false) {
+        } else if (response.data === false) {
           this.setState({ responseMessage: response.message });
-          var link = document.getElementById('successCartMessage');
-          var cartModalclose = document.getElementById('cartModalClose');
-          var paymentModalClose = document.getElementById('paymentModalClose');
+          link = document.getElementById('successCartMessage');
+          cartModalclose = document.getElementById('cartModalClose');
+          paymentModalClose = document.getElementById('paymentModalClose');
           paymentModalClose.click();
           cartModalclose.click();
           link.click();
@@ -571,14 +570,14 @@ class ShoppingCart extends Component {
     } else {
       let cartData = JSON.parse(localStorage.getItem('cart'));
       let productIds = [];
-      cartData.map(function(val, index) {
+      cartData.forEach(function(val, index) {
         productIds.push(val.productId);
       });
       let uniqueProductIds = productIds.filter((v, i, a) => a.indexOf(v) === i);
       let revisedCartData = [];
-      uniqueProductIds.map(function(valParent, keyParent) {
+      uniqueProductIds.forEach(function(valParent, keyParent) {
         let totalCount = 0;
-        cartData.map(function(val, key) {
+        cartData.forEach(function(val, key) {
           if (parseInt(valParent) === parseInt(val.productId)) {
             totalCount += val.quantity;
           }
@@ -630,7 +629,7 @@ class ShoppingCart extends Component {
         })
         .then(response => {
           if (response.data) {
-            if (type == 'Order Place') {
+            if (type === 'Order Place') {
               var LoginRegisterModal = document.getElementById(
                 'LoginRegisterModalButton'
               );
@@ -679,8 +678,9 @@ class ShoppingCart extends Component {
           type="button"
           data-toggle="modal"
           data-target="#exampleModalShipping"
-          role="button"
-        ></button>
+        >
+          {''}
+        </button>
         <div
           className="modal"
           id="exampleModalShipping"
@@ -856,7 +856,9 @@ class ShoppingCart extends Component {
                                     className="fa fa-trash"
                                     aria-hidden="true"
                                     style={{ fontSize: '24px', color: 'red' }}
-                                  ></i>
+                                  >
+                                    {''}
+                                  </i>
                                 </button>
                               </div>
                             </div>
@@ -879,16 +881,18 @@ class ShoppingCart extends Component {
                     type="button"
                     data-toggle="modal"
                     data-target="#LoginRegisterModal"
-                    role="button"
-                  ></button>
+                  >
+                    {''}
+                  </button>
                   <button
                     style={{ display: 'none !important' }}
                     id="ShippingModalButton"
                     type="button"
                     data-toggle="modal"
                     data-target="#ShippingModal"
-                    role="button"
-                  ></button>
+                  >
+                    {''}
+                  </button>
                 </div>
               </div>
             </div>
@@ -975,8 +979,9 @@ class ShoppingCart extends Component {
                   type="button"
                   data-toggle="modal"
                   data-target="#PromoCodeModal"
-                  role="button"
-                ></button>
+                >
+                  {''}
+                </button>
 
                 <div
                   className="modal"
@@ -1143,7 +1148,11 @@ class ShoppingCart extends Component {
                             Create Account
                           </button>
                           <p align="left">
-                            <a href="#" target="_blank" className="">
+                            <a
+                              href="!#"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               Forgot Password?
                             </a>
                           </p>
@@ -1185,7 +1194,11 @@ class ShoppingCart extends Component {
                             Login
                           </button>
                           <p align="left">
-                            <a href="#" target="_blank" className="">
+                            <a
+                              href="!#"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               Forgot Password?
                             </a>
                           </p>
@@ -1244,7 +1257,7 @@ class ShoppingCart extends Component {
                         this.state.discountAmount -
                         this.state.promoCodeAmount}
                     </h4>
-                    <div className="pull-right"></div>
+                    <div className="pull-right">{''}</div>
                   </div>
                   <p>&nbsp;</p>
                   <div className="col-md-12">
@@ -1254,7 +1267,9 @@ class ShoppingCart extends Component {
                         className="fa fa-angle-right"
                         aria-hidden="true"
                         style={{ fontSize: '32px' }}
-                      ></i>
+                      >
+                        {''}
+                      </i>
                     </div>
                     <br />
                     <button
@@ -1262,12 +1277,10 @@ class ShoppingCart extends Component {
                       className="next-btn next-medium next-btn-primary next-btn-text"
                       data-toggle="modal"
                       data-target="#addressModal"
-                      role="button"
                     >
-                      <i
-                        className="fa fa-plus"
-                        style={{ fontSize: '15px' }}
-                      ></i>{' '}
+                      <i className="fa fa-plus" style={{ fontSize: '15px' }}>
+                        {''}
+                      </i>{' '}
                       Add new address
                     </button>
                   </div>
@@ -1281,7 +1294,7 @@ class ShoppingCart extends Component {
                     />
                     <span> Agree terms and conditions</span>
                     <br />
-                    <a data-toggle="modal" data-target="#termsModal" href="#">
+                    <a data-toggle="modal" data-target="#termsModal" href="!#">
                       View terms & conditions
                     </a>
                   </div>
@@ -1293,8 +1306,9 @@ class ShoppingCart extends Component {
                     type="button"
                     data-toggle="modal"
                     data-target="#exampleModalPayment"
-                    role="button"
-                  ></button>
+                  >
+                    {''}
+                  </button>
                   <button
                     onClick={() => this.checkInventory('Order Confirm')}
                     disabled={
@@ -1655,16 +1669,16 @@ class ShoppingCart extends Component {
 
                   <div className="row">
                     <div className="col-md-3 col-lg-3">
-                      <img src="image/card.png" />
+                      <img src="image/card.png" alt={`img`} />
                     </div>
                     <div className="col-md-3 col-lg-3">
-                      <img src="image/card2.png" />
+                      <img src="image/card2.png" alt={`img`} />
                     </div>
                     <div className="col-md-3 col-lg-3">
-                      <img src="image/card3.png" />
+                      <img src="image/card3.png" alt={`img`} />
                     </div>
                     <div className="col-md-3 col-lg-3">
-                      <img src="image/card4.png" />
+                      <img src="image/card4.png" alt={`img`} />
                     </div>
                   </div>
 
