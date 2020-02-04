@@ -1347,7 +1347,6 @@ class ProductDetails extends Component {
               >
                 <div className="row">
                   <div className="medium-6 large-6 columns">
-                    {/*array-callback-return*/}
                     {this.state.product_specification_details_description
                       ? this.state.product_specification_details_description.forEach(
                           (item, key) => {
