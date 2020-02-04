@@ -89,7 +89,7 @@ const ContactUs = () => {
                         </textarea>
                       </div>
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-3">
                       <button
                         className="btn btn-primary"
                         type="submit"
