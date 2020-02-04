@@ -14,6 +14,7 @@ const {
   showProductListByCategory,
   getDiscountByProductId
 } = require('./helpers');
+const { showColorCombination } = require('./productDeatilsHelper');
 
 const { dbConnection, query } = require('./db_local_config');
 // const { dbConnection, query } = require("./db_com_bd_config");
@@ -1598,4 +1599,11 @@ router.get('/productListByCat/:id', async (req, res) => {
   }
 });*/
 
-module.exports = router;
+router.get('/showProductsInfo', async (req, res) => {
+  const { pid, colorId } = req.params;
+  const data = await showColorCombination();
+  res.json(data);
+});
+
+const apiModule = (module.exports = router);
+apiModule.query = query;
