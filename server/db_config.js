@@ -15,6 +15,7 @@ const live_config = {
   database: 'microfin_ecommerce'
 };
 
+//Change here before go to live.
 // const process_env = 'development';
 const process_env = 'production';
 
@@ -24,14 +25,6 @@ if (process_env === 'development')
   DB_Config = mysql.createConnection(dev_config);
 else if (process_env === 'production')
   DB_Config = mysql.createConnection(live_config);
-
-// const dbConnection_local = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   // database: "ecommerce"
-//   database: 'microfin_ecommerce'
-// });
 
 DB_Config.connect(err => {
   if (err) {
