@@ -779,19 +779,18 @@ class ShoppingCart extends Component {
                             <div className="col-12 col-sm-12 col-md-2 text-center">
                               {item.home_image ? (
                                 <img
-                                  className="img-responsive"
                                   src={
                                     fileUrl +
                                     '/upload/product/productImages/' +
                                     item.home_image
                                   }
+                                  style={{ marginLeft: '15px' }}
                                   alt="prewiew"
                                   width="120"
                                   height="80"
                                 />
                               ) : (
                                 <img
-                                  className="img-responsive"
                                   src="http://placehold.it/120x80"
                                   alt="prewiew"
                                   width="120"
@@ -903,7 +902,7 @@ class ShoppingCart extends Component {
               <div className="panel-heading text-center">
                 <h4>Order Summary</h4>
               </div>
-              <div className="panel-body">
+              <div className="panel-body" style={{ padding: '0px' }}>
                 <div className="col-md-12">
                   <strong>
                     Subtotal ({this.state.cartProducts.length} item)

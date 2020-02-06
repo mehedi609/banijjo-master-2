@@ -74,8 +74,7 @@ class ProductDetails extends Component {
       selectedSizeId: '',
       selectedColorId: '',
       selectedColorName: '',
-      selectedProductQuantity: 0,
-      selectedProductQuantityReentered: 0
+      selectedProductQuantity: 0
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -359,12 +358,7 @@ class ProductDetails extends Component {
   }
 
   isSelectedProductExists = () => {
-    const {
-      productId,
-      selectedSizeId,
-      selectedColorId,
-      productQuantity
-    } = this.state;
+    const { productId, selectedSizeId, selectedColorId } = this.state;
 
     const data = {
       productId,
@@ -384,10 +378,6 @@ class ProductDetails extends Component {
         console.log(res.data);
         this.setState({ selectedProductQuantity: res.data });
       });
-
-    // const { net_products } = result.data;
-    // console.log('net_products', result.data.net_products);
-    // return net_products > productQuantity;
   };
 
   showAlert(text) {
@@ -401,22 +391,25 @@ class ProductDetails extends Component {
   }
 
   addCartLocal = e => {
-    // setTimeout(this.isSelectedProductExists, 600);
     this.isSelectedProductExists();
 
     setTimeout(() => {
-      console.log('Reentered:..', this.state.selectedProductQuantityReentered);
-
-      const { productId, selectedSizeId, selectedColorId } = this.state;
+      const {
+        productId,
+        selectedSizeId,
+        selectedColorId,
+        selectedProductQuantity,
+        productQuantity
+      } = this.state;
 
       if (selectedColorId === '') {
         this.showAlert('Please Select a Color');
       } else if (selectedSizeId === '') {
         this.showAlert('Please Select a Size');
-      } else if (
-        this.state.selectedProductQuantity < this.state.productQuantity
-      ) {
-        this.showAlert('This color and size combination are out of stock!');
+      } else if (selectedProductQuantity < productQuantity) {
+        this.showAlert(
+          'This color and size combination are out of stock! Please Select another one.'
+        );
       } else {
         let cartArr = [
           {
@@ -1053,10 +1046,11 @@ class ProductDetails extends Component {
               {sizes.length > 0 && (
                 <div className="color-quality-left">
                   <label style={{ fontWeight: '100' }}>
-                    Select Size
+                    <span style={{ fontSize: '16px' }}>Select Size</span>
                     <select
                       value={selectedSizeId}
                       onChange={this.selectSizeHandler}
+                      style={{ width: '75%' }}
                     >
                       <option value="">Select a Size</option>
                       {sizes.map(({ id, size, size_type_id }) => (
@@ -1068,7 +1062,7 @@ class ProductDetails extends Component {
               )}
 
               <div className="color-quality-right">
-                <h5>Quantity </h5>
+                <h5 style={{ marginBottom: '2px' }}>Quantity </h5>
                 <div className="quantity">
                   <div className="quantity-select">
                     <div
