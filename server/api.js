@@ -16,8 +16,6 @@ const {
   getDiscountByProductId
 } = require('./helpers');
 
-const { showColorCombination } = require('./productDeatilsHelper');
-
 const { query } = require('./db_config');
 
 const router = express.Router();

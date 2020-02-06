@@ -15,10 +15,8 @@ const live_config = {
   database: 'microfin_ecommerce'
 };
 
-//Change here before go to live.
-// const process_env = 'development';
-const process_env = 'production';
-
+const process_env = 'development';
+// const process_env = 'production'
 let DB_Config;
 
 if (process_env === 'development')
