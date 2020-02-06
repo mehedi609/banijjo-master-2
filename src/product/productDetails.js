@@ -395,7 +395,6 @@ class ProductDetails extends Component {
 
     setTimeout(() => {
       const {
-        productId,
         selectedSizeId,
         selectedColorId,
         selectedProductQuantity,
@@ -585,12 +584,10 @@ class ProductDetails extends Component {
   }
 
   selectSizeHandler = e => {
-    console.log('sizeId-->', e.target.value);
     this.setState({ selectedSizeId: e.target.value });
   };
 
   selectColorHandler = e => {
-    console.log('colorId-->', e.target.id);
     this.setState({
       selectedColorId: e.target.id,
       selectedColorName: e.target.name
