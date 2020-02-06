@@ -2994,9 +2994,8 @@ h2.typoh2 {
 .color-quality-left h5,
 .color-quality-right h5,
 .occasional h5 {
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-size: 1em;
-  /*color: #3c43a4;*/
   color: #212121;
   margin: 0 0 1em;
 }
@@ -4163,22 +4162,22 @@ td.invert-image a img {
     width: 2em;
   }
   .entypo-facebook:before {
-    background: url(../images/img-sp.png) no-repeat -1px -131px;
+    background: url(../image/img-sp.png) no-repeat -1px -131px;
     width: 2em;
     height: 2em;
   }
   .entypo-dribbble:before {
-    background: url(../images/img-sp.png) no-repeat -82px -131px;
+    background: url(../image/img-sp.png) no-repeat -82px -131px;
     width: 2em;
     height: 2em;
   }
   .entypo-twitter:before {
-    background: url(../images/img-sp.png) no-repeat -42px -131px;
+    background: url(../image/img-sp.png) no-repeat -42px -131px;
     width: 2em;
     height: 2em;
   }
   .entypo-behance:before {
-    background: url(../images/img-sp.png) no-repeat -124px -131px;
+    background: url(../image/img-sp.png) no-repeat -124px -131px;
     width: 2em;
     height: 2em;
   }
@@ -5345,11 +5344,11 @@ td.invert-image a img {
   .agileinfo_banner_bottom1_grid_left a,
   .team-bottom a {
     font-size: 14px;
-    background: url(../images/img-sp.png) no-repeat 93px -5px;
+    background: url(../image/img-sp.png) no-repeat 93px -5px;
   }
   .agileinfo_banner_bottom1_grid_left a:hover,
   .team-bottom a:hover {
-    background: url(../images/img-sp.png) no-repeat 93px -39px;
+    background: url(../image/img-sp.png) no-repeat 93px -39px;
   }
   .top-brands img {
     width: 60%;

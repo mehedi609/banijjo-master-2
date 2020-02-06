@@ -153,7 +153,7 @@ router.get('/productDetails/:productId', async (req, res) => {
           const data = await query(
             `SELECT id, name FROM color_infos WHERE id=${item.colorId} AND softDel=0 AND status=1`
           );
-          return { ...item, colorName: data[0].name };
+          return { ...item, colorName: data[0].name, selected: false };
         })
       );
     } else {
@@ -1527,13 +1527,17 @@ router.get('/checkProductAvailability/:id', async (req, res) => {
 // get net products amount from stock table
 router.post('/getNetProductsFromStock', async (req, res) => {
   let { productId, colorId, sizeId } = req.body;
+  console.log(req.body);
+  // productId = !!productId ? parseInt(productId) : 0;
+  // colorId = !!colorId ? parseInt(colorId) : 0;
+  // sizeId = !!sizeId ? parseInt(sizeId) : 0;
   productId = !!productId ? productId : 0;
 
   if (!productId)
     return res.json({ msg: 'A productId is required', net_products: 0 });
   try {
     const net_products = await netProductsFromStock(productId, colorId, sizeId);
-    res.json({ net_products });
+    res.json(net_products);
   } catch (e) {
     console.error(e);
     res.status(500).send('Server Error');

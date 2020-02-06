@@ -19,7 +19,9 @@ import $ from 'jquery';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import swal from 'sweetalert';
 import '../assets/social-share.css';
+import './../assets/selectImage.css';
 import CardToListProducts from '../features/CardToListProducts';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
@@ -44,7 +46,6 @@ class ProductDetails extends Component {
       showClickedImage: '',
       carouselImages: [],
       productQuantity: 1,
-      productId: this.props.match.params.id,
       productName: '',
       productImage: '',
       product_full_description: [],
@@ -68,7 +69,13 @@ class ProductDetails extends Component {
       discountAmount: 0,
       metaTags: [],
       colors: [],
-      sizes: []
+      sizes: [],
+      productId: this.props.match.params.id,
+      selectedSizeId: '',
+      selectedColorId: '',
+      selectedColorName: '',
+      selectedProductQuantity: 0,
+      selectedProductQuantityReentered: 0
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -351,28 +358,88 @@ class ProductDetails extends Component {
     return spcArray;
   }
 
-  addCartLocal = data => e => {
-    let cartArr = [
-      { productId: this.state.productId, quantity: this.state.productQuantity }
-    ];
-    let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
-    localStorage.removeItem('cart');
+  isSelectedProductExists = () => {
+    const {
+      productId,
+      selectedSizeId,
+      selectedColorId,
+      productQuantity
+    } = this.state;
 
-    if (cartDataExisting) {
-      cartDataExisting.push({
-        productId: this.state.productId,
-        quantity: this.state.productQuantity
+    const data = {
+      productId,
+      colorId: selectedSizeId,
+      sizeId: selectedColorId
+    };
+
+    const config = {
+      headers: { 'Content-Type': 'application/json' }
+    };
+
+    const body = JSON.stringify(data);
+
+    axios
+      .post(`${base}/api/getNetProductsFromStock`, body, config)
+      .then(res => {
+        console.log(res.data);
+        this.setState({ selectedProductQuantity: res.data });
       });
-      localStorage.setItem('cart', JSON.stringify(cartDataExisting));
-    } else {
-      localStorage.setItem('cart', JSON.stringify(cartArr));
-    }
 
-    if (data === 'buy_now') window.location = '/cart';
-    else if (data === 'add_to_cart') {
-      var link = document.getElementById('successCartMessage');
-      link.click();
-    }
+    // const { net_products } = result.data;
+    // console.log('net_products', result.data.net_products);
+    // return net_products > productQuantity;
+  };
+
+  showAlert(text) {
+    swal({
+      title: 'Warning!',
+      text,
+      icon: 'warning',
+      timer: 2000,
+      button: false
+    });
+  }
+
+  addCartLocal = e => {
+    // setTimeout(this.isSelectedProductExists, 600);
+    this.isSelectedProductExists();
+
+    setTimeout(() => {
+      console.log('Reentered:..', this.state.selectedProductQuantityReentered);
+
+      const { productId, selectedSizeId, selectedColorId } = this.state;
+
+      if (selectedColorId === '') {
+        this.showAlert('Please Select a Color');
+      } else if (selectedSizeId === '') {
+        this.showAlert('Please Select a Size');
+      } else if (
+        this.state.selectedProductQuantity < this.state.productQuantity
+      ) {
+        this.showAlert('This color and size combination are out of stock!');
+      } else {
+        let cartArr = [
+          {
+            productId: this.state.productId,
+            quantity: this.state.productQuantity
+          }
+        ];
+        let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
+        localStorage.removeItem('cart');
+
+        if (cartDataExisting) {
+          cartDataExisting.push({
+            productId: this.state.productId,
+            quantity: this.state.productQuantity
+          });
+          localStorage.setItem('cart', JSON.stringify(cartDataExisting));
+        } else {
+          localStorage.setItem('cart', JSON.stringify(cartArr));
+        }
+        var link = document.getElementById('successCartMessage');
+        link.click();
+      }
+    }, 100);
   };
 
   addCartDirect = data => e => {
@@ -393,11 +460,8 @@ class ProductDetails extends Component {
       })
       .then(response => {
         if (response.data === true) {
-          if (data === 'buy_now') window.location = '/cart';
-          else if (data === 'add_to_cart') {
-            var link = document.getElementById('successCartMessage');
-            link.click();
-          }
+          var link = document.getElementById('successCartMessage');
+          link.click();
         }
       });
   };
@@ -527,16 +591,18 @@ class ProductDetails extends Component {
     }
   }
 
-  renderColorList() {
-    const { colors } = this.state;
-    return colors.map(({ colorName }) => (
-      <li>
-        <a href={`!#`}>
-          <span style={{ backgroundColor: colorName }}>{''}</span>
-        </a>
-      </li>
-    ));
-  }
+  selectSizeHandler = e => {
+    console.log('sizeId-->', e.target.value);
+    this.setState({ selectedSizeId: e.target.value });
+  };
+
+  selectColorHandler = e => {
+    console.log('colorId-->', e.target.id);
+    this.setState({
+      selectedColorId: e.target.id,
+      selectedColorName: e.target.name
+    });
+  };
 
   render() {
     const options = {
@@ -552,7 +618,10 @@ class ProductDetails extends Component {
       productListSmCategory,
       productListSmVendor,
       category_id,
-      vendor_id
+      vendor_id,
+      sizes,
+      selectedSizeId,
+      selectedColorName
     } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
@@ -640,20 +709,34 @@ class ProductDetails extends Component {
           tabIndex="-1"
           role="dialog"
         >
-          {/*<div className="modal-dialog" role="document">
+          <div
+            className="modal-dialog"
+            role="document"
+            style={{ marginTop: '250px' }}
+          >
             <div className="modal-content" style={{ width: 'auto' }}>
-              <div className="modal-header">
+              <div className="modal-header" style={{ padding: '0' }}>
                 <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
+
                 <button
                   type="button"
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: '-25px' }}
+                  style={{ marginTop: '-55px' }}
                 >
-                  <span aria-hidden="true">×</span>
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      marginTop: '-55px',
+                      fontSize: '24px',
+                      color: 'rgb(255, 255, 255)'
+                    }}
+                  >
+                    {''}
+                  </i>
                 </button>
               </div>
 
@@ -720,105 +803,18 @@ class ProductDetails extends Component {
                 </div>
               </div>
               <div className="modal-footer">{''}</div>
-            </div>
-          </div>*/}
-
-          <div
-            className="modal-dialog"
-            role="document"
-            style={{ marginTop: '250px' }}
-          >
-            <div className="modal-content" style={{ width: 'auto' }}>
-              <div className="modal-header" style={{ padding: '0' }}>
-                <h5 className="modal-title" style={{ textAlign: 'center' }}>
-                  &nbsp;
-                </h5>
-
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                  style={{ marginTop: '-55px' }}
-                >
-                  <i
-                    className="fa fa-times-circle"
-                    style={{
-                      marginTop: '-55px',
-                      fontSize: '24px',
-                      color: 'rgb(255, 255, 255)'
-                    }}
-                  ></i>
-                </button>
-              </div>
-
-              <div className="modal-body">
-                <div className="row">
-                  <div className="col-md-12 col-lg-12">
-                    <p style={{ color: '#009345' }} className="checkDes">
-                      <i
-                        className="fa fa-check"
-                        style={{
-                          fontSize: '50px',
-                          color: 'white',
-                          backgroundColor: '#009345',
-                          borderRadius: '40px'
-                        }}
-                      ></i>{' '}
-                      Nice. A new item has been added to your Shopping Cart.
-                    </p>
-
-                    <p style={{ color: '#009345' }} className="checkMobile">
-                      <i
-                        className="fa fa-check"
-                        style={{
-                          fontSize: '20px',
-                          color: 'white',
-                          backgroundColor: '#009345',
-                          borderRadius: '40px'
-                        }}
-                      ></i>{' '}
-                      Nice. A new item has been added to your Shopping Cart.
-                    </p>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-1 col-lg-1"></div>
-                  <div className="col-md-3 col-lg-3">
-                    <a
-                      href="/cart"
-                      className="btn btn-success"
-                      style={{
-                        backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24'
-                      }}
-                    >
-                      View Shopping Cart
-                    </a>
-                  </div>
-                  <div className="col-md-3 col-lg-3">
-                    <a
-                      href={frontEndUrl}
-                      className="btn btn-success"
-                      style={{
-                        backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24'
-                      }}
-                    >
-                      Continue Shopping
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="modal-footer"></div>
             </div>
           </div>
         </div>
 
         <div className="modal" id="WishListModal" tabIndex="-1" role="dialog">
-          {/*<div className="modal-dialog" role="document">
+          <div
+            className="modal-dialog"
+            role="document"
+            style={{ marginTop: '250px' }}
+          >
             <div className="modal-content" style={{ width: 'auto' }}>
-              <div className="modal-header">
+              <div className="modal-header" style={{ padding: '0' }}>
                 <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
@@ -827,9 +823,18 @@ class ProductDetails extends Component {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: '-25px' }}
+                  style={{ marginTop: '-55px' }}
                 >
-                  <span aria-hidden="true">×</span>
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      marginTop: '-55px',
+                      fontSize: '24px',
+                      color: 'rgb(255, 255, 255)'
+                    }}
+                  >
+                    {''}
+                  </i>
                 </button>
               </div>
 
@@ -895,94 +900,6 @@ class ProductDetails extends Component {
                 </div>
               </div>
               <div className="modal-footer">{''}</div>
-            </div>
-          </div>*/}
-          <div
-            className="modal-dialog"
-            role="document"
-            style={{ marginTop: '250px' }}
-          >
-            <div className="modal-content" style={{ width: 'auto' }}>
-              <div className="modal-header" style={{ padding: '0' }}>
-                <h5 className="modal-title" style={{ textAlign: 'center' }}>
-                  &nbsp;
-                </h5>
-                <button
-                  type="button"
-                  className="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                  style={{ marginTop: '-55px' }}
-                >
-                  <i
-                    className="fa fa-times-circle"
-                    style={{
-                      marginTop: '-55px',
-                      fontSize: '24px',
-                      color: 'rgb(255, 255, 255)'
-                    }}
-                  ></i>
-                </button>
-              </div>
-
-              <div className="modal-body">
-                <div className="row">
-                  <div className="col-md-12 col-lg-12">
-                    <p style={{ color: '#009345' }} className="checkDes">
-                      <i
-                        className="fa fa-check"
-                        style={{
-                          fontSize: '50px',
-                          color: 'white',
-                          backgroundColor: '#009345',
-                          borderRadius: '40px'
-                        }}
-                      ></i>{' '}
-                      Nice. A new item has been added to your Wish List.
-                    </p>
-                    <p style={{ color: '#009345' }} className="checkMobile">
-                      <i
-                        className="fa fa-check"
-                        style={{
-                          fontSize: '20px',
-                          color: 'white',
-                          backgroundColor: '#009345',
-                          borderRadius: '40px'
-                        }}
-                      ></i>{' '}
-                      Nice. A new item has been added to your Wish List.
-                    </p>{' '}
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-1 col-lg-1"></div>
-                  <div className="col-md-3 col-lg-3">
-                    <a
-                      href="/wish"
-                      className="btn btn-success"
-                      style={{
-                        backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24'
-                      }}
-                    >
-                      View Wish List
-                    </a>
-                  </div>
-                  <div className="col-md-3 col-lg-3">
-                    <a
-                      href={frontEndUrl}
-                      className="btn btn-success"
-                      style={{
-                        backgroundColor: '#ec1c24',
-                        borderColor: '#ec1c24'
-                      }}
-                    >
-                      Continue Shopping
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="modal-footer"></div>
             </div>
           </div>
         </div>
@@ -1018,7 +935,7 @@ class ProductDetails extends Component {
                   marginRight: '-15px'
                 }}
               >
-                <div id="myresult" class="img-zoom-result">
+                <div id="myresult" className="img-zoom-result">
                   {''}
                 </div>
               </div>
@@ -1043,8 +960,8 @@ class ProductDetails extends Component {
               {carouselImages.map(
                 item =>
                   item && (
+                    // eslint-disable-next-line
                     <a
-                      href={`!#`}
                       key={item.serialNumber}
                       onClick={() => {
                         this.setState({ showClickedImage: item.imageName });
@@ -1094,14 +1011,64 @@ class ProductDetails extends Component {
               </span>
             </div>
 
-            <div className="color-quality">
-              <div className="color-quality-left">
-                <h5>Color : </h5>
-                <ul>{colors.length && this.renderColorList()}</ul>
+            {/*Select Color*/}
+            {colors.length > 0 && (
+              <div className="color-quality">
+                <div className="color-quality-left">
+                  <h5>
+                    Color: <b>{selectedColorName}</b>
+                  </h5>
+                  <ul>
+                    {colors.map(
+                      ({ colorId, imageName, colorName, seletected }) => (
+                        <li key={colorId} onClick={this.selectColorHandler}>
+                          <div
+                            className={seletected ? 'withBorder' : 'noBorder'}
+                          >
+                            <img
+                              src={
+                                !!imageName
+                                  ? `${fileUrl}/upload/product/productImages/${imageName}`
+                                  : `${fileUrl}/assets/img/default.png`
+                              }
+                              className="img-responsive"
+                              id={colorId}
+                              name={colorName}
+                              alt={colorName}
+                              width="50"
+                              height="38"
+                            />
+                          </div>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
+                <div className="clearfix"> </div>
               </div>
+            )}
+
+            <div className="color-quality">
+              {/*Select Size*/}
+              {sizes.length > 0 && (
+                <div className="color-quality-left">
+                  <label style={{ fontWeight: '100' }}>
+                    Select Size
+                    <select
+                      value={selectedSizeId}
+                      onChange={this.selectSizeHandler}
+                    >
+                      <option value="">Select a Size</option>
+                      {sizes.map(({ id, size, size_type_id }) => (
+                        <option value={id}>{size}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+              )}
 
               <div className="color-quality-right">
-                <h5>Quantity :</h5>
+                <h5>Quantity </h5>
                 <div className="quantity">
                   <div className="quantity-select">
                     <div
@@ -1149,7 +1116,7 @@ class ProductDetails extends Component {
                 {!localStorage.customer_id ? (
                   <button
                     type="button"
-                    onClick={this.addCartLocal('add_to_cart')}
+                    onClick={this.addCartLocal}
                     style={{ backgroundColor: '009345', marginRight: '10px' }}
                     className="w3ls-cart"
                   >
@@ -1165,6 +1132,7 @@ class ProductDetails extends Component {
                     Add to cart
                   </button>
                 )}
+
                 {!localStorage.customer_id ? (
                   <button
                     type="button"
@@ -1571,7 +1539,7 @@ class ProductDetails extends Component {
           </div>
         </div>
 
-        {productListSmCategory.length && (
+        {productListSmCategory.length > 0 && (
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
               <h5
@@ -1609,7 +1577,7 @@ class ProductDetails extends Component {
           </div>
         )}
 
-        {productListSmVendor.length && (
+        {productListSmVendor.length > 0 && (
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
               <h5

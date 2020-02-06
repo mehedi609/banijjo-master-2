@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Footer from './footer';
-import '../assets/contactUs.css';
+import './../assets/contactUs.css';
+import './../assets/footerSocialIconColor.css';
 
 const marginBottom = { marginBottom: '20px' };
 
@@ -137,32 +138,72 @@ const ContactUs = () => {
 
                   <div className="my-4">
                     <p>
-                      <a href="https://www.facebook.com/banijjo/">
+                      <a
+                        href="https://www.facebook.com/banijjo/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <i
-                          id="social-fb"
                           className="fa fa-facebook-square fa-3x socialFooter"
                           style={{ color: '#3b5998' }}
                         >
                           {''}
                         </i>
                       </a>
-                      <a href="https://twitter.com/banijjo">
+                      <a
+                        href="https://twitter.com/banijjo"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <i
-                          id="social-tw"
                           className="fa fa-twitter-square fa-3x socialFooter"
                           style={{ color: '#26a7de' }}
                         >
                           {''}
                         </i>
                       </a>
-                      <a href="https://www.linkedin.com/showcase/banijjo.com">
+                      <a
+                        href="https://www.linkedin.com/showcase/banijjo.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <i
-                          id="social-gp"
                           className="fa fa-linkedin-square fa-3x socialFooter"
                           style={{ color: '#0e76a8' }}
                         >
                           {''}
                         </i>
+                      </a>
+
+                      <a
+                        href="https://www.instagram.com/banijjo/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i
+                          className="fa fa-instagram fa-3x socialFooter"
+                          style={{ color: '#3f729b' }}
+                        ></i>
+                      </a>
+                      <a
+                        href="https://www.youtube.com/banijjomela"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i
+                          className="fa fa-youtube-square fa-3x socialFooter"
+                          style={{ color: '#c4302b' }}
+                        ></i>
+                      </a>
+                      <a
+                        href="https://www.pinterest.com/banijjo/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i
+                          className="fa fa-pinterest-square fa-3x socialFooter"
+                          style={{ color: '#c8232c' }}
+                        ></i>
                       </a>
                     </p>
                   </div>
