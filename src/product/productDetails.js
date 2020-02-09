@@ -381,7 +381,6 @@ class ProductDetails extends Component {
     axios
       .post(`${base}/api/getNetProductsFromStock`, body, config)
       .then(res => {
-        console.log(res.data);
         this.setState({ selectedProductQuantity: res.data });
       });
 

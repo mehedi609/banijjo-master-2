@@ -24,14 +24,6 @@ if (process_env === 'development')
 else if (process_env === 'production')
   DB_Config = mysql.createConnection(live_config);
 
-// const dbConnection_local = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   // database: "ecommerce"
-//   database: 'microfin_ecommerce'
-// });
-
 DB_Config.connect(err => {
   if (err) {
     throw err;

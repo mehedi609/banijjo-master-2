@@ -16,7 +16,7 @@ const {
   getDiscountByProductId
 } = require('./helpers');
 
-const { showColorCombination } = require('./productDeatilsHelper');
+// const { showColorCombination } = require('./productDeatilsHelper');
 
 const { query } = require('./db_config');
 
@@ -1554,24 +1554,5 @@ router.get('/productListByCat/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
-
-/*router.get('/getCategoryInfoById/:id', async (req, res) => {
-  try {
-    const data = await getCategoryInfoById(query, req.params.id);
-    res.json(data);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send('Server Error');
-  }
-});*/
-
-router.get('/showProductsInfo', async (req, res) => {
-  const { pid, colorId } = req.params;
-  const data = await showColorCombination();
-  res.json(data);
-});
-
-// const apiModule = (module.exports = router);
-// apiModule.query = query;
 
 module.exports = router;
