@@ -22,15 +22,11 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import swal from 'sweetalert';
 import '../assets/social-share.css';
 import './../assets/selectImage.css';
-import CardToListProducts from '../features/CardToListProducts';
+import ListingSameVendorsSameProducts from "./ListingSameVendorsSameProducts";
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
-
-const img_src = `${fileUrl}/upload/product/productImages/`;
-// const pd = '/productDetails/';
-// const pl = '/productList/';
 
 // eslint-disable-next-line
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -75,7 +71,7 @@ class ProductDetails extends Component {
       selectedColorId: '',
       selectedColorName: '',
       selectedProductQuantity: 0,
-      selectedProductQuantityReentered: 0
+      isSelectedProduceFound: true
     };
 
     this.handleClickPlus = this.handleClickPlus.bind(this);
@@ -263,73 +259,6 @@ class ProductDetails extends Component {
     return descriptionText;
   }
 
-  sameVendorOtherProductsDeskTop() {
-    const { productListSmVendor } = this.state;
-    const classes = ['frameMore', 'helperframeMore'];
-
-    if (productListSmVendor.length) {
-      return productListSmVendor.map(({ id, home_image }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
-  sameVendorOtherProductsMobile() {
-    const { productListSmVendor } = this.state;
-    const classes = ['moreCatDiv', 'moreCatSpan'];
-
-    if (productListSmVendor.length) {
-      return productListSmVendor.map(({ id, home_image }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
-  sameProductsOtherVendorDesktop() {
-    const { productListSmCategory } = this.state;
-    const classes = ['frameMore', 'helperframeMore'];
-
-    if (productListSmCategory.length) {
-      return productListSmCategory.map(({ id, home_image }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
-  sameProductsOtherVendorMobile() {
-    const { productListSmCategory } = this.state;
-    const classes = ['moreCatDiv', 'moreCatSpan'];
-    if (productListSmCategory.length) {
-      return productListSmCategory.map(({ home_image, id }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
   specificationDetailsPart() {
     const spcArray = [];
     if (this.state.product_specification_name.length > 1) {
@@ -394,7 +323,7 @@ class ProductDetails extends Component {
       title: 'Warning!',
       text,
       icon: 'warning',
-      timer: 2000,
+      timer: 4000,
       button: false
     });
   }
@@ -404,18 +333,14 @@ class ProductDetails extends Component {
     this.isSelectedProductExists();
 
     setTimeout(() => {
-      console.log('Reentered:..', this.state.selectedProductQuantityReentered);
-
-      const { productId, selectedSizeId, selectedColorId } = this.state;
+      const { productId, selectedSizeId, selectedColorId, selectedProductQuantity, productQuantity} = this.state;
 
       if (selectedColorId === '') {
         this.showAlert('Please Select a Color');
       } else if (selectedSizeId === '') {
         this.showAlert('Please Select a Size');
-      } else if (
-        this.state.selectedProductQuantity < this.state.productQuantity
-      ) {
-        this.showAlert('This color and size combination are out of stock!');
+      } else if ( selectedProductQuantity < productQuantity) {
+        this.showAlert('This color and size combination are out of stock! Please Select another.');
       } else {
         let cartArr = [
           {
@@ -591,12 +516,10 @@ class ProductDetails extends Component {
   }
 
   selectSizeHandler = e => {
-    console.log('sizeId-->', e.target.value);
     this.setState({ selectedSizeId: e.target.value });
   };
 
   selectColorHandler = e => {
-    console.log('colorId-->', e.target.id);
     this.setState({
       selectedColorId: e.target.id,
       selectedColorName: e.target.name
@@ -1565,12 +1488,14 @@ class ProductDetails extends Component {
 
               {/*Desktop View*/}
               <div className="row small-up-6 desview">
-                {this.sameProductsOtherVendorDesktop()}
+                {/*{this.sameProductsOtherVendorDesktop()}*/}
+                <ListingSameVendorsSameProducts products={productListSmCategory} classes={['frameMore', 'helperframeMore']}/>
               </div>
 
               {/*Mobile view*/}
               <div className="row small-up-3 moreCat">
-                {this.sameProductsOtherVendorMobile()}
+                {/*{this.sameProductsOtherVendorMobile()}*/}
+                <ListingSameVendorsSameProducts products={productListSmCategory} classes={['moreCatDiv', 'moreCatSpan']}/>
               </div>
             </div>
           </div>
@@ -1603,12 +1528,14 @@ class ProductDetails extends Component {
 
               {/*Desktop View*/}
               <div className="row small-up-6 desview">
-                {this.sameVendorOtherProductsDeskTop()}
+                <ListingSameVendorsSameProducts classes={['frameMore', 'helperframeMore']} products={productListSmVendor}/>
+                {/*{this.sameVendorOtherProductsDeskTop()}*/}
               </div>
 
               {/*Mobile view*/}
               <div className="row small-up-3 moreCat">
-                {this.sameVendorOtherProductsMobile()}
+                {/*{this.sameVendorOtherProductsMobile()}*/}
+                <ListingSameVendorsSameProducts classes={['moreCatDiv', 'moreCatSpan']} products={productListSmVendor}/>
               </div>
               <div className="row column">&nbsp;</div>
             </div>
