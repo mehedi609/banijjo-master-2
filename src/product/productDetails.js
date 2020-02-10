@@ -1568,7 +1568,7 @@ class ProductDetails extends Component {
                 }}
                 className="text-left"
               >
-                Same Vendor Other Products{' '}
+                Other Products{' '}
                 <a href={`/vendor/${vendor_id}`}>
                   <span
                     style={{

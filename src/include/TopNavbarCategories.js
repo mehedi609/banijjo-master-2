@@ -29,7 +29,7 @@ class TopNavbarCategories extends Component {
   redenderCategories(categories) {
     return categories.map(el => (
       <div className="p-2" key={el.id}>
-        <a className="headerCat" href={'/productList/' + el.id}>
+        <a className="headerCat" href={'/productList/' + el.category_id}>
           {el.category_name}
         </a>
       </div>

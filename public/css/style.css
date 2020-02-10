@@ -2994,8 +2994,10 @@ h2.typoh2 {
 .color-quality-left h5,
 .color-quality-right h5,
 .occasional h5 {
-  text-transform: capitalize;
+  /* text-transform: uppercase;*/
+  text-transform: lowercase;
   font-size: 1em;
+  /*color: #3c43a4;*/
   color: #212121;
   margin: 0 0 1em;
 }
@@ -3003,8 +3005,9 @@ h2.typoh2 {
   margin: 3em 0;
 }
 .color-quality-right {
-  float: left;
-  margin-left: 8em;
+  float: right;
+  margin-top: 6px;
+
 }
 .colr {
   float: left;
@@ -4162,22 +4165,22 @@ td.invert-image a img {
     width: 2em;
   }
   .entypo-facebook:before {
-    background: url(../image/img-sp.png) no-repeat -1px -131px;
+    background: url(../images/img-sp.png) no-repeat -1px -131px;
     width: 2em;
     height: 2em;
   }
   .entypo-dribbble:before {
-    background: url(../image/img-sp.png) no-repeat -82px -131px;
+    background: url(../images/img-sp.png) no-repeat -82px -131px;
     width: 2em;
     height: 2em;
   }
   .entypo-twitter:before {
-    background: url(../image/img-sp.png) no-repeat -42px -131px;
+    background: url(../images/img-sp.png) no-repeat -42px -131px;
     width: 2em;
     height: 2em;
   }
   .entypo-behance:before {
-    background: url(../image/img-sp.png) no-repeat -124px -131px;
+    background: url(../images/img-sp.png) no-repeat -124px -131px;
     width: 2em;
     height: 2em;
   }
@@ -4503,7 +4506,8 @@ td.invert-image a img {
     left: 32%;
   }
   .modal-dialog {
-    width: 535px;
+    /* width: 535px;*/
+    width: 440px;
   }
   .resp-tab-item {
     padding: 5px 28px;
@@ -5013,8 +5017,10 @@ td.invert-image a img {
     float: none;
   }
   .color-quality-right {
-    float: none;
-    margin: 1.5em 0 0;
+    /* float: none;
+    margin: 1.5em 0 0; */
+    float: right;
+    margin-top: -58px;
   }
   .w3_footer_grid ul li {
     font-size: 13px;
@@ -5105,8 +5111,11 @@ td.invert-image a img {
     margin-bottom: 1em;
   }
   .color-quality-right {
-    margin-left: 0;
-    float: none;
+    /* margin-left: 0;
+    float: none; */
+
+    float: right;
+    margin-top: -78px;
   }
   .resp-tab-item {
     padding: 5px 21px;
@@ -5344,11 +5353,11 @@ td.invert-image a img {
   .agileinfo_banner_bottom1_grid_left a,
   .team-bottom a {
     font-size: 14px;
-    background: url(../image/img-sp.png) no-repeat 93px -5px;
+    background: url(../images/img-sp.png) no-repeat 93px -5px;
   }
   .agileinfo_banner_bottom1_grid_left a:hover,
   .team-bottom a:hover {
-    background: url(../image/img-sp.png) no-repeat 93px -39px;
+    background: url(../images/img-sp.png) no-repeat 93px -39px;
   }
   .top-brands img {
     width: 60%;
