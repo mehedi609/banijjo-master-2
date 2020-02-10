@@ -367,8 +367,8 @@ class ProductDetails extends Component {
         else {
           let cartArr = [
             {
-              productId: this.state.productId,
-              quantity: this.state.productQuantity,
+              productId,
+              quantity: productQuantity,
               colorId: selectedColorId === '' ? 0 : selectedColorId,
               sizeId: selectedSizeId === '' ? 0 : selectedSizeId
             }
@@ -376,11 +376,12 @@ class ProductDetails extends Component {
           let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
           localStorage.removeItem('cart');
 
-          if (cartDataExisting) {
-            cartDataExisting.push({
-              productId: this.state.productId,
-              quantity: this.state.productQuantity
-            });
+          if (cartDataExisting && cartDataExisting.length) {
+            // cartDataExisting.push({
+            //   productId: this.state.productId,
+            //   quantity: this.state.productQuantity
+            // });
+            cartDataExisting = [...cartDataExisting, ...cartArr];
             localStorage.setItem('cart', JSON.stringify(cartDataExisting));
           } else {
             localStorage.setItem('cart', JSON.stringify(cartArr));
@@ -1006,48 +1007,61 @@ class ProductDetails extends Component {
               </div>
             )}
 
-            <div className="color-quality">
-              {/*Select Size*/}
-              {sizes.length > 0 && (
-                <div className="color-quality-left">
-                  <label style={{ fontWeight: '100' }}>
-                    Select Size
-                    <select
-                      value={selectedSizeId}
-                      onChange={this.selectSizeHandler}
+            <div
+              className="row"
+              style={{ paddingLeft: '15px', marginRight: '15%' }}
+            >
+              <div className="col-md-12">
+                <div className="row">
+                  {/*Select Size*/}
+                  {sizes.length > 0 && (
+                    <div
+                      className="col-md-6"
+                      style={{ display: 'inline-block' }}
                     >
-                      <option value="">Select a Size</option>
-                      {sizes.map(({ id, size, size_type_id }) => (
-                        <option value={id}>{size}</option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
-              )}
+                      <label style={{ fontWeight: '100' }}>
+                        <span style={{ fontSize: '16px' }}>Select Size</span>
+                        <select
+                          value={selectedSizeId}
+                          onChange={this.selectSizeHandler}
+                        >
+                          <option value="">Select a Size</option>
+                          {sizes.map(({ id, size, size_type_id }) => (
+                            <option value={id}>{size}</option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  )}
 
-              <div className="color-quality-right">
-                <h5>Quantity </h5>
-                <div className="quantity">
-                  <div className="quantity-select">
-                    <div
-                      onClick={this.handleClickMinus}
-                      className="entry value-minus1"
-                    >
-                      &nbsp;
-                    </div>
-                    <div className="entry value1">
-                      <span>{this.state.productQuantity}</span>
-                    </div>
-                    <div
-                      onClick={this.handleClickPlus}
-                      className="entry value-plus1 active"
-                    >
-                      &nbsp;
+                  {/*Handle Quantity*/}
+                  <div className="col-md-6" style={{ display: 'inline-block' }}>
+                    <h5 style={{ marginBottom: '8px', fontSize: '16px' }}>
+                      Quantity{' '}
+                    </h5>
+                    <div className="quantity">
+                      <div className="quantity-select">
+                        <div
+                          onClick={this.handleClickMinus}
+                          className="entry value-minus1"
+                        >
+                          &nbsp;
+                        </div>
+                        <div className="entry value1">
+                          <span>{this.state.productQuantity}</span>
+                        </div>
+                        <div
+                          onClick={this.handleClickPlus}
+                          className="entry value-plus1 active"
+                        >
+                          &nbsp;
+                        </div>
+                      </div>
                     </div>
                   </div>
+                  <div className="clearfix">{''}</div>
                 </div>
               </div>
-              <div className="clearfix"> </div>
             </div>
 
             <div className="simpleCart_shelfItem">
@@ -1596,44 +1610,3 @@ class ProductDetails extends Component {
   }
 }
 export default ProductDetails;
-
-// setTimeout(() => {
-//   const {
-//     productId,
-//     selectedSizeId,
-//     selectedColorId,
-//     selectedProductStockAmount,
-//     productQuantity
-//   } = this.state;
-//
-//   if (selectedColorId === '') {
-//     this.showAlert('Please Select a Color');
-//   } else if (selectedSizeId === '') {
-//     this.showAlert('Please Select a Size');
-//   } else if (selectedProductStockAmount < productQuantity) {
-//     this.showAlert(
-//         'This color and size combination are out of stock! Please Select another Color or Size'
-//     );
-//   } else {
-//     let cartArr = [
-//       {
-//         productId: this.state.productId,
-//         quantity: this.state.productQuantity
-//       }
-//     ];
-//     let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
-//     localStorage.removeItem('cart');
-//
-//     if (cartDataExisting) {
-//       cartDataExisting.push({
-//         productId: this.state.productId,
-//         quantity: this.state.productQuantity
-//       });
-//       localStorage.setItem('cart', JSON.stringify(cartDataExisting));
-//     } else {
-//       localStorage.setItem('cart', JSON.stringify(cartArr));
-//     }
-//     var link = document.getElementById('successCartMessage');
-//     link.click();
-//   }
-// }, 100);
