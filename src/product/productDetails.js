@@ -947,9 +947,9 @@ class ProductDetails extends Component {
             </OwlCarousel>
           </div>
 
-          <div className="medium-5 columns" style={{ zIndex: 0 }}>
+          <div className="medium-8 columns" style={{ zIndex: 0 }}>
             <h3>{this.state.productName}</h3>
-            <div className="rating1">
+            {/*<div className="rating1">
               <span className="starRating">
                 <input id="rating5" type="radio" name="rating" value="5" />
                 <label htmlFor="rating5">5</label>
@@ -968,11 +968,11 @@ class ProductDetails extends Component {
                 <input id="rating1" type="radio" name="rating" value="1" />
                 <label htmlFor="rating1">1</label>
               </span>
-            </div>
+            </div>*/}
 
             {/*Select Color*/}
             {colors.length > 0 && (
-              <div className="color-quality">
+              <div className="color-quality" style={{ marginTop: '3%' }}>
                 <div className="color-quality-left">
                   <h5>
                     Color: <b>{selectedColorName}</b>
@@ -1007,20 +1007,17 @@ class ProductDetails extends Component {
               </div>
             )}
 
-            <div
-              className="row"
-              style={{ paddingLeft: '15px', marginRight: '15%' }}
-            >
+            <div className="row" style={{ paddingLeft: '15px' }}>
               <div className="col-md-12">
                 <div className="row">
                   {/*Select Size*/}
                   {sizes.length > 0 && (
                     <div
-                      className="col-md-6"
-                      style={{ display: 'inline-block' }}
+                      className="columnSize"
+                      style={{ display: 'inline-block', marginRight: '15%' }}
                     >
                       <label style={{ fontWeight: '100' }}>
-                        <span style={{ fontSize: '16px' }}>Select Size</span>
+                        <span style={{ fontSize: '16px' }}>Size</span>
                         <select
                           value={selectedSizeId}
                           onChange={this.selectSizeHandler}
@@ -1034,10 +1031,13 @@ class ProductDetails extends Component {
                     </div>
                   )}
 
-                  {/*Handle Quantity*/}
-                  <div className="col-md-6" style={{ display: 'inline-block' }}>
-                    <h5 style={{ marginBottom: '8px', fontSize: '16px' }}>
-                      Quantity{' '}
+                  {/*Select Quantity*/}
+                  <div
+                    className="columnQuantity"
+                    style={{ display: 'inline-block' }}
+                  >
+                    <h5 style={{ marginBottom: '3px', fontSize: '16px' }}>
+                      Quality{' '}
                     </h5>
                     <div className="quantity">
                       <div className="quantity-select">
@@ -1610,3 +1610,60 @@ class ProductDetails extends Component {
   }
 }
 export default ProductDetails;
+
+/*<div
+    className="row"
+    style={{ paddingLeft: '15px', marginRight: '15%' }}
+>
+  <div className="col-md-12">
+    <div className="row">
+      {/!*Select Size*!/}
+      {sizes.length > 0 && (
+          <div
+              className="col-md-6"
+              style={{ display: 'inline-block' }}
+          >
+            <label style={{ fontWeight: '100' }}>
+              <span style={{ fontSize: '16px' }}>Select Size</span>
+              <select
+                  value={selectedSizeId}
+                  onChange={this.selectSizeHandler}
+              >
+                <option value="">Select a Size</option>
+                {sizes.map(({ id, size, size_type_id }) => (
+                    <option value={id}>{size}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+      )}
+
+      {/!*Handle Quantity*!/}
+      <div className="col-md-6" style={{ display: 'inline-block' }}>
+        <h5 style={{ marginBottom: '8px', fontSize: '16px' }}>
+          Quantity{' '}
+        </h5>
+        <div className="quantity">
+          <div className="quantity-select">
+            <div
+                onClick={this.handleClickMinus}
+                className="entry value-minus1"
+            >
+              &nbsp;
+            </div>
+            <div className="entry value1">
+              <span>{this.state.productQuantity}</span>
+            </div>
+            <div
+                onClick={this.handleClickPlus}
+                className="entry value-plus1 active"
+            >
+              &nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="clearfix">{''}</div>
+    </div>
+  </div>
+</div>*/
