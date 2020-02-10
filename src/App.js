@@ -265,13 +265,13 @@ class App extends Component {
 
     if (HotDeals) {
       return HotDeals.map(({ productId, productImage }) => (
-        <div key={productId}>
+        <Fragment key={productId}>
           <CardToListProducts
             img_src={img_src + productImage}
             link={`/productDetails/${productId}`}
             classes={classes}
           />
-        </div>
+        </Fragment>
       ));
     }
   }

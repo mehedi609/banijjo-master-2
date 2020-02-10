@@ -22,7 +22,7 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import swal from 'sweetalert';
 import '../assets/social-share.css';
 import './../assets/selectImage.css';
-import ListingSameVendorsSameProducts from "./ListingSameVendorsSameProducts";
+import ListingSameVendorsSameProducts from './ListingSameVendorsSameProducts';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -70,12 +70,16 @@ class ProductDetails extends Component {
       selectedSizeId: '',
       selectedColorId: '',
       selectedColorName: '',
-      selectedProductQuantity: 0,
-      isSelectedProduceFound: true
+      selectedProductStockAmount: 0,
+      isSelectedProduceFound: true,
+      onlyColor: false,
+      onlySize: false,
+      noColorAndSize: false,
+      colorAndSize: false
     };
 
-    this.handleClickPlus = this.handleClickPlus.bind(this);
-    this.handleClickMinus = this.handleClickMinus.bind(this);
+    // this.handleClickPlus = this.handleClickPlus.bind(this);
+    // this.handleClickMinus = this.handleClickMinus.bind(this);
     this.addWishDirect = this.addWishDirect.bind(this);
     this.addWishLocal = this.addWishLocal.bind(this);
     this.createAccountNext = this.createAccountNext.bind(this);
@@ -130,8 +134,12 @@ class ProductDetails extends Component {
           metaTags: !!metaTags && metaTags,
           productListSmCategory: productSmCategory,
           productListSmVendor: productSmVendor,
-          colors: !!colors && colors,
-          sizes: !!sizes && sizes
+          colors,
+          sizes,
+          onlyColor: colors.length > 0 && sizes.length === 0,
+          onlySize: sizes.length > 0 && colors.length === 0,
+          noColorAndSize: colors.length === 0 && sizes.length === 0,
+          colorAndSize: colors.length > 0 && sizes.length > 0
         });
 
         setTimeout(() => {
@@ -146,19 +154,23 @@ class ProductDetails extends Component {
       });
   }
 
-  handleClickMinus() {
-    if (this.state.productQuantity !== 0) {
-      this.setState({
-        productQuantity: this.state.productQuantity - 1
-      });
-    }
-  }
+  handleClickMinus = () => {
+    this.setState(prevState => ({
+      productQuantity:
+        prevState.productQuantity > 1
+          ? prevState.productQuantity - 1
+          : prevState.productQuantity
+    }));
+  };
 
-  handleClickPlus() {
-    this.setState({
-      productQuantity: this.state.productQuantity + 1
-    });
-  }
+  handleClickPlus = () => {
+    this.setState(prevState => ({
+      productQuantity:
+        prevState.productQuantity < 5
+          ? prevState.productQuantity + 1
+          : prevState.productQuantity
+    }));
+  };
 
   couraselImages() {
     if (this.state.productImages) {
@@ -166,8 +178,8 @@ class ProductDetails extends Component {
         this.state.productImages.forEach(item => {
           this.state.carouselImages.push(
             <React.Fragment>
+              {/*eslint-disable-next-line*/}
               <a
-                href={`!#`}
                 style={{ cursor: 'pointer' }}
                 data-imageSource={item.imageName}
                 onClick={() => {
@@ -288,17 +300,12 @@ class ProductDetails extends Component {
   }
 
   isSelectedProductExists = () => {
-    const {
-      productId,
-      selectedSizeId,
-      selectedColorId,
-      productQuantity
-    } = this.state;
+    const { productId, selectedSizeId, selectedColorId } = this.state;
 
     const data = {
       productId,
-      colorId: selectedSizeId,
-      sizeId: selectedColorId
+      colorId: selectedColorId === '' ? 0 : selectedColorId,
+      sizeId: selectedSizeId === '' ? 0 : selectedSizeId
     };
 
     const config = {
@@ -310,58 +317,77 @@ class ProductDetails extends Component {
     axios
       .post(`${base}/api/getNetProductsFromStock`, body, config)
       .then(res => {
-        this.setState({ selectedProductQuantity: res.data });
+        const { net_products } = res.data;
+        this.setState({ selectedProductStockAmount: net_products });
       });
-
-    // const { net_products } = result.data;
-    // console.log('net_products', result.data.net_products);
-    // return net_products > productQuantity;
   };
 
-  showAlert(text) {
-    swal({
-      title: 'Warning!',
-      text,
-      icon: 'warning',
-      timer: 4000,
-      button: false
-    });
-  }
-
   addCartLocal = e => {
-    // setTimeout(this.isSelectedProductExists, 600);
-    this.isSelectedProductExists();
+    let flag = true;
+
+    if (this.state.onlyColor) {
+      if (this.state.selectedColorId === '') {
+        this.showAlert('Please Select a Color');
+        flag = false;
+      } else {
+        this.isSelectedProductExists();
+      }
+    } else if (this.state.onlySize) {
+      if (this.state.selectedSizeId === '') {
+        this.showAlert('Please Select a Size');
+        flag = false;
+      } else {
+        this.isSelectedProductExists();
+      }
+    } else if (!this.state.noColorAndSize) {
+      if (this.state.selectedColorId === '') {
+        this.showAlert('Please Select a Color');
+        flag = false;
+      }
+      if (this.state.selectedSizeId === '') {
+        this.showAlert('Please Select a Size');
+        flag = false;
+      } else {
+        this.isSelectedProductExists();
+      }
+    } else if (!this.state.noColorAndSize) this.isSelectedProductExists();
 
     setTimeout(() => {
-      const { productId, selectedSizeId, selectedColorId, selectedProductQuantity, productQuantity} = this.state;
+      const {
+        productId,
+        selectedSizeId,
+        selectedColorId,
+        selectedProductStockAmount,
+        productQuantity
+      } = this.state;
 
-      if (selectedColorId === '') {
-        this.showAlert('Please Select a Color');
-      } else if (selectedSizeId === '') {
-        this.showAlert('Please Select a Size');
-      } else if ( selectedProductQuantity < productQuantity) {
-        this.showAlert('This color and size combination are out of stock! Please Select another.');
-      } else {
-        let cartArr = [
-          {
-            productId: this.state.productId,
-            quantity: this.state.productQuantity
+      if (flag) {
+        if (productQuantity > selectedProductStockAmount)
+          this.showAlert('Product is Out of Stock!');
+        else {
+          let cartArr = [
+            {
+              productId: this.state.productId,
+              quantity: this.state.productQuantity,
+              colorId: selectedColorId === '' ? 0 : selectedColorId,
+              sizeId: selectedSizeId === '' ? 0 : selectedSizeId
+            }
+          ];
+          let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
+          localStorage.removeItem('cart');
+
+          if (cartDataExisting) {
+            cartDataExisting.push({
+              productId: this.state.productId,
+              quantity: this.state.productQuantity
+            });
+            localStorage.setItem('cart', JSON.stringify(cartDataExisting));
+          } else {
+            localStorage.setItem('cart', JSON.stringify(cartArr));
           }
-        ];
-        let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
-        localStorage.removeItem('cart');
-
-        if (cartDataExisting) {
-          cartDataExisting.push({
-            productId: this.state.productId,
-            quantity: this.state.productQuantity
-          });
-          localStorage.setItem('cart', JSON.stringify(cartDataExisting));
-        } else {
-          localStorage.setItem('cart', JSON.stringify(cartArr));
+          var link = document.getElementById('successCartMessage');
+          link.click();
         }
-        var link = document.getElementById('successCartMessage');
-        link.click();
       }
     }, 100);
   };
@@ -525,6 +551,16 @@ class ProductDetails extends Component {
       selectedColorName: e.target.name
     });
   };
+
+  showAlert(text) {
+    swal({
+      title: 'Warning!',
+      text,
+      icon: 'warning',
+      timer: 4000,
+      button: false
+    });
+  }
 
   render() {
     const options = {
@@ -1489,13 +1525,19 @@ class ProductDetails extends Component {
               {/*Desktop View*/}
               <div className="row small-up-6 desview">
                 {/*{this.sameProductsOtherVendorDesktop()}*/}
-                <ListingSameVendorsSameProducts products={productListSmCategory} classes={['frameMore', 'helperframeMore']}/>
+                <ListingSameVendorsSameProducts
+                  products={productListSmCategory}
+                  classes={['frameMore', 'helperframeMore']}
+                />
               </div>
 
               {/*Mobile view*/}
               <div className="row small-up-3 moreCat">
                 {/*{this.sameProductsOtherVendorMobile()}*/}
-                <ListingSameVendorsSameProducts products={productListSmCategory} classes={['moreCatDiv', 'moreCatSpan']}/>
+                <ListingSameVendorsSameProducts
+                  products={productListSmCategory}
+                  classes={['moreCatDiv', 'moreCatSpan']}
+                />
               </div>
             </div>
           </div>
@@ -1528,14 +1570,20 @@ class ProductDetails extends Component {
 
               {/*Desktop View*/}
               <div className="row small-up-6 desview">
-                <ListingSameVendorsSameProducts classes={['frameMore', 'helperframeMore']} products={productListSmVendor}/>
+                <ListingSameVendorsSameProducts
+                  classes={['frameMore', 'helperframeMore']}
+                  products={productListSmVendor}
+                />
                 {/*{this.sameVendorOtherProductsDeskTop()}*/}
               </div>
 
               {/*Mobile view*/}
               <div className="row small-up-3 moreCat">
                 {/*{this.sameVendorOtherProductsMobile()}*/}
-                <ListingSameVendorsSameProducts classes={['moreCatDiv', 'moreCatSpan']} products={productListSmVendor}/>
+                <ListingSameVendorsSameProducts
+                  classes={['moreCatDiv', 'moreCatSpan']}
+                  products={productListSmVendor}
+                />
               </div>
               <div className="row column">&nbsp;</div>
             </div>
@@ -1548,3 +1596,44 @@ class ProductDetails extends Component {
   }
 }
 export default ProductDetails;
+
+// setTimeout(() => {
+//   const {
+//     productId,
+//     selectedSizeId,
+//     selectedColorId,
+//     selectedProductStockAmount,
+//     productQuantity
+//   } = this.state;
+//
+//   if (selectedColorId === '') {
+//     this.showAlert('Please Select a Color');
+//   } else if (selectedSizeId === '') {
+//     this.showAlert('Please Select a Size');
+//   } else if (selectedProductStockAmount < productQuantity) {
+//     this.showAlert(
+//         'This color and size combination are out of stock! Please Select another Color or Size'
+//     );
+//   } else {
+//     let cartArr = [
+//       {
+//         productId: this.state.productId,
+//         quantity: this.state.productQuantity
+//       }
+//     ];
+//     let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
+//     localStorage.removeItem('cart');
+//
+//     if (cartDataExisting) {
+//       cartDataExisting.push({
+//         productId: this.state.productId,
+//         quantity: this.state.productQuantity
+//       });
+//       localStorage.setItem('cart', JSON.stringify(cartDataExisting));
+//     } else {
+//       localStorage.setItem('cart', JSON.stringify(cartArr));
+//     }
+//     var link = document.getElementById('successCartMessage');
+//     link.click();
+//   }
+// }, 100);
