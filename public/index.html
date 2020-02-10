@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="theme-color" content="#000000" />
 	<meta name="Description" content="Online shopping center in Bangladesh. All kinds of local products available here in Banijjo. We promote MSME's manufactured products by our eCommerce Market Places Banijjo.com and Banijjo.com.bd. Here you can find most unique handiwork of Bangladesh. ">
+	<meta name="google-site-verification" content="K6i-ffDwnC4cl7uHicHYRPYO_L9QbdfA4d-Pl_wzk0k" />
 	<title>Banijjo | বাণিজ্য : দেশ - ই - বাজার</title>
 
 	<link rel="stylesheet" href="/css/foundationCustom.min.css">
@@ -46,6 +47,69 @@
 	<script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
+
+<!--	10-02-2020-->
+	<script data-ad-client="ca-pub-1211694757996414" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+	<!-- Facebook Pixel Code -->
+	<script>
+		!function(f,b,e,v,n,t,s) {
+			if(f.fbq) return;
+
+			n=f.fbq=function() {
+				n.callMethod ? n.callMethod.apply(n,arguments):n.queue.push(arguments)
+			};
+
+			if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+			n.queue=[];t=b.createElement(e);t.async=!0;
+			t.src=v;s=b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t,s)
+		}
+		(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '524245407726259');
+		fbq('track', 'PageView');
+	</script>
+	<noscript>
+		<img height="1" width="1" style="display:none"
+			 src="https://www.facebook.com/tr?id=524245407726259&ev=PageView&noscript=1"
+		/>
+	</noscript>
+	<!-- End Facebook Pixel Code -->
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				xfbml            : true,
+				version          : 'v6.0'
+			});
+		};
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '{your-app-id}',
+				cookie     : true,
+				xfbml      : true,
+				version    : '{api-version}'
+			});
+			FB.AppEvents.logPageView();
+		};
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
 
 	<style type="text/css">
 		.dropdown-backdrop{
@@ -215,12 +279,20 @@
 </div>
 
 <div class="row">
+	<div id="fb-root"></div>
+	<!-- Your customer chat code -->
+	<div class="fb-customerchat"
+		 attribution=setup_tool
+		 page_id="370414419639850">
+	</div>
+
 	<div class="columns small-4 large-4 logoMobile">
 
 		<p style="text-align: left">
 			<a href="http://banijjo.com.bd"><img src="../image/banijjoLogo.png" class="imglogo" alt="company logo"></a>
 		</p>
 	</div>
+
 
 	<div class="columns small-6 large-4">
 		<div class="columns small-2 large-4">
@@ -279,7 +351,7 @@
 
 		<div class="columns small-12 large-4">
 
-			<ul class="dropdown menu" data-dropdown-menu style="font-size: 14px; height: 31px !important; top: -12px !important;width:950px;float: right;">
+			<ul class="dropdown menu" data-dropdown-menu>
 
 				<li class="has-submenu" style="
 				padding-left: 75px;">
@@ -340,26 +412,26 @@
 				</li>
 			</ul>
 		</div>
-
-
-
 	</div>
+
 </div>
+
 <br>
 
 <!-- Modal register and login -->
-
 <div class="modal" id="exampleModalRegister" tabindex="-1" role="dialog">
-	<div class="modal-dialog regLoginModal" role="document">
+	<div class="modal-dialog regLoginModal" role="document" style="margin-top: 200px;">
 		<div class="modal-content">
-			<div class="modal-header" style="border-bottom: none;">
+			<div class="modal-header" style="border-bottom: none;padding: 0px;">
 				<h5 align="center"><img src="/image/banijjoModalLogo.png" alt="company logo"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px;">
-					<span aria-hidden="true">×</span>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -96px;">
+					<i class="fa fa-times-circle" style="font-size: 24px; color: rgb(255, 255, 255);margin-top: -96px;"></i>
 				</button>
+
+
 			</div>
 			<ul class="nav nav-tabs">
-				<li class="active" style="padding-left: 80px"><a data-toggle="tab" href="#home">REGISTER</a></li>
+				<li class="active nabTabDesktop"><a data-toggle="tab" href="#home">REGISTER</a></li>
 				<li style="padding-left: 30px"><a data-toggle="tab" href="#menu1">LOGIN</a></li>
 			</ul>
 			<div class="tab-content">
@@ -398,10 +470,10 @@
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-danger loginSubmit" style="background-color: #009345;border-color:#009345">LOGIN</button>
 							<p><a href="#" target="_blank" class="" style="color:#ec1c24">Forgot Password?</a></p>
-							<p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
+							<!-- <p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
 								<a href="https://twitter.com/bootsnipp" style="color:#2AA9E0;"></a><i id="social-tw" class="fa fa-twitter-square fa-3x socialFooter"></i></a>
 								<a href="https://twitter.com/bootsnipp" style="color:#0077B5;"><i id="social-tw" class="fa fa-linkedin-square fa-3x socialFooter"></i></a>
-							</p>
+							</p> -->
 						</div>
 					</form>
 				</div>
@@ -410,18 +482,17 @@
 	</div>
 </div>
 
-
 <div class="modal" id="exampleModalLogin" tabindex="-1" role="dialog">
-	<div class="modal-dialog regLoginModal" role="document">
+	<div class="modal-dialog regLoginModal" role="document" style="margin-top: 200px;">
 		<div class="modal-content" style="align-content: center;">
-			<div class="modal-header" style="border-bottom: none;">
+			<div class="modal-header" style="border-bottom: none;padding:0px">
 				<h5 align="center"><img src="/image/banijjoModalLogo.png" alt="company logo"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px;">
-					<span aria-hidden="true">×</span>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -96px;">
+					<i class="fa fa-times-circle" style="font-size: 24px; color: rgb(255, 255, 255);margin-top: -96px;"></i>
 				</button>
 			</div>
 			<ul class="nav nav-tabs">
-				<li style="padding-left: 80px"><a data-toggle="tab" href="#home2">REGISTER</a></li>
+				<li class="nabTabDesktop"><a data-toggle="tab" href="#home2">REGISTER</a></li>
 				<li class="active" style="padding-left: 30px"><a data-toggle="tab" href="#menu2">LOGIN</a></li>
 			</ul>
 			<div class="tab-content">
@@ -459,10 +530,10 @@
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-danger loginSubmit" style="background-color: #009345;border-color:#009345">Login</button>
 						<p><a href="#" target="_blank" class="" style="color:#ec1c24">Forgot Password?</a></p>
-						<p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
-							<a href="https://twitter.com/bootsnipp" style="color:#2AA9E0;"></a><i id="social-tw" class="fa fa-twitter-square fa-3x socialFooter"></i></a>
-							<a href="https://twitter.com/bootsnipp" style="color:#0077B5;"><i id="social-tw" class="fa fa-linkedin-square fa-3x socialFooter"></i></a>
-						</p>
+						<!-- 	<p style="text-align: center;"><a href="https://www.facebook.com/banijjo/" style="color:#355291;"><i id="social-fb" class="fa fa-facebook-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#2AA9E0;"></a><i id="social-tw" class="fa fa-twitter-square fa-3x socialFooter"></i></a>
+								<a href="https://twitter.com/bootsnipp" style="color:#0077B5;"><i id="social-tw" class="fa fa-linkedin-square fa-3x socialFooter"></i></a>
+							</p> -->
 					</div>
 					</form>
 				</div>
@@ -470,7 +541,6 @@
 		</div>
 	</div>
 </div>
-
 
 <div id="root">
 

@@ -1,6 +1,7 @@
+const { query } = require('./db_config');
 const { sampleSize } = require('lodash');
 
-const getRandomChildArr = async (query, children, threshold) => {
+const getRandomChildArr = async (children, threshold) => {
   let filtered_firstChildren = [];
 
   for (const { id } of children) {
@@ -21,7 +22,7 @@ const getRandomChildArr = async (query, children, threshold) => {
     : filtered_firstChildren;
 };
 
-const getRandomProductArr = async (query, children, threshold) => {
+const getRandomProductArr = async (children, threshold) => {
   let productArr = [];
   for (const { id, category_name, parent_category_id } of children) {
     const data = await query(`SELECT COUNT(*) as no_of_products FROM products WHERE category_id=${id} AND 
@@ -46,13 +47,13 @@ const getRandomProductArr = async (query, children, threshold) => {
   return productArr;
 };
 
-const getChildrenFromCategory = async (query, cat_id) => {
+const getChildrenFromCategory = async cat_id => {
   return await query(
     `SELECT * FROM category WHERE parent_category_id=${cat_id} AND status='active'`
   );
 };
 
-const getCategoryInfoById = async (query, cat_id) => {
+const getCategoryInfoById = async cat_id => {
   return await query(
     `SELECT id, category_name, parent_category_id 
       FROM category 
@@ -60,7 +61,7 @@ const getCategoryInfoById = async (query, cat_id) => {
   );
 };
 
-const getProductsFromParent = async (query, id) => {
+const getProductsFromParent = async id => {
   return await query(
     `SELECT id, category_name, parent_category_id 
      FROM category
@@ -69,7 +70,7 @@ const getProductsFromParent = async (query, id) => {
   );
 };
 
-const getProductsFromChild = async (query, id) => {
+const getProductsFromChild = async id => {
   return await query(
     `SELECT id, category_name, parent_category_id
      FROM category
@@ -77,7 +78,7 @@ const getProductsFromChild = async (query, id) => {
   );
 };
 
-const getProductsByCategoryId = async (query, cat_id) => {
+const getProductsByCategoryId = async cat_id => {
   return await query(
     `SELECT *
      FROM products
@@ -86,7 +87,7 @@ const getProductsByCategoryId = async (query, cat_id) => {
   );
 };
 
-const getCategoryWiseProductList = async (query, leafChildrenArr, cat_id) => {
+const getCategoryWiseProductList = async (leafChildrenArr, cat_id) => {
   let resArr = [];
   const discountArr = await query(
     `select product_id from discount where softDel=0 and status='active' and curdate() between effective_from and effective_to`
@@ -100,7 +101,7 @@ const getCategoryWiseProductList = async (query, leafChildrenArr, cat_id) => {
         ? [cat_id, parent_category_id, id]
         : [cat_id, id];
 
-    const products = await getProductsByCategoryId(query, id);
+    const products = await getProductsByCategoryId(id);
     for (const product of products) {
       const discountAmount = getDiscountByProductId(discountArr, product.id);
       const productWithDiscount = { ...product, discountAmount };
@@ -111,7 +112,7 @@ const getCategoryWiseProductList = async (query, leafChildrenArr, cat_id) => {
       for (const arrElement of arr) {
         breadcrumbs = [
           ...breadcrumbs,
-          ...(await getCategoryInfoById(query, arrElement))
+          ...(await getCategoryInfoById(arrElement))
         ];
       }
     }
@@ -120,17 +121,17 @@ const getCategoryWiseProductList = async (query, leafChildrenArr, cat_id) => {
   return resArr.filter(({ products }) => products.length);
 };
 
-const showProductListByCategory = async (query, cat_id) => {
+const showProductListByCategory = async cat_id => {
   // clicked on parent category
-  const parent = await getProductsFromParent(query, cat_id);
+  const parent = await getProductsFromParent(cat_id);
   if (parent.length) {
-    return await getCategoryWiseProductList(query, parent, cat_id);
+    return await getCategoryWiseProductList(parent, cat_id);
   }
 
   // clicked on child category
-  const children = await getProductsFromChild(query, cat_id);
+  const children = await getProductsFromChild(cat_id);
   if (children.length) {
-    return await getCategoryWiseProductList(query, children, cat_id);
+    return await getCategoryWiseProductList(children, cat_id);
   }
 
   // click on leaf child
@@ -139,8 +140,8 @@ const showProductListByCategory = async (query, cat_id) => {
   const discountArr = await query(
     `select product_id from discount where softDel=0 and status='active' and curdate() between effective_from and effective_to`
   );
-  const products = await getProductsByCategoryId(query, cat_id);
-  const breadcrumbs = await getCategoryInfoById(query, cat_id);
+  const products = await getProductsByCategoryId(cat_id);
+  const breadcrumbs = await getCategoryInfoById(cat_id);
   for (const product of products) {
     const discountAmount = getDiscountByProductId(discountArr, product.id);
     const productWithDiscount = { ...product, discountAmount };

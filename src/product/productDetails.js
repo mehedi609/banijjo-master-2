@@ -19,16 +19,14 @@ import $ from 'jquery';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import swal from 'sweetalert';
 import '../assets/social-share.css';
-import CardToListProducts from '../features/CardToListProducts';
+import './../assets/selectImage.css';
+import ListingSameVendorsSameProducts from './ListingSameVendorsSameProducts';
 
 const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 const fileUrl = process.env.REACT_APP_FILE_URL;
 const frontEndUrl = process.env.REACT_APP_FRONTEND_URL;
-
-const img_src = `${fileUrl}/upload/product/productImages/`;
-// const pd = '/productDetails/';
-// const pl = '/productList/';
 
 // eslint-disable-next-line
 const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -44,7 +42,6 @@ class ProductDetails extends Component {
       showClickedImage: '',
       carouselImages: [],
       productQuantity: 1,
-      productId: this.props.match.params.id,
       productName: '',
       productImage: '',
       product_full_description: [],
@@ -68,11 +65,21 @@ class ProductDetails extends Component {
       discountAmount: 0,
       metaTags: [],
       colors: [],
-      sizes: []
+      sizes: [],
+      productId: this.props.match.params.id,
+      selectedSizeId: '',
+      selectedColorId: '',
+      selectedColorName: '',
+      selectedProductStockAmount: 0,
+      isSelectedProduceFound: true,
+      onlyColor: false,
+      onlySize: false,
+      noColorAndSize: false,
+      colorAndSize: false
     };
 
-    this.handleClickPlus = this.handleClickPlus.bind(this);
-    this.handleClickMinus = this.handleClickMinus.bind(this);
+    // this.handleClickPlus = this.handleClickPlus.bind(this);
+    // this.handleClickMinus = this.handleClickMinus.bind(this);
     this.addWishDirect = this.addWishDirect.bind(this);
     this.addWishLocal = this.addWishLocal.bind(this);
     this.createAccountNext = this.createAccountNext.bind(this);
@@ -127,8 +134,12 @@ class ProductDetails extends Component {
           metaTags: !!metaTags && metaTags,
           productListSmCategory: productSmCategory,
           productListSmVendor: productSmVendor,
-          colors: !!colors && colors,
-          sizes: !!sizes && sizes
+          colors,
+          sizes,
+          onlyColor: colors.length > 0 && sizes.length === 0,
+          onlySize: sizes.length > 0 && colors.length === 0,
+          noColorAndSize: colors.length === 0 && sizes.length === 0,
+          colorAndSize: colors.length > 0 && sizes.length > 0
         });
 
         setTimeout(() => {
@@ -143,19 +154,23 @@ class ProductDetails extends Component {
       });
   }
 
-  handleClickMinus() {
-    if (this.state.productQuantity !== 0) {
-      this.setState({
-        productQuantity: this.state.productQuantity - 1
-      });
-    }
-  }
+  handleClickMinus = () => {
+    this.setState(prevState => ({
+      productQuantity:
+        prevState.productQuantity > 1
+          ? prevState.productQuantity - 1
+          : prevState.productQuantity
+    }));
+  };
 
-  handleClickPlus() {
-    this.setState({
-      productQuantity: this.state.productQuantity + 1
-    });
-  }
+  handleClickPlus = () => {
+    this.setState(prevState => ({
+      productQuantity:
+        prevState.productQuantity < 5
+          ? prevState.productQuantity + 1
+          : prevState.productQuantity
+    }));
+  };
 
   couraselImages() {
     if (this.state.productImages) {
@@ -163,8 +178,8 @@ class ProductDetails extends Component {
         this.state.productImages.forEach(item => {
           this.state.carouselImages.push(
             <React.Fragment>
+              {/*eslint-disable-next-line*/}
               <a
-                href={`!#`}
                 style={{ cursor: 'pointer' }}
                 data-imageSource={item.imageName}
                 onClick={() => {
@@ -256,73 +271,6 @@ class ProductDetails extends Component {
     return descriptionText;
   }
 
-  sameVendorOtherProductsDeskTop() {
-    const { productListSmVendor } = this.state;
-    const classes = ['frameMore', 'helperframeMore'];
-
-    if (productListSmVendor.length) {
-      return productListSmVendor.map(({ id, home_image }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
-  sameVendorOtherProductsMobile() {
-    const { productListSmVendor } = this.state;
-    const classes = ['moreCatDiv', 'moreCatSpan'];
-
-    if (productListSmVendor.length) {
-      return productListSmVendor.map(({ id, home_image }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
-  sameProductsOtherVendorDesktop() {
-    const { productListSmCategory } = this.state;
-    const classes = ['frameMore', 'helperframeMore'];
-
-    if (productListSmCategory.length) {
-      return productListSmCategory.map(({ id, home_image }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
-  sameProductsOtherVendorMobile() {
-    const { productListSmCategory } = this.state;
-    const classes = ['moreCatDiv', 'moreCatSpan'];
-    if (productListSmCategory.length) {
-      return productListSmCategory.map(({ home_image, id }) => (
-        <div className="column" key={id}>
-          <CardToListProducts
-            classes={classes}
-            img_src={img_src + home_image}
-            link={`/productDetails/${id}`}
-          />
-        </div>
-      ));
-    }
-  }
-
   specificationDetailsPart() {
     const spcArray = [];
     if (this.state.product_specification_name.length > 1) {
@@ -351,28 +299,98 @@ class ProductDetails extends Component {
     return spcArray;
   }
 
-  addCartLocal = data => e => {
-    let cartArr = [
-      { productId: this.state.productId, quantity: this.state.productQuantity }
-    ];
-    let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
-    localStorage.removeItem('cart');
+  isSelectedProductExists = () => {
+    const { productId, selectedSizeId, selectedColorId } = this.state;
 
-    if (cartDataExisting) {
-      cartDataExisting.push({
-        productId: this.state.productId,
-        quantity: this.state.productQuantity
+    const data = {
+      productId,
+      colorId: selectedColorId === '' ? 0 : selectedColorId,
+      sizeId: selectedSizeId === '' ? 0 : selectedSizeId
+    };
+
+    const config = {
+      headers: { 'Content-Type': 'application/json' }
+    };
+
+    const body = JSON.stringify(data);
+
+    axios
+      .post(`${base}/api/getNetProductsFromStock`, body, config)
+      .then(res => {
+        const { net_products } = res.data;
+        this.setState({ selectedProductStockAmount: net_products });
       });
-      localStorage.setItem('cart', JSON.stringify(cartDataExisting));
-    } else {
-      localStorage.setItem('cart', JSON.stringify(cartArr));
-    }
+  };
 
-    if (data === 'buy_now') window.location = '/cart';
-    else if (data === 'add_to_cart') {
-      var link = document.getElementById('successCartMessage');
-      link.click();
-    }
+  addCartLocal = e => {
+    let flag = true;
+
+    if (this.state.onlyColor) {
+      if (this.state.selectedColorId === '') {
+        this.showAlert('Please Select a Color');
+        flag = false;
+      } else {
+        this.isSelectedProductExists();
+      }
+    } else if (this.state.onlySize) {
+      if (this.state.selectedSizeId === '') {
+        this.showAlert('Please Select a Size');
+        flag = false;
+      } else {
+        this.isSelectedProductExists();
+      }
+    } else if (!this.state.noColorAndSize) {
+      if (this.state.selectedColorId === '') {
+        this.showAlert('Please Select a Color');
+        flag = false;
+      }
+      if (this.state.selectedSizeId === '') {
+        this.showAlert('Please Select a Size');
+        flag = false;
+      } else {
+        this.isSelectedProductExists();
+      }
+    } else if (!this.state.noColorAndSize) this.isSelectedProductExists();
+
+    setTimeout(() => {
+      const {
+        productId,
+        selectedSizeId,
+        selectedColorId,
+        selectedProductStockAmount,
+        productQuantity
+      } = this.state;
+
+      if (flag) {
+        if (productQuantity > selectedProductStockAmount)
+          this.showAlert('Product is Out of Stock!');
+        else {
+          let cartArr = [
+            {
+              productId,
+              quantity: productQuantity,
+              colorId: selectedColorId === '' ? 0 : selectedColorId,
+              sizeId: selectedSizeId === '' ? 0 : selectedSizeId
+            }
+          ];
+          let cartDataExisting = JSON.parse(localStorage.getItem('cart'));
+          localStorage.removeItem('cart');
+
+          if (cartDataExisting && cartDataExisting.length) {
+            // cartDataExisting.push({
+            //   productId: this.state.productId,
+            //   quantity: this.state.productQuantity
+            // });
+            cartDataExisting = [...cartDataExisting, ...cartArr];
+            localStorage.setItem('cart', JSON.stringify(cartDataExisting));
+          } else {
+            localStorage.setItem('cart', JSON.stringify(cartArr));
+          }
+          var link = document.getElementById('successCartMessage');
+          link.click();
+        }
+      }
+    }, 100);
   };
 
   addCartDirect = data => e => {
@@ -393,11 +411,8 @@ class ProductDetails extends Component {
       })
       .then(response => {
         if (response.data === true) {
-          if (data === 'buy_now') window.location = '/cart';
-          else if (data === 'add_to_cart') {
-            var link = document.getElementById('successCartMessage');
-            link.click();
-          }
+          var link = document.getElementById('successCartMessage');
+          link.click();
         }
       });
   };
@@ -527,15 +542,25 @@ class ProductDetails extends Component {
     }
   }
 
-  renderColorList() {
-    const { colors } = this.state;
-    return colors.map(({ colorName }) => (
-      <li>
-        <a href={`!#`}>
-          <span style={{ backgroundColor: colorName }}>{''}</span>
-        </a>
-      </li>
-    ));
+  selectSizeHandler = e => {
+    this.setState({ selectedSizeId: e.target.value });
+  };
+
+  selectColorHandler = e => {
+    this.setState({
+      selectedColorId: e.target.id,
+      selectedColorName: e.target.name
+    });
+  };
+
+  showAlert(text) {
+    swal({
+      title: 'Warning!',
+      text,
+      icon: 'warning',
+      timer: 4000,
+      button: false
+    });
   }
 
   render() {
@@ -552,7 +577,10 @@ class ProductDetails extends Component {
       productListSmCategory,
       productListSmVendor,
       category_id,
-      vendor_id
+      vendor_id,
+      sizes,
+      selectedSizeId,
+      selectedColorName
     } = this.state;
     let counter = 1;
     const shareUrl = `http://banijjo.com.bd/productDetails/${productId}`;
@@ -640,20 +668,34 @@ class ProductDetails extends Component {
           tabIndex="-1"
           role="dialog"
         >
-          <div className="modal-dialog" role="document">
+          <div
+            className="modal-dialog"
+            role="document"
+            style={{ marginTop: '250px' }}
+          >
             <div className="modal-content" style={{ width: 'auto' }}>
-              <div className="modal-header">
+              <div className="modal-header" style={{ padding: '0' }}>
                 <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
+
                 <button
                   type="button"
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: '-25px' }}
+                  style={{ marginTop: '-55px' }}
                 >
-                  <span aria-hidden="true">×</span>
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      marginTop: '-55px',
+                      fontSize: '24px',
+                      color: 'rgb(255, 255, 255)'
+                    }}
+                  >
+                    {''}
+                  </i>
                 </button>
               </div>
 
@@ -725,9 +767,13 @@ class ProductDetails extends Component {
         </div>
 
         <div className="modal" id="WishListModal" tabIndex="-1" role="dialog">
-          <div className="modal-dialog" role="document">
+          <div
+            className="modal-dialog"
+            role="document"
+            style={{ marginTop: '250px' }}
+          >
             <div className="modal-content" style={{ width: 'auto' }}>
-              <div className="modal-header">
+              <div className="modal-header" style={{ padding: '0' }}>
                 <h5 className="modal-title" style={{ textAlign: 'center' }}>
                   &nbsp;
                 </h5>
@@ -736,9 +782,18 @@ class ProductDetails extends Component {
                   className="close"
                   data-dismiss="modal"
                   aria-label="Close"
-                  style={{ marginTop: '-25px' }}
+                  style={{ marginTop: '-55px' }}
                 >
-                  <span aria-hidden="true">×</span>
+                  <i
+                    className="fa fa-times-circle"
+                    style={{
+                      marginTop: '-55px',
+                      fontSize: '24px',
+                      color: 'rgb(255, 255, 255)'
+                    }}
+                  >
+                    {''}
+                  </i>
                 </button>
               </div>
 
@@ -839,7 +894,7 @@ class ProductDetails extends Component {
                   marginRight: '-15px'
                 }}
               >
-                <div id="myresult" class="img-zoom-result">
+                <div id="myresult" className="img-zoom-result">
                   {''}
                 </div>
               </div>
@@ -864,8 +919,8 @@ class ProductDetails extends Component {
               {carouselImages.map(
                 item =>
                   item && (
+                    // eslint-disable-next-line
                     <a
-                      href={`!#`}
                       key={item.serialNumber}
                       onClick={() => {
                         this.setState({ showClickedImage: item.imageName });
@@ -892,9 +947,9 @@ class ProductDetails extends Component {
             </OwlCarousel>
           </div>
 
-          <div className="medium-5 columns" style={{ zIndex: 0 }}>
+          <div className="medium-8 columns" style={{ zIndex: 0 }}>
             <h3>{this.state.productName}</h3>
-            <div className="rating1">
+            {/*<div className="rating1">
               <span className="starRating">
                 <input id="rating5" type="radio" name="rating" value="5" />
                 <label htmlFor="rating5">5</label>
@@ -913,37 +968,100 @@ class ProductDetails extends Component {
                 <input id="rating1" type="radio" name="rating" value="1" />
                 <label htmlFor="rating1">1</label>
               </span>
-            </div>
+            </div>*/}
 
-            <div className="color-quality">
-              <div className="color-quality-left">
-                <h5>Color : </h5>
-                <ul>{colors.length && this.renderColorList()}</ul>
+            {/*Select Color*/}
+            {colors.length > 0 && (
+              <div className="color-quality" style={{ marginTop: '3%' }}>
+                <div className="color-quality-left">
+                  <h5>
+                    Color: <b>{selectedColorName}</b>
+                  </h5>
+                  <ul>
+                    {colors.map(
+                      ({ colorId, imageName, colorName, seletected }) => (
+                        <li key={colorId} onClick={this.selectColorHandler}>
+                          <div
+                            className={seletected ? 'withBorder' : 'noBorder'}
+                          >
+                            <img
+                              src={
+                                !!imageName
+                                  ? `${fileUrl}/upload/product/productImages/${imageName}`
+                                  : `${fileUrl}/assets/img/default.png`
+                              }
+                              className="img-responsive"
+                              id={colorId}
+                              name={colorName}
+                              alt={colorName}
+                              width="50"
+                              height="38"
+                            />
+                          </div>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
+                <div className="clearfix"> </div>
               </div>
+            )}
 
-              <div className="color-quality-right">
-                <h5>Quantity :</h5>
-                <div className="quantity">
-                  <div className="quantity-select">
+            <div className="row" style={{ paddingLeft: '15px' }}>
+              <div className="col-md-12">
+                <div className="row">
+                  {/*Select Size*/}
+                  {sizes.length > 0 && (
                     <div
-                      onClick={this.handleClickMinus}
-                      className="entry value-minus1"
+                      className="columnSize"
+                      style={{ display: 'inline-block', marginRight: '15%' }}
                     >
-                      &nbsp;
+                      <label style={{ fontWeight: '100' }}>
+                        <span style={{ fontSize: '16px' }}>Size</span>
+                        <select
+                          value={selectedSizeId}
+                          onChange={this.selectSizeHandler}
+                        >
+                          <option value="">Select a Size</option>
+                          {sizes.map(({ id, size, size_type_id }) => (
+                            <option value={id}>{size}</option>
+                          ))}
+                        </select>
+                      </label>
                     </div>
-                    <div className="entry value1">
-                      <span>{this.state.productQuantity}</span>
-                    </div>
-                    <div
-                      onClick={this.handleClickPlus}
-                      className="entry value-plus1 active"
-                    >
-                      &nbsp;
+                  )}
+
+                  {/*Select Quantity*/}
+                  <div
+                    className="columnQuantity"
+                    style={{ display: 'inline-block' }}
+                  >
+                    <h5 style={{ marginBottom: '3px', fontSize: '16px' }}>
+                      Quality{' '}
+                    </h5>
+                    <div className="quantity">
+                      <div className="quantity-select">
+                        <div
+                          onClick={this.handleClickMinus}
+                          className="entry value-minus1"
+                        >
+                          &nbsp;
+                        </div>
+                        <div className="entry value1">
+                          <span>{this.state.productQuantity}</span>
+                        </div>
+                        <div
+                          onClick={this.handleClickPlus}
+                          className="entry value-plus1 active"
+                        >
+                          &nbsp;
+                        </div>
+                      </div>
                     </div>
                   </div>
+                  <div className="clearfix">{''}</div>
                 </div>
               </div>
-              <div className="clearfix"> </div>
             </div>
 
             <div className="simpleCart_shelfItem">
@@ -970,7 +1088,7 @@ class ProductDetails extends Component {
                 {!localStorage.customer_id ? (
                   <button
                     type="button"
-                    onClick={this.addCartLocal('add_to_cart')}
+                    onClick={this.addCartLocal}
                     style={{ backgroundColor: '009345', marginRight: '10px' }}
                     className="w3ls-cart"
                   >
@@ -986,6 +1104,7 @@ class ProductDetails extends Component {
                     Add to cart
                   </button>
                 )}
+
                 {!localStorage.customer_id ? (
                   <button
                     type="button"
@@ -1392,10 +1511,17 @@ class ProductDetails extends Component {
           </div>
         </div>
 
-        {productListSmCategory.length && (
+        {productListSmCategory.length > 0 && (
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
-              <h5 style={{ color: '#009345' }} className="text-left">
+              <h5
+                style={{
+                  color: '#009345',
+                  marginTop: '5px',
+                  marginBottom: '5px'
+                }}
+                className="text-left"
+              >
                 Similar Products
                 <a href={`/productList/${category_id}`}>
                   <span
@@ -1412,22 +1538,37 @@ class ProductDetails extends Component {
 
               {/*Desktop View*/}
               <div className="row small-up-6 desview">
-                {this.sameProductsOtherVendorDesktop()}
+                {/*{this.sameProductsOtherVendorDesktop()}*/}
+                <ListingSameVendorsSameProducts
+                  products={productListSmCategory}
+                  classes={['frameMore', 'helperframeMore']}
+                />
               </div>
 
               {/*Mobile view*/}
               <div className="row small-up-3 moreCat">
-                {this.sameProductsOtherVendorMobile()}
+                {/*{this.sameProductsOtherVendorMobile()}*/}
+                <ListingSameVendorsSameProducts
+                  products={productListSmCategory}
+                  classes={['moreCatDiv', 'moreCatSpan']}
+                />
               </div>
             </div>
           </div>
         )}
 
-        {productListSmVendor.length && (
+        {productListSmVendor.length > 0 && (
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="medium-12 columns">
-              <h5 style={{ color: '#009345' }} className="text-left">
-                Same Vendor Other Products{' '}
+              <h5
+                style={{
+                  color: '#009345',
+                  marginTop: '5px',
+                  marginBottom: '5px'
+                }}
+                className="text-left"
+              >
+                Other Products{' '}
                 <a href={`/vendor/${vendor_id}`}>
                   <span
                     style={{
@@ -1443,13 +1584,22 @@ class ProductDetails extends Component {
 
               {/*Desktop View*/}
               <div className="row small-up-6 desview">
-                {this.sameVendorOtherProductsDeskTop()}
+                <ListingSameVendorsSameProducts
+                  classes={['frameMore', 'helperframeMore']}
+                  products={productListSmVendor}
+                />
+                {/*{this.sameVendorOtherProductsDeskTop()}*/}
               </div>
 
               {/*Mobile view*/}
               <div className="row small-up-3 moreCat">
-                {this.sameVendorOtherProductsMobile()}
+                {/*{this.sameVendorOtherProductsMobile()}*/}
+                <ListingSameVendorsSameProducts
+                  classes={['moreCatDiv', 'moreCatSpan']}
+                  products={productListSmVendor}
+                />
               </div>
+              <div className="row column">&nbsp;</div>
             </div>
           </div>
         )}
@@ -1460,3 +1610,60 @@ class ProductDetails extends Component {
   }
 }
 export default ProductDetails;
+
+/*<div
+    className="row"
+    style={{ paddingLeft: '15px', marginRight: '15%' }}
+>
+  <div className="col-md-12">
+    <div className="row">
+      {/!*Select Size*!/}
+      {sizes.length > 0 && (
+          <div
+              className="col-md-6"
+              style={{ display: 'inline-block' }}
+          >
+            <label style={{ fontWeight: '100' }}>
+              <span style={{ fontSize: '16px' }}>Select Size</span>
+              <select
+                  value={selectedSizeId}
+                  onChange={this.selectSizeHandler}
+              >
+                <option value="">Select a Size</option>
+                {sizes.map(({ id, size, size_type_id }) => (
+                    <option value={id}>{size}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+      )}
+
+      {/!*Handle Quantity*!/}
+      <div className="col-md-6" style={{ display: 'inline-block' }}>
+        <h5 style={{ marginBottom: '8px', fontSize: '16px' }}>
+          Quantity{' '}
+        </h5>
+        <div className="quantity">
+          <div className="quantity-select">
+            <div
+                onClick={this.handleClickMinus}
+                className="entry value-minus1"
+            >
+              &nbsp;
+            </div>
+            <div className="entry value1">
+              <span>{this.state.productQuantity}</span>
+            </div>
+            <div
+                onClick={this.handleClickPlus}
+                className="entry value-plus1 active"
+            >
+              &nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="clearfix">{''}</div>
+    </div>
+  </div>
+</div>*/

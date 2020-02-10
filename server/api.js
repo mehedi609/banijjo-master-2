@@ -7,6 +7,7 @@ const {
   checkProductAvailability,
   netProductsFromStock
 } = require('./checkInventory');
+
 const {
   getChildrenFromCategory,
   getRandomChildArr,
@@ -15,15 +16,7 @@ const {
   getDiscountByProductId
 } = require('./helpers');
 
-const { dbConnection, query } = require('./db_local_config');
-// const { dbConnection, query } = require("./db_com_bd_config");
-
-dbConnection.connect(err => {
-  if (err) {
-    throw err;
-  }
-  console.log('Connected to database');
-});
+const { query } = require('./db_config');
 
 const router = express.Router();
 
@@ -158,11 +151,11 @@ router.get('/productDetails/:productId', async (req, res) => {
           const data = await query(
             `SELECT id, name FROM color_infos WHERE id=${item.colorId} AND softDel=0 AND status=1`
           );
-          return { ...item, colorName: data[0].name };
+          return { ...item, colorName: data[0].name, selected: false };
         })
       );
     } else {
-      productDetails.colors = null;
+      productDetails.colors = [];
     }
 
     // size array
@@ -177,7 +170,7 @@ router.get('/productDetails/:productId', async (req, res) => {
         })
       );
     } else {
-      productDetails.sizes = null;
+      productDetails.sizes = [];
     }
 
     // Carousel Images
@@ -1060,7 +1053,7 @@ router.post('/updateCustomerCartProducts', async (req, res) => {
 
 // new api
 router.post('/updateCustomerWishProducts', async (req, res) => {
-  if (req.body.type == 0) {
+  if (req.body.type === 0) {
     await query(
       "UPDATE wish_list SET quantity=quantity-1 WHERE quantity>0 AND customer_id='" +
         req.body.customerId +
@@ -1293,20 +1286,6 @@ router.post('/searchProductList', async (req, res) => {
   });
 });
 
-/*router.get("/search_filter_products", (req, res) => {
-  dbConnection.query(
-    'SELECT * FROM products WHERE vendor_id = "' +
-      req.query.vendorId +
-      '" AND category_id = "' +
-      req.query.categoryList +
-      '"',
-    function(error, results, fields) {
-      if (error) throw error;
-      return res.send({ data: results, message: "data" });
-    }
-  );
-});*/
-
 router.get('/search_filter_products', async (req, res) => {
   const results = await query(
     'SELECT * FROM products WHERE vendor_id = "' +
@@ -1319,7 +1298,7 @@ router.get('/search_filter_products', async (req, res) => {
   return res.send({ data: results, message: 'data' });
 });
 
-router.get('/search_purchase_products', (req, res) => {
+/*router.get('/search_purchase_products', (req, res) => {
   var searchedProducts = [];
 
   new Promise(function(resolve, reject) {
@@ -1381,20 +1360,17 @@ router.get('/search_purchase_products', (req, res) => {
       console.log('Rejected');
       return res.send({ data: [], message: 'data' });
     });
-});
+});*/
 
-router.get('/product_list', (req, res) => {
-  dbConnection.query(
-    `SELECT * FROM products WHERE softDelete = 0 AND isApprove='authorize' AND status = 'active' limit 5`,
-    function(error, results) {
-      if (error) throw error;
-      return res.send({
-        error: error,
-        data: results,
-        message: 'sepecification name list.'
-      });
-    }
-  );
+router.get('/product_list', async (req, res) => {
+  try {
+    const results = await query(`SELECT * FROM products 
+                                 WHERE softDelete = 0 AND isApprove='authorize' AND status = 'active' limit 5`);
+    res.json({ data: results });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Server Error');
+  }
 });
 
 router.post('/saveCategory', (req, res) => {
@@ -1447,18 +1423,14 @@ router.get('/feature_category', async (req, res) => {
 
       resObj.parent = parent[0];
 
-      const first_children = await getChildrenFromCategory(query, category_id);
+      const first_children = await getChildrenFromCategory(category_id);
 
       if (!first_children.length) {
         resObj.f_children = null;
         return res.json([...res_arr, resObj]);
       }
 
-      const randomFirstChildren = await getRandomChildArr(
-        query,
-        first_children,
-        2
-      );
+      const randomFirstChildren = await getRandomChildArr(first_children, 2);
       // if no children of first_children return lastChildren NULL
       if (!randomFirstChildren.length) {
         resObj.parent = null;
@@ -1470,8 +1442,8 @@ router.get('/feature_category', async (req, res) => {
       let subcatArr = [];
 
       for (const [i, { id }] of randomFirstChildren.entries()) {
-        const l_children = await getChildrenFromCategory(query, id);
-        const cat = await getRandomProductArr(query, l_children, 3);
+        const l_children = await getChildrenFromCategory(id);
+        const cat = await getRandomProductArr(l_children, 3);
 
         if (cat.length) {
           let product_arr = [];
@@ -1531,12 +1503,7 @@ router.post('/check_inventory', async (req, res) => {
   if (!productId)
     return res.json({ msg: 'A productId is required', net_products: 0 });
   try {
-    const net_products = await checkInventoryFunc(
-      productId,
-      colorId,
-      sizeId,
-      query
-    );
+    const net_products = await checkInventoryFunc(productId, colorId, sizeId);
     res.json({ net_products });
   } catch (e) {
     console.error(e);
@@ -1546,9 +1513,8 @@ router.post('/check_inventory', async (req, res) => {
 
 router.get('/checkProductAvailability/:id', async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   try {
-    const isProductFound = await checkProductAvailability(id, query);
+    const isProductFound = await checkProductAvailability(id);
     res.json({ isProductFound });
   } catch (e) {
     console.error(e);
@@ -1564,12 +1530,7 @@ router.post('/getNetProductsFromStock', async (req, res) => {
   if (!productId)
     return res.json({ msg: 'A productId is required', net_products: 0 });
   try {
-    const net_products = await netProductsFromStock(
-      productId,
-      colorId,
-      sizeId,
-      query
-    );
+    const net_products = await netProductsFromStock(productId, colorId, sizeId);
     res.json({ net_products });
   } catch (e) {
     console.error(e);
@@ -1580,22 +1541,12 @@ router.post('/getNetProductsFromStock', async (req, res) => {
 router.get('/productListByCat/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await showProductListByCategory(query, id);
+    const data = await showProductListByCategory(id);
     res.json([...data]);
   } catch (e) {
     console.error(e);
     res.status(500).send('Server Error');
   }
 });
-
-/*router.get('/getCategoryInfoById/:id', async (req, res) => {
-  try {
-    const data = await getCategoryInfoById(query, req.params.id);
-    res.json(data);
-  } catch (e) {
-    console.error(e);
-    res.status(500).send('Server Error');
-  }
-});*/
 
 module.exports = router;

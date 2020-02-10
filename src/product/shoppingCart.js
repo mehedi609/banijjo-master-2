@@ -123,8 +123,18 @@ class ShoppingCart extends Component {
     }
   }
 
+  getUniqueProductsFromCart = (arr, keyProps) => {
+    const kvArray = arr.map(entry => {
+      const key = keyProps.map(k => entry[k]).join('|');
+      return [key, entry];
+    });
+    const map = new Map(kvArray);
+    return Array.from(map.values());
+  };
+
   requiredFunc() {
     let cartData = JSON.parse(localStorage.getItem('cart'));
+
     let productIds = [];
 
     if (cartData) {

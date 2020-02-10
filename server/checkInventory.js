@@ -1,5 +1,4 @@
-// const { query } = require('./db_local_config');
-// const { query } = require("./db_com_bd_config");
+const { query } = require('./db_config');
 
 const db_tables_plus = ['sales_return_details', 'inv_purchase_details'];
 const db_tables_minus = [
@@ -9,7 +8,7 @@ const db_tables_minus = [
 ];
 
 const _calculateTotalAmount = async params => {
-  const { db_tables, productId, colorId, sizeId, query } = params;
+  const { db_tables, productId, colorId, sizeId } = params;
   let total_amount = 0;
   let flag = true;
 
@@ -31,7 +30,7 @@ const _calculateTotalAmount = async params => {
   return total_amount < 0 ? 0 : total_amount;
 };
 
-exports.checkInventory = async (req, res) => {
+const checkInventory = async (req, res) => {
   let total_amount = 0;
 
   const db_tables = [db_tables_plus, db_tables_minus];
@@ -58,7 +57,7 @@ exports.checkInventory = async (req, res) => {
   }
 };
 
-exports.checkInventoryFunc = async (productId, colorId, sizeId, query) => {
+const checkInventoryFunc = async (productId, colorId, sizeId) => {
   productId = !!productId ? productId : 0;
   colorId = !!colorId ? colorId : 0;
   sizeId = !!sizeId ? sizeId : 0;
@@ -66,7 +65,7 @@ exports.checkInventoryFunc = async (productId, colorId, sizeId, query) => {
   if (!productId) return 0;
 
   const db_tables = [db_tables_plus, db_tables_minus];
-  const params = { db_tables, productId, colorId, sizeId, query };
+  const params = { db_tables, productId, colorId, sizeId };
 
   try {
     return await _calculateTotalAmount({ ...params });
@@ -75,7 +74,7 @@ exports.checkInventoryFunc = async (productId, colorId, sizeId, query) => {
   }
 };
 
-exports.checkProductAvailability = async (productId, query) => {
+const checkProductAvailability = async productId => {
   const db_tables = [...db_tables_plus, ...db_tables_minus];
   for (const dbTable of db_tables) {
     const query_str = `SELECT count(*) as num_of_rows FROM ${dbTable}
@@ -93,7 +92,7 @@ exports.checkProductAvailability = async (productId, query) => {
   return false;
 };
 
-exports.netProductsFromStock = async (productId, colorId, sizeId, query) => {
+const netProductsFromStock = async (productId, colorId, sizeId) => {
   productId = !!productId ? productId : 0;
   colorId = !!colorId ? colorId : 0;
   sizeId = !!sizeId ? sizeId : 0;
@@ -115,4 +114,11 @@ exports.netProductsFromStock = async (productId, colorId, sizeId, query) => {
     console.error(e);
     return 0;
   }
+};
+
+module.exports = {
+  checkInventory,
+  checkInventoryFunc,
+  checkProductAvailability,
+  netProductsFromStock
 };

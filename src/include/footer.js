@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import { animateScroll as scroll } from 'react-scroll';
+import('./../assets/footerSocialIconColor.css');
 
 const fileUrl = process.env.REACT_APP_FILE_URL;
 
@@ -77,8 +78,38 @@ class Footer extends Component {
                     rel="noopener noreferrer"
                   >
                     <i
-                      id="social-gp"
+                      id="social-li"
                       className="fa fa-linkedin-square fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/banijjo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i
+                      id="social-ig"
+                      className="fa fa-instagram fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a
+                    href="https://www.youtube.com/banijjomela"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i
+                      id="social-yt"
+                      className="fa fa-youtube-square fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a
+                    href="https://www.pinterest.com/banijjo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i
+                      id="social-pt"
+                      className="fa fa-pinterest-square fa-3x socialFooter"
                     ></i>
                   </a>
                 </p>
@@ -157,8 +188,38 @@ class Footer extends Component {
                     rel="noopener noreferrer"
                   >
                     <i
-                      id="social-gp"
+                      id="social-li"
                       className="fa fa-linkedin-square fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/banijjo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i
+                      id="social-ig"
+                      className="fa fa-instagram fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a
+                    href="https://www.youtube.com/banijjomela"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i
+                      id="social-yt"
+                      className="fa fa-youtube-square fa-3x socialFooter"
+                    ></i>
+                  </a>
+                  <a
+                    href="https://www.pinterest.com/banijjo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i
+                      id="social-pr"
+                      className="fa fa-pinterest-square fa-3x socialFooter"
                     ></i>
                   </a>
                 </p>

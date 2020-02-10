@@ -2994,7 +2994,8 @@ h2.typoh2 {
 .color-quality-left h5,
 .color-quality-right h5,
 .occasional h5 {
-  text-transform: uppercase;
+  /* text-transform: uppercase;*/
+  text-transform: lowercase;
   font-size: 1em;
   /*color: #3c43a4;*/
   color: #212121;
@@ -3004,8 +3005,9 @@ h2.typoh2 {
   margin: 3em 0;
 }
 .color-quality-right {
-  float: left;
-  margin-left: 8em;
+  float: right;
+  margin-top: 6px;
+
 }
 .colr {
   float: left;
@@ -4504,7 +4506,8 @@ td.invert-image a img {
     left: 32%;
   }
   .modal-dialog {
-    width: 535px;
+    /* width: 535px;*/
+    width: 440px;
   }
   .resp-tab-item {
     padding: 5px 28px;
@@ -5014,8 +5017,10 @@ td.invert-image a img {
     float: none;
   }
   .color-quality-right {
-    float: none;
-    margin: 1.5em 0 0;
+    /* float: none;
+    margin: 1.5em 0 0; */
+    float: right;
+    margin-top: -58px;
   }
   .w3_footer_grid ul li {
     font-size: 13px;
@@ -5106,8 +5111,11 @@ td.invert-image a img {
     margin-bottom: 1em;
   }
   .color-quality-right {
-    margin-left: 0;
-    float: none;
+    /* margin-left: 0;
+    float: none; */
+
+    float: right;
+    margin-top: -78px;
   }
   .resp-tab-item {
     padding: 5px 21px;

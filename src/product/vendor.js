@@ -203,10 +203,7 @@ class Vendor extends Component {
                       <div className="product-grid7">
                         <div className="product-image7">
                           <a href={'/productDetails/' + IterationArr[i].id}>
-                            <div
-                              className="frameProductImg"
-                              style={{ borderBottom: '1px solid #ddd' }}
-                            >
+                            <div className="frameProductImg">
                               <span className="helperProductImg">
                                 <img
                                   className="pic-1"
@@ -418,30 +415,39 @@ class Vendor extends Component {
         <Breadcums />
 
         <div className="row vendorMobileHeader">
-          <div className="columns small-6 large-2 vendorLogoHeaderMobile">
+          <div className="columns small-10 large-2 vendorLogoHeaderMobile">
             <p style={{ textAlign: 'left' }}>
               {!this.state.VendorLogo ? (
                 <img
                   src={fileUrl + '/upload/product/productImages/asche.jpg'}
-                  className="imglogo"
+                  className="imgLogoVendor"
                   alt="Vendor logo"
                 />
               ) : (
                 <img
                   src={fileUrl + '/upload/vendor/' + this.state.VendorLogo}
-                  className="imglogo"
+                  className="imgLogoVendor"
                   alt="Vendor logo"
                 />
               )}
             </p>
+            <p
+              style={{
+                marginTop: '-35px',
+                paddingLeft: '88px',
+                fontSize: '14px',
+                fontWeight: 'bold'
+              }}
+            >
+              {this.state.VendorName}
+            </p>
           </div>
-          <div className="columns small-6 large-10">
-            <h6 style={{ marginTop: '45px' }}>{this.state.VendorName}</h6>
-          </div>
+
+          <div className="columns small-2 large-10">{''}</div>
         </div>
 
         <div className="row">
-          <div className="columns large-4 vendorLogoHeader">
+          <div className="columns large-9 vendorLogoHeader">
             <p style={{ textAlign: 'left' }}>
               {!this.state.VendorLogo ? (
                 <img
@@ -459,10 +465,18 @@ class Vendor extends Component {
                 />
               )}
             </p>
+            <p
+              style={{
+                paddingLeft: '200px',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                marginTop: '120px'
+              }}
+            >
+              {this.state.VendorName}
+            </p>
           </div>
-          <div className="columns large-5 vendorNameHeader">
-            <h1 style={{ marginTop: '45px' }}>{this.state.VendorName}</h1>
-          </div>
+
           <div className="columns large-3">
             <p className="vendorSearchHeader">
               <select
