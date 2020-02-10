@@ -12,7 +12,7 @@ class Navbar extends Component {
     this.state = {
       cartItemCount: '',
       customerId: localStorage.customer_id,
-      searchKeyText: '',
+      searchKeyText: ''
     };
     this.searchItem = this.searchItem.bind(this);
   }
@@ -31,7 +31,7 @@ class Navbar extends Component {
           productIds.push(val.productId);
         });
         let uniqueProductIds = productIds.filter(
-          (v, i, a) => a.indexOf(v) === i,
+          (v, i, a) => a.indexOf(v) === i
         );
         let revisedCartData = [];
         uniqueProductIds.map(function(valParent, keyParent) {
@@ -44,11 +44,11 @@ class Navbar extends Component {
           revisedCartData.push({ productId: valParent, quantity: totalCount });
         });
         this.setState({
-          cartItemCount: revisedCartData.length,
+          cartItemCount: revisedCartData.length
         });
       } else {
         this.setState({
-          cartItemCount: 0,
+          cartItemCount: 0
         });
       }
     } else {
@@ -56,11 +56,11 @@ class Navbar extends Component {
         method: 'POST',
         headers: {
           Accept: 'application/json',
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          customerId: this.state.customerId,
-        }),
+          customerId: this.state.customerId
+        })
       })
         .then(res => {
           return res.json();
@@ -68,7 +68,7 @@ class Navbar extends Component {
         .then(response => {
           console.log('rererere', response);
           this.setState({
-            cartItemCount: response.data[0].counting,
+            cartItemCount: response.data[0].counting
           });
         });
     }
