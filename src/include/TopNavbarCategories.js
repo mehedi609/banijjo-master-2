@@ -4,7 +4,7 @@ const base = process.env.REACT_APP_FRONTEND_SERVER_URL;
 
 class TopNavbarCategories extends Component {
   state = {
-    categories: [],
+    categories: []
   };
 
   async componentDidMount() {
@@ -13,14 +13,14 @@ class TopNavbarCategories extends Component {
 
   getAllCategories() {
     fetch(base + '/api/getTopNavbarCategory', {
-      method: 'GET',
+      method: 'GET'
     })
       .then(res => {
         return res.json();
       })
       .then(categories => {
         this.setState({
-          categories: categories.data,
+          categories: categories.data
         });
         return false;
       });

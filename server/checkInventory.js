@@ -5,7 +5,7 @@ const db_tables_plus = ['sales_return_details', 'inv_purchase_details'];
 const db_tables_minus = [
   'sales_details',
   'inv_purchase_return_details',
-  'product_damage',
+  'product_damage'
 ];
 
 const _calculateTotalAmount = async params => {
@@ -49,7 +49,7 @@ exports.checkInventory = async (req, res) => {
       db_tables,
       productId,
       colorId,
-      sizeId,
+      sizeId
     );
     return res.json({ total_amount });
   } catch (e) {

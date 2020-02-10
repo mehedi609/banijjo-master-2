@@ -1,12 +1,12 @@
-const mysql = require("mysql");
-const util = require("util");
+const mysql = require('mysql');
+const util = require('util');
 
 const dbConnection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
+  host: 'localhost',
+  user: 'root',
+  password: '',
   // database: "ecommerce"
-  database: "microfin_ecommerce"
+  database: 'microfin_ecommerce'
 });
 
 /*dbConnection.connect(err => {

@@ -1,8 +1,8 @@
-import React from "react";
-import OwlCarousel from "react-owl-carousel";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import PropTypes from "prop-types";
+import React from 'react';
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import PropTypes from 'prop-types';
 const fileUrl = process.env.REACT_APP_FILE_URL;
 
 const CarouselSliderMainBanner = ({ bannerImagesCustom }) => {
