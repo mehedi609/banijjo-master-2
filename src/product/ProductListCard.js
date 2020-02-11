@@ -15,15 +15,11 @@ const ProductListCard = ({ productInfo }) => {
     <div>
       <div className="product-image7">
         <a href={'/productDetails/' + id}>
-          <div className="frameProductImg">
-            <span className="helperProductImg">
-              <img
-                className="pic-1"
-                src={fileUrl + '/upload/product/productImages/' + home_image}
-                alt={`img`}
-              />
-            </span>
-          </div>
+          <img
+            className="pic-1"
+            src={fileUrl + '/upload/product/productImages/' + home_image}
+            alt={`img`}
+          />
         </a>
 
         <ul className="socialProductList">
@@ -32,7 +28,7 @@ const ProductListCard = ({ productInfo }) => {
               {''}
             </a>
           </li>
-          <li>
+          <li className="shoppingCartLi">
             <a href="!#" className="fa fa-shopping-cart">
               {''}
             </a>
@@ -43,7 +39,7 @@ const ProductListCard = ({ productInfo }) => {
       </div>
       <div className="product-content">
         <h3 className="title">
-          <a href={'/productDetails/' + id}>{product_name}r</a>
+          <a href={'/productDetails/' + id}>{product_name}</a>
         </h3>
         <ul className="rating">
           <li className="fa fa-star"></li>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import { animateScroll as scroll } from 'react-scroll';
+import ScrollToTop from './ScrollToTop';
 import('./../assets/footerSocialIconColor.css');
 
 const fileUrl = process.env.REACT_APP_FILE_URL;
@@ -256,6 +256,7 @@ class Footer extends Component {
             </div>
           </div>
         </div>
+        <ScrollToTop />
       </React.Fragment>
     );
   }

@@ -134,7 +134,6 @@ class ShoppingCart extends Component {
 
   requiredFunc() {
     let cartData = JSON.parse(localStorage.getItem('cart'));
-
     let productIds = [];
 
     if (cartData) {
@@ -760,14 +759,8 @@ class ShoppingCart extends Component {
         <div className="row">
           <div className="medium-8 columns">
             <div className="card shopping-cart">
-              <div className="card-header bg-dark text-light">
-                <a
-                  href={frontEndUrl}
-                  style={{ color: '#ec1c24' }}
-                  className="btn btn-outline-info btn-sm pull-right"
-                >
-                  Continue shopping
-                </a>
+              <div className="card-header bg-dark text-light" align="center">
+                <p>&nbsp;</p>
                 <div className="clearfix"></div>
               </div>
               <div className="card-body">
@@ -789,7 +782,10 @@ class ShoppingCart extends Component {
                             <div className="col-12 col-sm-12 col-md-2 text-center">
                               {item.home_image ? (
                                 <img
-                                  className="img-responsive"
+                                  style={{
+                                    marginLeft: '10px'
+                                  }}
+                                  className=""
                                   src={
                                     fileUrl +
                                     '/upload/product/productImages/' +
@@ -801,7 +797,11 @@ class ShoppingCart extends Component {
                                 />
                               ) : (
                                 <img
-                                  className="img-responsive"
+                                  style={{
+                                    marginLeft: '10px',
+                                    marginTop: '10px'
+                                  }}
+                                  className=""
                                   src="http://placehold.it/120x80"
                                   alt="prewiew"
                                   width="120"
@@ -911,9 +911,9 @@ class ShoppingCart extends Component {
           <div className="medium-4 large-4 columns">
             <div className="panel panel-default">
               <div className="panel-heading text-center">
-                <h4>Order Summary</h4>
+                <h4 style={{ textDecoration: 'underline' }}>Order Summary</h4>
               </div>
-              <div className="panel-body">
+              <div className="panel-body" style={{ padding: '0px' }}>
                 <div className="col-md-12">
                   <strong>
                     Subtotal ({this.state.cartProducts.length} item)
@@ -977,11 +977,23 @@ class ShoppingCart extends Component {
                 <button
                   type="button"
                   onClick={() => this.checkInventory('Order Place')}
-                  className="btn btn-primary btn-lg btn-block"
+                  className="btn btn-primary btn-sm btn-block"
                   style={{ backgroundColor: '#EB1C22', borderColor: '#EB1C22' }}
                 >
                   Place Order
                 </button>
+
+                <a
+                  href={frontEndUrl}
+                  style={{
+                    color: '#ffffff',
+                    backgroundColor: '#009345',
+                    textAlign: 'center'
+                  }}
+                  className="btn btn-primary btn-sm"
+                >
+                  Continue shopping
+                </a>
 
                 <button
                   style={{ display: 'none !important' }}

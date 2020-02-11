@@ -26,6 +26,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	<script type="application/x-javascript">
 		addEventListener("load", function() {
 			setTimeout(hideURLbar, 0);
@@ -246,7 +247,7 @@
 				uniqueProductIds.map(function(valParent, keyParent) {
 					var totalCount = 0;
 					cartData.map(function(val, key) {
-						if (valParent == val.productId) {
+						if (valParent === val.productId) {
 							totalCount += val.quantity;
 						}
 					});
@@ -255,8 +256,6 @@
 						quantity: totalCount
 					})
 				});
-
-				console.log('~~~~~~~~~', process.env.REACT_APP_FRONTEND_SERVER_URL);
 			})
 		});
 	</script>
@@ -542,6 +541,8 @@
 	</div>
 </div>
 
+
+
 <div id="root">
 
 </div>
@@ -644,6 +645,7 @@
 		});
 	});
 </script>
+
 </body>
 <script src="/js/easyResponsiveTabs.js"></script>
 

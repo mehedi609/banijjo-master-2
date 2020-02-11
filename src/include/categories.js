@@ -59,7 +59,7 @@ class Categories extends Component {
             </h2>
 
             <ul className="vf-megamenu clearfix megamenu-content catDisplayMobile">
-              {this.state.Categories.length > 0 ? (
+              {this.state.Categories.length > 0 &&
                 this.state.Categories.map(
                   ({ category, subcategories, vendorImages }) => {
                     return (
@@ -80,7 +80,7 @@ class Categories extends Component {
                             >
                               <div className="spvmm_numbers_col col4">
                                 <div className="row">
-                                  {subcategories.length > 0 ? (
+                                  {subcategories.length > 0 &&
                                     subcategories.map(
                                       ({ category, lastChilds }) => (
                                         <SubcategoryList
@@ -88,17 +88,7 @@ class Categories extends Component {
                                           lastChilds={lastChilds}
                                         />
                                       )
-                                    )
-                                  ) : (
-                                    <p
-                                      style={{
-                                        color: '#ec1c24',
-                                        paddingLeft: '20px'
-                                      }}
-                                    >
-                                      No Categories to show
-                                    </p>
-                                  )}
+                                    )}
                                 </div>
 
                                 {vendorImages.length > 0 && (
@@ -113,7 +103,7 @@ class Categories extends Component {
                                         fontSize: '13px'
                                       }}
                                     >
-                                      Vendor Image
+                                      Brand
                                     </p>
                                     <ul className="spvmm_submm_ul">
                                       <div className="sub-cate-row scp-cate-brand">
@@ -133,10 +123,7 @@ class Categories extends Component {
                       </React.Fragment>
                     );
                   }
-                )
-              ) : (
-                <p style={{ color: '#ec1c24' }}>No More Categories</p>
-              )}
+                )}
 
               <li style={{ textAlign: 'left' }} className="spvmm-nochild">
                 <a

@@ -459,18 +459,23 @@ class WishList extends Component {
         </div>
         <Breadcums />
         <div className="row">
-          <div className="col-md-10 col-md-offset-1">
+          <div className="medium-12 columns">
+            <div className="card-header bg-dark text-light" align="center">
+              <a
+                href={frontEndUrl}
+                style={{
+                  color: '#ffffff',
+                  backgroundColor: '#009345',
+                  textAlign: 'center',
+                  width: '150px'
+                }}
+                className="btn btn-primary btn-sm"
+              >
+                Continue shopping
+              </a>
+              <div className="clearfix">{''}</div>
+            </div>
             <div className="card shopping-cart">
-              <div className="card-header bg-dark text-light">
-                <a
-                  href={frontEndUrl}
-                  style={{ color: '#ec1c24' }}
-                  className="btn btn-outline-info btn-sm pull-right"
-                >
-                  Continue shopping
-                </a>
-                <div className="clearfix">{''}</div>
-              </div>
               <div className="card-body">
                 {this.state.wishProducts.length > 0
                   ? this.state.wishProducts.map((item, key) => {
@@ -480,7 +485,8 @@ class WishList extends Component {
                             <div className="col-md-3 text-center">
                               {item.home_image ? (
                                 <img
-                                  className="img-responsive"
+                                  style={{ marginTop: '10px' }}
+                                  className=""
                                   src={
                                     fileUrl +
                                     '/upload/product/productImages/' +
@@ -492,7 +498,8 @@ class WishList extends Component {
                                 />
                               ) : (
                                 <img
-                                  className="img-responsive"
+                                  style={{ marginTop: '10px' }}
+                                  className=""
                                   src="http://placehold.it/120x80"
                                   alt="prewiew"
                                   width="120"
@@ -546,7 +553,7 @@ class WishList extends Component {
                                 </div>
                               </div>
 
-                              <div className="col-md-6 text-right">
+                              <div className="col-md-6 text-center">
                                 {!localStorage.customer_id ? (
                                   <button
                                     onClick={() =>
@@ -555,10 +562,20 @@ class WishList extends Component {
                                         this.state.itemQuantityState[item.id]
                                       )
                                     }
-                                    style={{ backgroundColor: '009345' }}
-                                    className="btn btn-primary"
+                                    style={{
+                                      backgroundColor: '009345',
+                                      width: '40px'
+                                    }}
+                                    className="btn btn-outline-danger btn-xs"
                                   >
-                                    Add to cart
+                                    <i
+                                      className="fa fa-shopping-cart"
+                                      aria-hidden="true"
+                                      style={{
+                                        fontSize: '24px',
+                                        color: '#009345'
+                                      }}
+                                    ></i>
                                   </button>
                                 ) : (
                                   <button
@@ -568,10 +585,20 @@ class WishList extends Component {
                                         this.state.itemQuantityState[item.id]
                                       )
                                     }
-                                    style={{ backgroundColor: '009345' }}
-                                    className="btn btn-primary"
+                                    style={{
+                                      backgroundColor: '009345',
+                                      width: '40px'
+                                    }}
+                                    className="btn btn-outline-danger btn-xs"
                                   >
-                                    Add to cart
+                                    <i
+                                      className="fa fa-shopping-cart"
+                                      aria-hidden="true"
+                                      style={{
+                                        fontSize: '24px',
+                                        color: '#009345'
+                                      }}
+                                    ></i>
                                   </button>
                                 )}
                                 <button
@@ -579,6 +606,7 @@ class WishList extends Component {
                                     this.handleClickDelete(item.id)
                                   }
                                   type="button"
+                                  style={{ width: '40px' }}
                                   className="btn btn-outline-danger btn-xs"
                                 >
                                   <i
